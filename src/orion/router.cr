@@ -110,5 +110,4 @@ abstract class Orion::Router
   private def self.use(handler : HTTP::Handler)
     handlers << handler
   end
-
 end
