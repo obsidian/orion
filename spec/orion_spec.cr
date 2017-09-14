@@ -1,45 +1,66 @@
 require "./spec_helper"
-
-class SampleController
-  def initialize(@context : HTTP::Server::Context)
-  end
-
-  def get
-    @context.response.puts @context.request.query_params["bar"]
-    @context.response.close
-  end
-
-  def baz
-    @context.response.puts @context.request.query_params["baz"]
-    @context.response.close
-  end
-end
-
-class SampleRouter < Orion::Router
-  get "foo/:bar", "SampleController#get"
-  group "foo/more" do
-    get ":baz", "SampleController#baz"
-  end
-end
-
-def mock_context(verb, path, io = IO::Memory.new)
-  request = HTTP::Request.new(verb.to_s.upcase, path)
-  response = HTTP::Server::Response.new io
-  HTTP::Server::Context.new(request, response)
-end
-
 describe Orion do
   # TODO: Write tests
 
-  it "renders a basic route" do
+  it "mounts an app" do
+    io = IO::Memory.new
+    SampleRouter.new.call(mock_context(:get, "/app", io))
+    io.tap(&.rewind).gets_to_end.should contain "app"
+  end
+
+  it "renders a proc" do
+    io = IO::Memory.new
+    SampleRouter.new.call(mock_context(:get, "/proc", io))
+    io.tap(&.rewind).gets_to_end.should contain "proc"
+  end
+
+  it "renders a proc" do
+    io = IO::Memory.new
+    SampleRouter.new.call(mock_context(:get, "/callable", io))
+    io.tap(&.rewind).gets_to_end.should contain "callable"
+  end
+
+  it "renders a route" do
     io = IO::Memory.new
     SampleRouter.new.call(mock_context(:get, "/foo/world", io))
     io.tap(&.rewind).gets_to_end.should contain "world"
   end
 
-  it "renders a group route" do
+  it "runs middleware" do
     io = IO::Memory.new
-    SampleRouter.new.call(mock_context(:get, "/foo/more/mars", io))
-    io.tap(&.rewind).gets_to_end.should contain "mars"
+    SampleRouter.new.call(mock_context(:get, "/foo/world", io))
+    io.tap(&.rewind).gets_to_end.should contain "at root"
+  end
+
+  it "does not run group middleware" do
+    io = IO::Memory.new
+    SampleRouter.new.call(mock_context(:get, "/foo/world", io))
+    io.tap(&.rewind).gets_to_end.should_not contain "in group"
+  end
+
+  context "within a group" do
+    it "renders a route" do
+      io = IO::Memory.new
+      SampleRouter.new.call(mock_context(:get, "/in_group/mars", io))
+      io.tap(&.rewind).gets_to_end.should contain "mars"
+    end
+
+    it "runs root middleware" do
+      io = IO::Memory.new
+      SampleRouter.new.call(mock_context(:get, "/in_group/mars", io))
+      io.tap(&.rewind).gets_to_end.should contain "at root"
+    end
+
+    it "runs group middleware" do
+      io = IO::Memory.new
+      SampleRouter.new.call(mock_context(:get, "/in_group/mars", io))
+      io.tap(&.rewind).gets_to_end.should contain "in group"
+    end
+
+    it "does not run deep group middleware" do
+      io = IO::Memory.new
+      SampleRouter.new.call(mock_context(:get, "/in_group/mars", io))
+      io.tap(&.rewind).gets_to_end.should_not contain "in deep group"
+    end
   end
 end
