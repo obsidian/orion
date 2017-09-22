@@ -5,10 +5,10 @@ require "benchmark"
   {% route_count = 2 ** i %}
   class MyRouter{{route_count}} < Orion::Router
     \{% for i in 0..{{route_count}} %}
-      get "/route_\{{i}}(/:param1(/:param2))" do
+      get "/route_\{{i}}(/:param1(/:param2))", ->(context : HTTP::Server::Context) {
         param1, param2 = { context.request.query_params["param1"]?, context.request.query_params["param2"]? }.map { |param| param || "nothing" }
         context.response << "hi from route_{{i}}, you passed #{param1} and #{param2}"
-      end
+      }
     \{% end %}
   end
 {% end %}

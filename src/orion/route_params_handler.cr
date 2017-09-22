@@ -14,5 +14,4 @@ class Orion::RouteParamsHandler
     end
     call_next cxt
   end
-
 end

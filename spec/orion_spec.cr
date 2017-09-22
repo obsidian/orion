@@ -63,4 +63,14 @@ describe Orion do
       io.tap(&.rewind).gets_to_end.should_not contain "in deep group"
     end
   end
+
+  context "clear handlers" do
+    it "clears handlers" do
+      io = IO::Memory.new
+      SampleRouter.new.call(mock_context(:get, "/in_group/no/handlers", io))
+      text = io.tap(&.rewind).gets_to_end
+      text.should contain "no handlers"
+      text.should_not contain "at root"
+    end
+  end
 end

@@ -1,3 +1,5 @@
+require "shell-table"
+
 module Callable
   def self.call(context : HTTP::Server::Context)
     context.response.puts "callable"
@@ -51,13 +53,25 @@ class SampleRouter < Orion::Router
     context.response.puts "proc"
     context.response.close
   }
-  get "callable", Callable
   group "in_group" do
     use SampleMiddleware.new("in group")
-    get ":baz", "SampleController#baz"
+    match ":baz", "SampleController#baz" # , via: ["get"]
     group "in_deeper_group" do
       use SampleMiddleware.new("in deep group")
       get ":taz", "SampleController#taz"
     end
+    clear_handlers do
+      get "no/handlers", ->(context : HTTP::Server::Context) {
+        context.response.puts "no handlers"
+        context.response.close
+      }
+    end
   end
+  get "callable", Callable
 end
+
+puts ShellTable.new(
+  labels: ["Path", "Method", "Action"],
+  label_color: :yellow,
+  rows: SampleRouter::ROUTES.each_with_object([] of Array(String)) { |(path, methods), rows| methods.each { |method, action| rows << [path, method.to_s, action] } }
+)
