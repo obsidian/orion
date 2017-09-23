@@ -1,5 +1,3 @@
-require "shell-table"
-
 module Callable
   def self.call(context : HTTP::Server::Context)
     context.response.puts "callable"
@@ -70,8 +68,4 @@ class SampleRouter < Orion::Router
   get "callable", Callable
 end
 
-puts ShellTable.new(
-  labels: ["Path", "Method", "Action"],
-  label_color: :yellow,
-  rows: SampleRouter::ROUTES.each_with_object([] of Array(String)) { |(path, methods), rows| methods.each { |method, action| rows << [path, method.to_s, action] } }
-)
+puts SampleRouter.route_table

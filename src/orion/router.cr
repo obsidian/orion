@@ -1,10 +1,13 @@
+require "shell-table"
 require "radix"
 require "http"
 
 abstract class Orion::Router
   include HTTP::Handler
 
-  alias Tree = Radix::Tree(NamedTuple(handlers: Array(HTTP::Handler), route: HTTP::Server::Context -> Nil))
+  record Payload, handlers : Array(HTTP::Handler), action : HTTP::Handler::Proc, label : String
+
+  alias Tree = Radix::Tree(Payload)
 
   private METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
 
@@ -15,7 +18,7 @@ abstract class Orion::Router
 
     {% if @type.superclass == Orion::Router %}
       BASE_PATH = "/"
-      ROUTES = {} of String => Hash(Symbol, String)
+      ROUTES = {} of String => Hash(Symbol, Payload)
       {% for method in METHODS %}
         {{method.id}}_TREE = Tree.new
       {% end %}
@@ -38,9 +41,32 @@ abstract class Orion::Router
 
         result = tree.find(path)
         return context.response.respond_with_error(message = "Not Found", code = 404) unless result.found?
-        handlers = result.payload[:handlers]
-        handlers.unshift Orion::RouteParamsHandler.new(result.params)
-        HTTP::Server.build_middleware(handlers, result.payload[:route]).call(context)
+        handlers = [Orion::RouteParamsHandler.new(result.params)] + result.payload.handlers
+        HTTP::Server.build_middleware(handlers, result.payload.action).call(context)
+      end
+
+      def self.route_table
+        rows = SampleRouter::ROUTES.each_with_object([] of Array(String)) do |(path, methods), rows|
+          methods.each do |method, payload|
+            color = case method
+            when :GET, :HEAD
+              :light_green
+            when :PUT, :PATCH
+              :light_yellow
+            when :DELETE
+              :light_red
+            else
+              :cyan
+            end
+            method_string = method.to_s.colorize(color).to_s
+            rows << [path, method_string, payload.label]
+          end
+        end
+        ShellTable.new(
+          labels: ["Path", "Method", "Action"],
+          label_color: :yellow,
+          rows: rows
+        )
       end
 
     {% else %}
@@ -97,8 +123,9 @@ abstract class Orion::Router
           crystal
         \%}
       \{% end %}
-      (ROUTES[File.join([BASE_PATH, \{{path}}])] ||= {} of Symbol => String)[:{{method.id}}] = \{{label}}
-      {{method.id}}_TREE.add(normalize_path(\{{path}}), {handlers: HANDLERS, route: \{{ action.id }}})
+      payload = Payload.new(handlers: HANDLERS, action: \{{ action.id }}, label: \{{label}})
+      (ROUTES[File.join([BASE_PATH, \{{path}}])] ||= {} of Symbol => Payload)[:{{method.id}}] = payload
+      {{method.id}}_TREE.add(normalize_path(\{{path}}), payload)
     end
   {% end %}
 
