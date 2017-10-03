@@ -78,4 +78,4 @@ Benchmarks can be run with `./benchmark`.
 
 ## Contributors
 
-- [jwaldrip](https://github.com/jwaldrip) Jason Waldrip (jwaldrip) - creator, maintainer
+- [jwaldrip](https://github.com/jwaldrip) Jason Waldrip - creator, maintainer
