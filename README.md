@@ -1,6 +1,6 @@
 # Orion
 
-A minimal, rails'esk router for `HTTP::Server`.
+A minimal, rails'esk routing library for `HTTP::Server`.
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
