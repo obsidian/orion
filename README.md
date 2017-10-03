@@ -1,6 +1,6 @@
 # Orion
 
-A fast and extensible router for crystal http applications.
+A minimal, rails'esk router for `HTTP::Server`.
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
