@@ -1,4 +1,5 @@
-require "./orion"
+#!/usr/bin/env crystal run --release
+require "./src/orion"
 require "benchmark"
 
 {% for i in 5..8 %}

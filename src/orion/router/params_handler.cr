@@ -1,6 +1,6 @@
 require "http/server"
 
-class Orion::RouteParamsHandler
+class Orion::Router::ParamsHandler
   include HTTP::Handler
 
   getter params : Hash(String, String)

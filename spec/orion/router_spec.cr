@@ -1,7 +1,6 @@
-require "./spec_helper"
-describe Orion do
-  # TODO: Write tests
+require "../spec_helper"
 
+describe Orion::Router do
   it "mounts an app" do
     io = IO::Memory.new
     SampleRouter.new.call(mock_context(:get, "/app", io))

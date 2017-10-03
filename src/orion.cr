@@ -1,5 +1,5 @@
 require "./orion/*"
 
 module Orion
-  # TODO Put your code here
+  {{ run "./parse_version.cr" }}
 end
