@@ -1,6 +1,6 @@
 # Orion
 
-A fast and extensible router for crystal http applications.
+A minimal, rails'esk routing library for `HTTP::Server`.
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
@@ -58,4 +58,4 @@ Benchmarks can be run with `./benchmark`.
 
 ## Contributors
 
-- [jwaldrip](https://github.com/jwaldrip) Jason Waldrip (jwaldrip) - creator, maintainer
+- [jwaldrip](https://github.com/jwaldrip) Jason Waldrip - creator, maintainer
