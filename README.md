@@ -17,51 +17,31 @@ dependencies:
 
 ## Usage
 
+You will need to require orion in your project.
+
 ```crystal
 require "orion"
 ```
 
-You can define a router with the following:
+You must define a class that inherits from `Orion::Router`. You will define your
+routes directly in this class.
 
 ```crystal
-class SampleRouter < Orion::Router
-  # Add handlers/middleware
-  use SampleMiddleware.new("at root")
-
-  # Mount an entire application at a path
-  mount "app", App.new
-
-  # Add some basic routes
-  get "foo/:bar", "SampleController#get"
-  get "proc", ->(context : HTTP::Server::Context) {
-    context.response.puts "proc"
-  }
-
-  # Add grouped routes under a path
-  group "in_group" do
-
-    # Add middleware for the group
-    use SampleMiddleware.new("in group")
-
-    # some routes for the group
-    put ":baz", ->(cxt : HTTP::Server::Context) { cxt.response.puts "?" }
-    match ":baz", "SampleController#baz"
-
-    # Keep nesting more groups
-    group "in_deeper_group" do
-      use SampleMiddleware.new("in deep group")
-      get ":taz", "SampleController#taz"
-    end
-
-    # Clear all the handlers at the current path
-    clear_handlers do
-      get "no/handlers", ->(context : HTTP::Server::Context) {
-        context.response.puts "no handlers"
-      }
-    end
-  end
-  get "callable", Callable
+class MyApplicationRouter < Orion::Router
+  # ...
 end
+```
+
+Lets define the routers's `root` route. `root` is simply an alias for `get '/', action`.
+All routes can either be a `String` pointing to a Controller action or a `Proc`
+accepting `HTTP::Server::Context` as a single argument. If a `String` is used like `controller#action`, it will expand into `Controller.new(context : HTTP::Server::Context).action`, therefor A controller must
+have an initializer that takes `HTTP::Server::Context` as an argument, and the
+specified action must not contain arguments.
+
+```crystal
+  class MyApplicationRouter < Orion::Router
+    root to: "home#index"
+  end
 ```
 
 ## Benchmarks

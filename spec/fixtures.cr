@@ -27,6 +27,10 @@ end
 struct SampleController
   include Orion::Routable
 
+  def home
+    response.puts "home"
+  end
+
   def get
     response.puts request.query_params["bar"]
   end
@@ -42,7 +46,8 @@ end
 
 class SampleRouter < Orion::Router
   use SampleMiddleware.new("at root")
-  mount "app", App.new
+  root to: "SampleController#home"
+  mount App.new, at: "app"
   get "foo/:bar", "SampleController#get"
   get "proc", ->(context : HTTP::Server::Context) {
     context.response.puts "proc"
@@ -55,7 +60,7 @@ class SampleRouter < Orion::Router
       use SampleMiddleware.new("in deep group")
       get ":taz", "SampleController#taz"
     end
-    clear_handlers do
+    group clear_handlers: true do
       get "no/handlers", ->(context : HTTP::Server::Context) {
         context.response.puts "no handlers"
       }

@@ -1,6 +1,6 @@
 require "http/server"
 
-class Orion::Router::AutoClose
+class Orion::Handlers::AutoClose
   include HTTP::Handler
 
   def call(cxt : HTTP::Server::Context)

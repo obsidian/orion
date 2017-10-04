@@ -15,7 +15,7 @@ abstract class Orion::Router
   abstract def get_tree(method : String)
 
   def initialize(autoclose = true, handlers = [] of HTTP::Handler)
-    use AutoClose.new if autoclose
+    use Handlers::AutoClose.new if autoclose
     handlers.map { |handler| use handler }
   end
 
@@ -34,7 +34,7 @@ abstract class Orion::Router
     return context.response.respond_with_error(message = "Not Found", code = 404) unless result.found?
 
     # Build the middleware and call
-    handlers = [ParamsHandler.new(result.params)] + @handlers + result.payload.handlers
+    handlers = [Handlers::ParamsInjector.new(result.params)] + @handlers + result.payload.handlers
     HTTP::Server.build_middleware(handlers, result.payload.action).call(context)
   end
 
@@ -64,3 +64,4 @@ abstract class Orion::Router
 end
 
 require "./router/*"
+require "./handlers/*"
