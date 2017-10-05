@@ -1,6 +1,8 @@
+require "./match"
+
 abstract class Orion::Router
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
-    match(path: {{at}}, action: {{app}})
+    Orion::Router.match({{at}}, {{app}})
   end
 end

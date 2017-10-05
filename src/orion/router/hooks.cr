@@ -3,11 +3,13 @@ require "radix"
 require "http"
 
 abstract class Orion::Router
+  BASE_MODULE = nil
+
   private struct Payload
     getter handlers : Array(HTTP::Handler)
-    getter action : HTTP::Handler::Proc
+    getter proc : HTTP::Handler::Proc
     getter label : String
-    def initialize(@handlers, @action, @label); end
+    def initialize(@handlers, @proc, @label); end
   end
 
   private alias Tree = Radix::Tree(Payload)
@@ -27,7 +29,7 @@ abstract class Orion::Router
     {% end %}
 
     # Lookup the proper tree
-    def get_tree(method)
+    private def get_tree(method)
       {% begin %}
         case method
         {% for method in METHODS %}

@@ -48,19 +48,19 @@ class SampleRouter < Orion::Router
   use SampleMiddleware.new("at root")
   root to: "SampleController#home"
   mount App.new, at: "app"
-  get "foo/:bar", "SampleController#get"
+  get "foo/:bar", to: "SampleController#get"
   get "proc", ->(context : HTTP::Server::Context) {
     context.response.puts "proc"
   }
-  group "in_group" do
+  scope "in_group" do
     use SampleMiddleware.new("in group")
     put ":baz", ->(cxt : HTTP::Server::Context) { cxt.response.puts "?" }
-    match ":baz", "SampleController#baz"
-    group "in_deeper_group" do
+    match ":baz", to: "SampleController#baz"
+    scope "in_deeper_group" do
       use SampleMiddleware.new("in deep group")
-      get ":taz", "SampleController#taz"
+      get ":taz", to: "SampleController#taz"
     end
-    group clear_handlers: true do
+    scope clear_handlers: true do
       get "no/handlers", ->(context : HTTP::Server::Context) {
         context.response.puts "no handlers"
       }

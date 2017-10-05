@@ -1,11 +1,6 @@
 abstract class Orion::Router
   # Define a `GET /` route at the current path.
-  macro root(*, to)
-    get "/", action: {{to}}
-  end
-
-  # Define a `GET /` route at the current path.
-  macro root(*, controller, action)
-    get "/", controller: {{controller}}, action: {{action}}
+  macro root(callable = nil, *, to = nil, controller = nil, action = nil, name = "root")
+    get "/", {{callable}}, to: {{to}}, controller: {{controller}}, action: {{action}}, name: {{name}}
   end
 end

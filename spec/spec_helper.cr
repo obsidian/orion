@@ -1,5 +1,5 @@
-require "spec"
 require "../src/orion"
+require "spec"
 require "./fixtures"
 
 def mock_context(verb, path, io = IO::Memory.new)
