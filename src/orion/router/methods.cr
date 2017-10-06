@@ -110,8 +110,12 @@ abstract class Orion::Router
 
       # Add the route
       payload = Payload.new(handlers: HANDLERS, proc: proc, label: label)
-      {{method.id}}_TREE.add(normalize_path(\{{path}}), payload)
-      (ROUTES[File.join([BASE_PATH, \{{path}}])] ||= {} of Symbol => Payload)[:{{method.id}}] = payload
+      full_path = normalize_path(\{{path}}
+      {{method.id}}_TREE.add(full_path, payload)
+      (ROUTES[full_path] ||= {} of Symbol => Payload)[:{{method.id}}] = payload
+      \{% if name %}
+        define_helper(\{{name}}, \{{path}})
+      \{% end %}
     end
   {% end %}
 end
