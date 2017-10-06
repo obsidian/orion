@@ -9,6 +9,7 @@ abstract class Orion::Router
     getter handlers : Array(HTTP::Handler)
     getter proc : HTTP::Handler::Proc
     getter label : String
+
     def initialize(@handlers, @proc, @label); end
   end
 
@@ -85,5 +86,4 @@ abstract class Orion::Router
       HANDLERS << handler
     end
   end
-
 end
