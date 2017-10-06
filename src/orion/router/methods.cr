@@ -91,8 +91,8 @@ abstract class Orion::Router
 
       # Build the proc from callable
       \{% if callable %}
-        label = \{{callable.id.stringify}}
-        proc = -> (context : HTTP::Server::Context) {
+        \%label = \{{callable.id.stringify}}
+        \%proc = -> (context : HTTP::Server::Context) {
           \{{callable}}.call(context)
           nil
         }
@@ -101,20 +101,20 @@ abstract class Orion::Router
       # Build the proc from a controller
       \{% if controller %}
         \{% action = action || method.downcase.id %}
-        label = [\{{controller.stringify}}, \{{action.stringify}}].join("#")
-        proc = -> (context : HTTP::Server::Context) {
+        \%label = [\{{controller.stringify}}, \{{action.stringify}}].join("#")
+        \%proc = -> (context : HTTP::Server::Context) {
           {{BASE_MODULE if BASE_MODULE}}::\{{controller}}.new(context).\{{action}}
           nil
         }
       \{% end %}
 
       # Add the route
-      payload = Payload.new(handlers: HANDLERS, proc: proc, label: label)
-      full_path = normalize_path(\{{path}}
-      {{method.id}}_TREE.add(full_path, payload)
-      (ROUTES[full_path] ||= {} of Symbol => Payload)[:{{method.id}}] = payload
+      \%payload = Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label)
+      \%full_path = normalize_path(\{{path}})
+      {{method.id}}_TREE.add(\%full_path, \%payload)
+      (ROUTES[\%full_path] ||= {} of Symbol => Payload)[:{{method.id}}] = \%payload
       \{% if name %}
-        define_helper(\{{name}}, \{{path}})
+        define_helper(\{{name}}, \{{path}}, {{method.id}}_TREE)
       \{% end %}
     end
   {% end %}
