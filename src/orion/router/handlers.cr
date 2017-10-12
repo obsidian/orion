@@ -1,7 +1,7 @@
 abstract class Orion::Router
   @handlers = [] of HTTP::Handler
 
-  private macro redefine_use(inherit_handlers)
+  private macro setup_handlers(inherit_handlers)
     {% if inherit_handlers %}
       HANDLERS = {{@type.superclass}}::HANDLERS + ([] of HTTP::Handler)
     {% end %}

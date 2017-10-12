@@ -3,40 +3,7 @@ require "radix"
 require "http"
 
 abstract class Orion::Router
-  private METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
-
-  private macro inherited_child
-    BASE_PATH = "/"
-    ROUTES_SET = {} of String => Hash(Symbol, Payload)
-    HANDLERS = [] of HTTP::Handler
-
-    # Instance vars
-    @routes = ROUTES
-    @handlers = [] of HTTP::Handler
-
-    FOREST = Forest.new
-
-    # Create the trees
-    {% for method in METHODS %}
-      {{method.id}}_TREE = Tree.new
-    {% end %}
-
-    # Lookup the proper tree
-    private def get_tree(method)
-      {% begin %}
-        case method
-        {% for method in METHODS %}
-        when {{method.downcase}}
-          {{method.id}}_TREE
-        {% end %}
-        else
-          Tree.new
-        end
-      {% end %}
-    end
-  end
-
-  {% for method in METHODS %}
+  {% for method in Orion::HTTP_VERBS %}
     # Defines a {{method.id}} route.
     #
     # ### Forms:
@@ -97,7 +64,11 @@ abstract class Orion::Router
     #   }
     # end
     # ```
-    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil)
+    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil)
+      {{method.downcase.id}}(\{{path}}, \{{callable}}, to: \{{to}}, controller: \{{controller}}, action: \{{action}}, name: \{{name}}, constraints: \{{constraints}}, resource: false)
+    end
+
+    private macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil, resource = false)
       \{% arg_count = 0 }
       \{% arg_count = arg_count + 1 if callable %}
       \{% arg_count = arg_count + 1 if controller %}
@@ -134,19 +105,43 @@ abstract class Orion::Router
         \{% action = action || method.downcase.id %}
         \%label = [\{{controller.stringify}}, \{{action.stringify}}].join("#")
         \%proc = -> (context : HTTP::Server::Context) {
-          {{BASE_MODULE if BASE_MODULE}}::\{{controller}}.new(context).\{{action}}
+          \{{controller}}.new(context).\{{action}}
           nil
         }
       \{% end %}
 
       # Add the route
-      \%payload = Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label)
-      \%full_path = normalize_path(\{{path}})
-      {{method.id}}_TREE.add(\%full_path, \%payload)
-      (ROUTES[\%full_path] ||= {} of Symbol => Payload)[:{{method.id}}] = \%payload
-      \{% if name %}
-        define_helper(\{{name}}, \{{path}}, {{method.id}}_TREE)
-      \{% end %}
+      \%payload = Orion::Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label, name: \{{name}})
+      \%full_path = normalize_path(\{{path}}, \{{resource}})
+      FOREST.{{method.downcase.id}}.add(\%full_path, \%payload)
+      \{% if name %}define_helper(\{{name}}, \{{path}}, {{@type}}, {{method}})\{% end %}
+      ROUTE_SET.add(method: :{{method.id}}, path: \%full_path, payload: \%payload)
     end
   {% end %}
+
+  private def self.normalize_path(path : String, resource = false)
+    base = (shallow_path && resource) ? shallow_path : base_path
+    parts = [base, path].map(&.to_s)
+    String.build do |str|
+      parts.each_with_index do |part, index|
+        part.check_no_null_byte
+
+        str << "/" if index > 0
+
+        byte_start = 0
+        byte_count = part.bytesize
+
+        if index > 0 && part.starts_with?("/")
+          byte_start += 1
+          byte_count -= 1
+        end
+
+        if index != parts.size - 1 && part.ends_with?("/")
+          byte_count -= 1
+        end
+
+        str.write part.unsafe_byte_slice(byte_start, byte_count)
+      end
+    end
+  end
 end

@@ -1,15 +1,16 @@
-abstract class Orion::Router
-  getter routes = {} of String => Hash(Symbol, Payload)
+struct Orion::RouteSet
+  private alias MethodHash = Hash(Symbol, Orion::Payload)
+  private alias PathHash = Hash(String, MethodHash)
 
-  def self.routes
-    new.routes
+  @routes = {} of String => Hash(Symbol, Orion::Payload)
+
+  delegate inspect, to: @routes
+
+  def add(*, method : Symbol, path : String, payload : Orion::Payload)
+    (@routes[path] ||= MethodHash.new)[method] = payload
   end
 
-  def self.route_table
-    new.route_table
-  end
-
-  def route_table
+  def table
     rows = @routes.each_with_object([] of Array(String)) do |(path, methods), rows|
       methods.each do |method, payload|
         color = case method

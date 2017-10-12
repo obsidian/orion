@@ -1,11 +1,9 @@
-require "shell-table"
-require "radix"
-require "http"
-
 abstract class Orion::Router
   include HTTP::Handler
 
-  private abstract def get_tree(method : String)
+  @route_set = RouteSet.new
+  @handlers = HandlerList.new
+  @forest = Forest.new
 
   def initialize(autoclose = true, handlers = [] of HTTP::Handler)
     use Handlers::AutoClose.new if autoclose
@@ -19,8 +17,11 @@ abstract class Orion::Router
     path = request.path
 
     # Find the route or 404
-    result = get_tree(method).find(path)
-    return context.response.respond_with_error(message = "Not Found", code = 404) unless result.found?
+    result = @forest[method].find(path)
+    return context.response.respond_with_error(
+      message: HTTP.default_status_message_for(404),
+      code: 404
+    ) unless result.found?
 
     # Build the middleware and call
     handlers = [Handlers::ParamsInjector.new(result.params)] + @handlers + result.payload.handlers

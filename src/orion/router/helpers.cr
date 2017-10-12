@@ -1,11 +1,11 @@
 abstract class Orion::Router
-  private macro define_helper(name, path, tree)
+  private macro define_helper(name, path, router, method)
     {% method_name = "#{name.id}_path" %}
 
     module Helpers
       {% raise "a route named `#{name}` already exists" if @type.has_method? method_name %}
       def {{method_name.id}}(**params)
-        result = tree.find(path)
+        result = {{router}}::FOREST[method].find(path)
         raise "unable to build path" unless result.found?
         path_param_names = result.payload.params.keys
 
