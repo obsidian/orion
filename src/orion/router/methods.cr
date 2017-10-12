@@ -5,6 +5,37 @@ require "http"
 abstract class Orion::Router
   private METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
 
+  private macro inherited_child
+    BASE_PATH = "/"
+    ROUTES_SET = {} of String => Hash(Symbol, Payload)
+    HANDLERS = [] of HTTP::Handler
+
+    # Instance vars
+    @routes = ROUTES
+    @handlers = [] of HTTP::Handler
+
+    FOREST = Forest.new
+
+    # Create the trees
+    {% for method in METHODS %}
+      {{method.id}}_TREE = Tree.new
+    {% end %}
+
+    # Lookup the proper tree
+    private def get_tree(method)
+      {% begin %}
+        case method
+        {% for method in METHODS %}
+        when {{method.downcase}}
+          {{method.id}}_TREE
+        {% end %}
+        else
+          Tree.new
+        end
+      {% end %}
+    end
+  end
+
   {% for method in METHODS %}
     # Defines a {{method.id}} route.
     #
