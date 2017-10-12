@@ -11,6 +11,7 @@ abstract class Orion::Router
       begin
         {{ "Orion::Router.#{method.downcase.id}(#{path}, #{callable}, to: #{to}, controller: #{controller}, action: #{action}, name: #{name})".id }}
       rescue Radix::Tree::DuplicateError
+        # do nothing
       end
     {% end %}
   end

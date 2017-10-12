@@ -3,9 +3,7 @@ require "radix"
 require "http"
 
 abstract class Orion::Router
-  BASE_PATH     = "/"
-  SHALLOW_PATH = nil
-  SCOPE_COUNTER = [0]
+  private SCOPE_COUNTER = [0]
 
   private macro inherited
     setup_handlers({{ @type.superclass != Orion::Router }})

@@ -1,5 +1,7 @@
 abstract class Orion::Router
   private macro setup_root
+    BASE_PATH     = "/"
+    SHALLOW_PATH  = nil
     ROUTE_SET = Orion::RouteSet.new
     HANDLERS = Orion::HandlerList.new
     FOREST = Orion::Forest.new

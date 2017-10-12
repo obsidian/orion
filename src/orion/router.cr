@@ -1,13 +1,14 @@
 abstract class Orion::Router
   include HTTP::Handler
 
+  alias Context = HTTP::Server::Context
+
   @route_set = RouteSet.new
   @handlers = HandlerList.new
   @forest = Forest.new
 
-  def initialize(autoclose = true, handlers = [] of HTTP::Handler)
+  def initialize(autoclose = true)
     use Handlers::AutoClose.new if autoclose
-    handlers.map { |handler| use handler }
   end
 
   def call(context : HTTP::Server::Context) : Nil
