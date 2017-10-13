@@ -1,7 +1,3 @@
-require "shell-table"
-require "radix"
-require "http"
-
 abstract class Orion::Router
   {% for method in Orion::HTTP_VERBS %}
     # Defines a {{method.id}} route.
@@ -85,9 +81,9 @@ abstract class Orion::Router
       \{% if to %}
         \{% if !(controller || action) %}
           \{% parts = to.split("#") %}
-          \{% controller = parts[0].id %}
+          \{% controller = run("./controllerize.cr", parts[0].id) + "Controller" %}
           \{% action = parts[1].id %}
-          \{% raise("`to` must be in the form `Controller#action`") unless controller && action && parts.size == 2 %}
+          \{% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
         \{% end %}
       \{% end %}
 

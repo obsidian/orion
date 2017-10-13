@@ -3,7 +3,6 @@ abstract class Orion::Router
     BASE_PATH     = "/"
     SHALLOW_PATH  = nil
     ROUTE_SET = Orion::RouteSet.new
-    HANDLERS = Orion::HandlerList.new
     FOREST = Orion::Forest.new
 
     # Instance vars

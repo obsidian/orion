@@ -7,6 +7,7 @@ abstract class Orion::Router
 
   private macro inherited
     setup_handlers({{ @type.superclass != Orion::Router }})
+    setup_concerns({{ @type.superclass != Orion::Router }})
 
     def self.base_path
       BASE_PATH
