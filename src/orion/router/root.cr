@@ -1,10 +1,12 @@
 abstract class Orion::Router
   private macro setup_root
     {% if @type.superclass == Orion::Router %}
+      alias ROUTER = self
       BASE_PATH     = "/"
       SHALLOW_PATH  = nil
       ROUTE_SET = Orion::RouteSet.new
       FOREST = Orion::Forest.new
+      PREFIXES = [] of String
 
       # Instance vars
       @route_set = ROUTE_SET

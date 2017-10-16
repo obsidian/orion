@@ -10,7 +10,7 @@ module RouterSpec
 
   describe "a basic router" do
     it "should run a basic route" do
-      response = Router.test_route(:get, "/")
+      response = Router.test_route(:get, Router::Helpers.root_path)
       response.status_code.should eq 200
       response.body.should eq "I am Groot"
     end

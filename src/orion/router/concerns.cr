@@ -9,7 +9,9 @@ abstract class Orion::Router
     {% CONCERNS[name] = block.body.stringify %}
   end
 
-  macro concerns(name)
-    {{ CONCERNS[name].id }}
+  macro concerns(*names)
+    {% for name in names %}
+      {{ CONCERNS[name].id }}
+    {% end %}
   end
 end
