@@ -1,8 +1,6 @@
 abstract class Orion::Router
-  private macro setup_handlers(inherit_concerns)
-    {% if inherit_concerns %}
-      CONCERNS = ::{{@type.superclass}}::CONCERNS.dup
-    {% else %}
+  private macro setup_concerns
+    {% if @type.superclass == Orion::Router %}
       CONCERNS = {} of Symbol => String
     {% end %}
   end

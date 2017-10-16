@@ -1,18 +1,20 @@
 abstract class Orion::Router
   private macro setup_root
-    BASE_PATH     = "/"
-    SHALLOW_PATH  = nil
-    ROUTE_SET = Orion::RouteSet.new
-    FOREST = Orion::Forest.new
+    {% if @type.superclass == Orion::Router %}
+      BASE_PATH     = "/"
+      SHALLOW_PATH  = nil
+      ROUTE_SET = Orion::RouteSet.new
+      FOREST = Orion::Forest.new
 
-    # Instance vars
-    @route_set = ROUTE_SET
-    @handlers = Orion::HandlerList.new
-    @forest = FOREST
+      # Instance vars
+      @route_set = ROUTE_SET
+      @handlers = Orion::HandlerList.new
+      @forest = FOREST
 
-    def routes
-      ROUTE_SET
-    end
+      def self.routes
+        ROUTE_SET
+      end
+    {% end %}
   end
 
   # Define a `GET /` route at the current path.

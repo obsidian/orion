@@ -6,8 +6,8 @@ abstract class Orion::Router
   private SCOPE_COUNTER = [0]
 
   private macro inherited
-    setup_handlers({{ @type.superclass != Orion::Router }})
-    setup_concerns({{ @type.superclass != Orion::Router }})
+    setup_handlers
+    setup_concerns
 
     def self.base_path
       BASE_PATH
@@ -17,8 +17,6 @@ abstract class Orion::Router
       SHALLOW_PATH
     end
 
-    {% if @type.superclass == Orion::Router %}
-      setup_root
-    {% end %}
+    setup_root
   end
 end

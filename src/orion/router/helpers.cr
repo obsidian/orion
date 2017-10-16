@@ -1,6 +1,7 @@
 abstract class Orion::Router
-  private macro define_helper(name, path, router, method)
+  private macro define_helper(*, method, path, name, prefix_name, suffix_name)
     {% method_name = "#{name.id}_path" %}
+    {% router = @type %}
 
     module Helpers
       {% raise "a route named `#{name}` already exists" if @type.has_method? method_name %}
