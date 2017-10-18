@@ -1,4 +1,7 @@
 # Orion
+[![Build Status](https://travis-ci.org/obsidian/orion.svg?branch=master)](https://travis-ci.org/obsidian/orion)
+[![Dependency Status](https://shards.rocks/badge/github/obsidian/orion/status.svg)](https://shards.rocks/github/obsidian/orion)
+[![GitHub release](https://img.shields.io/github/release/obsidian/orion.svg)](https://github.com/obsidian/orion/releases)
 
 A minimal, rails'esk routing library for `HTTP::Server`.
 
