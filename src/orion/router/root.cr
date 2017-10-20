@@ -1,6 +1,8 @@
 abstract class Orion::Router
   private macro setup_root
-    {% if @type.superclass == Orion::Router %}
+    {% if @type.superclass == ::Orion::Router %}
+      module Helpers
+      end
       alias ROUTER = self
       BASE_PATH     = "/"
       SHALLOW_PATH  = nil

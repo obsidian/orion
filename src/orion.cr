@@ -3,11 +3,14 @@ require "radix"
 require "shell-table"
 
 module Orion
-  record Payload,
-    proc : HTTP::Handler::Proc,
-    handlers : Array(HTTP::Handler),
-    label : String,
-    name : String?
+  class Payload
+    getter proc : HTTP::Handler::Proc
+    getter handlers : Array(HTTP::Handler)
+    getter label : String
+    property helper : String?
+
+    def initialize(@proc, @handlers, @label) ; end
+  end
 
   alias Tree = Radix::Tree(Payload)
   alias HandlerList = Array(HTTP::Handler)

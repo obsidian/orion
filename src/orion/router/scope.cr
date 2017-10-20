@@ -3,10 +3,12 @@ abstract class Orion::Router
   macro scope(path = "", *, clear_handlers = false, shallow_path = "", name = nil, concerns = nil)
     {% counter = SCOPE_COUNTER[0] = SCOPE_COUNTER[0] + 1 %}
     {% superclass = @type %}
+    {% if name %}
+      {% prefixes = PREFIXES + [name] %}
+    {% end %}
     class RouterGroup{{counter}} < ::{{superclass}}
       {% if name %}
-        PREFIXES = ::{{@type.superclass}}::PREFIXES.dup
-        PREFIXES << singular_name
+        PREFIXES = {{ prefixes }}
       {% end %}
 
       # Set the base path

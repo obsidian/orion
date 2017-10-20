@@ -60,22 +60,7 @@ abstract class Orion::Router
     #   }
     # end
     # ```
-    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil,  prefix_name = nil, suffix_name = nil)
-      {{method.downcase.id}}(
-        \{{path}},
-        \{{callable}},
-        to: \{{to}},
-        controller: \{{controller}},
-        action: \{{action}},
-        constraints: \{{constraints}},
-        prefix_name: \{{prefix_name}},
-        name: \{{name}},
-        suffix_name: \{{suffix_name}},
-        resource: false
-      )
-    end
-
-    private macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil, prefix_name = nil, suffix_name = nil, resource = false)
+    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil, prefix = nil, suffix = nil, resource = false)
       \{% arg_count = 0 }
       \{% arg_count = arg_count + 1 if callable %}
       \{% arg_count = arg_count + 1 if controller %}
@@ -118,17 +103,18 @@ abstract class Orion::Router
       \{% end %}
 
       # Add the route
-      \%payload = Orion::Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label, name: \{{name}})
+      \%payload = Orion::Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label)
       \%full_path = normalize_path(\{{path}}, \{{resource}})
       FOREST.{{method.downcase.id}}.add(\%full_path, \%payload)
-      \{% if name || prefix_name || suffix_name %}
-        define_helper(method: {{method}}, path: \{{path}}, name: \{{name}}, prefix_name: \{{prefix_name}}, suffix_name: \{{suffix_name}})
+      \{% if name || prefix || suffix %}
+        define_helper(method: {{method}}, path: \{{path}}, name: \{{name}}, prefix: \{{prefix}}, suffix: \{{suffix}})
       \{% end %}
       ROUTE_SET.add(method: :{{method.id}}, path: \%full_path, payload: \%payload)
     end
   {% end %}
 
-  private def self.normalize_path(path : String, resource = false)
+  # nodoc
+  def self.normalize_path(path : String, resource = false)
     base = (shallow_path && resource) ? shallow_path : base_path
     parts = [base, path].map(&.to_s)
     String.build do |str|
