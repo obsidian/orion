@@ -83,7 +83,7 @@ class MyApplicationRouter < Orion::Router
 end
 ```
 
-#### Using a `#call` able object
+#### Using a `call` able object
 Sometimes, we may want a more link:https://github.com/kemalcr/kemal[kemal] or
 link:http://sinatrarb.com/[sinatra] like approach. A second argument can be any
 object that responds to `#call(cxt : HTTP::Server::Context)`.
@@ -96,7 +96,7 @@ class MyApplicationRouter < Orion::Router
 end
 ```
 
-### `#root`, the base route
+### `root`, the base route
 
 Lets define the routers's `root` route. `root` is simply an alias for `get '/', action`.
 All routes can either be a `String` pointing to a Controller action or a `Proc`
@@ -120,7 +120,36 @@ supports all the standard HTTP verbs:
 You can simply use one of the methods within the router and pass it's router and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
+```crystal
+class MyApplicationRouter < Orion::Router
+  post "users", to: "users#create"
+end
+```
 
+### `match`, the catch-all
+
+In some instances you may just want to redirect all verbs to a particular
+controller and action.
+
+You can simply use the `match` method within the router and pass it's router and
+any variation of the xref:generic-route-arguments[Generic Route Arguments].
+
+```crystal
+class MyApplicationRouter < Orion::Router
+  match "404", controller: ErrorsController, action: error_404
+end
+```
+
+[quote]
+*NOTE:*
+You can omit the action to map all remaining HTTP verbs to their respective
+controller actions.
+
+```crystal
+class MyApplicationRouter < Orion::Router
+  match "users", controller: UsersController
+end
+```
 
 ## Benchmarks
 
