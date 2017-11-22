@@ -352,17 +352,6 @@ end
 
 *TODO*
 
-[quote]
-*NOTE:*
-You can omit the action to map all remaining HTTP verbs to their respective
-controller actions.
-
-```crystal
-router MyApplicationRouter do
-  match "users", controller: UsersController
-end
-```
-
 ## Benchmarks
 
 Benchmarks can be run with `./benchmark`.
