@@ -13,7 +13,7 @@ module Router::HandlersSpec
     end
   end
 
-  class SampleRouter < Orion::Router
+  router SampleRouter do
     use AppendHandler.new ", and I am a guardian"
     root ->(c : Context) { c.response.print "I am Groot" }
     scope "scoped" do

@@ -3,8 +3,6 @@ require "radix"
 require "http"
 
 abstract class Orion::Router
-  private SCOPE_COUNTER = [0]
-
   private macro inherited
     setup_handlers
     setup_concerns

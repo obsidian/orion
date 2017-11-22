@@ -1,3 +1,3 @@
 require "inflector"
 
-print Inflector.pluralize(Inflector.camelize(ARGV[0]))
+print Inflector.camelize(ARGV[0])

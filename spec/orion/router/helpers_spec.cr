@@ -1,7 +1,7 @@
 module Router::HelpersSpec
   c = ->(c : HTTP::Server::Context) {}
 
-  class SampleRouter < Orion::Router
+  router SampleRouter do
     get "foo", c, helper: "foo"
     get "bars/:bar_id/locations/:location_id", c, helper: "bar"
     scope helper_prefix: "scoped" do

@@ -17,7 +17,7 @@ module Router::VerbsSpec
         end
       end
 
-      class Router < Orion::Router
+      router SampleRouter do
         {{verb.downcase.id}} "/callable", ->(c : Context){ c.response.print "callable {{verb.downcase.id}}" }
         {{verb.downcase.id}} "/to-{{verb.downcase.id}}", to: "Samples#to_{{verb.downcase.id}}"
         {{verb.downcase.id}} "/{{verb.downcase.id}}-actionless", controller: SamplesController

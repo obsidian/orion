@@ -1,5 +1,5 @@
 module Router::MatchSpec
-  class SampleRouter < Orion::Router
+  router SampleRouter do
   end
 
   describe "match routes" do

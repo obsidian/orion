@@ -38,11 +38,10 @@ require "orion"
 
 ### Defining a router
 
-You must define a class that inherits from `Orion::Router`. You will define your
-routes directly in this class.
+You can define a router by using the `router` macro with a constant name.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   # ...
 end
 ```
@@ -58,7 +57,7 @@ the `to` argument supplied with a controller and action in the form of a string.
 In the example below `Users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   post "users", to: "Users#create"
 end
 ```
@@ -68,7 +67,7 @@ A longer form of the `to` argument strategy above allows us to pass the controll
 independently.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   post "users", controller: UsersController, action: create
 end
 ```
@@ -78,7 +77,7 @@ Alternatively we can also drop the action and the http verb will be used.
 `post "/users", controller: Users` would map to `UsersController.new(cxt : HTTP::Server::Context).post`.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   post "users", controller: UsersController
 end
 ```
@@ -89,7 +88,7 @@ link:http://sinatrarb.com/[sinatra] like approach. A second argument can be any
 object that responds to `#call(cxt : HTTP::Server::Context)`.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   post "users", ->(cxt : HTTP::Server::Context) {
     cxt.response.puts "foo"
   }
@@ -107,7 +106,7 @@ have an initializer that takes `HTTP::Server::Context` as an argument, and the
 specified action must not contain arguments.
 
 ```crystal
-  class MyApplicationRouter < Orion::Router
+  router MyApplicationRouter do
     root to: "home#index"
   end
 ```
@@ -123,7 +122,7 @@ You can simply use one of the methods within the router and pass it's router and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   post "users", to: "users#create"
 end
 ```
@@ -137,7 +136,7 @@ You can simply use the `match` method within the router and pass it's router and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   match "404", controller: ErrorsController, action: error_404
 end
 ```
@@ -158,29 +157,127 @@ end
 
 *TODO*
 
-### Scopes & Nested Routes
+### Instrumenting handlers _(a.k.a. middleware)_
 
-*TODO*
+Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
+can be inserted directly in your routes by using the `use` macro.
 
-#### Clearing Handlers
+[quote]
+Handlers will only apply to the routes specified below them, so be sure to place
+your handlers near the top of your route.
 
-*TODO*
+```crystal
+router MyApplicationRouter do
+  use HTTP::ErrorHandler.new
+  use HTTP::CompressHandler.new
+end
+```
+
+### Nested Routes using `scope`
+
+Scopes are a method in which you can nest routes under a common path. This prevents
+the need for duplicating paths and allows a developer to easily change the parent
+of a set of child paths.
+
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    root to: "Users#index"
+    get ":id", to: "Users#show"
+    delete ":id", to: "Users#destroy"
+  end
+end
+```
+
+#### Handlers within nested routes
+
+Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] can be
+used within a scope and will only apply to the subsequent routes within that scope.
+It is important to note that the parent context's handlers will also be used, although
+this can be overridden by passing the `clear_handlers: true` argument into the scope.
+
+[quote]
+Handlers will only apply to the routes specified below them, so be sure to place
+your handlers near the top of your scope.
+
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    use AuthorizationHandler.new
+    root to: "Users#index"
+    get ":id", to: "Users#show"
+    delete ":id", to: "Users#destroy"
+  end
+end
+```
 
 #### Helper prefixes
 
-*TODO*
+When using xref:helpers[Helpers], you may want a prefix to be appended so that you don't have to
+repeat it within each individual route. For example a scope with `helper_prefix: "users"`
+containing a route with `helper: "show"` will generate a helper method of `users_show`.
+
+```crystal
+router MyApplicationRouter do
+  scope "users", helper_prefix: "users" do
+    use AuthorizationHandler.new
+    get ":id", to: "Users#show", helper: "show"
+  end
+end
+```
+
+[[helper-caveats]]
+##### Caveats
+
+When considering helpers within scopes you may want to use a longer form of the
+helper to get a better name. You can pass a named tuple with the fields `name`,
+`prefix`, and/or `suffix`.
+
+```crystal
+router MyApplicationRouter do
+  scope "users", helper_prefix: "user" do
+    use AuthorizationHandler.new
+    get ":id", to: "Users#show", helper: { prefix: "show" }
+  end
+end
+```
+
+The above example will expand into `show_user` instead of `user_show`.
 
 ### Concerns – Reusable code in your routers
 
-*TODO*
+In some instances you may want to create a pattern or concern that you wish
+to repeat across scopes or resources in your router.
 
 #### Defining a concern
 
-*TODO*
+To define a concern call `concern` with a `Symbol` for the name.
+
+```crystal
+router MyApplicationRouter do
+  concern :authenticated do
+    use Authentication.new
+  end
+end
+```
 
 #### Using concerns
 
-*TODO*
+Once a concern is defined you can call `implements` with a named concern from
+anywhere in your router.
+
+```crystal
+router MyApplicationRouter do
+  concern :authenticated do
+    use Authentication.new
+  end
+
+  scope "users" do
+    implements :authenticated
+    get ":id"
+  end
+end
+```
 
 ### Constraints - More advanced rules for your routes
 
@@ -202,17 +299,54 @@ end
 
 *TODO*
 
-### Instrumenting handlers _(a.k.a. middleware)_
-
-*TODO*
-
+[[helpers]]
 ### Helpers
 
-*TODO*
+Helpers provide a method to access defined routes from elsewhere in your code.
+You can either call `MyApplicationRouter::Helpers.some_path` or you can include
+the module directly in the class you are using it. When you include a module, you
+get an extra method `MyApplicationRouter::Helpers.some_url` with looks for a
+`request : HTTP::Request` method to determine the host on the incoming request.
+
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    get "/new", to: "Users#new", helper: "new"
+  end
+end
+
+class MyController
+  include MyApplicationRouter::Helpers
+  delegate request, response, to: @context
+
+  def initialize(@context : HTTP::Server::Context)
+  end
+
+  def new
+    File.open("new.html") { |f| IO.copy(f, response) }
+  end
+
+  def show
+    user = User.find(request.query_params["id"])
+    response.headers["Location"] = new_user_path
+    response.status_code = 301
+    response.close
+  end
+end
+```
 
 #### Making helpers from your routes
 
-*TODO*
+In order to make a helper from your route you can use the `helper` named
+argument in your route.
+
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    get "/new", to: "Users#new", helper: "new"
+  end
+end
+```
 
 #### Using helpers in your code
 
@@ -224,7 +358,7 @@ You can omit the action to map all remaining HTTP verbs to their respective
 controller actions.
 
 ```crystal
-class MyApplicationRouter < Orion::Router
+router MyApplicationRouter do
   match "users", controller: UsersController
 end
 ```

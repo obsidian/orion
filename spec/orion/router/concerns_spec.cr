@@ -1,17 +1,17 @@
 require "../../spec_helper"
 
 module Router::ConcernsSpec
-  class SampleRouter < Orion::Router
+  router SampleRouter do
     concern :messagable do
       get "messages/new", ->(c : Context) { c.response.print "lets send a message" }
     end
 
     scope "users" do
-      concerns :messagable
+      implements :messagable
     end
 
     scope "groups" do
-      concerns :messagable
+      implements :messagable
     end
   end
 

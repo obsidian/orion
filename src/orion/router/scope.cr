@@ -1,38 +1,22 @@
 abstract class Orion::Router
   # Create a group at the specified path.
-  macro scope(path = "", *, clear_handlers = false, shallow_path = "", helper_prefix = nil, concerns = nil)
-    {% counter = SCOPE_COUNTER[0] = SCOPE_COUNTER[0] + 1 %}
-    {% superclass = @type %}
+  macro scope(path = "", *, clear_handlers = false, helper_prefix = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
-    class RouterGroup{{counter}} < ::{{superclass}}
+
+    # :nodoc:
+    class {{ run "./inflector/path_to_scope", path }} < ::{{@type}}
       # Add the prefixes to the router group if they exist
-      {% if helper_prefix %} PREFIXES = {{ prefixes }} {% end %}
+      {% if helper_prefix %}
+        PREFIXES = {{ prefixes }}
+      {% end %}
 
       # Set the base path
-      BASE_PATH = File.join(::{{superclass}}::BASE_PATH, {{path}})
-
-      # Set the scope as shallow
-      {% if shallow_path %}
-        SHALLOW_PATH = File.join(::{{superclass}}::SHALLOW_PATH || "", {{path}})
-      {% end %}
+      BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{path}})
 
       # Clear the handlers (if specified)
       HANDLERS.clear if {{clear_handlers}}
 
-      # Use the concerns
-      {% if concerns.is_a? SymbolLiteral %}
-        concerns {{concerns}}
-      {% elsif concerns %}
-        concerns {{*concerns}}
-      {% end %}
-
       # Yield the block
-      {{yield}}
-    end
-  end
-
-  macro shallow(*, clear_handlers = false)
-    scope shallow_path: "/", clear_handlers: {{ clear_handlers }} do
       {{yield}}
     end
   end

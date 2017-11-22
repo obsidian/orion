@@ -1,9 +1,9 @@
 abstract class Orion::Router
-  macro resources(name, controller, *, shallow = false, only = nil, except = nil, concerns = nil)
-    resources(name, controller, *, shallow: shallow, only: only, except: except, concerns: concerns){}
+  macro resources(name, controller, *, shallow = false, only = nil, except = nil)
+    resources(name, controller, *, shallow: shallow, only: only, except: except){}
   end
 
-  macro resources(name, controller, *, shallow = false, only = nil, except = nil, concerns = nil)
+  macro resources(name, controller, *, shallow = false, only = nil, except = nil)
     {% if shallow %}
       shallow do
         resources({{ name }}, {{ controller }}, only: {{ only }}, except: {{ except }}) do
@@ -26,7 +26,7 @@ abstract class Orion::Router
           {% end %}
         end
 
-        scope {{ "/:#{singular_name}_id" }}, concerns: concerns, helper_prefix: {{ singular_name }} do
+        scope {{ "/:#{singular_name}_id" }}, helper_prefix: {{ singular_name }} do
 
           {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
             get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }
@@ -59,14 +59,14 @@ abstract class Orion::Router
     {% end %}
   end
 
-  macro resource(name, controller, *, only = nil, except = nil, concerns = nil)
-    resource(name, controller, *, only: only, except: except, concerns: concerns) {}
+  macro resource(name, controller, *, only = nil, except = nil)
+    resource(name, controller, *, only: only, except: except) {}
   end
 
-  macro resource(name, controller, *, only = nil, except = nil, concerns = nil)
+  macro resource(name, controller, *, only = nil, except = nil)
     {% singular_name = run("./inflector/singularize.cr", name) %}
 
-    scope "/#{singular_name}", concerns: concerns, helper_prefix: {{singular_name}} do
+    scope "/#{singular_name}", helper_prefix: {{singular_name}} do
 
       {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
         get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }

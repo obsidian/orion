@@ -1,3 +1,9 @@
+macro router(name)
+  class {{ name }} < Orion::Router
+    {{yield}}
+  end
+end
+
 abstract class Orion::Router
   include HTTP::Handler
 
