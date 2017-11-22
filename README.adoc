@@ -47,6 +47,7 @@ class MyApplicationRouter < Orion::Router
 end
 ```
 
+[[generic-route-arguments]]
 ### Generic Route Arguments
 There are a variety of ways that you can interact with basic routes. Below are
 some examples and guidelines on the different ways you can interact with the router.
@@ -117,7 +118,7 @@ supports all the standard HTTP verbs:
 `get`, `head`, `post`, `put`, `delete`, `connect`, `options`, `trace`, and `patch`
 
 You can simply use one of the methods within the router and pass it's router and
-any variation of the anchor:generic-route-arguments[Generic Route Arguments]
+any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
 
 
