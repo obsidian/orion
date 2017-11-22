@@ -36,7 +36,7 @@ require "orion"
 
 ## Usage
 
-### Defining the router
+### Defining a router
 
 You must define a class that inherits from `Orion::Router`. You will define your
 routes directly in this class.
@@ -48,7 +48,7 @@ end
 ```
 
 [[generic-route-arguments]]
-### Generic Route Arguments
+### Generic route arguments
 There are a variety of ways that you can interact with basic routes. Below are
 some examples and guidelines on the different ways you can interact with the router.
 
@@ -96,7 +96,9 @@ class MyApplicationRouter < Orion::Router
 end
 ```
 
-### `root`, the base route
+### Basic Routing
+
+#### Base route using `root`
 
 Lets define the routers's `root` route. `root` is simply an alias for `get '/', action`.
 All routes can either be a `String` pointing to a Controller action or a `Proc`
@@ -110,7 +112,7 @@ specified action must not contain arguments.
   end
 ```
 
-### Verb Based Routes
+#### HTTP verb based routes
 
 A common way to interact with the router is to use standard HTTP verbs. Orion
 supports all the standard HTTP verbs:
@@ -126,7 +128,7 @@ class MyApplicationRouter < Orion::Router
 end
 ```
 
-### `match`, the catch-all
+#### Catch all routes using `match`
 
 In some instances you may just want to redirect all verbs to a particular
 controller and action.
@@ -139,6 +141,82 @@ class MyApplicationRouter < Orion::Router
   match "404", controller: ErrorsController, action: error_404
 end
 ```
+
+### Resource Based Routing
+
+*TODO*
+
+#### Collections of resources
+
+*TODO*
+
+#### Singular Resources
+
+*TODO*
+
+#### Additional Options
+
+*TODO*
+
+### Scopes & Nested Routes
+
+*TODO*
+
+#### Clearing Handlers
+
+*TODO*
+
+#### Helper prefixes
+
+*TODO*
+
+### Concerns – Reusable code in your routers
+
+*TODO*
+
+#### Defining a concern
+
+*TODO*
+
+#### Using concerns
+
+*TODO*
+
+### Constraints - More advanced rules for your routes
+
+*TODO*
+
+#### Parameter constraints
+
+*TODO*
+
+#### Format constraints
+
+*TODO*
+
+#### Domain & Subdomain constraints
+
+*TODO*
+
+#### Custom Constraints
+
+*TODO*
+
+### Instrumenting handlers _(a.k.a. middleware)_
+
+*TODO*
+
+### Helpers
+
+*TODO*
+
+#### Making helpers from your routes
+
+*TODO*
+
+#### Using helpers in your code
+
+*TODO*
 
 [quote]
 *NOTE:*
