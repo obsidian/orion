@@ -1,15 +1,12 @@
 abstract class Orion::Router
   # Create a group at the specified path.
-  macro scope(path = "", *, clear_handlers = false, shallow_path = "", name = nil, concerns = nil)
+  macro scope(path = "", *, clear_handlers = false, shallow_path = "", helper = nil, concerns = nil)
     {% counter = SCOPE_COUNTER[0] = SCOPE_COUNTER[0] + 1 %}
     {% superclass = @type %}
-    {% if name %}
-      {% prefixes = PREFIXES + [name] %}
-    {% end %}
+    {% prefixes = PREFIXES + [helper] if helper %}
     class RouterGroup{{counter}} < ::{{superclass}}
-      {% if name %}
-        PREFIXES = {{ prefixes }}
-      {% end %}
+      # Add the prefixes to the router group if they exist
+      {% if helper %} PREFIXES = {{ prefixes }} {% end %}
 
       # Set the base path
       BASE_PATH = File.join(::{{superclass}}::BASE_PATH, {{path}})
@@ -19,7 +16,7 @@ abstract class Orion::Router
         SHALLOW_PATH = File.join(::{{superclass}}::SHALLOW_PATH || "", {{path}})
       {% end %}
 
-      # Clear the handlers
+      # Clear the handlers (if specified)
       HANDLERS.clear if {{clear_handlers}}
 
       # Use the concerns
@@ -28,6 +25,8 @@ abstract class Orion::Router
       {% elsif concerns %}
         concerns {{*concerns}}
       {% end %}
+
+      # Yield the block
       {{yield}}
     end
   end

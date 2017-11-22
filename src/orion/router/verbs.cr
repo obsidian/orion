@@ -60,7 +60,7 @@ abstract class Orion::Router
     #   }
     # end
     # ```
-    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = nil, name = nil, constraints = nil, prefix = nil, suffix = nil, resource = false)
+    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = {{method.downcase.id}}, helper = nil, constraints = nil, resource = false)
       \{% arg_count = 0 }
       \{% arg_count = arg_count + 1 if callable %}
       \{% arg_count = arg_count + 1 if controller %}
@@ -74,13 +74,11 @@ abstract class Orion::Router
       \{% end %}
 
       # Convert to into `controller` & `action`.
-      \{% if to %}
-        \{% if !(controller || action) %}
-          \{% parts = to.split("#") %}
-          \{% controller = run("./controllerize.cr", parts[0].id) + "Controller" %}
-          \{% action = parts[1].id %}
-          \{% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
-        \{% end %}
+      \{% if to && !controller %}
+        \{% parts = to.split("#") %}
+        \{% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
+        \{% action = parts[1].id %}
+        \{% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
       \{% end %}
 
       # Build the proc from callable
@@ -94,7 +92,7 @@ abstract class Orion::Router
 
       # Build the proc from a controller
       \{% if controller %}
-        \{% action = action || method.downcase.id %}
+        \{% action = action %}
         \%label = [\{{controller.stringify}}, \{{action.stringify}}].join("#")
         \%proc = -> (context : HTTP::Server::Context) {
           \{{controller}}.new(context).\{{action}}
@@ -106,8 +104,8 @@ abstract class Orion::Router
       \%payload = Orion::Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label)
       \%full_path = normalize_path(\{{path}}, \{{resource}})
       FOREST.{{method.downcase.id}}.add(\%full_path, \%payload)
-      \{% if name || prefix || suffix %}
-        define_helper(method: {{method}}, path: \{{path}}, name: \{{name}}, prefix: \{{prefix}}, suffix: \{{suffix}})
+      \{% if helper %}
+        define_helper(method: {{method}}, path: \{{path}}, spec: \{{helper}})
       \{% end %}
       ROUTE_SET.add(method: :{{method.id}}, path: \%full_path, payload: \%payload)
     end

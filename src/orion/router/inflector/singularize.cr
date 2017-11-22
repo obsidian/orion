@@ -1,3 +1,3 @@
 require "inflector"
 
-puts Inflector.singularize(ARGV[0]).inspect
+print Inflector.singularize(ARGV[0]).inspect

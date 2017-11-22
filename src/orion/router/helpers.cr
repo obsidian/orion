@@ -1,21 +1,29 @@
 abstract class Orion::Router
-  HELPER_PATHS = [] of String
-  private macro define_helper(*, method, path, name, prefix, suffix)
-    {% name_parts = PREFIXES + [] of StringLiteral %}
-    {% name_parts.unshift(prefix) if prefix %}
-    {% name_parts.push(name) }
-    {% name_parts.push(suffix) if suffix %}
-    {% method_name = name_parts.map(&.id).join("_").id %}
-    ROUTER::FOREST.{{method.downcase.id}}.find(normalize_path({{path}})).payload.helper = {{ method_name.stringify }}
 
-    module ROUTER::Helpers
+
+  private macro define_helper(*, method, path, spec)
+    {% name_parts = PREFIXES + [] of StringLiteral %}
+
+    {% if spec.is_a? BoolLiteral %}
+      {% raise "Cannot use a boolean helper outside of a scope." if PREFIXES.size == 0 %}
+    {% elsif spec.is_a?(NamedTupleLiteral) || spec.is_a?(HashLiteral) %}
+      {% name_parts.unshift(spec[:prefix]) if spec[:prefix] %}
+      {% name_parts.push(spec[:name]) if spec[:name] %}
+      {% name_parts.push(spec[:suffix]) if spec[:suffix] %}
+    {% elsif spec.is_a? StringLiteral %}
+      {% name_parts.push(spec) if spec %}
+    {% else %}
+      {% raise "Unsupported spec type: #{spec.class_name}" %}
+    {% end %}
+
+    {% method_name = name_parts.map(&.id).join("_").id %}
+
+    module ::{{ Helpers }}
       extend self
 
-      {% raise "a route named `#{name}` already exists" if @type.has_method? method_name %}
       def {{method_name.id}}_path(**params)
-        path = Helpers.%full_path
-        result = ROUTER::FOREST.{{method.downcase.id}}.find(path)
-        raise "unable to build path" unless result.found?
+        path = ::{{@type}}.normalize_path({{path}})
+        result = ::{{@type}}::ROUTER.forest.{{method.downcase.id}}.find(path)
         path_param_names = result.params.keys
 
         # Convert all the params to a string
@@ -35,11 +43,6 @@ abstract class Orion::Router
 
         URI.new(path: path, query: query).to_s
       end
-    end
-
-    # make the full path available
-    protected def ROUTER::Helpers.%full_path
-      ::{{@type}}.normalize_path({{path}})
     end
   end
 end

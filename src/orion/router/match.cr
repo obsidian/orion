@@ -9,7 +9,7 @@ abstract class Orion::Router
     {% via = via.map(&.id.stringify.upcase) }
     {% for method in via.select { |method| Orion::HTTP_VERBS.includes? method } %}
       begin
-        {{ "Orion::Router.#{method.downcase.id}(#{path}, #{callable}, to: #{to}, controller: #{controller}, action: #{action}, name: #{name})".id }}
+        {{ "Orion::Router.#{method.downcase.id}(#{path}, #{callable}, to: #{to}, controller: #{controller}, action: #{action}, helper: #{name})".id }}
       rescue Radix::Tree::DuplicateError
         # do nothing
       end

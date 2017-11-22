@@ -1,11 +1,14 @@
 abstract class Orion::Router
   private macro setup_root
     {% if @type.superclass == ::Orion::Router %}
-      module Helpers
-      end
       alias ROUTER = self
-      BASE_PATH     = "/"
-      SHALLOW_PATH  = nil
+
+      module Helpers
+        extend self
+      end
+
+      BASE_PATH    = "/"
+      SHALLOW_PATH = nil
       ROUTE_SET = Orion::RouteSet.new
       FOREST = Orion::Forest.new
       PREFIXES = [] of String
@@ -18,11 +21,15 @@ abstract class Orion::Router
       def self.routes
         ROUTE_SET
       end
+
+      def self.forest
+        FOREST
+      end
     {% end %}
   end
 
   # Define a `GET /` route at the current path.
   macro root(callable = nil, *, to = nil, controller = nil, action = nil)
-    get "/", {{callable}}, to: {{to}}, controller: {{controller}}, action: {{action}}, name: "root"
+    get "/", {{callable}}, to: {{to}}, controller: {{controller}}, action: {{action}}, helper: "root"
   end
 end

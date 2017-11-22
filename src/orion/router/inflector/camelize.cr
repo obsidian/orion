@@ -1,3 +1,3 @@
 require "inflector"
 
-puts Inflector.camelize(ARGV[0]).inspect
+print Inflector.camelize(ARGV[0]).inspect

@@ -13,7 +13,7 @@ module Router::HandlersSpec
     end
   end
 
-  class Router < Orion::Router
+  class SampleRouter < Orion::Router
     use AppendHandler.new ", and I am a guardian"
     root ->(c : Context) { c.response.print "I am Groot" }
     scope "scoped" do
@@ -24,13 +24,13 @@ module Router::HandlersSpec
 
   describe "handlers" do
     it "should run root middleware" do
-      response = Router.test_route(:get, "/")
+      response = SampleRouter.test_route(:get, "/")
       response.status_code.should eq 200
       response.body.should eq "I am Groot, and I am a guardian"
     end
 
     it "should run group middleware" do
-      response = Router.test_route(:get, "/scoped")
+      response = SampleRouter.test_route(:get, "/scoped")
       response.status_code.should eq 200
       response.body.should eq "My name is Rocket, and I am NOT a racoon, and I am a guardian"
     end
