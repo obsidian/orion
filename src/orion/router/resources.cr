@@ -16,7 +16,7 @@ abstract class Orion::Router
 
       scope "/#{plural_name}" do
 
-        scope helper: {{ plural_name }} do
+        scope helper_prefix: {{ plural_name }} do
           {% if ((!only || (only && only.includes?(:index))) && (except && !except.includes?(:index))) %}
             get "/", controller: {{controller}}, action: index, helper: true
           {% end %}
@@ -26,7 +26,7 @@ abstract class Orion::Router
           {% end %}
         end
 
-        scope {{ "/:#{singular_name}_id" }}, concerns: concerns, helper: {{ singular_name }} do
+        scope {{ "/:#{singular_name}_id" }}, concerns: concerns, helper_prefix: {{ singular_name }} do
 
           {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
             get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }
@@ -66,7 +66,7 @@ abstract class Orion::Router
   macro resource(name, controller, *, only = nil, except = nil, concerns = nil)
     {% singular_name = run("./inflector/singularize.cr", name) %}
 
-    scope "/#{singular_name}", concerns: concerns, helper: {{singular_name}} do
+    scope "/#{singular_name}", concerns: concerns, helper_prefix: {{singular_name}} do
 
       {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
         get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }

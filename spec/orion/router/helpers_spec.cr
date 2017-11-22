@@ -4,7 +4,7 @@ module Router::HelpersSpec
   class SampleRouter < Orion::Router
     get "foo", c, helper: "foo"
     get "bars/:bar_id/locations/:location_id", c, helper: "bar"
-    scope helper: "scoped" do
+    scope helper_prefix: "scoped" do
       get "baz", c, helper: "baz"
       post "bazs", c, helper: {name: "baz", prefix: "create"}
       get "bazs", c, helper: {name: "baz", suffix: "index"}

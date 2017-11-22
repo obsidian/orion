@@ -1,12 +1,12 @@
 abstract class Orion::Router
   # Create a group at the specified path.
-  macro scope(path = "", *, clear_handlers = false, shallow_path = "", helper = nil, concerns = nil)
+  macro scope(path = "", *, clear_handlers = false, shallow_path = "", helper_prefix = nil, concerns = nil)
     {% counter = SCOPE_COUNTER[0] = SCOPE_COUNTER[0] + 1 %}
     {% superclass = @type %}
-    {% prefixes = PREFIXES + [helper] if helper %}
+    {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
     class RouterGroup{{counter}} < ::{{superclass}}
       # Add the prefixes to the router group if they exist
-      {% if helper %} PREFIXES = {{ prefixes }} {% end %}
+      {% if helper_prefix %} PREFIXES = {{ prefixes }} {% end %}
 
       # Set the base path
       BASE_PATH = File.join(::{{superclass}}::BASE_PATH, {{path}})
