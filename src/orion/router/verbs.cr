@@ -101,7 +101,7 @@ abstract class Orion::Router
       \{% end %}
 
       # Add the route
-      \%payload = Orion::Payload.new(handlers: HANDLERS, proc: \%proc, label: \%label)
+      \%payload = Orion::Payload.new(handlers: HANDLERS.dup, proc: \%proc, label: \%label)
       \%full_path = normalize_path(\{{path}}, \{{resource}})
       FOREST.{{method.downcase.id}}.add(\%full_path, \%payload)
       \{% if helper %}
