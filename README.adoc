@@ -159,8 +159,8 @@ end
 
 ### Instrumenting handlers _(a.k.a. middleware)_
 
-Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
-can be inserted directly in your routes by using the `use` macro.
+Instances or Classes implementing link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
+can be inserted directly in your routes by using the `use` method.
 
 [quote]
 Handlers will only apply to the routes specified below them, so be sure to place
@@ -168,8 +168,8 @@ your handlers near the top of your route.
 
 ```crystal
 router MyApplicationRouter do
-  use HTTP::ErrorHandler.new
-  use HTTP::CompressHandler.new
+  use HTTP::ErrorHandler
+  use HTTP::LogHandler.new(File.open("tmp/application.log"))
 end
 ```
 

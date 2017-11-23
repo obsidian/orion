@@ -1,6 +1,7 @@
 require "../../spec_helper"
 
 module Router::HandlersSpec
+
   class AppendHandler
     include HTTP::Handler
 
@@ -14,6 +15,7 @@ module Router::HandlersSpec
   end
 
   router SampleRouter do
+    use HTTP::ErrorHandler
     use AppendHandler.new ", and I am a guardian"
     root ->(c : Context) { c.response.print "I am Groot" }
     scope "scoped" do

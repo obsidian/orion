@@ -8,12 +8,20 @@ abstract class Orion::Router
       HANDLERS = ::Orion::HandlerList.new
     {% end %}
 
-    private def self.use(handler : HTTP::Handler)
+    def self.use(handler : HTTP::Handler)
       HANDLERS << handler
+    end
+
+    def self.use(handler)
+      use handler.new
     end
   end
 
   def use(handler : HTTP::Handler)
     @handlers << handler
+  end
+
+  def use(handler)
+    use handler.new
   end
 end
