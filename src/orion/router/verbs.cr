@@ -60,29 +60,27 @@ abstract class Orion::Router
     #   }
     # end
     # ```
-    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = {{method.downcase.id}}, helper = nil, constraints = nil, resource = false)
+    macro {{method.downcase.id}}(path, callable = nil, *, to = nil, controller = nil, action = {{method.downcase.id}}, helper = nil, constraints = nil, resource = false, format = nil, accept = nil)
+      \%full_path = normalize_path(\{{path}}, \{{resource}})
       \{% arg_count = 0 }
       \{% arg_count = arg_count + 1 if callable %}
       \{% arg_count = arg_count + 1 if controller %}
       \{% arg_count = arg_count + 1 if to %}
 
-      # Raise arg errors
-      \{% if arg_count == 0 %}
+      \{% if arg_count == 0 %} # Raise arg errors
         \{% raise "must supply one of: `callable`, `to`, or `controller`" %}
       \{% elsif arg_count > 1 %}
         \{% raise "must supply only one of: `callable`, `to`, or `controller`" %}
       \{% end %}
 
-      # Convert to into `controller` & `action`.
-      \{% if to && !controller %}
+      \{% if to && !controller %} # Convert to into `controller` & `action`.
         \{% parts = to.split("#") %}
         \{% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
         \{% action = parts[1].id %}
         \{% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
       \{% end %}
 
-      # Build the proc from callable
-      \{% if callable %}
+      \{% if callable %} # Build the proc from callable
         \%label = \{{callable.id}}.is_a?(Proc) ? "proc" : \{{callable.id.stringify}}
         \%proc = -> (context : HTTP::Server::Context) {
           \{{callable}}.call(context)
@@ -90,8 +88,7 @@ abstract class Orion::Router
         }
       \{% end %}
 
-      # Build the proc from a controller
-      \{% if controller %}
+      \{% if controller %} # Build the proc from a controller
         \{% action = action %}
         \%label = [\{{controller.stringify}}, \{{action.stringify}}].join("#")
         \%proc = -> (context : HTTP::Server::Context) {
@@ -100,18 +97,71 @@ abstract class Orion::Router
         }
       \{% end %}
 
-      # Add the route
-      \%payload = Orion::Payload.new(handlers: HANDLERS.dup, proc: \%proc, label: \%label)
-      \%full_path = normalize_path(\{{path}}, \{{resource}})
+      # Build the payload
+      \%payload = Orion::Payload.new(
+        handlers: HANDLERS.dup,
+        constraints: CONSTRAINTS.dup,
+        proc: \%proc,
+        label: \%label
+      )
+
+      # Add the route to the correct forest and tree
       FOREST.{{method.downcase.id}}.add(\%full_path, \%payload)
-      \{% if helper %}
+
+      # Add the route to the route set
+      ROUTE_SET.add(method: :{{method.id}}, path: \%full_path, payload: \%payload) unless \{{callable}} == ERR404
+
+      \{% if helper %} # Define the helper
         define_helper(method: {{method}}, path: \{{path}}, spec: \{{helper}})
       \{% end %}
-      ROUTE_SET.add(method: :{{method.id}}, path: \%full_path, payload: \%payload)
+
+      \{% if constraints %} # Define the param constraints
+        \{% constraints_class = run "./inflector/random_const.cr", "ParamConstraints" %}
+        # :nodoc:
+        class \{{constraints_class}} < ::Orion::Constraint
+          def matches?
+            \{% for key, value in constraints %}
+              return false unless \{{ value }}.match request.query_params[\{{ key.id.stringify }}]?.to_s
+            \{% end %}
+            true
+          end
+        end
+        \%payload.constraints << \{{constraints_class}}
+      \{% end %}
+
+      \{% if format %} # Define the format constraint
+        \{% constraints_class = run "./inflector/random_const.cr", "FormatConstraints" %}
+        # :nodoc:
+        class \{{constraints_class}} < ::Orion::Constraint
+          def matches?
+            File.extname(request.path).lchop('.') == \{{format}} ||
+              File.extname(request.path).lchop('.') =~ \{{format}}
+          end
+        end
+        \%payload.constraints << \{{constraints_class}}
+      \{% end %}
+
+      \{% if accept %} # Define the content type constraint
+        \{% constraints_class = run "./inflector/random_const.cr", "ContentTypeConstraints" %}
+        # :nodoc:
+        class \{{constraints_class}} < ::Orion::Constraint
+          def matches?
+            (request.headers["Accept"]? || "*/*").split(',').map(&.split(';')[0]).any? do |content_type|
+              \{% if accept.is_a?(ArrayLiteral) %}
+                \{{ accept }}.any? { |m| m == content_type || m =~ content_type }
+              \{% else %}
+                content_type == \{{ accept }} ||
+                  content_type =~ \{{ accept }}
+              \{% end %}
+            end
+          end
+        end
+        \%payload.constraints << \{{constraints_class}}
+      \{% end %}
     end
   {% end %}
 
-  # nodoc
+  # :nodoc:
   def self.normalize_path(path : String, resource = false)
     base = (shallow_path && resource) ? shallow_path : base_path
     parts = [base, path].map(&.to_s)

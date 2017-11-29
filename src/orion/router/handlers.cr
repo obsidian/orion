@@ -1,4 +1,5 @@
 abstract class Orion::Router
+  HANDLERS = ::Orion::HandlerList.new
   @handlers = ::Orion::HandlerList.new
 
   private macro setup_handlers
@@ -15,6 +16,14 @@ abstract class Orion::Router
     def self.use(handler)
       use handler.new
     end
+
+    def self.handlers
+      HANDLERS
+    end
+  end
+
+  def self.handlers
+    HANDLERS
   end
 
   def use(handler : HTTP::Handler)

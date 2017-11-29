@@ -4,6 +4,7 @@ require "http"
 
 abstract class Orion::Router
   private macro inherited
+    setup_constraints
     setup_handlers
     setup_concerns
 

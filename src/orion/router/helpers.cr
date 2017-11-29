@@ -1,6 +1,4 @@
 abstract class Orion::Router
-
-
   private macro define_helper(*, method, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 
@@ -19,9 +17,7 @@ abstract class Orion::Router
     {% method_name = name_parts.map(&.id).join("_").id %}
 
     module ::{{ Helpers }}
-      extend self
-
-      def {{method_name.id}}_path(**params)
+      def self.{{method_name.id}}_path(**params)
         path = ::{{@type}}.normalize_path({{path}})
         result = ::{{@type}}::ROUTER.forest.{{method.downcase.id}}.find(path)
         path_param_names = result.params.keys
@@ -42,6 +38,15 @@ abstract class Orion::Router
         query = HTTP::Params.encode(params_hash) unless params_hash.empty?
 
         URI.new(path: path, query: query).to_s
+      end
+
+      def {{method_name.id}}_path(**params)
+        ::{{ Helpers }}.{{method_name.id}}_path(**params)
+      end
+
+      def {{method_name.id}}_url(**params)
+        uri = URI.parse ::{{ Helpers }}.{{method_name.id}}_path(**params)
+        uri.host = @context.request.host_with_port
       end
     end
   end

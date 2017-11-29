@@ -1,7 +1,6 @@
 require "../../spec_helper"
 
 module Router::HandlersSpec
-
   class AppendHandler
     include HTTP::Handler
 
@@ -35,6 +34,16 @@ module Router::HandlersSpec
       response = SampleRouter.test_route(:get, "/scoped")
       response.status_code.should eq 200
       response.body.should eq "My name is Rocket, and I am NOT a racoon, and I am a guardian"
+    end
+
+    it "should run handlers on unmatched routes" do
+      response = SampleRouter.test_route(:get, "/unmatched")
+      response.body.should eq "404 Not Found\n, and I am a guardian"
+    end
+
+    it "should run handlers on unmatched group routes" do
+      response = SampleRouter.test_route(:get, "/scoped/unmatched")
+      response.body.should eq "404 Not Found\n, and I am NOT a racoon, and I am a guardian"
     end
   end
 end
