@@ -111,15 +111,8 @@ module Orion::Radix
         # adjust priorities
         node.sort!
       elsif path_reader.pos == path.bytesize && path_reader.pos == node.key.bytesize
-        # determine if path matches key and potentially be a duplicate
-        # and raise if is the case
-
-        if node.payload?
-          raise DuplicateError.new(path)
-        else
-          # assign payload since this is an empty node
-          node.payload = payload
-        end
+        # assign payload since this is an empty node
+        node.payload = payload
       elsif path_reader.pos > 0 && path_reader.pos < node.key.bytesize
         # determine if current node key needs to be split to accomodate new
         # children nodes

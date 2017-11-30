@@ -8,7 +8,9 @@ end
 
 macro router(name)
   class {{ name }} < ::Orion::Router
-    {{yield}}
+    scope "/" do
+      {{yield}}
+    end
   end
 end
 

@@ -1,12 +1,5 @@
 abstract class Orion::Router
-  macro scope(**params)
-    scope("/", {{**params}}) do
-      {{ yield }}
-    end
-  end
-
-  # Create a group at the specified path.
-  macro scope(path = "", *, clear_handlers = false, helper_prefix = nil)
+  macro scope(*, clear_handlers = false, helper_prefix = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
     {% scope_class_name = run "./inflector/random_const.cr", "Scope" %}
 
@@ -17,14 +10,29 @@ abstract class Orion::Router
         PREFIXES = {{ prefixes }}
       {% end %}
 
-      # Set the base path
-      BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{path}})
-
       # Clear the handlers (if specified)
       HANDLERS.clear if {{clear_handlers}}
 
       # Yield the block
       {{yield}}
+    end
+  end
+
+  # Create a group at the specified path.
+  macro scope(path, *, clear_handlers = false, helper_prefix = nil)
+    scope(clear_handlers: {{clear_handlers}}, helper_prefix: {{helper_prefix}}) do
+      # Set the base path
+      BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{path}})
+
+      {{ yield }}
+
+      # Match all remaining paths
+      match "*", ->(c : HTTP::Server::Context){
+        context.response.respond_with_error(
+          message: HTTP.default_status_message_for(404),
+          code: 404
+        )
+      }
     end
   end
 end

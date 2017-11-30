@@ -19,7 +19,7 @@ module Router::MatchSpec
     match "/callable", ->(c : Context){ c.response.print "callable match" }
     match "/to-match", to: "Samples#to_match"
     match "/match-actionless", controller: SamplesController
-    match "/match-action", controller: SamplesController, action: action_match # , helper: "sample_verbose"
+    match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
   end
 
   {% for verb in Orion::HTTP_VERBS %}
