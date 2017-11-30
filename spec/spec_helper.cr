@@ -1,10 +1,10 @@
 require "../src/orion"
 require "spec"
 
-def mock_context(verb, resource, host = "example.org", *, io = IO::Memory.new)
+def mock_context(verb, path, host = "example.org", *, io = IO::Memory.new)
   headers = HTTP::Headers.new
   headers["HOST"] = host
-  request = HTTP::Request.new(verb.to_s.upcase, resource, headers)
+  request = HTTP::Request.new(verb.to_s.upcase, path, headers)
   response = HTTP::Server::Response.new io
   HTTP::Server::Context.new(request, response)
 end

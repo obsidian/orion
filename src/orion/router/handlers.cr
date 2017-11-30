@@ -1,12 +1,12 @@
 abstract class Orion::Router
-  HANDLERS = ::Orion::HandlerList.new
-  @handlers = ::Orion::HandlerList.new
+  HANDLERS = [] of HTTP::Handler
+  getter handlers = [] of HTTP::Handler
 
   private macro setup_handlers
     {% if @type.superclass != ::Orion::Router %}
       HANDLERS = ::{{@type.superclass}}::HANDLERS.dup
     {% else %}
-      HANDLERS = ::Orion::HandlerList.new
+      HANDLERS = [] of HTTP::Handler
     {% end %}
 
     def self.use(handler : HTTP::Handler)

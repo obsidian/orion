@@ -25,9 +25,6 @@ abstract class Orion::Router
 
       # Yield the block
       {{yield}}
-
-      # Match the rest of the paths
-      match "*", ERR404
     end
   end
 end

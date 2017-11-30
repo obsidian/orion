@@ -7,23 +7,19 @@ abstract class Orion::Router
         extend self
       end
 
-      BASE_PATH    = "/"
-      SHALLOW_PATH = nil
-      ROUTE_SET = Orion::RouteSet.new
-      FOREST = Orion::Forest.new
+      BASE_PATH = "/"
+      TREE = Orion::Radix::Tree.new
       PREFIXES = [] of String
 
       # Instance vars
-      @route_set = ROUTE_SET
-      @handlers = Orion::HandlerList.new
-      @forest = FOREST
+      @tree = TREE
 
       def self.routes
         ROUTE_SET
       end
 
-      def self.forest
-        FOREST
+      def self.tree
+        TREE
       end
     {% end %}
   end

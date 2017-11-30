@@ -5,7 +5,7 @@ abstract class Orion::Router
     {% if @type.superclass != ::Orion::Router %}
       CONSTRAINTS = ::{{@type.superclass}}::CONSTRAINTS.dup
     {% else %}
-      CONSTRAINTS = [] of Orion::Constraint.class
+      CONSTRAINTS = [] of Orion::Radix::Constraint.class
     {% end %}
   end
 
@@ -21,7 +21,7 @@ abstract class Orion::Router
     scope do
       {% constraints_class = run "./inflector/random_const.cr", "CustomConstraints" %}
       # :nodoc:
-      class {{constraints_class}} < ::Orion::Constraint
+      struct {{constraints_class}} < ::Orion::Radix::Constraint
 
         def matches?
           {% if headers %} # Check headers

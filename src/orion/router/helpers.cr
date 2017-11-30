@@ -1,5 +1,5 @@
 abstract class Orion::Router
-  private macro define_helper(*, method, path, spec)
+  private macro define_helper(*, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 
     {% if spec.is_a? BoolLiteral %}
@@ -17,9 +17,9 @@ abstract class Orion::Router
     {% method_name = name_parts.map(&.id).join("_").id %}
 
     module ::{{ Helpers }}
-      def self.{{method_name.id}}_path(**params)
+      def self.{{method_name.id}}_path(*, host = "example.org", **params)
         path = ::{{@type}}.normalize_path({{path}})
-        result = ::{{@type}}::ROUTER.forest.{{method.downcase.id}}.find(path)
+        result = ::{{@type}}::ROUTER.tree.find(path, host: host)
         path_param_names = result.params.keys
 
         # Convert all the params to a string
@@ -45,7 +45,7 @@ abstract class Orion::Router
       end
 
       def {{method_name.id}}_url(**params)
-        uri = URI.parse ::{{ Helpers }}.{{method_name.id}}_path(**params)
+        uri = URI.parse {{method_name.id}}_path(**params, host: request.host_with_port)
         uri.host = @context.request.host_with_port
       end
     end

@@ -1,12 +1,12 @@
 abstract class Orion::Router
   include HTTP::Handler
-  ERR404 = ->(c : HTTP::Server::Context){ c.response.respond_with_error(message: HTTP.default_status_message_for(404), code: 404); nil }
 
   alias Context = HTTP::Server::Context
 
-  @route_set = RouteSet.new
-  @handlers = HandlerList.new
-  @forest = Forest.new
+  @app : HTTP::Handler?
+  @tree = Radix::Tree.new
+
+  delegate call, to: app
 
   def self.listen(host : String = "127.0.0.1", port = 3000, autoclose : Bool = true, reuse_port : Bool = false)
     router = new(
@@ -26,29 +26,51 @@ abstract class Orion::Router
     )
   end
 
-  def listen(reuse_port : Bool = false)
-    @server.list(reuse_port: reuse_port)
+  def app
+    @app ||= if handlers.empty?
+      @tree
+    else
+      HTTP::Server.build_middleware(@handlers, ->(context : HTTP::Server::Context){ @tree.call(context) ; nil })
+    end
   end
 
-  def call(context : HTTP::Server::Context) : Nil
-    # Gather the details
-    request = context.request
-    method = request.method.downcase
-    path = request.path.rchop File.extname(request.path)
+  def listen(reuse_port : Bool = false)
+    listen {}
+  end
 
-    # Find the route or 404
-    result = @forest[method].find(path)
-
-    if result.found?
-      handlers = [Handlers::ParamsInjector.new(result.params)] + @handlers + result.payload.handlers
-      handlers << Handlers::ConstraintsChecker.new(result.payload.constraints)
-      proc = result.payload.proc
-    else
-      handlers = @handlers + self.class.handlers
-      proc = ERR404
+  def listen(reuse_port : Bool = false)
+    tcp_server = @server.bind(reuse_port)
+    yield self
+    until @server.@wants_close
+      spawn tcp_server.handle_client(tcp_server.accept?)
     end
+  end
 
-    HTTP::Server.build_middleware(handlers, proc).call(context)
+  # :nodoc:
+  def self.normalize_path(path : String)
+    base = base_path
+    parts = [base, path].map(&.to_s)
+    String.build do |str|
+      parts.each_with_index do |part, index|
+        part.check_no_null_byte
+
+        str << "/" if index > 0
+
+        byte_start = 0
+        byte_count = part.bytesize
+
+        if index > 0 && part.starts_with?("/")
+          byte_start += 1
+          byte_count -= 1
+        end
+
+        if index != parts.size - 1 && part.ends_with?("/")
+          byte_count -= 1
+        end
+
+        str.write part.unsafe_byte_slice(byte_start, byte_count)
+      end
+    end
   end
 end
 

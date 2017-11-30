@@ -7,15 +7,10 @@ abstract class Orion::Router
     setup_constraints
     setup_handlers
     setup_concerns
+    setup_root
 
     def self.base_path
       BASE_PATH
     end
-
-    def self.shallow_path
-      SHALLOW_PATH
-    end
-
-    setup_root
   end
 end

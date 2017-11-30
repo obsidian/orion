@@ -89,8 +89,8 @@ object that responds to `#call(cxt : HTTP::Server::Context)`.
 
 ```crystal
 router MyApplicationRouter do
-  post "users", ->(cxt : HTTP::Server::Context) {
-    cxt.response.puts "foo"
+  post "users", ->(context : HTTP::Server::Context) {
+    context.response.puts "foo"
   }
 end
 ```
@@ -288,6 +288,10 @@ end
 *TODO*
 
 #### Format constraints
+
+*TODO*
+
+#### Mime-Type constraints
 
 *TODO*
 
