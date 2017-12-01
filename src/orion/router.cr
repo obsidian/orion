@@ -3,47 +3,32 @@ abstract class Orion::Router
 
   alias Context = HTTP::Server::Context
 
-  @app : HTTP::Handler?
+  @app : HTTP::Handler
   @tree = Radix::Tree.new
 
-  delegate call, to: app
+  delegate call, to: @app
 
-  def self.listen(host : String = "127.0.0.1", port = 3000, autoclose : Bool = true, reuse_port : Bool = false)
-    router = new(
-      host: host,
-      port: port,
-      handler: self
-    )
-    router.listen(reuse_port: reuse_port)
+  def self.listen(*args, **params, reuse_port : Bool = true)
+    new(*args, **params).listen(reuse_port: reuse_port)
   end
 
-  def initialize(host : String = "127.0.0.1", port = 3000, autoclose : Bool = true)
+  def self.listen(*, autoclose = true, host = "127.0.0.1", port = 3000, reuse_port = false)
+    router = new(autoclose: autoclose)
+    server = HTTP::Server.new(host: host, port: port, handler: router)
+    server.listen(reuse_port: reuse_port)
+  end
+
+  def initialize(autoclose : Bool = true)
     use Handlers::AutoClose.new if autoclose
-    @server = HTTP::Server.new(
-      host: host,
-      port: port,
-      handler: self
-    )
+    @app = build
   end
 
-  def app
-    @app ||= if handlers.empty?
-      @tree
-    else
-      HTTP::Server.build_middleware(@handlers, ->(context : HTTP::Server::Context){ @tree.call(context) ; nil })
-    end
-  end
-
-  def listen(reuse_port : Bool = false)
-    listen {}
-  end
-
-  def listen(reuse_port : Bool = false)
-    tcp_server = @server.bind(reuse_port)
-    yield self
-    until @server.@wants_close
-      spawn tcp_server.handle_client(tcp_server.accept?)
-    end
+  def build
+    return @tree if handlers.empty?
+    HTTP::Server.build_middleware(@handlers, ->(context : HTTP::Server::Context){
+      @tree.call(context)
+      nil
+    })
   end
 
   # :nodoc:

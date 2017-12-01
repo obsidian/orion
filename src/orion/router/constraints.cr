@@ -21,7 +21,7 @@ abstract class Orion::Router
     scope do
       {% constraints_class = run "./inflector/random_const.cr", "CustomConstraints" %}
       # :nodoc:
-      struct {{constraints_class}} < ::Orion::Radix::Constraint
+      class {{constraints_class}} < ::Orion::Radix::Constraint
 
         def matches?
           {% if headers %} # Check headers

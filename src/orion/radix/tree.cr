@@ -289,7 +289,7 @@ module Orion::Radix
     end
 
     private def check_constraints(node : Node, request : HTTP::Request)
-      return true unless node.payload?
+      return true if !node.payload? || node.payload.constraints.empty?
       node.payload.constraints.all?(&.new(request).matches?)
     end
 

@@ -1,10 +1,12 @@
 module Orion::Radix
-  abstract struct Constraint
+  class Constraint
     getter request : HTTP::Request
 
     def initialize(@request : HTTP::Request)
     end
 
-    abstract def matches? : Bool
+    def matches?
+      true
+    end
   end
 end

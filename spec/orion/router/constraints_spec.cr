@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 module Router::ConstraintsSpec
-  struct TestConstraint < ::Orion::Radix::Constraint
+  class TestConstraint < ::Orion::Radix::Constraint
 
     def matches?
       request.headers["TEST"]? == "true"

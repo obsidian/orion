@@ -55,7 +55,8 @@ abstract class Orion::Router
 
     {% if via != :all %} # Define the method constraint
       {% constraints_class = run "./inflector/random_const.cr", "MethodConstraint" %}
-      struct {{constraints_class}} < ::Orion::Radix::Constraint
+      # :nodoc:
+      class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
           {% if via.is_a? ArrayLiteral %}
             {{ via.map(&.id.stringify.downcase) }}.any?(&.== request.method.downcase)
@@ -70,7 +71,7 @@ abstract class Orion::Router
     {% if constraints %} # Define the param constraints
       {% constraints_class = run "./inflector/random_const.cr", "ParamConstraint" %}
       # :nodoc:
-      struct {{constraints_class}} < ::Orion::Radix::Constraint
+      class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
           {% for key, value in constraints %}
             return false unless {{ value }}.match request.query_params[{{ key.id.stringify }}]?.to_s
@@ -84,7 +85,7 @@ abstract class Orion::Router
     {% if format %} # Define the format constraint
       {% constraints_class = run "./inflector/random_const.cr", "FormatConstraints" %}
       # :nodoc:
-      struct {{constraints_class}} < ::Orion::Radix::Constraint
+      class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
           File.extname(request.path).lchop('.') == {{format}} ||
             File.extname(request.path).lchop('.') =~ {{format}}
@@ -96,7 +97,7 @@ abstract class Orion::Router
     {% if accept %} # Define the content type constraint
       {% constraints_class = run "./inflector/random_const.cr", "ContentTypeConstraints" %}
       # :nodoc:
-      struct {{constraints_class}} < ::Orion::Radix::Constraint
+      class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
           (request.headers["Accept"]? || "*/*").split(',').map(&.split(';')[0]).any? do |content_type|
             {% if accept.is_a?(ArrayLiteral) %}
