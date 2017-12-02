@@ -21,6 +21,10 @@ abstract class Orion::Router
       def self.tree
         TREE
       end
+
+      def self.viz
+        tree.viz
+      end
     {% end %}
   end
 

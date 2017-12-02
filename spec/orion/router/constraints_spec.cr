@@ -40,6 +40,8 @@ module Router::ConstraintsSpec
     constraints TestConstraint do
       get "lima", ->(c : Context) { c.response.print "matches cookies" }
     end
+
+    puts viz
   end
 
   describe "constraints" do

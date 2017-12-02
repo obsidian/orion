@@ -1,12 +1,8 @@
-module Orion::Radix
-  class Constraint
-    getter request : HTTP::Request
+module Orion::Radix::Constraint
+  alias Proc = ::Proc(Orion::Request, , Bool)
 
-    def initialize(@request : HTTP::Request)
-    end
-
-    def matches?
-      true
-    end
+  def initialize(@request : Orion::Request)
   end
+
+  abstract def matches?(request : Orion::Request)
 end

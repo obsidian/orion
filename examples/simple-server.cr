@@ -1,8 +1,18 @@
 require "../src/orion"
 
 router MyApplication do
-  root ->(context : Context) do
-    context.response.puts "Hello world"
+  use HTTP::LogHandler.new
+
+  get "/*", ->(context : Context) do
+    context.response.puts "reviews"
+  end
+
+  get "/resources/js/*" , ->(context : Context) do
+    context.response.puts "somejs"
+  end
+
+  get "/robots.txt", ->(context : Context) do
+    context.response.puts "robots"
   end
 end
 

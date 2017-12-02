@@ -24,9 +24,10 @@ abstract class Orion::Router
       # Set the base path
       BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{path}})
 
+      # Yield the block
       {{ yield }}
 
-      # Match all remaining paths
+      # 404 to any unmatched path
       match "*", ->(c : HTTP::Server::Context){
         context.response.respond_with_error(
           message: HTTP.default_status_message_for(404),

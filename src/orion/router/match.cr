@@ -2,6 +2,10 @@ require "radix"
 
 abstract class Orion::Router
   macro match(path, callable = nil, *, to = nil, controller = nil, action = match, helper = nil, constraints = nil, format = nil, accept = nil, via = :all)
+    {% if !format && path.split(".").size > 1 %}
+      {% format = path.split(".")[-1] %}
+      {% path = path.split(".")[0..-2].join(".") %}
+    {% end %}
     {% arg_count = 0 }
     {% arg_count = arg_count + 1 if callable %}
     {% arg_count = arg_count + 1 if controller %}
@@ -58,6 +62,7 @@ abstract class Orion::Router
       # :nodoc:
       class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
+          return true if request.method.downcase == "*"
           {% if via.is_a? ArrayLiteral %}
             {{ via.map(&.id.stringify.downcase) }}.any?(&.== request.method.downcase)
           {% else %}
@@ -74,6 +79,9 @@ abstract class Orion::Router
       class {{constraints_class}} < ::Orion::Radix::Constraint
         def matches?
           {% for key, value in constraints %}
+            puts request.path
+            puts({ {{key.id.stringify}} => {{value}} })
+            puts request.query_params.inspect
             return false unless {{ value }}.match request.query_params[{{ key.id.stringify }}]?.to_s
           {% end %}
           true

@@ -1,3 +1,5 @@
+require "../../spec_helper"
+
 module Router::HelpersSpec
   c = ->(c : HTTP::Server::Context) {}
 

@@ -1,3 +1,5 @@
+require "../../spec_helper"
+
 module Router::MatchSpec
   class SamplesController
     include Orion::Routable

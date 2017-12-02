@@ -1,3 +1,5 @@
+require "../../spec_helper"
+
 module Router::VerbsSpec
   {% for verb in Orion::HTTP_VERBS %}
     module {{ verb.capitalize.id }}

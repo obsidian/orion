@@ -8,27 +8,10 @@ abstract class Orion::Router
 
   delegate call, to: @app
 
-  def self.listen(*args, **params, reuse_port : Bool = true)
-    new(*args, **params).listen(reuse_port: reuse_port)
-  end
-
   def self.listen(*, autoclose = true, host = "127.0.0.1", port = 3000, reuse_port = false)
     router = new(autoclose: autoclose)
     server = HTTP::Server.new(host: host, port: port, handler: router)
     server.listen(reuse_port: reuse_port)
-  end
-
-  def initialize(autoclose : Bool = true)
-    use Handlers::AutoClose.new if autoclose
-    @app = build
-  end
-
-  def build
-    return @tree if handlers.empty?
-    HTTP::Server.build_middleware(@handlers, ->(context : HTTP::Server::Context){
-      @tree.call(context)
-      nil
-    })
   end
 
   # :nodoc:
@@ -57,6 +40,20 @@ abstract class Orion::Router
       end
     end
   end
+
+  def initialize(autoclose : Bool = true)
+    use Handlers::AutoClose.new if autoclose
+    @app = build
+  end
+
+  def build
+    return @tree if handlers.empty?
+    HTTP::Server.build_middleware handlers, ->(context : HTTP::Server::Context) do
+      @tree.call(context)
+      nil
+    end
+  end
+
 end
 
 require "./router/*"

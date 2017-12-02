@@ -1,27 +1,36 @@
-module Orion::Radix
-  class Result
-    @key : String?
-    @nodes = [] of Node
+class Orion::Radix::Result
+  include HTTP::Handler
 
-    getter params = {} of String => String
-    getter! payload : Payload
+  @key : String?
+  @nodes = [] of Node
 
-    def found?
-      !!payload?
-    end
+  getter params = {} of String => String
+  getter payloads : Array(Payload)?
 
-    def key
-      @key ||= String.build do |io|
-        @nodes.each do |node|
-          io << node.key
-        end
+  def key
+    @key ||= String.build do |io|
+      @nodes.each do |node|
+        io << node.key
       end
     end
-
-    def use(node : Node, payload = true)
-      @nodes << node
-      @payload = node.payload if payload && node.payload?
-    end
-
   end
+
+  def track(node : Node)
+    @key = nil
+    @nodes << node
+  end
+
+  def use(node : Node)
+    track node
+    @payloads = node.payloads
+    self
+  end
+
+  def call(context : HTTP::Server::Context)
+    if payloads = @payloads
+      params.each { |k, v| context.request.query_params[k] = v }
+      payloads.find(&.matches_constraints? context.request).not_nil!.call(context)
+    end
+  end
+
 end
