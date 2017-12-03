@@ -28,10 +28,91 @@ struct Orion::Radix::Walker
     @path_reader = Char::Reader.new(path)
   end
 
-  def while_matching
-    while key_reader.has_next? && path_reader.has_next? && (key_reader.current_char == '*' || key_reader.current_char == ':' || path_reader.current_char == key_reader.current_char)
-      yield
-    end
+  def advance
+    key_reader.next_char
+    path_reader.next_char
+  end
+
+  def catch_all?
+    key_reader.pos < key.bytesize && (
+      (key_char == '/' && peek_key_char == '*') || key_char == '*'
+    )
+  end
+
+  def end?
+    !path_reader.has_next? && !key_reader.has_next?
+  end
+
+  def key_char
+    key_reader.current_char
+  end
+
+  def key_continues?
+    key_reader.has_next?
+  end
+
+  def key_param_size
+    self.class.detect_param_size(key_reader)
+  end
+
+  def key_pos
+    key_reader.pos
+  end
+
+  def key_pos=(value)
+    key_reader.pos = value
+  end
+
+  def key_slice(*args)
+    key_reader.string.byte_slice(*args)
+  end
+
+  def key_trailing_slash_end?
+    key_reader.pos + 1 == key.bytesize && key_reader.current_char == '/'
+  end
+
+  def path_char
+    path_reader.current_char
+  end
+
+  def path_continues?
+    path_reader.has_next?
+  end
+
+  def path_trailing_slash_end?
+    key.bytesize > 0 && path_reader.pos + 1 == path.bytesize && path_reader.current_char == '/'
+  end
+
+  def peek_key_char
+    key_reader.peek_next_char
+  end
+
+  def marker?
+    key_char == '/' || key_char == ':' || key_char == '*'
+  end
+
+  def next_key_char
+    key_reader.next_char
+  end
+
+  def path_param_size
+    self.class.detect_param_size(path_reader)
+  end
+
+  def path_slice(*args)
+    path_reader.string.byte_slice(*args)
+  end
+
+  def path_pos
+    path_reader.pos
+  end
+
+  def path_pos=(value)
+    path_reader.pos = value
+  end
+
+  def remaining_path
+    path_slice path_pos
   end
 
   def shared_key?
@@ -54,90 +135,10 @@ struct Orion::Radix::Walker
     !different && (!key_reader.has_next? || marker?)
   end
 
-  def path_continues?
-    path_reader.has_next?
+  def while_matching
+    while key_reader.has_next? && path_reader.has_next? && (key_reader.current_char == '*' || key_reader.current_char == ':' || path_reader.current_char == key_reader.current_char)
+      yield
+    end
   end
 
-  def catch_all?
-    key_reader.pos < key.bytesize && (
-      (key_char == '/' && peek_key_char == '*') || key_char == '*'
-    )
-  end
-
-  def path_trailing_slash_end?
-    key.bytesize > 0 && path_reader.pos + 1 == path.bytesize && path_reader.current_char == '/'
-  end
-
-  def key_trailing_slash_end?
-    key_reader.pos + 1 == key.bytesize && key_reader.current_char == '/'
-  end
-
-  def key_continues?
-    key_reader.has_next?
-  end
-
-  def advance
-    key_reader.next_char
-    path_reader.next_char
-  end
-
-  def remaining_path
-    path_slice path_pos
-  end
-
-  def marker?
-    key_char == '/' || key_char == ':' || key_char == '*'
-  end
-
-  def end?
-    !path_reader.has_next? && !key_reader.has_next?
-  end
-
-  def path_char
-    path_reader.current_char
-  end
-
-  def key_char
-    key_reader.current_char
-  end
-
-  def peek_key_char
-    key_reader.peek_next_char
-  end
-
-  def next_key_char
-    key_reader.next_char
-  end
-
-  def key_slice(*args)
-    key_reader.string.byte_slice(*args)
-  end
-
-  def path_slice(*args)
-    path_reader.string.byte_slice(*args)
-  end
-
-  def key_pos
-    key_reader.pos
-  end
-
-  def key_pos=(value)
-    key_reader.pos = value
-  end
-
-  def path_pos
-    path_reader.pos
-  end
-
-  def path_pos=(value)
-    path_reader.pos = value
-  end
-
-  def key_param_size
-    self.class.detect_param_size(key_reader)
-  end
-
-  def path_param_size
-    self.class.detect_param_size(path_reader)
-  end
 end

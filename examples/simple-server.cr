@@ -1,8 +1,6 @@
 require "../src/orion"
 
 router MyApplication do
-  use HTTP::LogHandler.new
-
   get "/*", ->(context : Context) do
     context.response.puts "reviews"
   end

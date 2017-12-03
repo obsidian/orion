@@ -163,6 +163,18 @@ class Orion::Radix::Node
 
       return result.use(self) if block.call(self)
     end
+
+    if dynamic_children?
+      dynamic_children.each do |child|
+        if child.should_walk?(path)
+          result.track self
+          sub_result = child.find(path, result) do |node|
+            block.call(node)
+          end
+          return sub_result if sub_result
+        end
+      end
+    end
     nil
   end
 
@@ -178,6 +190,18 @@ class Orion::Radix::Node
     String.build do |io|
       viz(0, io)
     end
+  end
+
+  protected def dynamic?
+    key[0] == ':' || key[0] == '*'
+  end
+
+  protected def dynamic_children?
+    children.any? &.dynamic?
+  end
+
+  protected def dynamic_children
+    children.select &.dynamic?
   end
 
   protected def key=(@key)
