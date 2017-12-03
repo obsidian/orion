@@ -13,11 +13,11 @@ class Orion::Radix::Tree
   @root = Node.new
   delegate add, viz, to: @root
 
-  def call(context : Orion::Context)
+  def call(context : ::HTTP::Server::Context)
     (find(context.request) || NOT_FOUND).call(context)
   end
 
-  def find(request : Orion::Request)
+  def find(request : ::HTTP::Request)
     path = request.path
     @root.find(path.rchop(File.extname(path)), Result.new(request.path_params), &.matches_constraints?(request))
   end
@@ -25,6 +25,6 @@ class Orion::Radix::Tree
   def find(path : String, host = "example.com")
     headers = HTTP::Headers.new
     headers["HOST"] = host
-    find Orion::Request.new("*", path, headers)
+    find ::HTTP::Request.new("*", path, headers)
   end
 end

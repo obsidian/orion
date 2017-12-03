@@ -10,7 +10,7 @@ class Orion::CookiesConstraint
   def initialize(@constraints : Hash(String, Regex | String))
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     @constraints.all? do |key, regex_or_string|
       if cookie = request.cookies[key]?
         matches? cookie, regex_or_string

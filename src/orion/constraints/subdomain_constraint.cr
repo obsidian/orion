@@ -8,7 +8,7 @@ class Orion::SubdomainConstraint
   def initialize(@constraint : String | Regex)
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     host_parts = request.host.to_s.split('.')
     last_host_part = host_parts.pop
     host_parts.pop unless last_host_part = "localhost"

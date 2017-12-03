@@ -4,7 +4,7 @@ class Orion::AcceptConstraint
   def initialize(@accept : String | Regex | Array(String))
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     (request.headers["Accept"]? || "*/*").split(',').map(&.split(';')[0]).any? do |header|
       next true if header = "*/*"
       matches?(header, @accept)

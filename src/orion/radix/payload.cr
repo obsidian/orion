@@ -12,7 +12,7 @@ class Orion::Radix::Payload
     @proc = handlers.empty? ? proc : HTTP::Server.build_middleware(handlers.map(&.dup), proc)
   end
 
-  def matches_constraints?(request : ::Orion::Request)
+  def matches_constraints?(request : ::HTTP::Request)
     constraints.all? do |constraint|
       matches_constraint?(request, constraint)
     end

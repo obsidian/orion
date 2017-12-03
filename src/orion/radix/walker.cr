@@ -11,7 +11,6 @@ struct Orion::Radix::Walker
     # move forward until '/' or EOL is detected
     while reader.has_next?
       break if reader.current_char == '/'
-
       reader.next_char
     end
 

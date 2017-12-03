@@ -11,7 +11,7 @@ class Orion::MethodsConstraint
     @methods = methods.map(&.downcase)
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     return true if request.method.downcase == "*"
     @methods.any?(&.== request.method.downcase)
   end

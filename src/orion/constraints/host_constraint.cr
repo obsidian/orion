@@ -4,7 +4,7 @@ class Orion::HostConstraint
   def initialize(@constraint : String | Regex)
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     if host = request.host
       matches? host, @constraint
     end

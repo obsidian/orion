@@ -28,7 +28,7 @@ class Orion::Radix::Result
     self
   end
 
-  def call(context : Orion::Context)
+  def call(context : ::HTTP::Server::Context)
     payloads.find(&.matches_constraints? context.request).not_nil!.call(context)
   end
 

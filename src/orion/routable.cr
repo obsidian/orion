@@ -1,5 +1,5 @@
 module Orion::Routable
-  getter context : Orion::Context
+  getter context : ::HTTP::Server::Context
   delegate request, response, to: @context
 
   def initialize(@context)

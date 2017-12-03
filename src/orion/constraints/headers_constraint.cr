@@ -3,7 +3,7 @@ require "./hash_constraint"
 class Orion::HeadersConstraint
   include HashConstraint(String | Regex)
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     @constraints.all? do |key, regex_or_string|
       if header = request.headers[key]?
         matches? header, regex_or_string

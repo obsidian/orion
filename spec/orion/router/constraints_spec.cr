@@ -4,7 +4,7 @@ module Router::ConstraintsSpec
   class TestConstraint
     include Orion::Constraint
 
-    def matches?(request : Orion::Request)
+    def matches?(request : ::HTTP::Request)
       request.headers["TEST"]? == "true"
     end
   end

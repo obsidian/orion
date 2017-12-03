@@ -4,7 +4,7 @@ class Orion::FormatConstraint
   def initialize(@format : String | Regex | Array(String))
   end
 
-  def matches?(request : Orion::Request)
+  def matches?(request : ::HTTP::Request)
     extension = File.extname(request.path).lchop(".")
     matches?(extension, @format)
   end

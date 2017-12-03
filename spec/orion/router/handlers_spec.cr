@@ -7,7 +7,7 @@ module Router::HandlersSpec
     def initialize(@string : String)
     end
 
-    def call(c : Orion::Context)
+    def call(c : ::HTTP::Server::Context)
       call_next c
       c.response.print @string
     end
