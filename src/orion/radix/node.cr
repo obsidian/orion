@@ -91,7 +91,7 @@ class Orion::Radix::Node
     !@childen.empty?
   end
 
-  def find(path)
+  def find(path, result = Result.new)
     find(path) do |node|
       !!node
     end

@@ -1,15 +1,16 @@
 require "../../spec_helper"
 
 module Router::ConstraintsSpec
-  class TestConstraint < ::Orion::Radix::Constraint
+  class TestConstraint
+    include Orion::Constraint
 
-    def matches?
+    def matches?(request : Orion::Request)
       request.headers["TEST"]? == "true"
     end
   end
 
   router SampleRouter do
-    get "resources/:id", ->(c : Context) { c.response.print "resource #{c.request.query_params["id"]}" }, constraints: { id: /\d{4}/ }
+    get "resources/:id", ->(c : Context) { c.response.print "resource #{c.request.path_params["id"]}" }, constraints: { id: /\d{4}/ }
     get "alpha", ->(c : Context) { c.response.print "is js" }, format: "js"
     get "bravo", ->(c : Context) { c.response.print "is js or jsx" }, format: /jsx?/
     get "charlie", ->(c : Context) { c.response.print "is an image" }, accept: "image/*"
@@ -25,10 +26,6 @@ module Router::ConstraintsSpec
       get "hotel", ->(c : Context) { c.response.print "at subdomain" }
     end
 
-    constraints port: 8000 do
-      get "india", ->(c : Context) { c.response.print "with port" }
-    end
-
     constraints headers: { "ContentType" => "application/json" } do
       get "juliet", ->(c : Context) { c.response.print "matches headers" }
     end
@@ -37,11 +34,9 @@ module Router::ConstraintsSpec
       get "kilo", ->(c : Context) { c.response.print "matches cookies" }
     end
 
-    constraints TestConstraint do
+    constraints TestConstraint.new do
       get "lima", ->(c : Context) { c.response.print "matches cookies" }
     end
-
-    puts viz
   end
 
   describe "constraints" do

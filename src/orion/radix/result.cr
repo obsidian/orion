@@ -3,9 +3,11 @@ class Orion::Radix::Result
 
   @key : String?
   @nodes = [] of Node
-
   getter params = {} of String => String
-  getter payloads : Array(Payload)?
+  getter payloads = [] of Payload
+
+  def initialize(@params = {} of String => String)
+  end
 
   def key
     @key ||= String.build do |io|
@@ -26,11 +28,12 @@ class Orion::Radix::Result
     self
   end
 
+  def call(context : Orion::Context)
+    payloads.find(&.matches_constraints? context.request).not_nil!.call(context)
+  end
+
   def call(context : HTTP::Server::Context)
-    if payloads = @payloads
-      params.each { |k, v| context.request.query_params[k] = v }
-      payloads.find(&.matches_constraints? context.request).not_nil!.call(context)
-    end
+    payloads.first.call(context)
   end
 
 end

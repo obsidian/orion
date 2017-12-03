@@ -331,7 +331,7 @@ class MyController
   end
 
   def show
-    user = User.find(request.query_params["id"])
+    user = User.find(request.path_params["id"])
     response.headers["Location"] = new_user_path
     response.status_code = 301
     response.close

@@ -1,5 +1,5 @@
 class Orion::Radix::Tree
-  include HTTP::Handler
+  include Orion::Handler
 
   NOT_FOUND = ->(context : HTTP::Server::Context) {
     context.response.respond_with_error(
@@ -13,17 +13,18 @@ class Orion::Radix::Tree
   @root = Node.new
   delegate add, viz, to: @root
 
-  def call(context : HTTP::Server::Context)
+  def call(context : Orion::Context)
     (find(context.request) || NOT_FOUND).call(context)
   end
 
-  def find(request : HTTP::Request)
-    @root.find(request.path, &.matches_constraints?(request))
+  def find(request : Orion::Request)
+    path = request.path
+    @root.find(path.rchop(File.extname(path)), Result.new(request.path_params), &.matches_constraints?(request))
   end
 
   def find(path : String, host = "example.com")
     headers = HTTP::Headers.new
     headers["HOST"] = host
-    find HTTP::Request.new("*", path, headers)
+    find Orion::Request.new("*", path, headers)
   end
 end

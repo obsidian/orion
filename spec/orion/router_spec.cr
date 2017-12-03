@@ -5,7 +5,7 @@ params = {} of String => String
 module RouterSpec
   class Router < Orion::Router
     root ->(c : Context) { c.response.print "I am Groot" }
-    get "/:first/:second", ->(c : Context) { params = c.request.query_params }
+    get "/:first/:second", ->(c : Context) { params = c.request.path_params }
   end
 
   describe "a basic router" do

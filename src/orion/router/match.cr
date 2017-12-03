@@ -57,67 +57,20 @@ abstract class Orion::Router
       define_helper(path: {{path}}, spec: {{helper}})
     {% end %}
 
-    {% if via != :all %} # Define the method constraint
-      {% constraints_class = run "./inflector/random_const.cr", "MethodConstraint" %}
-      # :nodoc:
-      class {{constraints_class}} < ::Orion::Radix::Constraint
-        def matches?
-          return true if request.method.downcase == "*"
-          {% if via.is_a? ArrayLiteral %}
-            {{ via.map(&.id.stringify.downcase) }}.any?(&.== request.method.downcase)
-          {% else %}
-            {{ via.id.stringify.downcase }} == request.method.downcase
-          {% end %}
-        end
-      end
-      %payload.constraints << {{constraints_class}}
+    {% if via != :all && !via.nil? %} # Define the method constraint
+      %payload.constraints << ::Orion::MethodsConstraint.new({{via}})
     {% end %}
 
     {% if constraints %} # Define the param constraints
-      {% constraints_class = run "./inflector/random_const.cr", "ParamConstraint" %}
-      # :nodoc:
-      class {{constraints_class}} < ::Orion::Radix::Constraint
-        def matches?
-          {% for key, value in constraints %}
-            puts request.path
-            puts({ {{key.id.stringify}} => {{value}} })
-            puts request.query_params.inspect
-            return false unless {{ value }}.match request.query_params[{{ key.id.stringify }}]?.to_s
-          {% end %}
-          true
-        end
-      end
-      %payload.constraints << {{constraints_class}}
+      %payload.constraints << ::Orion::ParamsConstraint.new({{constraints}}.to_h)
     {% end %}
 
     {% if format %} # Define the format constraint
-      {% constraints_class = run "./inflector/random_const.cr", "FormatConstraints" %}
-      # :nodoc:
-      class {{constraints_class}} < ::Orion::Radix::Constraint
-        def matches?
-          File.extname(request.path).lchop('.') == {{format}} ||
-            File.extname(request.path).lchop('.') =~ {{format}}
-        end
-      end
-      %payload.constraints << {{constraints_class}}
+      %payload.constraints << ::Orion::FormatConstraint.new({{format}})
     {% end %}
 
     {% if accept %} # Define the content type constraint
-      {% constraints_class = run "./inflector/random_const.cr", "ContentTypeConstraints" %}
-      # :nodoc:
-      class {{constraints_class}} < ::Orion::Radix::Constraint
-        def matches?
-          (request.headers["Accept"]? || "*/*").split(',').map(&.split(';')[0]).any? do |content_type|
-            {% if accept.is_a?(ArrayLiteral) %}
-              {{ accept }}.any? { |m| m == content_type || m =~ content_type }
-            {% else %}
-              content_type == {{ accept }} ||
-                content_type =~ {{ accept }}
-            {% end %}
-          end
-        end
-      end
-      %payload.constraints << {{constraints_class}}
+      %payload.constraints << ::Orion::FormatConstraint.new({{accept}})
     {% end %}
   end
 end

@@ -2,12 +2,12 @@ require "../../spec_helper"
 
 module Router::HandlersSpec
   class AppendHandler
-    include HTTP::Handler
+    include Orion::Handler
 
     def initialize(@string : String)
     end
 
-    def call(c : Orion::Router::Context)
+    def call(c : Orion::Context)
       call_next c
       c.response.print @string
     end
