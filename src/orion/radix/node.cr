@@ -1,3 +1,6 @@
+class Orion::Radix::Node ; end
+require "./node/*"
+
 class Orion::Radix::Node
   enum Kind : UInt8
     Normal
@@ -8,18 +11,19 @@ class Orion::Radix::Node
 
   include Comparable(self)
 
-  getter children = [] of Node
-  property payloads = [] of Payload
+  getter context : Context = Context.new
   getter key : String = ""
   getter priority : Int32 = 0
   protected getter kind = Kind::Normal
+  delegate children, payloads, payloads?, to: @context
+  private delegate sort!, to: children
   @root = false
 
   def initialize
     @root = true
   end
 
-  def initialize(@key : String, @payloads = [] of Payload, @children = [] of Node)
+  def initialize(@key : String, @context : Context)
     @priority = compute_priority
   end
 
@@ -37,7 +41,7 @@ class Orion::Radix::Node
   def add(path : String, payload : Payload)
     if placeholder?
       @key = path
-      @payloads << payload
+      payloads << payload
       return self
     end
 
@@ -56,30 +60,26 @@ class Orion::Radix::Node
         matching_child.add new_key, payload
       else
         # add a new node with the remaining path
-        @children << Node.new(new_key, payload)
+        children << Node.new(new_key, payload)
       end
 
       # Reprioritze node
       sort!
     elsif analyzer.exact_match?
-      @payloads << payload
+      payloads << payload
     elsif analyzer.split_on_key?
       # Readjust the key of this node
       self.key = analyzer.matched_key
 
-      # Set the childen to include the new node with the partial key
-      @children = [Node.new(analyzer.remaining_key, @payloads, @children)]
-
-      # Reset the current nodes payloads
-      @payloads = [] of Payload
+      @context = Context.new(Node.new(analyzer.remaining_key, @context))
 
       # Determine if the path continues
       if analyzer.remaining_path?
         # Add a new node with the remaining_path
-        @children << Node.new(analyzer.remaining_path, payload)
+        children << Node.new(analyzer.remaining_path, payload)
       else
         # Insert the payload
-        @payloads << payload
+        payloads << payload
       end
 
       # Reprioritze node
@@ -182,10 +182,6 @@ class Orion::Radix::Node
     payloads.any? &.matches_constraints? request
   end
 
-  def payloads?
-    !@payloads.empty?
-  end
-
   def viz
     String.build do |io|
       viz(0, io)
@@ -244,10 +240,6 @@ class Orion::Radix::Node
         end
       end
     end.pos
-  end
-
-  private def sort!
-    @children.sort!
   end
 
 end
