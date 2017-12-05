@@ -1,5 +1,3 @@
-require "radix"
-
 abstract class Orion::Router
   macro match(path, callable = nil, *, to = nil, controller = nil, action = match, helper = nil, constraints = nil, format = nil, accept = nil, via = :all)
     {% if !format && path.split(".").size > 1 %}
