@@ -14,4 +14,6 @@ router MyApplication do
   end
 end
 
+puts MyApplication.visualize
+
 MyApplication.listen(port: 3000)

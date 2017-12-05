@@ -41,6 +41,10 @@ abstract class Orion::Router
     end
   end
 
+  def self.visualize
+    tree.visualize
+  end
+
   def initialize(autoclose : Bool = true)
     use Handlers::AutoClose.new if autoclose
     @app = build

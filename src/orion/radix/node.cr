@@ -1,7 +1,14 @@
-class Orion::Radix::Node ; end
-require "./node/*"
-
 class Orion::Radix::Node
+  struct Context
+    getter children = [] of Node
+    getter payloads = [] of Payload
+
+    def initialize(node : Node? = nil)
+      children << node if node
+    end
+  end
+
+
   enum Kind : UInt8
     Normal
     Named
@@ -15,7 +22,7 @@ class Orion::Radix::Node
   getter key : String = ""
   getter priority : Int32 = 0
   protected getter kind = Kind::Normal
-  delegate children, payloads, payloads?, to: @context
+  delegate children, payloads, to: @context
   private delegate sort!, to: children
   @root = false
 
@@ -169,9 +176,9 @@ class Orion::Radix::Node
     payloads.any? &.matches_constraints? request
   end
 
-  def viz
+  def visualize
     String.build do |io|
-      viz(0, io)
+      visualize(0, io)
     end
   end
 
@@ -200,13 +207,9 @@ class Orion::Radix::Node
     key[0]? == '*' || key[0]? == ':' || shared_key?(path)
   end
 
-  protected def viz(depth : Int32, io : IO)
+  protected def visualize(depth : Int32, io : IO)
     io.puts "  " * depth + "⌙ " + key + (payloads? ? " (payloads: #{payloads.size})" : "")
-    children.each &.viz(depth + 1, io)
-  end
-
-  private def placeholder?
-    @root && key.empty? && children.empty?
+    children.each &.visualize(depth + 1, io)
   end
 
   private def compute_priority
@@ -227,6 +230,14 @@ class Orion::Radix::Node
         end
       end
     end.pos
+  end
+
+  private def payloads?
+    !payloads.empty?
+  end
+
+  private def placeholder?
+    @root && key.empty? && children.empty?
   end
 
 end
