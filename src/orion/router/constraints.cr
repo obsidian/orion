@@ -1,11 +1,11 @@
 abstract class Orion::Router
-  CONSTRAINTS = [] of Constraint
+  CONSTRAINTS = [] of Radix::Constraint
 
   private macro setup_constraints
     {% if @type.superclass != ::Orion::Router %}
       CONSTRAINTS = ::{{@type.superclass}}::CONSTRAINTS.dup
     {% else %}
-      CONSTRAINTS = [] of ::Orion::Constraint
+      CONSTRAINTS = [] of ::Orion::Radix::Constraint
     {% end %}
   end
 

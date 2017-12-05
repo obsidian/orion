@@ -1,5 +1,5 @@
 class Orion::MethodsConstraint
-  include Constraint
+  include Radix::Constraint
 
   @methods : Array(String)
 

@@ -1,5 +1,5 @@
 class Orion::HostConstraint
-  include Constraint
+  include Radix::Constraint
 
   def initialize(@constraint : String | Regex)
   end

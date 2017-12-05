@@ -1,5 +1,5 @@
 class Orion::FormatConstraint
-  include Constraint
+  include Radix::Constraint
 
   def initialize(@format : String | Regex | Array(String))
   end

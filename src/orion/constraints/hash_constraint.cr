@@ -1,5 +1,5 @@
 module Orion::HashConstraint(T)
-  include Constraint
+  include Radix::Constraint
 
   def initialize(constraints : Hash(Symbol, T))
     hash = constraints.each_with_object({} of String => T) do |(key, value), hash|

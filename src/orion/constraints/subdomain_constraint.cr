@@ -1,5 +1,5 @@
 class Orion::SubdomainConstraint
-  include Constraint
+  include Radix::Constraint
 
   def initialize(constraints)
     initialize constraints.to_hash
