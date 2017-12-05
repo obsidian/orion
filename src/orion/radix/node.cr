@@ -91,15 +91,9 @@ class Orion::Radix::Node
     !@childen.empty?
   end
 
-  def find(path, result = Result.new)
-    find(path) do |node|
-      !!node
-    end
-  end
-
-  def find(path, result = Result.new, &block : Proc(self, Bool))
-    if @root && (path.bytesize == key.bytesize && path == key) && payloads? && block.call(self)
-      return result.use(self)
+  def find(path, result_set = ResultSet.new)
+    if @root && (path.bytesize == key.bytesize && path == key) && payloads?
+      result_set.use(self)
     end
 
     walker = Walker.new(path: path, key: key)
@@ -107,19 +101,18 @@ class Orion::Radix::Node
     walker.while_matching do
       case walker.key_char
       when '*'
-        if block.call(self)
-          name = walker.key_slice(walker.key_pos + 1)
-          value = walker.remaining_path
-          result.params[name] = value unless name.empty?
-          return result.use(self)
-        end
+        name = walker.key_slice(walker.key_pos + 1)
+        value = walker.remaining_path
+        result_set.params[name] = value unless name.empty?
+        result_set.use(self)
+        break
       when ':'
         key_size = walker.key_param_size
         path_size = walker.path_param_size
         name = walker.key_slice(walker.key_pos + 1, key_size - 1)
         value = walker.path_slice(walker.path_pos, path_size)
 
-        result.params[name] = value
+        result_set.params[name] = value
 
         walker.key_pos += key_size
         walker.path_pos += path_size
@@ -128,29 +121,26 @@ class Orion::Radix::Node
       end
     end
 
-    if walker.end? && block.call(self)
-      return result.use(self)
+    if walker.end?
+      result_set.use(self)
     end
 
     if walker.path_continues?
-      if walker.path_trailing_slash_end? && block.call(self)
-        return result.use(self)
+      if walker.path_trailing_slash_end?
+        result_set.use(self)
       end
       children.each do |child|
         remaining_path = walker.remaining_path
         if child.should_walk?(remaining_path)
-          result.track self
-          sub_result = child.find(remaining_path, result) do |node|
-            block.call(node)
-          end
-          return sub_result if sub_result
+          result_set.track self
+          child.find(remaining_path, result_set)
         end
       end
     end
 
     if walker.key_continues?
-      if walker.key_trailing_slash_end? && block.call(self)
-        return result.use(self)
+      if walker.key_trailing_slash_end?
+        result_set.use(self)
       end
 
       if walker.catch_all?
@@ -159,23 +149,20 @@ class Orion::Radix::Node
 
       name = walker.key_slice(walker.key_pos + 1)
 
-      result.params[name] = ""
+      result_set.params[name] = ""
 
-      return result.use(self) if block.call(self)
+      result_set.use(self)
     end
 
     if dynamic_children?
       dynamic_children.each do |child|
         if child.should_walk?(path)
-          result.track self
-          sub_result = child.find(path, result) do |node|
-            block.call(node)
-          end
-          return sub_result if sub_result
+          result_set.track self
+          child.find(path, result_set)
         end
       end
     end
-    nil
+    result_set
   end
 
   def matches_constraints?(request : HTTP::Request)

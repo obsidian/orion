@@ -1,13 +1,13 @@
+
+
 class Orion::Radix::Result
   include HTTP::Handler
 
+  @matched = {} of HTTP::Request => Payload
   @key : String?
   @nodes = [] of Node
   getter params = {} of String => String
   getter payloads = [] of Payload
-
-  def initialize(@params = {} of String => String)
-  end
 
   def key
     @key ||= String.build do |io|
@@ -28,12 +28,21 @@ class Orion::Radix::Result
     self
   end
 
-  def call(context : ::HTTP::Server::Context)
-    payloads.find(&.matches_constraints? context.request).not_nil!.call(context)
+  def call(context : HTTP::Server::Context)
+    context.request.path_params = params
+    matched_payload(context.request).not_nil!.call(context)
   end
 
-  def call(context : HTTP::Server::Context)
-    payloads.first.call(context)
+  def matches_constraints?(request : HTTP::Request)
+    request.path_params = params
+    !!matched_payload(request)
+  end
+
+  private def matched_payload(request : HTTP::Request)
+    return @matched[request] if @matched[request]?
+    if matched = payloads.find(&.matches_constraints? request)
+      @matched[request] = matched
+    end
   end
 
 end

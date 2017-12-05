@@ -17,9 +17,9 @@ abstract class Orion::Router
     {% method_name = name_parts.map(&.id).join("_").id %}
 
     module ::{{ Helpers }}
-      def self.{{method_name.id}}_path(*, host = "example.org", **params)
+      def self.{{method_name.id}}_path(**params)
         path = ::{{@type}}.normalize_path({{path}})
-        result = ::{{@type}}::ROUTER.tree.find(path, host: host).not_nil!
+        result = ::{{@type}}::ROUTER.tree.find(path).first
         path_param_names = result.params.keys
 
         # Convert all the params to a string
