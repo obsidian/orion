@@ -1,0 +1,9 @@
+name: kemal-benchmark
+
+dependencies:
+  orion:
+    github: kemalcr/kemal
+
+targets:
+  kemal:
+    main: ./app.cr
