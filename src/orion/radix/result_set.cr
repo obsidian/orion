@@ -1,6 +1,6 @@
 require "./result"
 
-class Orion::Radix::ResultSet
+struct Orion::Radix::ResultSet
   include Enumerable(Result)
 
   NOT_FOUND = ->(context : HTTP::Server::Context) {
@@ -12,7 +12,6 @@ class Orion::Radix::ResultSet
     nil
   }
 
-  include HTTP::Handler
   @results = [] of Orion::Radix::Result
   delegate each, to: @results
   delegate params, track, to: current

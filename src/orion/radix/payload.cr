@@ -1,4 +1,4 @@
-class Orion::Radix::Payload
+struct Orion::Radix::Payload
   getter helper : String?
   getter label : String?
   getter constraints = [] of Constraint

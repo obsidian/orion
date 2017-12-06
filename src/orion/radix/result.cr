@@ -4,13 +4,12 @@ class Orion::Radix::Result
   include HTTP::Handler
 
   @matched = {} of HTTP::Request => Payload
-  @key : String?
   @nodes = [] of Node
   getter params = {} of String => String
   getter payloads = [] of Payload
 
   def key
-    @key ||= String.build do |io|
+    String.build do |io|
       @nodes.each do |node|
         io << node.key
       end
@@ -18,7 +17,6 @@ class Orion::Radix::Result
   end
 
   def track(node : Node)
-    @key = nil
     @nodes << node
   end
 
