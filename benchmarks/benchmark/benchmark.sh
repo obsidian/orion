@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "Running benchmarks"
 rm $OUT_FILE
 touch $OUT_FILE

@@ -1,8 +1,4 @@
-
-
-class Orion::Radix::Result
-  include HTTP::Handler
-
+struct Orion::Radix::Result
   @matched = {} of HTTP::Request => Payload
   @nodes = [] of Node
   getter params = {} of String => String
@@ -22,7 +18,7 @@ class Orion::Radix::Result
 
   def use(node : Node)
     track node
-    @payloads = node.payloads
+    @payloads.replace node.payloads
     self
   end
 
