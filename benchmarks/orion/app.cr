@@ -1,7 +1,6 @@
 require "orion"
 
 router OrionBenchmark do
-
   # OAuth Authorizations
   get "/authorizations", ->(context : HTTP::Server::Context) do
     context.response.puts ""
