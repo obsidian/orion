@@ -13,7 +13,7 @@ services:
       OUT_FILE: /hostmachine/results.txt
       PORT: 3000
       TEST_ROUTE: /applications/123/tokens/123
-    command: benchmark kemal orion sinatra
+    command: benchmark orion kemal sinatra
   kemal:
     build:
       context: ./kemal

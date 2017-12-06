@@ -47,6 +47,7 @@ abstract class Orion::Router
 
   def initialize(autoclose : Bool = true)
     use Handlers::AutoClose.new if autoclose
+    use Handlers::Meta.new
     @app = build
   end
 
