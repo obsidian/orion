@@ -58,7 +58,6 @@ abstract class Orion::Router
       nil
     end
   end
-
 end
 
 require "./router/*"

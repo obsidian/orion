@@ -10,7 +10,7 @@ module Router::ConstraintsSpec
   end
 
   router SampleRouter do
-    get "resources/:id", ->(c : Context) { c.response.print "resource #{c.request.path_params["id"]}" }, constraints: { id: /\d{4}/ }
+    get "resources/:id", ->(c : Context) { c.response.print "resource #{c.request.path_params["id"]}" }, constraints: {id: /\d{4}/}
     get "alpha", ->(c : Context) { c.response.print "is js" }, format: "js"
     get "bravo", ->(c : Context) { c.response.print "is js or jsx" }, format: /jsx?/
     get "charlie", ->(c : Context) { c.response.print "is an image" }, accept: "image/*"
@@ -26,11 +26,11 @@ module Router::ConstraintsSpec
       get "hotel", ->(c : Context) { c.response.print "at subdomain" }
     end
 
-    constraints headers: { "ContentType" => "application/json" } do
+    constraints headers: {"ContentType" => "application/json"} do
       get "juliet", ->(c : Context) { c.response.print "matches headers" }
     end
 
-    constraints cookies: { "monster" => "blue" } do
+    constraints cookies: {"monster" => "blue"} do
       get "kilo", ->(c : Context) { c.response.print "matches cookies" }
     end
 

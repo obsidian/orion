@@ -8,7 +8,6 @@ class Orion::Radix::Node
     end
   end
 
-
   enum Kind : UInt8
     Normal
     Named
@@ -219,9 +218,9 @@ class Orion::Radix::Node
         when '*'
           @kind = Kind::Glob
           break
-        # when '('
-        #   @kind = Kind::Optional
-        #   break
+          # when '('
+          #   @kind = Kind::Optional
+          #   break
         when ':'
           @kind = Kind::Named
           break
@@ -239,5 +238,4 @@ class Orion::Radix::Node
   private def placeholder?
     @root && key.empty? && children.empty?
   end
-
 end

@@ -140,5 +140,4 @@ struct Orion::Radix::Walker
       yield
     end
   end
-
 end

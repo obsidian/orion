@@ -38,5 +38,4 @@ struct Orion::Radix::Result
       @matched[request] = matched
     end
   end
-
 end

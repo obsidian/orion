@@ -67,5 +67,4 @@ struct Orion::Radix::Analyzer
   private def remaining_key?
     path_reader.pos < key.bytesize
   end
-
 end

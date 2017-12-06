@@ -37,5 +37,4 @@ struct Orion::Radix::ResultSet
     result = find(&.matches_constraints?(context.request)) || NOT_FOUND
     result.call(context)
   end
-
 end

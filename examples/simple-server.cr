@@ -5,7 +5,7 @@ router MyApplication do
     context.response.puts "reviews"
   end
 
-  get "/resources/js/*" , ->(context : Context) do
+  get "/resources/js/*", ->(context : Context) do
     context.response.puts "somejs"
   end
 
