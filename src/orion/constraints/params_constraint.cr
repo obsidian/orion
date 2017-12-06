@@ -1,6 +1,6 @@
 require "./hash_constraint"
 
-class Orion::ParamsConstraint
+struct Orion::ParamsConstraint
   include HashConstraint(Regex)
 
   def matches?(request : ::HTTP::Request)

@@ -1,4 +1,4 @@
-class Orion::MethodsConstraint
+struct Orion::MethodsConstraint
   include Radix::Constraint
 
   @methods : Array(String)

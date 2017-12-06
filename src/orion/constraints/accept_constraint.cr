@@ -1,4 +1,4 @@
-class Orion::AcceptConstraint
+struct Orion::AcceptConstraint
   include Radix::Constraint
 
   def initialize(@accept : String | Regex | Array(String))

@@ -1,6 +1,6 @@
 require "./hash_constraint"
 
-class Orion::CookiesConstraint
+struct Orion::CookiesConstraint
   include HashConstraint(String | Regex)
 
   def initialize(constraints)

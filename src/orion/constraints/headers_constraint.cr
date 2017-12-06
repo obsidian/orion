@@ -1,6 +1,6 @@
 require "./hash_constraint"
 
-class Orion::HeadersConstraint
+struct Orion::HeadersConstraint
   include HashConstraint(String | Regex)
 
   def matches?(request : ::HTTP::Request)

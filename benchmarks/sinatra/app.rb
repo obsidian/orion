@@ -967,5 +967,7 @@ delete "/user/keys/:id" do
   ""
 end
 
+set :show_exceptions, false
+set :environment, :production
 set :logging, false
-set :port, 3000
+set :port, ENV['PORT']

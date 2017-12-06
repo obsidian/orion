@@ -1,4 +1,4 @@
-class Orion::SubdomainConstraint
+struct Orion::SubdomainConstraint
   include Radix::Constraint
 
   def initialize(constraints)

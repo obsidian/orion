@@ -1,7 +1,7 @@
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:0.23.1
 
 WORKDIR /app
 ADD app.cr shard.yml ./
-RUN shards build --release
+RUN shards build --release --no-debug
 
-CMD ./orion
+CMD ./bin/orion

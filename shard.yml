@@ -12,5 +12,7 @@ dependencies:
   inflector:
     github: phoffer/inflector.cr
     version: "~> 0.1.8"
+  faker:
+
 
 license: MIT

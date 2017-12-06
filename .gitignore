@@ -2,6 +2,12 @@
 /lib/
 /bin/
 /.shards/
+/benchmarks/*/.shards/
+/benchmarks/*/shard.lock
+/benchmarks/*/Gemfile.lock
+/benchmarks/*/lib
+/benchmarks/*/bin
+/benchmarks/results.txt
 
 # Libraries don't need dependency lock
 # Dependencies will be locked in application that uses them

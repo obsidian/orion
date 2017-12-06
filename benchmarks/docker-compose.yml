@@ -1,30 +1,37 @@
-version: "3"
+version: '3'
 services:
   benchmark:
     build:
       context: ./benchmark
+    volumes:
+      - ./:/hostmachine
     links:
       - kemal
       - orion
       - sinatra
-    volumes:
-      - ./results.txt:/tmp/results.txt
     environment:
+      OUT_FILE: /hostmachine/results.txt
+      PORT: 3000
       TEST_ROUTE: /applications/123/tokens/123
-    command:
-      - wrkall kemal orion sinatra
+    command: benchmark kemal orion sinatra
   kemal:
     build:
       context: ./kemal
     environment:
       PORT: 3000
+    expose:
+      - 3000
   orion:
     build:
       context: ./orion
     environment:
       PORT: 3000
+    expose:
+      - 3000
   sinatra:
     build:
       context: ./sinatra
     environment:
       PORT: 3000
+    expose:
+      - 3000

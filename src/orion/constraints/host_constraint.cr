@@ -1,4 +1,4 @@
-class Orion::HostConstraint
+struct Orion::HostConstraint
   include Radix::Constraint
 
   def initialize(@constraint : String | Regex)
