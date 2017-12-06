@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 echo "Running benchmarks"
-rm $OUT_FILE
 touch $OUT_FILE
 for host in "$@" ; do
   echo "Test results for '$host':" | tee -a $OUT_FILE
