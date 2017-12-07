@@ -1,7 +1,7 @@
 require "orion"
 
 # ???
-router OrionBenchmark do
+class OrionBenchmark < Orion::Router
   get "/authorizations", ->(context : HTTP::Server::Context) do
   end
 
@@ -730,4 +730,8 @@ router OrionBenchmark do
   end
 end
 
-OrionBenchmark.listen(port: ENV["PORT"].to_i, host: "0.0.0.0")
+HTTP::Server.new(
+  port: ENV["PORT"].to_i,
+  host: "0.0.0.0",
+  handler: OrionBenchmark.new
+).listen

@@ -1,0 +1,6 @@
+name: orion-benchmark
+version: 0.0.1
+
+targets:
+  http:
+    main: ./app.cr

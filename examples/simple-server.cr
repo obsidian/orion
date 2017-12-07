@@ -1,6 +1,9 @@
 require "../src/orion"
 
 router MyApplication do
+  get "empty", ->(context : Context) do
+  end
+
   get "/*", ->(context : Context) do
     context.response.puts "reviews"
   end

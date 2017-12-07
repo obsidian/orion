@@ -8,7 +8,7 @@ services:
     environment:
       OUT_FILE: /hostmachine/results.txt
       PORT: 3000
-      TEST_ROUTE: /applications/123/tokens/123
+      TEST_ROUTE: /repos/OWNER/REPO/hooks/ID
     command: benchmark kemal
   benchmark-kemal:
     <<: *benchmark
@@ -42,6 +42,18 @@ services:
   orion-old:
     build:
       context: ./orion-old
+    environment:
+      PORT: 3000
+    expose:
+      - 3000
+  benchmark-http:
+    <<: *benchmark
+    links:
+      - http
+    command: benchmark http
+  http:
+    build:
+      context: ./http
     environment:
       PORT: 3000
     expose:

@@ -1,6 +1,8 @@
 benchmark:
-	@rm benchmarks/results.txt
+	@rm -f benchmarks/results.txt
 	@docker-compose -f ./benchmarks/docker-compose.yml build
+	@docker-compose -f ./benchmarks/docker-compose.yml run benchmark-http
+	@docker-compose -f ./benchmarks/docker-compose.yml stop
 	@docker-compose -f ./benchmarks/docker-compose.yml run benchmark-kemal
 	@docker-compose -f ./benchmarks/docker-compose.yml stop
 	@docker-compose -f ./benchmarks/docker-compose.yml run benchmark-orion
