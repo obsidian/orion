@@ -1,14 +1,11 @@
-name: orion
+name: oak
+crystal: 0.23.1
 version: 0.1.0
 
 authors:
   - jwaldrip <jason@waldrip.net>
 
-crystal: 0.23.1
-
 dependencies:
-  shell-table:
-    github: jwaldrip/shell-table.cr
   inflector:
     github: phoffer/inflector.cr
     version: "~> 0.1.8"

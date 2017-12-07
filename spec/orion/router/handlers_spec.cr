@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 module Router::HandlersSpec
   class AppendHandler
-    include Orion::Handler
+    include HTTP::Handler
 
     def initialize(@string : String)
     end

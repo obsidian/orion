@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 module Router::ConstraintsSpec
   class TestConstraint
-    include Orion::Radix::Constraint
+    include Oak::Constraint
 
     def matches?(request : ::HTTP::Request)
       request.headers["TEST"]? == "true"

@@ -1,10 +1,10 @@
 require "../../spec_helper"
 
 module Router::VerbsSpec
-  {% for verb in Orion::HTTP_VERBS %}
+  {% for verb in ::HTTP::VERBS %}
     module {{ verb.capitalize.id }}
       class SamplesController
-        include Orion::Routable
+        include Oak::ControllerHelper
 
         def to_{{verb.downcase.id}}
           response.print "to {{verb.downcase.id}}"

@@ -3,7 +3,7 @@ require "../spec_helper"
 params = {} of String => String
 
 module RouterSpec
-  class Router < Orion::Router
+  class Router < Oak::Router
     root ->(c : Context) { c.response.print "I am Groot" }
     get "/:first/:second", ->(c : Context) { params = c.request.path_params }
   end

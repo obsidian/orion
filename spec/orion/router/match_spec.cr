@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 module Router::MatchSpec
   class SamplesController
-    include Orion::Routable
+    include Oak::ControllerHelper
 
     def to_match
       response.print "to match"
@@ -24,7 +24,7 @@ module Router::MatchSpec
     match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
   end
 
-  {% for verb in Orion::HTTP_VERBS %}
+  {% for verb in ::HTTP::VERBS %}
     describe {{ verb.downcase }} do
       context "with callable" do
         it "should succeed" do
