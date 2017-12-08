@@ -9,33 +9,34 @@ abstract class Oak::Router
     {% end %}
   end
 
-  macro constraints(*constraints, headers = nil, cookies = nil, subdomain = nil, host = nil)
+  # Constrain routes by an `Oak::Constraint`
+  macro constraint(constraint)
+    constraints({{constraint}}) do
+      {{yield}}
+    end
+  end
+
+  # Constrain routes by one or more `Oak::Constraint`s
+  macro constraints(*constraints)
     scope do
       {% for constraint, i in constraints %} # Add the array of provided constraints
         CONSTRAINTS << {{constraint}}
       {% end %}
+      {{yield}}
     end
   end
 
-  macro constraints(headers = nil, cookies = nil, subdomain = nil, host = nil)
-    scope do
-      {% if headers %} # Check headers
-        CONSTRAINTS << ::Oak::HeadersConstraint.new({{headers}}.to_h)
-      {% end %}
+  # Constrain routes by a given domain
+  macro domain(domain)
+    constraint(::Oak::HostConstraint.new({{domain}})) do
+      {{yield}}
+    end
+  end
 
-      {% if cookies %} # Check cookies
-        CONSTRAINTS << ::Oak::CookiesConstraint.new({{cookies}}.to_h)
-      {% end %}
-
-      {% if subdomain %} # Check subdomain
-        CONSTRAINTS << ::Oak::SubdomainConstraint.new({{subdomain}})
-      {% end %}
-
-      {% if host %} # Check host
-        CONSTRAINTS << ::Oak::HostConstraint.new({{host}})
-      {% end %}
-
-      {{ yield }}
+  # Constrain routes by a given subdomain
+  macro subdomain(subdomain)
+    constraint(::Oak::SubdomainConstraint.new({{subdomain}})) do
+      {{yield}}
     end
   end
 end

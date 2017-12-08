@@ -18,24 +18,20 @@ module Router::ConstraintsSpec
     get "echo", ->(c : Context) { c.response.print "is a png image with unicode" }, accept: "image/png; charset=utf-8"
     get "foxtrot", ->(c : Context) { c.response.print "is any image" }, accept: /image\/.*/
 
-    constraints host: "example.org" do
+    domain "example.org" do
       get "golf", ->(c : Context) { c.response.print "at host" }
     end
 
-    constraints subdomain: "example" do
+    subdomain "example" do
       get "hotel", ->(c : Context) { c.response.print "at subdomain" }
     end
 
-    constraints headers: {"ContentType" => "application/json"} do
-      get "juliet", ->(c : Context) { c.response.print "matches headers" }
-    end
-
-    constraints cookies: {"monster" => "blue"} do
-      get "kilo", ->(c : Context) { c.response.print "matches cookies" }
+    constraint TestConstraint.new do
+      get "lima", ->(c : Context) { c.response.print "matches custom" }
     end
 
     constraints TestConstraint.new do
-      get "lima", ->(c : Context) { c.response.print "matches cookies" }
+      get "zulu", ->(c : Context) { c.response.print "matches customs" }
     end
   end
 
