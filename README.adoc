@@ -218,8 +218,7 @@ end
 
 Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] can be
 used within a scope and will only apply to the subsequent routes within that scope.
-It is important to note that the parent context's handlers will also be used, although
-this can be overridden by passing the `clear_handlers: true` argument into the scope.
+It is important to note that the parent context's handlers will also be used.
 
 [quote]
 Handlers will only apply to the routes specified below them, so be sure to place
