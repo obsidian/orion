@@ -2,27 +2,24 @@
 struct Oak::AcceptConstraint
   include Constraint
 
-  def initialize(@accept : String | Regex | Array(String))
+  def initialize(@accept : String | Array(String))
   end
 
   def matches?(request : ::HTTP::Request)
-    (request.headers["Accept"]? || "*/*").split(',').map(&.split(';')[0]).any? do |header|
-      next true if header = "*/*"
-      matches?(header, @accept)
+    return false unless request.headers["Accept"]?
+    MIME::Types.type_for_accept(request).any? do |mime_type|
+      next true if mime_type = "*/*"
+      matches?(mime_type, @accept)
     end
   end
 
-  private def matches?(header : String, string : String)
-    header == string
+  private def matches?(mime_type : String, string : String)
+    mime_type == string
   end
 
-  private def matches?(header : String, regex : Regex)
-    header =~ regex
-  end
-
-  private def matches?(header : String, strings : Array(String))
+  private def matches?(mime_type : String, strings : Array(String))
     strings.any? do |string|
-      matches?(header, string)
+      matches?(mime_type, string)
     end
   end
 end

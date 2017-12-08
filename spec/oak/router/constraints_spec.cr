@@ -16,7 +16,6 @@ module Router::ConstraintsSpec
     get "charlie", ->(c : Context) { c.response.print "is an image" }, accept: "image/*"
     get "delta", ->(c : Context) { c.response.print "is a png image" }, accept: "image/png"
     get "echo", ->(c : Context) { c.response.print "is a png image with unicode" }, accept: "image/png; charset=utf-8"
-    get "foxtrot", ->(c : Context) { c.response.print "is any image" }, accept: /image\/.*/
 
     host "example.org" do
       get "golf", ->(c : Context) { c.response.print "at host" }
@@ -66,6 +65,49 @@ module Router::ConstraintsSpec
         context "if not matched" do
           it "should not pass" do
             response = SampleRouter.test_route(:get, "/alpha.cr")
+            response.status_code.should eq 404
+          end
+        end
+      end
+    end
+
+    describe "checking accept" do
+      context "with a string" do
+        context "if matched" do
+          it "should pass" do
+            response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "image/png" })
+            response.status_code.should eq 200
+            response.body.should eq "is a png image"
+          end
+        end
+
+        context "if matched by extension" do
+          it "should pass" do
+            response = SampleRouter.test_route(:get, "/delta.png")
+            response.status_code.should eq 200
+            response.body.should eq "is a png image"
+          end
+        end
+
+        context "if matched by wildcard" do
+          it "should pass" do
+            response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "*/*" })
+            response.status_code.should eq 200
+            response.body.should eq "is a png image"
+          end
+        end
+
+        # context "if matched by partial" do
+        #   it "should pass" do
+        #     response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "image/*" })
+        #     response.status_code.should eq 200
+        #     response.body.should eq "is a png image"
+        #   end
+        # end
+
+        context "if not matched" do
+          it "should not pass" do
+            response = SampleRouter.test_route(:get, "/delta")
             response.status_code.should eq 404
           end
         end

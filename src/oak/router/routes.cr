@@ -159,7 +159,7 @@ module Oak::Router::Routes
     {% end %}
 
     {% if accept %} # Define the content type constraint
-      %leaf.constraints << ::Oak::FormatConstraint.new({{ accept }})
+      %leaf.constraints << ::Oak::AcceptConstraint.new({{ accept }})
     {% end %}
   end
 end
