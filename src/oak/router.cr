@@ -43,6 +43,7 @@ abstract class Oak::Router
     end
   end
 
+  # :nodoc:
   alias Context = HTTP::Server::Context
 
   @app : HTTP::Handler

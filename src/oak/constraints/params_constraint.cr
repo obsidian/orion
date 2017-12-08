@@ -1,5 +1,6 @@
 require "./hash_constraint"
 
+# :nodoc:
 struct Oak::ParamsConstraint
   include HashConstraint(Regex)
 

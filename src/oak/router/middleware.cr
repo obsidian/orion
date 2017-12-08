@@ -1,4 +1,5 @@
 module Oak::Router::Middleware
+  # :nodoc:
   HANDLERS = [] of HTTP::Handler
   getter handlers = [] of HTTP::Handler
 

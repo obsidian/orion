@@ -1,4 +1,5 @@
 module Oak::Router::Constraints
+  # :nodoc:
   CONSTRAINTS = [] of Constraint
 
   private macro setup_constraints

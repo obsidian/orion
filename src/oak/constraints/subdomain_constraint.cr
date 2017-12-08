@@ -1,3 +1,4 @@
+# :nodoc:
 struct Oak::SubdomainConstraint
   include Constraint
 

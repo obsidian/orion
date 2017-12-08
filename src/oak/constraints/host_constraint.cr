@@ -1,3 +1,4 @@
+# :nodoc:
 struct Oak::HostConstraint
   include Constraint
 
