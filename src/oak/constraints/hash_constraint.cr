@@ -1,3 +1,4 @@
+# :nodoc:
 module Oak::HashConstraint(T)
   include Constraint
 

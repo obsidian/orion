@@ -33,6 +33,7 @@ struct Oak::Tree::Result
   end
 
   private def matched_payload(request : HTTP::Request)
+    return leaves.find(&.matches_constraints? request)
     return @matched[request] if @matched[request]?
     if matched = leaves.find(&.matches_constraints? request)
       @matched[request] = matched

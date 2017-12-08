@@ -18,7 +18,7 @@ module Router::ConstraintsSpec
     get "echo", ->(c : Context) { c.response.print "is a png image with unicode" }, accept: "image/png; charset=utf-8"
     get "foxtrot", ->(c : Context) { c.response.print "is any image" }, accept: /image\/.*/
 
-    domain "example.org" do
+    host "example.org" do
       get "golf", ->(c : Context) { c.response.print "at host" }
     end
 

@@ -1,5 +1,47 @@
+abstract class Oak::Router ; end
+require "./router/*"
 abstract class Oak::Router
   include HTTP::Handler
+  include Concerns
+  include Constraints
+  include Middleware
+  include Helpers
+  include Routes
+  include Resources
+  include Scope
+
+  private macro inherited
+    setup_constraints
+    setup_handlers
+    setup_concerns
+
+    {% if @type.superclass == ::Oak::Router %}
+      alias ROUTER = self
+
+      module Helpers
+        extend self
+      end
+
+      BASE_PATH = "/"
+      TREE = ::Oak::Tree.new
+      PREFIXES = [] of String
+
+      # Instance vars
+      @tree = TREE
+
+      def self.routes
+        ROUTE_SET
+      end
+
+      def self.tree
+        TREE
+      end
+    {% end %}
+
+    def self.base_path
+      BASE_PATH
+    end
+  end
 
   alias Context = HTTP::Server::Context
 
@@ -59,6 +101,3 @@ abstract class Oak::Router
     end
   end
 end
-
-require "./router/*"
-require "./handlers/*"

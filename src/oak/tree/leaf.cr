@@ -13,16 +13,6 @@
   end
 
   def matches_constraints?(request : ::HTTP::Request)
-    constraints.all? do |constraint|
-      matches_constraint?(request, constraint)
-    end
-  end
-
-  private def matches_constraint?(request, proc : Constraint::Proc)
-    proc.call(request)
-  end
-
-  private def matches_constraint?(request, constraint : Constraint)
-    constraint.matches?(request)
+    constraints.all? &.matches?(request)
   end
 end

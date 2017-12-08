@@ -1,5 +1,6 @@
 require "http/server"
 
+# :nodoc:
 class Oak::Handlers::AutoClose
   include HTTP::Handler
 

@@ -1,4 +1,5 @@
-abstract class Oak::Router
+# :nodoc:
+module Oak::Router::Helpers
   private macro define_helper(*, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 

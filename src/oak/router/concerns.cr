@@ -1,4 +1,4 @@
-abstract class Oak::Router
+module Oak::Router::Concerns
   private macro setup_concerns
     {% if @type.superclass == ::Oak::Router %}
       CONCERNS = {} of Symbol => String

@@ -1,3 +1,4 @@
+# :nodoc:
 class Oak::Tree
   include HTTP::Handler
 

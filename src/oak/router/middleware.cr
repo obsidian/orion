@@ -1,4 +1,4 @@
-abstract class Oak::Router
+module Oak::Router::Middleware
   HANDLERS = [] of HTTP::Handler
   getter handlers = [] of HTTP::Handler
 

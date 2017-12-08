@@ -2,7 +2,7 @@
 :toc-title:
 :toclevels: 99
 
-```
+```text
                      - - -
                    -        -  -     --    -
                 -                 -         -  -
@@ -348,10 +348,10 @@ router MyApplicationRouter do
 end
 ```
 
-#### Domain & Subdomain constraints
+#### Host constraints
 
-You can constrain the request to a specific domain or subdomain by wrapping routes
-in a `constraints` block. In this method, any routes within the block will be
+You can constrain the request to a specific host by wrapping routes
+in a `host` block. In this method, any routes within the block will be
 matched at that constraint.
 
 You may also choose to limit the request to a certain format. Such as restricting
@@ -359,7 +359,24 @@ the extension of the URL to '.json'.
 
 ```crystal
 router MyApplicationRouter do
-  constraint subdomain: "api" do
+  host "example.com" do
+    get "users/:id", format: "json"
+  end
+end
+```
+
+#### Subdomain constraints
+
+You can constrain the request to a specific subdomain by wrapping routes
+in a `subdomain` block. In this method, any routes within the block will be
+matched at that constraint.
+
+You may also choose to limit the request to a certain format. Such as restricting
+the extension of the URL to '.json'.
+
+```crystal
+router MyApplicationRouter do
+  subdomain "api" do
     get "users/:id", format: "json"
   end
 end

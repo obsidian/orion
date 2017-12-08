@@ -1,4 +1,4 @@
-abstract class Oak::Router
+module Oak::Router::Resources
   macro resources(name, controller, *, shallow = false, only = nil, except = nil)
     resources(name, controller, *, shallow: shallow, only: only, except: except){}
   end

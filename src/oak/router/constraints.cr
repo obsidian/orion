@@ -1,4 +1,4 @@
-abstract class Oak::Router
+module Oak::Router::Constraints
   CONSTRAINTS = [] of Constraint
 
   private macro setup_constraints
@@ -27,8 +27,8 @@ abstract class Oak::Router
   end
 
   # Constrain routes by a given domain
-  macro domain(domain)
-    constraint(::Oak::HostConstraint.new({{domain}})) do
+  macro host(host)
+    constraint(::Oak::HostConstraint.new({{host}})) do
       {{yield}}
     end
   end

@@ -1,7 +1,38 @@
-abstract class Oak::Router
+module Oak::Router::Routes
+  # Mount an application at the specified path.
+  macro mount(app, *, at = "/")
+    match({{at}}, {{app}})
+  end
+
+  # Define a `GET /` route at the current path.
+  # for params see: `.match`
+  macro root(callable, **params)
+    {% if params.empty? %}
+      get "/", {{callable}}, helper: "root"
+    {% else %}
+      get "/", {{callable}}, {{**params}}, helper: "root"
+    {% end %}
+  end
+
+  {% for method in ::HTTP::VERBS %}
+    # Defines a {{method}} route
+    # for args and params see: `.match`
+    macro {{method.downcase.id}}(*args, **params)
+      \{% if params.empty? %}
+        match(\{{*args}}, action: {{method.downcase.id}}, via: {{method.downcase}})
+      \{% else %}
+        \{% if params[:action] %}
+          match(\{{*args}}, \{{**params}}, via: {{method.downcase}})
+        \{% else %}
+          match(\{{*args}}, \{{**params}}, action: {{method.downcase.id}}, via: {{method.downcase}})
+        \{% end %}
+      \{% end %}
+    end
+  {% end %}
+
   # Defines a match route.
   #
-  # ### Forms:
+  # ### Variations:
   #
   # #### Routing to controller and action (short form).
   # You can route to a controller and action by passing the `to` argument in

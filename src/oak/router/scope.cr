@@ -1,4 +1,4 @@
-abstract class Oak::Router
+module Oak::Router::Scope
   macro scope(*, clear_handlers = false, helper_prefix = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
     {% scope_class_name = run "./inflector/random_const.cr", "Scope" %}
