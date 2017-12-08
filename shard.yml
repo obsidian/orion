@@ -6,6 +6,8 @@ authors:
   - jwaldrip <jason@waldrip.net>
 
 dependencies:
+  mime-types:
+    github: jwaldrip/mime-types.cr
   inflector:
     github: phoffer/inflector.cr
     version: "~> 0.1.8"

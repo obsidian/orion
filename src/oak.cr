@@ -1,3 +1,4 @@
+require "mime-types"
 require "./http"
 require "./macro"
 require "./oak/*"
