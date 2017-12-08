@@ -131,7 +131,7 @@ module Oak::Router::Routes
     {% end %}
 
     # Build the payload
-    %leaf = Oak::Tree::Leaf.new(
+    %leaf = ::Oak::Leaf.new(
       %proc,
       handlers: HANDLERS,
       constraints: CONSTRAINTS,

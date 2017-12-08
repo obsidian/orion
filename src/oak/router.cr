@@ -1,7 +1,5 @@
 abstract class Oak::Router; end
-
 require "./router/*"
-
 abstract class Oak::Router
   include HTTP::Handler
   include Concerns
@@ -25,7 +23,7 @@ abstract class Oak::Router
       end
 
       BASE_PATH = "/"
-      TREE = ::Oak::Tree.new
+      TREE = ::Oak::Tree(::Oak::Leaf).new
       PREFIXES = [] of String
 
       # Instance vars
@@ -49,7 +47,7 @@ abstract class Oak::Router
   alias Context = HTTP::Server::Context
 
   @app : HTTP::Handler
-  @tree = Tree.new
+  @tree = Tree(Leaf).new
 
   delegate call, to: @app
 
@@ -98,10 +96,22 @@ abstract class Oak::Router
   end
 
   def build
-    return @tree if handlers.empty?
     HTTP::Server.build_middleware handlers, ->(context : HTTP::Server::Context) do
-      @tree.call(context)
-      nil
+      leaf = nil
+      path = context.request.path
+      route = @tree.search(path.rchop(File.extname(path))) do |result|
+        unless leaf
+          context.request.path_params = result.params
+          leaf = result.leaves.find &.matches_constraints? context.request
+          leaf.try &.call(context)
+        end
+      end
+
+      # lastly return with 404
+      context.response.respond_with_error(
+        message: HTTP.default_status_message_for(404),
+        code: 404
+      ) unless leaf
     end
   end
 end

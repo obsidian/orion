@@ -1,8 +1,14 @@
-struct Oak::Tree::Result
-  @matched = {} of HTTP::Request => Leaf
-  @nodes = [] of Branch
+struct Oak::Tree::Result(T)
+  @@id = 0
+  @id : Int32
+  @matched = {} of HTTP::Request => T
+  @nodes = [] of Branch(T)
   getter params = {} of String => String
-  getter leaves = [] of Leaf
+  getter leaves = [] of T
+
+  def initialize
+    @id = @@id += 1
+  end
 
   def key
     String.build do |io|
@@ -12,31 +18,14 @@ struct Oak::Tree::Result
     end
   end
 
-  def track(node : Branch)
-    @nodes << node
-  end
-
-  def use(node : Branch)
-    track node
-    @leaves.replace node.leaves
+  def track(branch : Branch(T))
+    @nodes << branch
     self
   end
 
-  def call(context : HTTP::Server::Context)
-    context.request.path_params = params
-    matched_payload(context.request).not_nil!.call(context)
-  end
-
-  def matches_constraints?(request : HTTP::Request)
-    request.path_params = params
-    !!matched_payload(request)
-  end
-
-  private def matched_payload(request : HTTP::Request)
-    return leaves.find(&.matches_constraints? request)
-    return @matched[request] if @matched[request]?
-    if matched = leaves.find(&.matches_constraints? request)
-      @matched[request] = matched
-    end
+  def use(branch : Branch(T))
+    track branch
+    @leaves.replace branch.leaves
+    self
   end
 end

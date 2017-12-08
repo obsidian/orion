@@ -1,13 +1,6 @@
-# :nodoc:
-class Oak::Tree
-  include HTTP::Handler
-
-  @root = Branch.new
-  delegate find, add, visualize, to: @root
-
-  def call(context : ::HTTP::Server::Context)
-    path = context.request.path
-    find(path.rchop(File.extname(path))).call(context)
+module Oak::Tree(T)
+  def self.new
+    Branch(T).new
   end
 end
 

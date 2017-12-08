@@ -20,7 +20,7 @@ module Oak::Router::Helpers
     module ::{{ Helpers }}
       def self.{{method_name.id}}_path(**params)
         path = ::{{@type}}.normalize_path({{ path }})
-        result = ::{{@type}}::ROUTER.tree.find(path).first
+        result = ::{{@type}}::ROUTER.tree.search(path).first
         path_param_names = result.params.keys
 
         # Convert all the params to a string

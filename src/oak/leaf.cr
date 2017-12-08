@@ -1,4 +1,4 @@
-struct Oak::Tree::Leaf
+struct Oak::Leaf
   getter helper : String?
   getter label : String?
   getter constraints = [] of Constraint

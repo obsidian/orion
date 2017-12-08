@@ -1,9 +1,9 @@
-class Oak::Tree::Branch
-  struct Context
-    getter branches = [] of Branch
-    getter leaves = [] of Leaf
+class Oak::Tree::Branch(T)
+  struct Context(T)
+    getter branches = [] of Branch(T)
+    getter leaves = [] of T
 
-    def initialize(branch : Branch? = nil)
+    def initialize(branch : Branch(T)? = nil)
       branches << branch if branch
     end
   end
@@ -17,7 +17,7 @@ class Oak::Tree::Branch
 
   include Comparable(self)
 
-  getter context : Context = Context.new
+  getter context = Context(T).new
   getter key : String = ""
   getter priority : Int32 = 0
   protected getter kind = Kind::Normal
@@ -29,11 +29,11 @@ class Oak::Tree::Branch
     @root = true
   end
 
-  def initialize(@key : String, @context : Context)
+  def initialize(@key : String, @context : Context(T))
     @priority = compute_priority
   end
 
-  def initialize(@key : String, payload : Leaf? = nil)
+  def initialize(@key : String, payload : T? = nil)
     @priority = compute_priority
     leaves << payload if payload
   end
@@ -44,7 +44,7 @@ class Oak::Tree::Branch
     other.priority <=> priority
   end
 
-  def add(path : String, payload : Leaf)
+  def add(path : String, payload : T)
     if placeholder?
       @key = path
       leaves << payload
@@ -97,9 +97,23 @@ class Oak::Tree::Branch
     !@childen.empty?
   end
 
-  def find(path, result_set = ResultSet.new)
+  def search(path)
+    ([] of Result(T)).tap do |results|
+      search(path) do |result|
+        results << result
+      end
+    end
+  end
+
+  def search(path, &block : Result(T) -> _)
+    search(path, Result(T).new, &block)
+  end
+
+  protected def search(path, result : Result(T), &block : Result(T) -> _) : Nil
+
     if @root && (path.bytesize == key.bytesize && path == key) && leaves?
-      result_set.use(self)
+      block.call result.use(self)
+      result = Result(T).new
     end
 
     walker = Walker.new(path: path, key: key)
@@ -109,8 +123,9 @@ class Oak::Tree::Branch
       when '*'
         name = walker.key_slice(walker.key_pos + 1)
         value = walker.remaining_path
-        result_set.params[name] = value unless name.empty?
-        result_set.use(self)
+        result.params[name] = value unless name.empty?
+        block.call result.use(self)
+        result = Result(T).new
         break
       when ':'
         key_size = walker.key_param_size
@@ -118,7 +133,7 @@ class Oak::Tree::Branch
         name = walker.key_slice(walker.key_pos + 1, key_size - 1)
         value = walker.path_slice(walker.path_pos, path_size)
 
-        result_set.params[name] = value
+        result.params[name] = value
 
         walker.key_pos += key_size
         walker.path_pos += path_size
@@ -128,25 +143,31 @@ class Oak::Tree::Branch
     end
 
     if walker.end?
-      result_set.use(self)
+      block.call result.use(self)
+      result = Result(T).new
     end
 
     if walker.path_continues?
       if walker.path_trailing_slash_end?
-        result_set.use(self)
+        block.call result.use(self)
+        result = Result(T).new
       end
       branches.each do |branch|
         remaining_path = walker.remaining_path
         if branch.should_walk?(remaining_path)
-          result_set.track self
-          branch.find(remaining_path, result_set)
+          result.track self
+          branch.search(remaining_path, result) do |inner_result|
+            block.call inner_result
+          end
+          result = Result(T).new
         end
       end
     end
 
     if walker.key_continues?
       if walker.key_trailing_slash_end?
-        result_set.use(self)
+        block.call result.use(self)
+        result = Result(T).new
       end
 
       if walker.catch_all?
@@ -155,24 +176,23 @@ class Oak::Tree::Branch
 
       name = walker.key_slice(walker.key_pos + 1)
 
-      result_set.params[name] = ""
+      result.params[name] = ""
 
-      result_set.use(self)
+      block.call result.use(self)
+      result = Result(T).new
     end
 
     if dynamic_branches?
       dynamic_branches.each do |branch|
         if branch.should_walk?(path)
-          result_set.track self
-          branch.find(path, result_set)
+          result.track self
+          branch.search(path) do |inner_result|
+            block.call inner_result
+            result = Result(T).new
+          end
         end
       end
     end
-    result_set
-  end
-
-  def matches_constraints?(request : HTTP::Request)
-    leaves.any? &.matches_constraints? request
   end
 
   def visualize
