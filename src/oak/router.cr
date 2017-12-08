@@ -1,5 +1,7 @@
-abstract class Oak::Router ; end
+abstract class Oak::Router; end
+
 require "./router/*"
+
 abstract class Oak::Router
   include HTTP::Handler
   include Concerns

@@ -1,21 +1,21 @@
 module Oak::Router::Routes
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
-    match({{at}}, {{app}})
+    match({{ at }}, {{ app }})
   end
 
   # Define a `GET /` route at the current path.
   # for params see: `.match`
   macro root(callable, **params)
     {% if params.empty? %}
-      get "/", {{callable}}, helper: "root"
+      get "/", {{ callable }}, helper: "root"
     {% else %}
-      get "/", {{callable}}, {{**params}}, helper: "root"
+      get "/", {{ callable }}, {{**params}}, helper: "root"
     {% end %}
   end
 
   {% for method in ::HTTP::VERBS %}
-    # Defines a {{method}} route
+    # Defines a {{ method }} route
     # for args and params see: `.match`
     macro {{method.downcase.id}}(*args, **params)
       \{% if params.empty? %}
@@ -116,7 +116,7 @@ module Oak::Router::Routes
     {% if callable %} # Build the proc from callable
       %label = {{callable.id.stringify}}
       %proc = -> (context : HTTP::Server::Context) {
-        {{callable}}.call(context)
+        {{ callable }}.call(context)
         nil
       }
     {% end %}
@@ -125,7 +125,7 @@ module Oak::Router::Routes
       {% action = action %}
       %label = [{{controller.stringify}}, {{action.stringify}}].join("#")
       %proc = -> (context : HTTP::Server::Context) {
-        {{controller}}.new(context).{{action}}
+        {{ controller }}.new(context).{{ action }}
         nil
       }
     {% end %}
@@ -139,27 +139,27 @@ module Oak::Router::Routes
     )
 
     # Add the route to the tree
-    %full_path = normalize_path({{path}})
+    %full_path = normalize_path({{ path }})
     TREE.add(%full_path, %leaf)
 
     {% if helper %} # Define the helper
-      define_helper(path: {{path}}, spec: {{helper}})
+      define_helper(path: {{ path }}, spec: {{ helper }})
     {% end %}
 
     {% if via != :all && !via.nil? %} # Define the method constraint
-      %leaf.constraints << ::Oak::MethodsConstraint.new({{via}})
+      %leaf.constraints << ::Oak::MethodsConstraint.new({{ via }})
     {% end %}
 
     {% if constraints %} # Define the param constraints
-      %leaf.constraints << ::Oak::ParamsConstraint.new({{constraints}}.to_h)
+      %leaf.constraints << ::Oak::ParamsConstraint.new({{ constraints }}.to_h)
     {% end %}
 
     {% if format %} # Define the format constraint
-      %leaf.constraints << ::Oak::FormatConstraint.new({{format}})
+      %leaf.constraints << ::Oak::FormatConstraint.new({{ format }})
     {% end %}
 
     {% if accept %} # Define the content type constraint
-      %leaf.constraints << ::Oak::FormatConstraint.new({{accept}})
+      %leaf.constraints << ::Oak::FormatConstraint.new({{ accept }})
     {% end %}
   end
 end

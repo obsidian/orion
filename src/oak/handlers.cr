@@ -1,3 +1,4 @@
 # :nodoc:
-module Oak::Handlers ; end
+module Oak::Handlers; end
+
 require "./handlers/*"

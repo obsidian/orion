@@ -8,7 +8,7 @@ module Oak::Router::Scope
     class {{ scope_class_name }} < ::{{@type}}
       # Set the base path
       {% if path %}
-        BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{path}})
+        BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{ path }})
       {% end %}
 
       {% if helper_prefix %}

@@ -14,11 +14,11 @@ module Oak::Router::Resources
 
       scope helper_prefix: {{ plural_name }} do
         {% if ((!only || (only && only.includes?(:index))) && (except && !except.includes?(:index))) %}
-          get "/", controller: {{controller}}, action: index, helper: true
+          get "/", controller: {{ controller }}, action: index, helper: true
         {% end %}
 
         {% if ((!only || (only && only.includes?(:create))) && (except && !except.includes?(:create))) %}
-          post {{ "/" }}, controller: {{controller}}, action: create
+          post {{ "/" }}, controller: {{ controller }}, action: create
         {% end %}
       end
 
@@ -28,27 +28,27 @@ module Oak::Router::Resources
         {% end %}
 
         {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
-          get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }
+          get {{ "/new" }}, controller: {{ controller }}, action: new, helper: { prefix: "new" }
         {% end %}
 
         {% if ((!only || (only && only.includes?(:show))) && (except && !except.includes?(:show))) %}
-          get {{ "/" }}, controller: {{controller}}, action: show, helper: true
+          get {{ "/" }}, controller: {{ controller }}, action: show, helper: true
         {% end %}
 
         {% if ((!only || (only && only.includes?(:edit))) && (except && !except.includes?(:edit))) %}
-          get {{ "/edit" }}, controller: {{controller}}, action: edit, helper: { prefix: "edit" }
+          get {{ "/edit" }}, controller: {{ controller }}, action: edit, helper: { prefix: "edit" }
         {% end %}
 
         {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-          put {{ "/" }}, controller: {{controller}}, action: update
+          put {{ "/" }}, controller: {{ controller }}, action: update
         {% end %}
 
         {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-          patch {{ "/" }}, controller: {{controller}}, action: update
+          patch {{ "/" }}, controller: {{ controller }}, action: update
         {% end %}
 
         {% if ((!only || (only && only.includes?(:destroy))) && (except && !except.includes?(:destroy))) %}
-          delete {{ "/" }}, controller: {{controller}}, action: destroy
+          delete {{ "/" }}, controller: {{ controller }}, action: destroy
         {% end %}
 
         {{ yield }}
@@ -63,7 +63,7 @@ module Oak::Router::Resources
   macro resource(name, controller, *, only = nil, except = nil, format = nil, accept = nil)
     {% singular_name = run("./inflector/singularize.cr", name) %}
 
-    scope "/#{singular_name}", helper_prefix: {{singular_name}} do
+    scope "/#{singular_name}", helper_prefix: {{ singular_name }} do
       {% if format %}
         CONSTRAINTS << ::Oak::FormatConstraint.new({{ format }})
       {% end %}
@@ -73,31 +73,31 @@ module Oak::Router::Resources
       {% end %}
 
       {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
-        get {{ "/new" }}, controller: {{controller}}, action: new, helper: { prefix: "new" }
+        get {{ "/new" }}, controller: {{ controller }}, action: new, helper: { prefix: "new" }
       {% end %}
 
       {% if ((!only || (only && only.includes?(:create))) && (except && !except.includes?(:create))) %}
-        post {{ "/" }}, controller: {{controller}}, action: create
+        post {{ "/" }}, controller: {{ controller }}, action: create
       {% end %}
 
       {% if ((!only || (only && only.includes?(:show))) && (except && !except.includes?(:show))) %}
-        get {{ "/" }}, controller: {{controller}}, action: show, helper: true
+        get {{ "/" }}, controller: {{ controller }}, action: show, helper: true
       {% end %}
 
       {% if ((!only || (only && only.includes?(:edit))) && (except && !except.includes?(:edit))) %}
-        get {{ "/edit" }}, controller: {{controller}}, action: edit, helper: { prefix: "edit" }
+        get {{ "/edit" }}, controller: {{ controller }}, action: edit, helper: { prefix: "edit" }
       {% end %}
 
       {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-        put {{ "/" }}, controller: {{controller}}, action: update
+        put {{ "/" }}, controller: {{ controller }}, action: update
       {% end %}
 
       {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-        patch {{ "/" }}, controller: {{controller}}, action: update
+        patch {{ "/" }}, controller: {{ controller }}, action: update
       {% end %}
 
       {% if ((!only || (only && only.includes?(:destroy))) && (except && !except.includes?(:destroy))) %}
-        delete {{ "/" }}, controller: {{controller}}, action: destroy
+        delete {{ "/" }}, controller: {{ controller }}, action: destroy
       {% end %}
 
       {{ yield }}

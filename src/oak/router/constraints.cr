@@ -12,8 +12,8 @@ module Oak::Router::Constraints
 
   # Constrain routes by an `Oak::Constraint`
   macro constraint(constraint)
-    constraints({{constraint}}) do
-      {{yield}}
+    constraints({{ constraint }}) do
+      {{ yield }}
     end
   end
 
@@ -21,23 +21,23 @@ module Oak::Router::Constraints
   macro constraints(*constraints)
     scope do
       {% for constraint, i in constraints %} # Add the array of provided constraints
-        CONSTRAINTS << {{constraint}}
+        CONSTRAINTS << {{ constraint }}
       {% end %}
-      {{yield}}
+      {{ yield }}
     end
   end
 
   # Constrain routes by a given domain
   macro host(host)
-    constraint(::Oak::HostConstraint.new({{host}})) do
-      {{yield}}
+    constraint(::Oak::HostConstraint.new({{ host }})) do
+      {{ yield }}
     end
   end
 
   # Constrain routes by a given subdomain
   macro subdomain(subdomain)
-    constraint(::Oak::SubdomainConstraint.new({{subdomain}})) do
-      {{yield}}
+    constraint(::Oak::SubdomainConstraint.new({{ subdomain }})) do
+      {{ yield }}
     end
   end
 end

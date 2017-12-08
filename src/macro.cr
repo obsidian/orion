@@ -2,7 +2,7 @@
 macro router(name)
   class {{ name }} < ::Oak::Router
     scope "/" do
-      {{yield}}
+      {{ yield }}
     end
   end
 end
