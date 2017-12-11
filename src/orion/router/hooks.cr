@@ -1,7 +1,3 @@
-require "shell-table"
-require "radix"
-require "http"
-
 abstract class Orion::Router
   BASE_MODULE = nil
 
@@ -13,7 +9,7 @@ abstract class Orion::Router
     def initialize(@handlers, @proc, @label); end
   end
 
-  private alias Tree = Radix::Tree(Payload)
+  private alias Tree = Oak::Tree(Payload)
 
   private macro inherited_child
     BASE_PATH = "/"

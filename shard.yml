@@ -7,8 +7,9 @@ authors:
 crystal: 0.23.1
 
 dependencies:
-  radix:
-    github: luislavena/radix
+  oak:
+    github: obsidian/oak
+    version: 1.0.0
   shell-table:
     github: jwaldrip/shell-table.cr
 

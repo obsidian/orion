@@ -1,7 +1,3 @@
-require "shell-table"
-require "radix"
-require "http"
-
 abstract class Orion::Router
   include HTTP::Handler
 
@@ -20,11 +16,11 @@ abstract class Orion::Router
 
     # Find the route or 404
     result = get_tree(method).find(path)
-    return context.response.respond_with_error(message = "Not Found", code = 404) unless result.found?
+    return context.response.respond_with_error(message = "Not Found", code = 404) unless result
 
     # Build the middleware and call
-    handlers = [Handlers::ParamsInjector.new(result.params)] + @handlers + result.payload.handlers
-    HTTP::Server.build_middleware(handlers, result.payload.proc).call(context)
+    handlers = [Handlers::ParamsInjector.new(result.params)] + @handlers + result.leaf.handlers
+    HTTP::Server.build_middleware(handlers, result.leaf.proc).call(context)
   end
 end
 

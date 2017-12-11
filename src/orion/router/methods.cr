@@ -1,7 +1,3 @@
-require "shell-table"
-require "radix"
-require "http"
-
 abstract class Orion::Router
   private METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
 

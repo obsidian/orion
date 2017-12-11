@@ -7,10 +7,7 @@ abstract class Orion::Router
     {% via = [via] unless via.is_a? ArrayLiteral %}
     {% via = via.map(&.id.stringify.upcase) }
     {% for method in via.select { |method| METHODS.includes? method } %}
-      begin
-        {{ "Orion::Router.#{method.downcase.id}(#{path}, #{callable}, to: #{to}, controller: #{controller}, action: #{action}, name: #{name})".id }}
-      rescue Radix::Tree::DuplicateError
-      end
+      {{ "Orion::Router.#{method.downcase.id}(#{path}, #{callable}, to: #{to}, controller: #{controller}, action: #{action}, name: #{name})".id }}
     {% end %}
   end
 end
