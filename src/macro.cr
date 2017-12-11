@@ -1,6 +1,6 @@
 # Define a new router
 macro router(name)
-  class {{ name }} < ::Oak::Router
+  class {{ name }} < ::Orion::Router
     scope "/" do
       {{ yield }}
     end

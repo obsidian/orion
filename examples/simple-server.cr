@@ -1,4 +1,4 @@
-require "../src/oak"
+require "../src/orion"
 
 router MyApplication do
   get "empty", ->(context : Context) do

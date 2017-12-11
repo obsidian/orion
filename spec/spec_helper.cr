@@ -1,4 +1,4 @@
-require "../src/oak"
+require "../src/orion"
 require "spec"
 
 def mock_context(verb, path, host = "example.org", *, headers = {} of String => String, io = IO::Memory.new)
@@ -10,7 +10,7 @@ def mock_context(verb, path, host = "example.org", *, headers = {} of String => 
   HTTP::Server::Context.new(request, response)
 end
 
-def Oak::Router.test_route(method, path, *, headers = {} of String => String, ignore_body = false)
+def Orion::Router.test_route(method, path, *, headers = {} of String => String, ignore_body = false)
   io = IO::Memory.new
   context = mock_context(method, path, headers: headers, io: io)
   router = new

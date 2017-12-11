@@ -2,45 +2,20 @@
 :toc-title:
 :toclevels: 99
 
-```text
-                     - - -
-                   -        -  -     --    -
-                -                 -         -  -
-                                -
-                               -                --
-               -          -            -              -
-               -            '-,        -               -
-               -              'b      *
-                -              '$    #-                --
-               -    -           $:   #:               -
-             --      -  --      *#  @):        -   - -
-                          -     :@,@):   ,-**:'   -
-              -      -,         :@@*: --**'      -   -
-                       '#o-    -:(@'-@*"'  -                  .d88b.   .d8b.  db   dD
-               -  -       'bq,--:,@@*'   ,*      -  -        .8P  Y8. d8' `8b 88 ,8P'
-                          ,p$q8,:@)'  -p*'      -            88    88 88ooo88 88,8P
-                   -     '  - '@@Pp@@*'    -  -              88    88 88~~~88 88`8b
-                    -  - --    Y7'.'     -  -                `8b  d8' 88   88 88 `88.
-                              :@):.                           `Y88P'  YP   YP YP   YD
-                             .:@:'.                          =========================
-                           .::(@:.                             A Crystal HTTP Router
-
-```
-
-# Oak
+# Orion
 
 A minimal, rails'esk routing library for `HTTP::Server`.
 
-Oak allows you to easily add routes, groups, and middleware in order to
+Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
 
 toc::[]
 
 ## Purpose
 
-The purpose of the Oak router is to connect URLs to code. It provides a flexible
+The purpose of the Orion router is to connect URLs to code. It provides a flexible
 and comprehensive DSL that will allow you to cover a variety of use cases. In addition,
-Oak will also generate a series of helpers to easily reference the defined paths
+Orion will also generate a series of helpers to easily reference the defined paths
 within your application.
 
 ## Installation
@@ -49,14 +24,14 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  oak:
-    github: obsidian/oak
+  orion:
+    github: obsidian/orion
 ```
 
-... and require Oak in your project.
+... and require Orion in your project.
 
 ```crystal
-require "oak"
+require "orion"
 ```
 
 ## Usage
@@ -138,7 +113,7 @@ specified action must not contain arguments.
 
 #### HTTP verb based routes
 
-A common way to interact with the router is to use standard HTTP verbs. Oak
+A common way to interact with the router is to use standard HTTP verbs. Orion
 supports all the standard HTTP verbs:
 
 `get`, `head`, `post`, `put`, `delete`, `connect`, `options`, `trace`, and `patch`
@@ -338,7 +313,7 @@ on the route. This is similar to the format constraint, but allows clients to
 specify the `Accept` header rather than the extension.
 
 [quote]
-Oak will automatically add mime-type headers for requests with no Accept header and
+Orion will automatically add mime-type headers for requests with no Accept header and
 a specified extension.
 
 ```crystal
@@ -384,7 +359,7 @@ end
 #### Custom Constraints
 
 You can also pass in your own constraints by just passing a class/struct that
-implements the `Oak::Constraint` module.
+implements the `Orion::Constraint` module.
 
 ```crystal
 struct MyConstraint
@@ -459,7 +434,7 @@ Benchmarks can be run with `./benchmark`.
 
 ## Contributing
 
-1. Fork it https://github.com/<your-github-name>/oak/fork
+1. Fork it https://github.com/<your-github-name>/orion/fork
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)

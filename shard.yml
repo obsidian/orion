@@ -1,4 +1,4 @@
-name: oak
+name: orion
 crystal: 0.23.1
 version: 0.1.0
 
@@ -6,6 +6,9 @@ authors:
   - jwaldrip <jason@waldrip.net>
 
 dependencies:
+  oak:
+    github: obsidian/oak
+    version: 1.0.0
   mime-types:
     github: jwaldrip/mime-types.cr
   inflector:

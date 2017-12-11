@@ -23,18 +23,18 @@
 
 ```
 
-# Oak
+# Orion
 
 A minimal, rails'esk routing library for `HTTP::Server`.
 
-Oak allows you to easily add routes, groups, and middleware in order to
+Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
 
 ## Purpose
 
-The purpose of the Oak router is to connect URLs to code. It provides a flexible
+The purpose of the Orion router is to connect URLs to code. It provides a flexible
 and comprehensive DSL that will allow you to cover a variety of use cases. In addition,
-Oak will also generate a series of helpers to easily reference the defined paths
+Orion will also generate a series of helpers to easily reference the defined paths
 within your application.
 
 ## Installation
@@ -43,28 +43,28 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  oak:
-    github: obsidian/oak
+  orion:
+    github: obsidian/orion
 ```
 
-... and require Oak in your project.
+... and require Orion in your project.
 
 ```crystal
-require "oak"
+require "orion"
 ```
 
 ## Usage
 
-For a comprehensive guide please see the [github page](https://github.com/obsidian/oak)
+For a comprehensive guide please see the [github page](https://github.com/obsidian/orion)
 or take a look at what you can define inside the `.router` block by looking at some of the
 API's:
 
-* `Oak::Router::Resources`
-* `Oak::Router::Routes`
-* `Oak::Router::Scope`
-* `Oak::Router::Middleware`
-* `Oak::Router::Concerns`
-* `Oak::Router::Constraints`
+* `Orion::Router::Resources`
+* `Orion::Router::Routes`
+* `Orion::Router::Scope`
+* `Orion::Router::Middleware`
+* `Orion::Router::Concerns`
+* `Orion::Router::Constraints`
 
 ```crystal
 router MyApplicationRouter do
