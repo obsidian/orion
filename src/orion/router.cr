@@ -108,10 +108,10 @@ abstract class Orion::Router
       end
 
       # lastly return with 404
-      context.response.respond_with_error(
-        message: HTTP.default_status_message_for(404),
-        code: 404
-      ) unless leaf
+      unless leaf
+        context.response.respond_with_error(message: HTTP.default_status_message_for(404), code: 404)
+        context.response.close
+      end
     end
   end
 end
