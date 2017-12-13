@@ -75,7 +75,7 @@ module Router::ConstraintsSpec
       context "with a string" do
         context "if matched" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "image/png" })
+            response = SampleRouter.test_route(:get, "/delta", headers: {"Accept" => "image/png"})
             response.status_code.should eq 200
             response.body.should eq "is a png image"
           end
@@ -91,7 +91,7 @@ module Router::ConstraintsSpec
 
         context "if matched by wildcard" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "*/*" })
+            response = SampleRouter.test_route(:get, "/delta", headers: {"Accept" => "*/*"})
             response.status_code.should eq 200
             response.body.should eq "is a png image"
           end

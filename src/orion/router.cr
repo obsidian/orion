@@ -1,15 +1,4 @@
-abstract class Orion::Router; end
-require "./router/*"
 abstract class Orion::Router
-  include HTTP::Handler
-  include Concerns
-  include Constraints
-  include Middleware
-  include Helpers
-  include Routes
-  include Resources
-  include Scope
-
   private macro inherited
     setup_constraints
     setup_handlers
@@ -114,4 +103,17 @@ abstract class Orion::Router
       end
     end
   end
+end
+
+require "./router/*"
+
+abstract class Orion::Router
+  include HTTP::Handler
+  include Concerns
+  include Constraints
+  include Middleware
+  include Helpers
+  include Routes
+  include Resources
+  include Scope
 end
