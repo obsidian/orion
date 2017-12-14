@@ -1,9 +1,15 @@
 module Orion::Router::Resources
-  macro resources(name, controller, *, only = nil, except = nil, id_constraint = nil)
+  macro resources(name, *, controller = nil, only = nil, except = nil, id_constraint = nil, format = nil, accept = nil)
+    {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
+    {% name = name.id %}
     {% singular_name = run "./inflector/singularize.cr", name %}
-    {% plural_name = run "./inflector/pluralize.cr", name %}
+    {% singular_underscore_name = run("./inflector/underscore.cr", singular_name) %}
+    {% controller = controller || run("./inflector/controllerize.cr", name) + "Controller" %}
+    {% underscore_name = run("./inflector/underscore.cr", name) %}
 
-    scope "/#{plural_name}" do
+    scope {{ "/#{name}" }} do
+      CONTROLLER = {{ controller }}
+
       {% if format %}
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})
       {% end %}
@@ -12,58 +18,40 @@ module Orion::Router::Resources
         CONSTRAINTS << ::Orion::AcceptConstraint.new({{ accept }})
       {% end %}
 
-      scope helper_prefix: {{ plural_name }} do
-        {% if ((!only || (only && only.includes?(:index))) && (except && !except.includes?(:index))) %}
-          get "/", controller: {{ controller }}, action: index, helper: true
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:create))) && (except && !except.includes?(:create))) %}
-          post {{ "/" }}, controller: {{ controller }}, action: create
-        {% end %}
+      scope helper_prefix: {{ underscore_name }} do
+        resource_action(:get, "/", :index, only: {{ only }}, except: {{ except }})
+        resource_action(:post, "/", :create, only: {{ only }}, except: {{ except }})
       end
 
-      scope {{ "/:#{singular_name}_id" }}, helper_prefix: {{ singular_name }} do
+      scope helper_prefix: {{ singular_underscore_name }} do
+        resource_action(:get, "/new", :new, only: {{ only }}, except: {{ except }}, helper: { prefix: "new" })
+      end
+
+      scope {{ "/:#{singular_name.id}_id" }}, helper_prefix: {{ singular_underscore_name }} do
         {% if id_constraint %}
-          CONSTRAINTS << ::Orion::ParamsConstraint.new({ "#{singular_name}_id" => id_constraint })
+          CONSTRAINTS << ::Orion::ParamsConstraint.new({ "#{singular_name.id}_id" => id_constraint })
         {% end %}
 
-        {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
-          get {{ "/new" }}, controller: {{ controller }}, action: new, helper: { prefix: "new" }
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:show))) && (except && !except.includes?(:show))) %}
-          get {{ "/" }}, controller: {{ controller }}, action: show, helper: true
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:edit))) && (except && !except.includes?(:edit))) %}
-          get {{ "/edit" }}, controller: {{ controller }}, action: edit, helper: { prefix: "edit" }
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-          put {{ "/" }}, controller: {{ controller }}, action: update
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-          patch {{ "/" }}, controller: {{ controller }}, action: update
-        {% end %}
-
-        {% if ((!only || (only && only.includes?(:destroy))) && (except && !except.includes?(:destroy))) %}
-          delete {{ "/" }}, controller: {{ controller }}, action: destroy
-        {% end %}
+        resource_action(:get, "", :show, only: {{ only }}, except: {{ except }})
+        resource_action(:get, "/edit", :edit, only: {{ only }}, except: {{ except }}, helper: { prefix: "edit" })
+        resource_action(:put, "", :update, only: {{ only }}, except: {{ except }})
+        resource_action(:patch, "", :update, only: {{ only }}, except: {{ except }})
+        resource_action(:delete, "", :delete, only: {{ only }}, except: {{ except }})
 
         {{ yield }}
       end
     end
   end
 
-  macro resources(*args, **params)
-    resources(*args, **params){}
-  end
+  macro resource(name, *, controller = nil, only = nil, except = nil, format = nil, accept = nil)
+    {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
+    {% name = name.id %}
+    {% controller = controller || run("./inflector/controllerize.cr", name) %}
+    {% underscore_name = run("./inflector/underscore.cr", name) %}
 
-  macro resource(name, controller, *, only = nil, except = nil, format = nil, accept = nil)
-    {% singular_name = run("./inflector/singularize.cr", name) %}
+    scope "/#{name}", helper_prefix: {{ underscore_name }} do
+      CONTROLLER = {{ controller }}
 
-    scope "/#{singular_name}", helper_prefix: {{ singular_name }} do
       {% if format %}
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})
       {% end %}
@@ -72,39 +60,23 @@ module Orion::Router::Resources
         CONSTRAINTS << ::Orion::AcceptConstraint.new({{ accept }})
       {% end %}
 
-      {% if ((!only || (only && only.includes?(:new))) && (except && !except.includes?(:new))) %}
-        get {{ "/new" }}, controller: {{ controller }}, action: new, helper: { prefix: "new" }
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:create))) && (except && !except.includes?(:create))) %}
-        post {{ "/" }}, controller: {{ controller }}, action: create
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:show))) && (except && !except.includes?(:show))) %}
-        get {{ "/" }}, controller: {{ controller }}, action: show, helper: true
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:edit))) && (except && !except.includes?(:edit))) %}
-        get {{ "/edit" }}, controller: {{ controller }}, action: edit, helper: { prefix: "edit" }
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-        put {{ "/" }}, controller: {{ controller }}, action: update
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:update))) && (except && !except.includes?(:update))) %}
-        patch {{ "/" }}, controller: {{ controller }}, action: update
-      {% end %}
-
-      {% if ((!only || (only && only.includes?(:destroy))) && (except && !except.includes?(:destroy))) %}
-        delete {{ "/" }}, controller: {{ controller }}, action: destroy
-      {% end %}
+      resource_action(:get, "/new", :new, only: {{ only }}, except: {{ except }}, helper: { prefix: "new" })
+      resource_action(:post, "", :create, only: {{ only }}, except: {{ except }})
+      resource_action(:get, "", :show, only: {{ only }}, except: {{ except }})
+      resource_action(:get, "/edit", :edit, only: {{ only }}, except: {{ except }}, helper: { prefix: "edit" })
+      resource_action(:put, "", :update, only: {{ only }}, except: {{ except }})
+      resource_action(:patch, "", :update, only: {{ only }}, except: {{ except }})
+      resource_action(:delete, "", :delete, only: {{ only }}, except: {{ except }})
 
       {{ yield }}
     end
+  end
 
-    macro resource(*args, **params)
-      resource(*args, **params) {}
-    end
+  private macro resource_action(method, path, action, *, only = nil, except = nil, helper = true)
+    {% except = !except || except.is_a?(ArrayLiteral) ? except : [except] %}
+    {% only = !only || only.is_a?(ArrayLiteral) ? only : [only] %}
+    {% if (!only || only.includes?(action)) && (!except || !except.includes?(action)) %}
+      {{ method.id }}({{ path }}, action: {{ action.id }}, helper: {{ helper }})
+    {% end %}
   end
 end

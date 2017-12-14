@@ -95,6 +95,11 @@ module Orion::Router::Routes
       {% format = path.split(".")[-1] %}
       {% path = path.split(".")[0..-2].join(".") %}
     {% end %}
+
+    {% if !callable && !controller && !to && CONTROLLER %}
+      {% controller = CONTROLLER %}
+    {% end %}
+
     {% arg_count = 0 }
     {% arg_count = arg_count + 1 if callable %}
     {% arg_count = arg_count + 1 if controller %}
@@ -113,19 +118,19 @@ module Orion::Router::Routes
       {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
     {% end %}
 
-    {% if callable %} # Build the proc from callable
-      %label = {{callable.id.stringify}}
-      %proc = -> (context : HTTP::Server::Context) {
-        {{ callable }}.call(context)
-        nil
-      }
-    {% end %}
-
-    {% if controller %} # Build the proc from a controller
+    {% if !callable && controller %} # Build the proc from a controller
       {% action = action %}
       %label = [{{controller.stringify}}, {{action.stringify}}].join("#")
       %proc = -> (context : HTTP::Server::Context) {
         {{ controller }}.new(context).{{ action }}
+        nil
+      }
+    {% end %}
+
+    {% if callable %} # Build the proc from callable
+      %label = {{callable.id.stringify}}
+      %proc = -> (context : HTTP::Server::Context) {
+        {{ callable }}.call(context)
         nil
       }
     {% end %}

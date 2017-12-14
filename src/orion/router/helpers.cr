@@ -1,5 +1,11 @@
 # :nodoc:
 module Orion::Router::Helpers
+  class ParameterMissing < Exception
+    def initialize(keys : Array(String))
+      initialize("Missing parameters: #{keys.join(", ")}")
+    end
+  end
+
   private macro define_helper(*, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 
@@ -20,15 +26,18 @@ module Orion::Router::Helpers
     module ::{{ Helpers }}
       def self.{{method_name.id}}_path(**params)
         path = ::{{@type}}.normalize_path({{ path }})
-        result = ::{{@type}}::ROUTER.tree.search(path).first
+        result = ::{{@type}}::ROUTER.tree.find(path).not_nil!
         path_param_names = result.params.keys
 
         # Convert all the params to a string
         params_hash = ({} of String => String).tap do |memo|
           params.each do |key, value|
             memo[key.to_s] = value.to_s
+            result.params.delete key.to_s
           end
         end
+
+        raise ParameterMissing.new(result.params.keys) unless result.params.keys.empty?
 
         # Assign the path params
         path_param_names.each do |name|

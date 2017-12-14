@@ -8,7 +8,7 @@ module Orion::Router::Scope
     class {{ scope_class_name }} < ::{{@type}}
       # Set the base path
       {% if path %}
-        BASE_PATH = File.join(::{{@type}}::BASE_PATH, {{ path }})
+        BASE_PATH = [::{{ @type }}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
       {% end %}
 
       {% if helper_prefix %}
@@ -19,12 +19,7 @@ module Orion::Router::Scope
       {{ yield }}
 
       # 404 to any unmatched path
-      match "*", ->(c : HTTP::Server::Context){
-        context.response.respond_with_error(
-          message: HTTP.default_status_message_for(404),
-          code: 404
-        )
-      }
+      match "*", ERROR_404
     end
   end
 end
