@@ -151,20 +151,21 @@ module Orion::Router::Routes
       define_helper(path: {{ path }}, spec: {{ helper }})
     {% end %}
 
-    {% if via != :all && !via.nil? %} # Define the method constraint
-      %leaf.constraints << ::Orion::MethodsConstraint.new({{ via }})
-    {% end %}
-
     {% if constraints %} # Define the param constraints
-      %leaf.constraints << ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
-    {% end %}
-
-    {% if format %} # Define the format constraint
-      %leaf.constraints << ::Orion::FormatConstraint.new({{ format }})
+      %leaf.constraints.unshift ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
     {% end %}
 
     {% if accept %} # Define the content type constraint
-      %leaf.constraints << ::Orion::AcceptConstraint.new({{ accept }})
+      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
     {% end %}
+
+    {% if format %} # Define the format constraint
+      %leaf.constraints.unshift ::Orion::FormatConstraint.new({{ format }})
+    {% end %}
+
+    {% if via != :all && !via.nil? %} # Define the method constraint
+      %leaf.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
+    {% end %}
+
   end
 end

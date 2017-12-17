@@ -19,7 +19,7 @@ abstract class Orion::Router
       @tree = TREE
 
       def self.routes
-        ROUTE_SET
+        tree.results
       end
 
       def self.tree
@@ -56,6 +56,7 @@ abstract class Orion::Router
   # :nodoc:
   def self.normalize_path(path : String)
     base = base_path
+    return base if path.empty?
     parts = [base, path].map(&.to_s)
     String.build do |str|
       parts.each_with_index do |part, index|
