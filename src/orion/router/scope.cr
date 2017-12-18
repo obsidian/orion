@@ -1,22 +1,25 @@
-abstract class Orion::Router
-  # Create a group at the specified path.
-  private macro scope(path = "", *, clear_handlers = false, **opts)
-    {% counter = GROUP_COUNTER[0] = GROUP_COUNTER[0] + 1 %}
-    {% superclass = @type %}
-    class RouterGroup{{counter}} < {{superclass}}
-      BASE_PATH = File.join({{superclass}}::BASE_PATH, {{path}})
-      BASE_MODULE = {{opts[:module]}} || {{superclass}}::BASE_MODULE
+module Orion::Router::Scope
+  # Create a scope, optionall nested under a path.
+  macro scope(path = nil, helper_prefix = nil)
+    {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
+    {% scope_class_name = run "./inflector/random_const.cr", "Scope" %}
 
-      def self.trees
-        {{superclass}}.trees
-      end
+    # :nodoc:
+    class {{ scope_class_name }} < ::{{@type}}
+      # Set the base path
+      {% if path %}
+        BASE_PATH = [::{{ @type }}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
+      {% end %}
 
-      def self.routes
-        {{superclass}}.routes
-      end
+      {% if helper_prefix %}
+        PREFIXES = {{ prefixes }}
+      {% end %}
 
-      HANDLERS.clear if {{clear_handlers}}
-      {{yield}}
+      # Yield the block
+      {{ yield }}
+
+      # 404 to any unmatched path
+      match "*", ERROR_404
     end
   end
 end

@@ -1,5 +1,6 @@
 require "http/server"
 
+# :nodoc:
 class Orion::Handlers::AutoClose
   include HTTP::Handler
 

@@ -1,4 +1,4 @@
 require "../spec_helper"
 
-describe Orion::Routable do
+describe Orion::ControllerHelper do
 end

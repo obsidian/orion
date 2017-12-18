@@ -1,15 +1,19 @@
 name: orion
-version: 0.1.0
+crystal: 0.23.1
+version: 1.0.0-beta.1
 
 authors:
   - jwaldrip <jason@waldrip.net>
 
-crystal: 0.23.1
-
 dependencies:
-  radix:
-    github: luislavena/radix
-  shell-table:
-    github: jwaldrip/shell-table.cr
+  oak:
+    github: obsidian/oak
+    version: 1.0.2
+  mime-types:
+    github: jwaldrip/mime-types.cr
+    version: 0.12.3
+  inflector:
+    github: phoffer/inflector.cr
+    version: "~> 0.1.8"
 
 license: MIT
