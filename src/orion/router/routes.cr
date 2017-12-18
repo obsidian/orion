@@ -25,6 +25,8 @@ module Orion::Router::Routes
       \{% end %}
     end
 
+    # Defines a {{ method }} route with a provided block
+    # for args and params see: `.match`
     macro {{method.downcase.id}}(path, *, via = nil, **params, &block)
       \{% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
       \{% if params.empty? %}
@@ -174,6 +176,15 @@ module Orion::Router::Routes
 
   end
 
+  # Defines a match route with a provided block.
+  #
+  # ```
+  # router MyRouter do
+  #   match "/path" do |context|
+  #     # ... do something
+  #   }
+  # end
+  # ```
   macro match(path, **params, &block)
     {% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
     match({{ path }}, ->({{ args }}){ {{ block.body }} }, {{**params}})
