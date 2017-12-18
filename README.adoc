@@ -143,23 +143,136 @@ end
 
 ### Resource Based Routing
 
-*TODO*
+A common way in Orion to route is to do so against a known resource. This method
+will create a series of routes targeted at a specific controller.
 
-#### Collections of resources
+_The following is an example controller definition and the matching
+resources definition._
 
-*TODO*
+```crystal
+class PostsController
+  include Orion::ControllerHelper
+  include ResponseHelpers
 
+  def index
+    @posts = Post.all
+    render :index
+  end
+
+  def new
+    @post = Post.new
+    render :new
+  end
+
+  def create
+    post = Post.create(request)
+    redirect to: post_path post_id: post.id
+  end
+
+  def show
+    @post = Post.find(request.path_params["post_id"])
+  end
+
+  def edit
+    @post = Post.find(request.path_params["post_id"])
+    render :edit
+  end
+
+  def update
+    post = Post.find(request.path_params["post_id"])
+    HTTP::FormData.parse(request) do |part|
+      post.attributes[part.name] = part.body.gets_to_end
+    end
+    redirect to: post_path post_id: post.id
+  end
+
+  def delete
+    post = Post.find(request.path_params["post_id"])
+    post.delete
+    redirect to: posts_path
+  end
+
+end
+
+router MyApplication do
+  resources :posts
+end
+```
+
+#### Including/Excluding Actions
+
+By default, the actions `index`, `new`, `create`, `show`, `edit`, `update`, `delete`
+are included. You may include or exclude explicitly by using the `only` and `except` params.
+
+[quote]
+NOTE: The index action is not added for xref:singular-resources[singular resources].
+
+```crystal
+router MyApplication do
+  resources :posts, except: [:edit, :update]
+  resources :users, only: [:new, :create, :show]
+end
+```
+
+#### Nested Resources and Routes
+
+You can add nested resources and member routes by providing a block to the
+`resources` definition.
+
+```crystal
+router MyApplication do
+  resources :posts do
+    post "feature", action: feature
+    resources :likes
+    resources :comments
+  end
+end
+```
+[[singular-resources]]
 #### Singular Resources
 
-*TODO*
+In addition to using the collection of `resources` method, You can also add
+singular resources which do not provide a `id_param` or `index` action.
 
-#### Additional Options
+```crystal
+router MyApplication do
+  resource :profile
+end
+```
 
-*TODO*
+#### Customizing ID
+
+You can customize the ID path parameter by passing the `id_param` parameter.
+
+```crystal
+router MyApplication do
+  resources :posts, id_param: :article_id
+end
+```
+
+#### Constraining the ID
+
+You can set constraints on the ID parameter by passing the `id_constraint` parameter.
+
+_see xref:param-constraints[param constraints] for more details_
+
+```crystal
+router MyApplication do
+  resources :posts, id_constraint: /^\d{4}$/
+end
+```
+
+#### Constraints
+
+Similar to basic routes, `resource` and `resources` support the
+xref:format-constraints[`format`], xref:accept-type-constraints[`accept`],
+xref:content-type-constraints[`content_type`], and xref:type-constraints[`type`]
+constraints.
 
 ### Instrumenting handlers _(a.k.a. middleware)_
 
-Instances or Classes implementing link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
+Instances or Classes implementing
+link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
 can be inserted directly in your routes by using the `use` method.
 
 [quote]
@@ -278,12 +391,14 @@ router MyApplicationRouter do
 end
 ```
 
+[[constraints]]
 ### Constraints - More advanced rules for your routes
 
 Constraints can be used to further determine if a route is hit beyond just it's
 path. Routes have some predefined constraints you can specify, but you can also
 pass in a custom constraint.
 
+[[param-constraints]]
 #### Parameter constraints
 
 When defining a route, you can pass in parameter constraints. The path params will
@@ -295,6 +410,7 @@ router MyApplicationRouter do
 end
 ```
 
+[[format-constraints]]
 #### Format constraints
 
 You can constrain the request to a certain format. Such as restricting
@@ -306,9 +422,23 @@ router MyApplicationRouter do
 end
 ```
 
-#### Mime-Type constraints
+[[content-type-constraints]]
+#### Request Mime-Type constraints
 
-You can constrain the request to a certain mime-type by using the `accept` param.
+You can constrain the request to a certain mime-type by using the `content_type` param
+on the route. This will ensure that if the request has a body, that it provides the proper
+content type.
+
+```crystal
+router MyApplicationRouter do
+  put "api/users/:id", content_type: "application/json"
+end
+```
+
+[[accept-constraints]]
+#### Response Mime-Type constraints
+
+You can constrain the response to a certain mime-type by using the `accept` param
 on the route. This is similar to the format constraint, but allows clients to
 specify the `Accept` header rather than the extension.
 
@@ -319,6 +449,24 @@ a specified extension.
 ```crystal
 router MyApplicationRouter do
   get "api/users/:id", accept: "application/json"
+end
+```
+
+[[type-constraints]]
+#### Combined Mime-Type constraints
+
+You can constrain the request and response to a certain mime-type by using the `type` param
+on the route. This will ensure that if the request has a body, that it provides the proper
+content type. In addition it will also validate that the client provides a proper
+accept header for the response.
+
+[quote]
+Orion will automatically add mime-type headers for requests with no Accept header and
+a specified extension.
+
+```crystal
+router MyApplicationRouter do
+  put "api/users/:id", type: "application/json"
 end
 ```
 
@@ -426,11 +574,28 @@ end
 
 #### Using helpers in your code
 
-*TODO*
+As you add helpers they are added to the nested `Helpers` module of your router.
+you may include this module anywhere in your code to get access to the methods,
+or call them on the module directly.
 
-## Benchmarks
+_If `@context : HTTP::Server::Context` is present in the class, you will also be
+able to use the `{helper}_url` versions of the helpers._
 
-Benchmarks can be run with `./benchmark`.
+```crystal
+router MyApplicationRouter do
+  resources :users
+end
+
+class User
+  include MyApplicationRouter::Helpers
+
+  def route
+    user_path user_id: self.id
+  end
+end
+
+puts MyApplicationRouter::Helpers.users_path
+```
 
 ## Contributing
 
