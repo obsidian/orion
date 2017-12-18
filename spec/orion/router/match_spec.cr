@@ -19,6 +19,9 @@ module Router::MatchSpec
 
   router SampleRouter do
     match "/callable", ->(c : Context) { c.response.print "callable match" }
+    match "/block" do |c|
+      c.response.print "block match"
+    end
     match "/to-match", to: "Samples#to_match"
     match "/match-actionless", controller: SamplesController
     match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
@@ -31,6 +34,14 @@ module Router::MatchSpec
           response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/callable")
           response.status_code.should eq 200
           response.body.should eq "callable match"
+        end
+      end
+
+      context "with a block" do
+        it "should succeed" do
+          response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/block")
+          response.status_code.should eq 200
+          response.body.should eq "block match"
         end
       end
 

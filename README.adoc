@@ -82,9 +82,21 @@ router MyApplicationRouter do
 end
 ```
 
-#### Using a `call` able object
+#### Using block syntax
 Sometimes, we may want a more link:https://github.com/kemalcr/kemal[kemal] or
-link:http://sinatrarb.com/[sinatra] like approach. A second argument can be any
+link:http://sinatrarb.com/[sinatra] like approach. To accomplish this, we can
+simply pass a block that yields `HTTP::Server::Context`.
+
+```crystal
+router MyApplicationRouter do
+  post "users" do |context|
+    context.response.puts "foo"
+  end
+end
+```
+
+#### Using a `call` able object
+Lastly a second argument can be any
 object that responds to `#call(cxt : HTTP::Server::Context)`.
 
 ```crystal

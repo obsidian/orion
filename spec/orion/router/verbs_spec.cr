@@ -21,6 +21,9 @@ module Router::VerbsSpec
 
       router SampleRouter do
         {{verb.downcase.id}} "/callable", ->(c : Context){ c.response.print "callable {{verb.downcase.id}}" }
+        {{verb.downcase.id}} "/block" do |c|
+          c.response.print "block {{verb.downcase.id}}"
+        end
         {{verb.downcase.id}} "/to-{{verb.downcase.id}}", to: "Samples#to_{{verb.downcase.id}}"
         {{verb.downcase.id}} "/{{verb.downcase.id}}-actionless", controller: SamplesController
         {{verb.downcase.id}} "/{{verb.downcase.id}}-action", controller: SamplesController, action: action_{{verb.downcase.id}}, helper: "sample_verbose"
@@ -32,6 +35,14 @@ module Router::VerbsSpec
             response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/callable")
             response.status_code.should eq 200
             response.body.should eq "callable {{verb.downcase.id}}"
+          end
+        end
+
+        context "with a block" do
+          it "should succeed" do
+            response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/block")
+            response.status_code.should eq 200
+            response.body.should eq "block {{verb.downcase.id}}"
           end
         end
 

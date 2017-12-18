@@ -1,7 +1,8 @@
 require "../src/orion"
 
 router MyApplication do
-  get "empty", ->(context : Context) do
+  get "empty" do |context|
+    context.response.puts "e"
   end
 
   get "/*", ->(context : Context) do

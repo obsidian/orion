@@ -17,15 +17,20 @@ module Orion::Router::Routes
   {% for method in ::HTTP::VERBS %}
     # Defines a {{ method }} route
     # for args and params see: `.match`
-    macro {{method.downcase.id}}(*args, **params)
+    macro {{method.downcase.id}}(path, callable = nil, *, via = nil, action = {{ method.downcase.id }}, **params)
       \{% if params.empty? %}
-        match(\{{*args}}, action: {{method.downcase.id}}, via: {{method.downcase}})
+        match(\{{path}}, \{{callable}}, action: \{{action}}, via: {{method.downcase}})
       \{% else %}
-        \{% if params[:action] %}
-          match(\{{*args}}, \{{**params}}, via: {{method.downcase}})
-        \{% else %}
-          match(\{{*args}}, \{{**params}}, action: {{method.downcase.id}}, via: {{method.downcase}})
-        \{% end %}
+        match(\{{path}}, \{{callable}}, action: \{{action}}, via: {{method.downcase}}, \{{**params}})
+      \{% end %}
+    end
+
+    macro {{method.downcase.id}}(path, *, via = nil, **params, &block)
+      \{% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
+      \{% if params.empty? %}
+        match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}})
+      \{% else %}
+        match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}}, \{{**params}})
       \{% end %}
     end
   {% end %}
@@ -167,5 +172,10 @@ module Orion::Router::Routes
       %leaf.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
     {% end %}
 
+  end
+
+  macro match(path, **params, &block)
+    {% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
+    match({{ path }}, ->({{ args }}){ {{ block.body }} }, {{**params}})
   end
 end
