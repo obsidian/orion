@@ -97,7 +97,7 @@ module Orion::Router::Routes
   #   }
   # end
   # ```
-  macro match(path, callable = nil, *, to = nil, controller = nil, action = match, helper = nil, constraints = nil, format = nil, accept = nil, via = :all)
+  macro match(path, callable = nil, *, to = nil, controller = nil, action = match, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, via = :all)
     {% if !format && path.split(".").size > 1 %}
       {% format = path.split(".")[-1] %}
       {% path = path.split(".")[0..-2].join(".") %}
@@ -162,12 +162,21 @@ module Orion::Router::Routes
       %leaf.constraints.unshift ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
     {% end %}
 
-    {% if accept %} # Define the content type constraint
-      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
+    {% if content_type %}
+      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ content_type }})
+    {% end %}
+
+    {% if type %}
+      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ type }})
+      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ type }})
     {% end %}
 
     {% if format %} # Define the format constraint
       %leaf.constraints.unshift ::Orion::FormatConstraint.new({{ format }})
+    {% end %}
+
+    {% if accept %} # Define the content type constraint
+      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
     {% end %}
 
     {% if via != :all && !via.nil? %} # Define the method constraint

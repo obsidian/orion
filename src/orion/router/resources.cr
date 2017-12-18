@@ -1,5 +1,5 @@
 module Orion::Router::Resources
-  macro resources(name, *, controller = nil, only = nil, except = nil, id_constraint = nil, format = nil, accept = nil, id_param = nil)
+  macro resources(name, *, controller = nil, only = nil, except = nil, id_constraint = nil, format = nil, accept = nil, id_param = nil, content_type = nil, type = nil)
     {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
     {% name = name.id %}
     {% singular_name = run "./inflector/singularize.cr", name %}
@@ -10,6 +10,15 @@ module Orion::Router::Resources
 
     scope {{ "/#{name}" }} do
       CONTROLLER = {{ controller }}
+
+      {% if content_type %}
+        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
+      {% end %}
+
+      {% if type %}
+        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ type }})
+        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ type }})
+      {% end %}
 
       {% if format %}
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})
@@ -44,7 +53,7 @@ module Orion::Router::Resources
     end
   end
 
-  macro resource(name, *, controller = nil, only = nil, except = nil, format = nil, accept = nil)
+  macro resource(name, *, controller = nil, only = nil, except = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
     {% name = name.id %}
     {% controller = controller || run("./inflector/controllerize.cr", name) + "Controller" %}
@@ -52,6 +61,15 @@ module Orion::Router::Resources
 
     scope {{ "/#{name}" }}, helper_prefix: {{ underscore_name }} do
       CONTROLLER = {{ controller }}
+
+      {% if content_type %}
+        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
+      {% end %}
+
+      {% if type %}
+        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ type }})
+        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ type }})
+      {% end %}
 
       {% if format %}
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})

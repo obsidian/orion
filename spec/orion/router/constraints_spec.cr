@@ -15,6 +15,7 @@ module Router::ConstraintsSpec
     get "bravo", ->(c : Context) { c.response.print "is js or jsx" }, format: /jsx?/
     get "charlie", ->(c : Context) { c.response.print "is an image" }, accept: "image/*"
     get "delta", ->(c : Context) { c.response.print "is a png image" }, accept: "image/png"
+    post "mary", ->(c : Context) { c.response.print "is a jpg image" }, content_type: "image/jpeg"
     get "echo", ->(c : Context) { c.response.print "is a png image with unicode" }, accept: "image/png; charset=utf-8"
 
     host "example.org" do
@@ -71,6 +72,33 @@ module Router::ConstraintsSpec
       end
     end
 
+    describe "checking content_type" do
+      context "with a string" do
+        context "if matched" do
+          it "should pass" do
+            response = SampleRouter.test_route(:post, "/mary", headers: {"Content-Type" => "image/jpeg"}, body: "aaa")
+            response.status_code.should eq 200
+            response.body.should eq "is a jpg image"
+          end
+        end
+
+        context "if not matched without a body" do
+          it "should pass" do
+            response = SampleRouter.test_route(:post, "/mary")
+            response.status_code.should eq 200
+            response.body.should eq "is a jpg image"
+          end
+        end
+
+        context "if not matched" do
+          it "should not pass" do
+            response = SampleRouter.test_route(:post, "/mary", body: "aaa")
+            response.status_code.should eq 404
+          end
+        end
+      end
+    end
+
     describe "checking accept" do
       context "with a string" do
         context "if matched" do
@@ -96,14 +124,6 @@ module Router::ConstraintsSpec
             response.body.should eq "is a png image"
           end
         end
-
-        # context "if matched by partial" do
-        #   it "should pass" do
-        #     response = SampleRouter.test_route(:get, "/delta", headers: { "Accept" => "image/*" })
-        #     response.status_code.should eq 200
-        #     response.body.should eq "is a png image"
-        #   end
-        # end
 
         context "if not matched" do
           it "should not pass" do
