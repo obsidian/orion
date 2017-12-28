@@ -1,4 +1,10 @@
 abstract class Orion::Router
+  class ParametersMissing < Exception
+    def initialize(keys : Array(String))
+      initialize("Missing parameters: #{keys.join(", ")}")
+    end
+  end
+
   private macro inherited
     setup_constraints
     setup_handlers

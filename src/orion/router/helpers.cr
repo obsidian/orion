@@ -1,11 +1,5 @@
 # :nodoc:
 module Orion::Router::Helpers
-  class ParameterMissing < Exception
-    def initialize(keys : Array(String))
-      initialize("Missing parameters: #{keys.join(", ")}")
-    end
-  end
-
   private macro define_helper(*, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 
@@ -37,7 +31,7 @@ module Orion::Router::Helpers
           end
         end
 
-        raise ParameterMissing.new(result.params.keys) unless result.params.keys.empty?
+        raise ParametersMissing.new(result.params.keys) unless result.params.keys.empty?
 
         # Assign the path params
         path_param_names.each do |name|

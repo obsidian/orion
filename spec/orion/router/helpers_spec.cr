@@ -31,7 +31,7 @@ module Router::HelpersSpec
     end
 
     it "should raise if a param is missing" do
-      expect_raises do
+      expect_raises Orion::Router::ParametersMissing do
         SampleRouter::Helpers.bar_path(bar_id: 1)
       end
     end
