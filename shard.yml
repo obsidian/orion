@@ -1,6 +1,6 @@
 name: orion
 crystal: 0.24.1
-version: 1.0.0-beta.1
+version: 1.0.0
 
 authors:
   - jwaldrip <jason@waldrip.net>
