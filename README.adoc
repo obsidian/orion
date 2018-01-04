@@ -72,16 +72,6 @@ router MyApplicationRouter do
 end
 ```
 
-#### Using `controller: Type`
-Alternatively we can also drop the action and the http verb will be used.
-`post "/users", controller: Users` would map to `UsersController.new(cxt : HTTP::Server::Context).post`.
-
-```crystal
-router MyApplicationRouter do
-  post "users", controller: UsersController
-end
-```
-
 #### Using block syntax
 Sometimes, we may want a more link:https://github.com/kemalcr/kemal[kemal] or
 link:http://sinatrarb.com/[sinatra] like approach. To accomplish this, we can
