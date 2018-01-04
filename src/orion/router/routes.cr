@@ -15,73 +15,91 @@ module Orion::Router::Routes
   end
 
   {% for method in ::HTTP::VERBS %}
-    # Defines a {{ method }} route
-    # for args and params see: `.match`
-    macro {{method.downcase.id}}(path, callable = nil, *, via = nil, action = {{ method.downcase.id }}, **params)
-      \{% if params.empty? %}
-        match(\{{path}}, \{{callable}}, action: \{{action}}, via: {{method.downcase}})
-      \{% else %}
-        match(\{{path}}, \{{callable}}, action: \{{action}}, via: {{method.downcase}}, \{{**params}})
-      \{% end %}
+    # Defines a {{ method.id }} route to a callable object.
+    #
+    # You can route to any object that responds to `call` with an `HTTP::Server::Context`,
+    # this also works for any `Proc(HTTP::Server::Context, _)`.
+    #
+    # ```
+    # module Callable
+    #   def call(cxt : HTTP::Server::Context)
+    #   # ... do something
+    #   end
+    # end
+    #
+    # router MyRouter do
+    #   match "/path", Callable
+    # end
+    # ```
+    macro {{method.downcase.id}}(path, callable, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{path}}, \{{callable}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
     end
 
-    # Defines a {{ method }} route with a provided block
-    # for args and params see: `.match`
-    macro {{method.downcase.id}}(path, *, via = nil, **params, &block)
+    # Defines a {{ method.id }} route to a controller and action (short form).
+    # You can route to a controller and action by passing the `to` argument in
+    # the form of `"Controller#action"`.
+    #
+    # ```
+    # class MyController
+    #   def new(@context : HTTP::Server::Context)
+    #   end
+    #
+    #   def match
+    #     # ... do something
+    #   end
+    # end
+    #
+    # router MyRouter do
+    #   match "/path", to: "MyController#{{method.downcase.id}}"
+    # end
+    # ```
+    macro {{method.downcase.id}}(path, *, to, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{path}}, to: \{{to}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+    end
+
+    # Defines a {{ method.id }} route to a controller and action (long form).
+    # You can route to a controller and action by passing the `controller` and
+    # `action` arguments, if action is omitted it will default to `match`.
+    #
+    # ```
+    # class MyController
+    #   def new(@context : HTTP::Server::Context)
+    #   end
+    #
+    #   def match
+    #     # ... do something
+    #   end
+    # end
+    #
+    # router MyRouter do
+    #   match "/path", controller: MyController, action: {{method.downcase.id}}
+    # end
+    # ```
+    macro {{method.downcase.id}}(path, *, action, controller = CONTROLLER, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{path}}, controller: \{{controller}}, action: \{{action}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+    end
+
+    # Defines a {{ method.id }} route with a block.
+    #
+    # You can route to any object that responds to `call` with an `HTTP::Server::Context`,
+    # this also works for any `Proc(HTTP::Server::Context, _)`.
+    #
+    # ```
+    # router MyRouter do
+    #   match "/path" do |context|
+    #     # ... do something
+    #   end
+    # end
+    # ```
+    macro {{method.downcase.id}}(path, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
       \{% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
-      \{% if params.empty? %}
-        match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}})
-      \{% else %}
-        match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}}, \{{**params}})
-      \{% end %}
+      match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
     end
   {% end %}
 
-  # Defines a match route.
+  # Defines a {{ method.id }} route to a callable object.
   #
-  # ### Variations:
-  #
-  # #### Routing to controller and action (short form).
-  # You can route to a controller and action by passing the `to` argument in
-  # the form of `"Controller#action"`.
-  #
-  # ```
-  # class MyController
-  #   def new(@context : HTTP::Server::Context)
-  #   end
-  #
-  #   def match
-  #     # ... do something
-  #   end
-  # end
-  #
-  # router MyRouter do
-  #   match "/path", to: "MyController#match"
-  # end
-  # ```
-  #
-  # #### Routing to controller and action (long form).
-  # You can route to a controller and action by passing the `controller` and
-  # `action` arguments, if action is omitted it will default to `match`.
-  #
-  # ```
-  # class MyController
-  #   def new(@context : HTTP::Server::Context)
-  #   end
-  #
-  #   def match
-  #     # ... do something
-  #   end
-  # end
-  #
-  # router MyRouter do
-  #   match "/path", controller: MyController, action: match
-  # end
-  # ```
-  #
-  # #### Routing to callable objects.
-  # You can route to any object that responds to `call` with an `HTTP::Server::Context`,
-  # this also works for any `Proc(HTTP::Server::Context, _)`.
+  # You can route to any object that responds to `call` with an `HTTP::Server::Context`.
   #
   # ```
   # module Callable
@@ -92,62 +110,25 @@ module Orion::Router::Routes
   #
   # router MyRouter do
   #   match "/path", Callable
-  #   match "/path", ->(HTTP::Server::Context) {
-  #     # ... do something
-  #   }
   # end
   # ```
-  macro match(path, callable = nil, *, to = nil, controller = nil, action = match, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, via = :all)
+  macro match(path, callable, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% if !format && path.split(".").size > 1 %}
       {% format = path.split(".")[-1] %}
       {% path = path.split(".")[0..-2].join(".") %}
     {% end %}
 
-    {% if !callable && !controller && !to && CONTROLLER %}
-      {% controller = CONTROLLER %}
-    {% end %}
-
-    {% arg_count = 0 }
-    {% arg_count = arg_count + 1 if callable %}
-    {% arg_count = arg_count + 1 if controller %}
-    {% arg_count = arg_count + 1 if to %}
-
-    {% if arg_count == 0 %} # Raise arg errors
-      {% raise "must supply one of: `callable`, `to`, or `controller`" %}
-    {% elsif arg_count > 1 %}
-      {% raise "must supply only one of: `callable`, `to`, or `controller`" %}
-    {% end %}
-
-    {% if to && !controller %} # Convert to into `controller` & `action`.
-      {% parts = to.split("#") %}
-      {% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
-      {% action = parts[1].id %}
-      {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
-    {% end %}
-
-    {% if !callable && controller %} # Build the proc from a controller
-      {% action = action %}
-      %label = [{{controller.stringify}}, {{action.stringify}}].join("#")
-      %proc = -> (context : HTTP::Server::Context) {
-        {{ controller }}.new(context).{{ action }}
-        nil
-      }
-    {% end %}
-
-    {% if callable %} # Build the proc from callable
-      %label = {{callable.id.stringify}}
-      %proc = -> (context : HTTP::Server::Context) {
-        {{ callable }}.call(context)
-        nil
-      }
-    {% end %}
+    # Build the proc
+    %proc = -> (context : HTTP::Server::Context) {
+      {{ callable }}.call(context)
+      nil
+    }
 
     # Build the payload
     %leaf = ::Orion::Action.new(
       %proc,
       handlers: HANDLERS,
-      constraints: CONSTRAINTS,
-      label: %label
+      constraints: CONSTRAINTS
     )
 
     # Add the route to the tree
@@ -182,20 +163,72 @@ module Orion::Router::Routes
     {% if via != :all && !via.nil? %} # Define the method constraint
       %leaf.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
     {% end %}
-
   end
 
-  # Defines a match route with a provided block.
+  # Defines a {{ method }} route to a controller and action (short form).
+  # You can route to a controller and action by passing the `to` argument in
+  # the form of `"Controller#action"`.
+  #
+  # ```
+  # class MyController
+  #   def new(@context : HTTP::Server::Context)
+  #   end
+  #
+  #   def match
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   match "/path", to: "MyController#match"
+  # end
+  # ```
+  macro match(path, *, to, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+    {% parts = to.split("#") %}
+    {% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
+    {% action = parts[1] %}
+    {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
+    match({{path}}, controller: {{controller.id}}, action: {{action.id}}, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
+  end
+
+  # Defines a match route to a controller and action (long form).
+  # You can route to a controller and action by passing the `controller` and
+  # `action` arguments, if action is omitted it will default to `match`.
+  #
+  # ```
+  # class MyController
+  #   def new(@context : HTTP::Server::Context)
+  #   end
+  #
+  #   def match
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   match "/path", controller: MyController, action: match
+  # end
+  # ```
+  macro match(path, *, action, controller = CONTROLLER, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+    {% if !controller && CONTROLLER %}
+      {% controller = CONTROLLER %}
+    {% end %}
+    match({{path}}, -> (context : HTTP::Server::Context) { {{controller}}.new(context).{{action}} }, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
+  end
+
+  # Defines a match route with a block.
+  #
+  # You can route to any object that responds to `call` with an `HTTP::Server::Context`.
   #
   # ```
   # router MyRouter do
   #   match "/path" do |context|
   #     # ... do something
-  #   }
+  #   end
   # end
   # ```
-  macro match(path, **params, &block)
+  macro match(path, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
     {% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
-    match({{ path }}, ->({{ args }}){ {{ block.body }} }, {{**params}})
+    match({{ path }}, ->({{ args }}){ {{ block.body }} }, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
   end
 end
