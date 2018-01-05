@@ -104,7 +104,7 @@ module Orion::Router::Routes
   # ```
   # module Callable
   #   def call(cxt : HTTP::Server::Context)
-  #   # ... do something
+  #     # ... do something
   #   end
   # end
   #

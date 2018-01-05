@@ -86,7 +86,6 @@ module Router::Resources::Spec
   end
 
   describe ".resources" do
-
     it "should return the index action" do
       response = SampleRouter.test_route(:get, SampleRouter::Helpers.users_path)
       response.status_code.should eq 200
@@ -175,7 +174,7 @@ module Router::Resources::Spec
       end
 
       it "should return 200 when matched with header" do
-        response = SampleRouter.test_route(:get, "users_api_2/1", headers: { "Accept" => "application/json" })
+        response = SampleRouter.test_route(:get, "users_api_2/1", headers: {"Accept" => "application/json"})
         response.status_code.should eq 200
         response.body.should eq "show 1"
       end
@@ -257,7 +256,7 @@ module Router::Resources::Spec
       end
 
       it "should return 200 when matched with header" do
-        response = SampleRouter.test_route(:get, "person_api_2", headers: { "Accept" => "application/json" })
+        response = SampleRouter.test_route(:get, "person_api_2", headers: {"Accept" => "application/json"})
         response.status_code.should eq 200
         response.body.should eq "show"
       end
