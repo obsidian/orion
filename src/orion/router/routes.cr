@@ -4,14 +4,56 @@ module Orion::Router::Routes
     match({{ at }}, {{ app }})
   end
 
-  # Define a `GET /` route at the current path.
-  # for params see: `.match`
-  macro root(callable, **params)
-    {% if params.empty? %}
-      get "/", {{ callable }}, helper: "root"
-    {% else %}
-      get "/", {{ callable }}, {{**params}}, helper: "root"
-    {% end %}
+  # Define a `GET /` route at the current path with a callable object.
+  #
+  # ```
+  # module Callable
+  #   def call(cxt : HTTP::Server::Context)
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   root Callable
+  # end
+  # ```
+  macro root(callable, *, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+    get("/", {{ callable }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}, helper: "root")
+  end
+
+  # Define a `GET /` route at the current path with a controller and action (short form).
+  #
+  # ```
+  # router MyRouter do
+  #   root to: "Controller#action"
+  # end
+  # ```
+  macro root(*, to, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+    get("/", to: {{ to }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}, helper: "root")
+  end
+
+  # Define a `GET /` route at the current path with a controller and action (long form).
+  #
+  # ```
+  # router MyRouter do
+  #   root controller: Controller action: action
+  # end
+  # ```
+  macro root(*, action, controller = CONTROLLER, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
+    get("/", action: {{ action }}, controller: {{ controller }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}, helper: "root")
+  end
+
+  # Define a `GET /` route at the current path with a callable object.
+  #
+  # ```
+  # router MyRouter do
+  #   root do |context|
+  #     # ...
+  #   end
+  # end
+  # ```
+  macro root(*, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
+    get("/", ->(\{{ args }}){ \{{ block.body }} }, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}), helper: "root")
   end
 
   {% for method in ::HTTP::VERBS %}
@@ -31,8 +73,8 @@ module Orion::Router::Routes
     #   match "/path", Callable
     # end
     # ```
-    macro {{method.downcase.id}}(path, callable, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
-      match(\{{path}}, \{{callable}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+    macro {{ method.downcase.id }}(path, callable, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{ path }}, \{{ callable }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
     end
 
     # Defines a {{ method.id }} route to a controller and action (short form).
@@ -50,11 +92,11 @@ module Orion::Router::Routes
     # end
     #
     # router MyRouter do
-    #   match "/path", to: "MyController#{{method.downcase.id}}"
+    #   match "/path", to: "MyController#{{ method.downcase.id }}"
     # end
     # ```
-    macro {{method.downcase.id}}(path, *, to, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
-      match(\{{path}}, to: \{{to}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+    macro {{ method.downcase.id }}(path, *, to, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{ path }}, to: \{{ to }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
     end
 
     # Defines a {{ method.id }} route to a controller and action (long form).
@@ -72,11 +114,11 @@ module Orion::Router::Routes
     # end
     #
     # router MyRouter do
-    #   match "/path", controller: MyController, action: {{method.downcase.id}}
+    #   match "/path", controller: MyController, action: {{ method.downcase.id }}
     # end
     # ```
-    macro {{method.downcase.id}}(path, *, action, controller = CONTROLLER, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
-      match(\{{path}}, controller: \{{controller}}, action: \{{action}}, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+    macro {{ method.downcase.id }}(path, *, action, controller = CONTROLLER, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
+      match(\{{ path }}, controller: \{{ controller }}, action: \{{ action }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
     end
 
     # Defines a {{ method.id }} route with a block.
@@ -91,9 +133,9 @@ module Orion::Router::Routes
     #   end
     # end
     # ```
-    macro {{method.downcase.id}}(path, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
+    macro {{ method.downcase.id }}(path, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
       \{% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
-      match(\{{path}}, ->(\{{ args }}){ \{{ block.body }} }, via: {{method.downcase}}, helper: \{{helper}}, constraints: \{{constraints}}, format: \{{format}}, accept: \{{accept}}, content_type: \{{content_type}}, type: \{{type}})
+      match(\{{ path }}, ->(\{{ args }}){ \{{ block.body }} }, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
     end
   {% end %}
 
@@ -188,7 +230,7 @@ module Orion::Router::Routes
     {% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
     {% action = parts[1] %}
     {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
-    match({{path}}, controller: {{controller.id}}, action: {{action.id}}, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
+    match({{ path }}, controller: {{ controller.id }}, action: {{ action.id }}, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
   end
 
   # Defines a match route to a controller and action (long form).
@@ -210,10 +252,7 @@ module Orion::Router::Routes
   # end
   # ```
   macro match(path, *, action, controller = CONTROLLER, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
-    {% if !controller && CONTROLLER %}
-      {% controller = CONTROLLER %}
-    {% end %}
-    match({{path}}, -> (context : HTTP::Server::Context) { {{controller}}.new(context).{{action}} }, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
+    match({{ path }}, -> (context : HTTP::Server::Context) { {{ controller }}.new(context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
   end
 
   # Defines a match route with a block.
@@ -229,6 +268,6 @@ module Orion::Router::Routes
   # ```
   macro match(path, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
     {% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
-    match({{ path }}, ->({{ args }}){ {{ block.body }} }, via: {{via}}, helper: {{helper}}, constraints: {{constraints}}, format: {{format}}, accept: {{accept}}, content_type: {{content_type}}, type: {{type}})
+    match({{ path }}, ->({{ args }}){ {{ block.body }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
   end
 end

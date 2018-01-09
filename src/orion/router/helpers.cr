@@ -18,7 +18,7 @@ module Orion::Router::Helpers
     {% method_name = name_parts.map(&.id).join("_").id %}
 
     module ::{{ Helpers }}
-      def self.{{method_name.id}}_path(**params)
+      def self.{{ method_name.id }}_path(**params)
         path = ::{{@type}}.normalize_path({{ path }})
         result = ::{{@type}}::ROUTER.tree.find(path).not_nil!
         path_param_names = result.params.keys
@@ -44,12 +44,12 @@ module Orion::Router::Helpers
         URI.new(path: path, query: query).to_s
       end
 
-      def {{method_name.id}}_path(**params)
-        ::{{ Helpers }}.{{method_name.id}}_path(**params)
+      def {{ method_name.id }}_path(**params)
+        ::{{ Helpers }}.{{ method_name.id }}_path(**params)
       end
 
-      def {{method_name.id}}_url(**params)
-        uri = URI.parse {{method_name.id}}_path(**params, host: request.host_with_port)
+      def {{ method_name.id }}_url(**params)
+        uri = URI.parse {{ method_name.id }}_path(**params, host: request.host_with_port)
         uri.host = @context.request.host_with_port
       end
     end
