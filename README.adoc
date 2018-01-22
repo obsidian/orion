@@ -528,7 +528,7 @@ end
 [[helpers]]
 ### Route Helpers
 
-Route helpers provide type-safe methods to generate paths & urls to defined routes
+Route helpers provide type-safe methods to generate paths and urls to defined routes
 in your application. By including the `Helpers` module on the router (i.e. `MyApplicationRouter::Helpers`)
 you can access any helper defined in the router by `{{name}}_path` to get its corresponding
 route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
