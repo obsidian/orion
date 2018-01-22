@@ -3,7 +3,7 @@
 [![Dependency Status](https://shards.rocks/badge/github/obsidian/orion/status.svg)](https://shards.rocks/github/obsidian/orion)
 [![GitHub release](https://img.shields.io/github/release/obsidian/orion.svg)](https://github.com/obsidian/orion/releases)
 
-A minimal, rails'esk routing library for `HTTP::Server`.
+A minimal, rails-esque routing library for `HTTP::Server`.
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
