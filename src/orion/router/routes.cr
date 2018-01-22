@@ -227,7 +227,7 @@ module Orion::Router::Routes
   # ```
   macro match(path, *, to, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% parts = to.split("#") %}
-    {% controller = run("./inflector/controllerize.cr", parts[0].id) + "Controller" %}
+    {% controller = run("./inflector/controllerize.cr", parts[0].id) %}
     {% action = parts[1] %}
     {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
     match({{ path }}, controller: {{ controller.id }}, action: {{ action.id }}, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})

@@ -22,7 +22,7 @@ module Router::MatchSpec
     match "/block" do |c|
       c.response.print "block match"
     end
-    match "/to-match", to: "Samples#to_match"
+    match "/to-match", to: "samples#to_match"
     match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
   end
 

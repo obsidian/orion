@@ -24,7 +24,7 @@ module Router::VerbsSpec
         {{ verb.downcase.id }} "/block", helper: "block" do |c|
           c.response.print "block {{ verb.downcase.id }}"
         end
-        {{ verb.downcase.id }} "/to-{{ verb.downcase.id }}", to: "Samples#to_{{ verb.downcase.id }}"
+        {{ verb.downcase.id }} "/to-{{ verb.downcase.id }}", to: "samples#to_{{ verb.downcase.id }}"
         {{ verb.downcase.id }} "/{{ verb.downcase.id }}-action", controller: SamplesController, action: action_{{ verb.downcase.id }}, helper: "sample_verbose"
       end
 
