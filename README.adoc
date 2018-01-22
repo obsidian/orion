@@ -546,7 +546,7 @@ you will also be able to access a `{{name}}_url` to get the full url.
 
 ```crystal
 router MyApplicationRouter do
-  scope "users" do
+  scope "users", helper_prefix: "user" do
     get "/new", to: "Users#new", helper: "new"
   end
 end
