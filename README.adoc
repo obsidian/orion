@@ -325,7 +325,7 @@ router MyApplicationRouter do
 end
 ```
 
-#### Helper prefixes
+#### Route Helper prefixes
 
 When using xref:helpers[Helpers], you may want a prefix to be appended so that you don't have to
 repeat it within each individual route. For example a scope with `helper_prefix: "users"`
@@ -526,13 +526,13 @@ end
 ```
 
 [[helpers]]
-### Helpers
+### Route Helpers
 
-Helpers provide a method to access defined routes from elsewhere in your code.
-You can either call `MyApplicationRouter::Helpers.some_path` or you can include
-the module directly in the class you are using it. When you include a module, you
-get an extra method `MyApplicationRouter::Helpers.some_url` with looks for a
-`request : HTTP::Request` method to determine the host on the incoming request.
+Route Helpers provide methods to access defined routes from elsewhere in your code.
+By including the `Helpers` module on the router (i.e. `MyApplicationRouter::Helpers`)
+you can access any helper defined in the router by `{{name}}_path` to get its corresponding
+route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
+you will also be able to access a `{{name}}_url` to get the full url.
 
 ```crystal
 router MyApplicationRouter do
@@ -561,7 +561,7 @@ class MyController
 end
 ```
 
-#### Making helpers from your routes
+#### Making route helpers from your routes
 
 In order to make a helper from your route you can use the `helper` named
 argument in your route.
@@ -574,7 +574,7 @@ router MyApplicationRouter do
 end
 ```
 
-#### Using helpers in your code
+#### Using route helpers in your code
 
 As you add helpers they are added to the nested `Helpers` module of your router.
 you may include this module anywhere in your code to get access to the methods,
