@@ -403,6 +403,32 @@ router MyApplicationRouter do
 end
 ```
 
+### Method Overrides
+
+In some situations certain environments may not support certain HTTP methods,
+when in these environments, there are a few methods to force a different method
+in the router. In either of the methods below, if you intend to pass a body, you
+should be using the `POST` http method when you make the request.
+
+#### Header Overrides
+
+If your client has the ability to set headers you can use the built in ability to
+pass the `X-HTTP-Method-Override: [METHOD]` method with the method you wish to invoke on
+the router.
+
+#### Parameter & Form Overrides
+
+If your client has the ability to set headers you can use the
+`Orion::Handlers::MethodOverrideParam` to pass a `_method=[METHOD]` parameter as
+a query parameter or form field with the method you wish to invoke on the router.
+
+```crystal
+router MyRouter do
+  use Orion::Handlers::MethodOverrideParam.new
+  # ... routes
+end
+```
+
 [[constraints]]
 ### Constraints - More advanced rules for your routes
 
