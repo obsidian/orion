@@ -1,4 +1,11 @@
 abstract class Orion::Router
+  ERROR_404 = ->(c : HTTP::Server::Context) {
+    c.response.respond_with_error(
+      message: HTTP.default_status_message_for(404),
+      code: 404
+    )
+  }
+
   class ParametersMissing < Exception
     def initialize(keys : Array(String))
       initialize("Missing parameters: #{keys.join(", ")}")
@@ -41,12 +48,6 @@ abstract class Orion::Router
   # :nodoc:
   alias Context = HTTP::Server::Context
   CONTROLLER = nil
-  ERROR_404  = ->(c : HTTP::Server::Context) {
-    c.response.respond_with_error(
-      message: HTTP.default_status_message_for(404),
-      code: 404
-    )
-  }
 
   @app : HTTP::Handler
   @tree = Oak::Tree(Action).new
@@ -93,6 +94,7 @@ abstract class Orion::Router
 
   def initialize(autoclose : Bool = true)
     use Handlers::AutoClose.new if autoclose
+    use Handlers::MethodOverrideHeader
     use Handlers::AutoMime.new
     use Handlers::Meta.new
     @app = build
