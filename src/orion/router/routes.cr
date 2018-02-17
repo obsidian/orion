@@ -169,7 +169,7 @@ module Orion::Router::Routes
     # Build the payload
     %leaf = ::Orion::Action.new(
       %proc,
-      handlers: HANDLERS,
+      middleware: MIDDLEWARE,
       constraints: CONSTRAINTS
     )
 

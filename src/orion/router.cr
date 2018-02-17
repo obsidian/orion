@@ -14,7 +14,7 @@ abstract class Orion::Router
 
   private macro inherited
     setup_constraints
-    setup_handlers
+    setup_middleware
     setup_concerns
 
     {% if @type.superclass == ::Orion::Router %}
@@ -49,7 +49,7 @@ abstract class Orion::Router
   alias Context = HTTP::Server::Context
   CONTROLLER = nil
 
-  @app : HTTP::Handler
+  @app : HTTP::Handler::Proc
   @tree = Oak::Tree(Action).new
 
   delegate call, to: @app
@@ -93,15 +93,15 @@ abstract class Orion::Router
   end
 
   def initialize(autoclose : Bool = true)
-    use Handlers::AutoClose.new if autoclose
-    use Handlers::MethodOverrideHeader
-    use Handlers::AutoMime.new
-    use Handlers::Meta.new
+    use Orion::Middleware::AutoClose if autoclose
+    use Orion::Middleware::MethodOverrideHeader
+    use Orion::Middleware::AutoMime
+    use Orion::Middleware::Meta
     @app = build
   end
 
   def build
-    HTTP::Server.build_middleware handlers, ->(context : HTTP::Server::Context) do
+    app = ->(context : HTTP::Server::Context) do
       leaf = nil
       path = context.request.path
       @tree.search(path.rchop(File.extname(path))) do |result|
@@ -118,6 +118,7 @@ abstract class Orion::Router
         context.response.close
       end
     end
+    return Orion::Middleware::Chain.new(middleware, app).to_proc
   end
 end
 

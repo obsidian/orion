@@ -1,12 +1,12 @@
 # :nodoc:
-class Orion::Handlers::AutoMime
-  include HTTP::Handler
+struct Orion::Middleware::AutoMime
+  include Middleware
 
   def call(cxt : HTTP::Server::Context)
     if !cxt.request.headers["Accept"]? && (mime_type = type_from_path?(cxt.request))
       cxt.request.headers["Accept"] = mime_type
     end
-    call_next cxt
+    yield cxt
   end
 
   private def type_from_path?(req : HTTP::Request)

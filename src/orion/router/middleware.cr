@@ -1,41 +1,53 @@
 module Orion::Router::Middleware
   # :nodoc:
-  HANDLERS = [] of HTTP::Handler
-  getter handlers = [] of HTTP::Handler
+  MIDDLEWARE = [] of Orion::Middleware::Chain::Link
+  getter middleware = [] of Orion::Middleware::Chain::Link
 
-  macro clear_handlers
-    handlers.clear
+  macro clear_middleware
+    middleware.clear
   end
 
-  private macro setup_handlers
+  private macro setup_middleware
     {% if @type.superclass != ::Orion::Router %}
-      HANDLERS = ::{{@type.superclass}}::HANDLERS.dup
+      MIDDLEWARE = ::{{@type.superclass}}::MIDDLEWARE.dup
     {% else %}
-      HANDLERS = [] of HTTP::Handler
+      MIDDLEWARE = [] of Orion::Middleware::Chain::Link
     {% end %}
 
-    def self.use(handler : HTTP::Handler)
-      HANDLERS << handler
+    def self.use(handler : Orion::Middleware::Chain::Link)
+      middleware << handler
     end
 
-    def self.use(handler)
+    def self.use(handler : HTTP::Handler.class)
       use handler.new
     end
 
-    def self.handlers
-      HANDLERS
+    def self.use(handler : Orion::Middleware.class)
+      use handler.new
+    end
+
+    def self.use(handler : HTTP::Handler)
+      MIDDLEWARE << handler
+    end
+
+    def self.middleware
+      MIDDLEWARE
     end
   end
 
-  def self.handlers
-    HANDLERS
+  def self.middleware
+    MIDDLEWARE
   end
 
-  def use(handler : HTTP::Handler)
-    @handlers << handler
+  def use(handler : Orion::Middleware::Chain::Link)
+    @middleware << handler
   end
 
-  def use(handler)
+  def use(handler : HTTP::Handler.class)
+    use handler.new
+  end
+
+  def use(handler : Orion::Middleware.class)
     use handler.new
   end
 end
