@@ -1,19 +1,17 @@
 require "digest"
 
 class Orion::Pipeline
+  CACHE = {} of String => Pipeline
+  ROUTE_HANDLER = ->(c : HTTP::Server::Context){ c.request.action.try &.invoke(c) }
+
   include ::HTTP::Handler
 
-  CACHE = {} of String => Pipeline
-
-  @pipeline : ::HTTP::Handler?
+  @pipeline : ::HTTP::Handler | ::HTTP::Handler::Proc
+  @cache_key : String
 
   def self.new(handlers)
     key = cache_key(handlers)
     CACHE[key]? || Pipeline.new(handlers, key)
-  end
-
-  def self.build(handlers, proc)
-    new(handlers).build(proc)
   end
 
   private def self.cache_key(handlers : Array(::HTTP::Handler))
@@ -24,20 +22,15 @@ class Orion::Pipeline
     end
   end
 
-  def initialize(handlers : Array(::HTTP::Handler), @cache_key : String)
-    @pipeline = unless handlers.empty?
-      ::HTTP::Server.build_middleware(handlers.map(&.dup.as(::HTTP::Handler)), ->(c : ::HTTP::Server::Context) { puts c.response.status_code })
-    end
+  def initialize(handlers : Array(::HTTP::Handler), @cache_key)
+    handlers = handlers.map(&.dup.as(::HTTP::Handler))
+    @pipeline = handlers.empty? ? ROUTE_HANDLER : ::HTTP::Server.build_middleware(handlers, ROUTE_HANDLER)
     CACHE[cache_key] = self
   end
 
-  def build(proc : ::HTTP::Handler::Proc)
-    ::HTTP::Server.build_middleware([dup], proc)
-  end
-
-  def call(c : ::HTTP::Server::Context, &next) : Nil
-    @pipeline.try &.call(c)
-    next.call(c)
+  def call(c : ::HTTP::Server::Context) : Nil
+    @pipeline.call(c)
+    call_next(c)
   end
 
 end
