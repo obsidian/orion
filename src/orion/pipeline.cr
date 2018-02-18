@@ -4,8 +4,6 @@ class Orion::Pipeline
   CACHE = {} of String => Pipeline
   ROUTE_HANDLER = ->(c : HTTP::Server::Context){ c.request.action.try &.invoke(c) }
 
-  include ::HTTP::Handler
-
   @pipeline : ::HTTP::Handler | ::HTTP::Handler::Proc
   @cache_key : String
 
@@ -30,7 +28,6 @@ class Orion::Pipeline
 
   def call(c : ::HTTP::Server::Context) : Nil
     @pipeline.call(c)
-    call_next(c)
   end
 
 end
