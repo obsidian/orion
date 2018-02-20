@@ -1,56 +1,10 @@
 abstract class Orion::Router
-  ERROR_404 = ->(c : HTTP::Server::Context) {
-    c.response.respond_with_error(
-      message: HTTP.default_status_message_for(404),
-      code: 404
-    )
-  }
-
-  class ParametersMissing < Exception
-    def initialize(keys : Array(String))
-      initialize("Missing parameters: #{keys.join(", ")}")
-    end
-  end
-
-  private macro inherited
-    setup_constraints
-    setup_middleware
-    setup_concerns
-
-    {% if @type.superclass == ::Orion::Router %}
-      alias ROUTER = self
-
-      module Helpers
-        extend self
-      end
-
-      BASE_PATH = "/"
-      TREE = ::Oak::Tree(::Orion::Action).new
-      PREFIXES = [] of String
-
-      # Instance vars
-      @tree = TREE
-
-      def self.routes
-        tree.results
-      end
-
-      def self.tree
-        TREE
-      end
-    {% end %}
-
-    def self.base_path
-      BASE_PATH
-    end
-  end
-
   # :nodoc:
+  alias Tree = Oak::Tree(Action)
   alias Context = HTTP::Server::Context
   CONTROLLER = nil
 
   @app : HTTP::Handler::Proc
-  @tree = Oak::Tree(Action).new
 
   delegate call, to: @app
 
@@ -97,40 +51,10 @@ abstract class Orion::Router
     use Orion::Middleware::MethodOverrideHeader
     use Orion::Middleware::AutoMime
     use Orion::Middleware::Meta
-    @app = build
-  end
-
-  def build
-    app = ->(context : HTTP::Server::Context) do
-      leaf = nil
-      path = context.request.path
-      @tree.search(path.rchop(File.extname(path))) do |result|
-        unless leaf
-          context.request.path_params = result.params
-          leaf = result.leaves.find &.matches_constraints? context.request
-          leaf.try &.call(context)
-        end
-      end
-
-      # lastly return with 404
-      unless leaf
-        context.response.respond_with_error(message: HTTP.default_status_message_for(404), code: 404)
-        context.response.close
-      end
-    end
-    return Orion::Middleware::Chain.new(middleware, app).to_proc
+    use Orion::Middleware::RouteFinder.new(self.class.tree)
+    use ERROR_404
+    @app = Middleware::Chain.new(middleware).to_proc
   end
 end
 
 require "./router/*"
-
-abstract class Orion::Router
-  include HTTP::Handler
-  include Concerns
-  include Constraints
-  include Middleware
-  include Helpers
-  include Routes
-  include Scope
-  include Resources
-end

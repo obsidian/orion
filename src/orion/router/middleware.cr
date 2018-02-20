@@ -1,4 +1,4 @@
-module Orion::Router::Middleware
+abstract class Orion::Router
   # :nodoc:
   MIDDLEWARE = [] of Orion::Middleware::Chain::Link
   getter middleware = [] of Orion::Middleware::Chain::Link
@@ -11,22 +11,22 @@ module Orion::Router::Middleware
     {% if @type.superclass != ::Orion::Router %}
       MIDDLEWARE = ::{{@type.superclass}}::MIDDLEWARE.dup
     {% else %}
-      MIDDLEWARE = [] of Orion::Middleware::Chain::Link
+      MIDDLEWARE = [] of ::Orion::Middleware::Chain::Link
     {% end %}
 
-    def self.use(handler : Orion::Middleware::Chain::Link)
+    def self.use(handler : ::Orion::Middleware::Chain::Link)
       middleware << handler
     end
 
-    def self.use(handler : HTTP::Handler.class)
+    def self.use(handler : ::HTTP::Handler.class)
       use handler.new
     end
 
-    def self.use(handler : Orion::Middleware.class)
+    def self.use(handler : ::Orion::Middleware.class)
       use handler.new
     end
 
-    def self.use(handler : HTTP::Handler)
+    def self.use(handler : ::HTTP::Handler)
       MIDDLEWARE << handler
     end
 
@@ -39,7 +39,7 @@ module Orion::Router::Middleware
     MIDDLEWARE
   end
 
-  def use(handler : Orion::Middleware::Chain::Link)
+  def use(handler : Middleware::Chain::Link)
     @middleware << handler
   end
 
@@ -47,7 +47,7 @@ module Orion::Router::Middleware
     use handler.new
   end
 
-  def use(handler : Orion::Middleware.class)
+  def use(handler : Middleware.class)
     use handler.new
   end
 end

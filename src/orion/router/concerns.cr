@@ -1,4 +1,4 @@
-module Orion::Router::Concerns
+abstract class Orion::Router
   private macro setup_concerns
     {% if @type.superclass == ::Orion::Router %}
       CONCERNS = {} of Symbol => String

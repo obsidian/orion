@@ -1,5 +1,5 @@
 # :nodoc:
-module Orion::Router::Helpers
+abstract class Orion::Router
   private macro define_helper(*, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 

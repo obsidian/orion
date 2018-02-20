@@ -1,4 +1,4 @@
-module Orion::Router::Resources
+abstract class Orion::Router
   macro resources(name, *, controller = nil, only = nil, except = nil, id_constraint = nil, format = nil, accept = nil, id_param = nil, content_type = nil, type = nil)
     {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
     {% name = name.id %}
