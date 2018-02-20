@@ -281,14 +281,15 @@ xref:format-constraints[`format`], xref:accept-type-constraints[`accept`],
 xref:content-type-constraints[`content_type`], and xref:type-constraints[`type`]
 constraints.
 
-### Instrumenting handlers _(a.k.a. middleware)_
+### Instrumenting handlers/middleware
 
 Instances or Classes implementing
-link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] _(a.k.a. middleware)_
+link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] or
+`Orion::Middleware`
 can be inserted directly in your routes by using the `use` method.
 
 [quote]
-Handlers will only apply to the routes specified below them, so be sure to place
+Middleware will only apply to the routes specified below them, so be sure to place
 your handlers near the top of your route.
 
 ```crystal
@@ -314,14 +315,14 @@ router MyApplicationRouter do
 end
 ```
 
-#### Handlers within nested routes
+#### Middleware within nested routes
 
 Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] can be
 used within a scope and will only apply to the subsequent routes within that scope.
 It is important to note that the parent context's handlers will also be used.
 
 [quote]
-Handlers will only apply to the routes specified below them, so be sure to place
+Middleware will only apply to the routes specified below them, so be sure to place
 your handlers near the top of your scope.
 
 ```crystal
@@ -419,12 +420,12 @@ the router.
 #### Parameter & Form Overrides
 
 If your client has the ability to set headers you can use the
-`Orion::Handlers::MethodOverrideParam` to pass a `_method=[METHOD]` parameter as
+`Orion::Middleware::MethodOverrideParam` to pass a `_method=[METHOD]` parameter as
 a query parameter or form field with the method you wish to invoke on the router.
 
 ```crystal
 router MyRouter do
-  use Orion::Handlers::MethodOverrideParam.new
+  use Orion::Middleware::MethodOverrideParam.new
   # ... routes
 end
 ```

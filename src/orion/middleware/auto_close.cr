@@ -1,11 +1,11 @@
 require "http/server"
 
 # :nodoc:
-class Orion::Handlers::AutoClose
-  include HTTP::Handler
+struct Orion::Middleware::AutoClose
+  include Middleware
 
   def call(cxt : HTTP::Server::Context)
-    call_next cxt
+    yield cxt
     cxt.response.close
   end
 end

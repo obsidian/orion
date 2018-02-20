@@ -1,4 +1,4 @@
-module Orion::Router::Routes
+abstract class Orion::Router
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
     match({{ at }}, {{ app }})
@@ -169,7 +169,7 @@ module Orion::Router::Routes
     # Build the payload
     %leaf = ::Orion::Action.new(
       %proc,
-      handlers: HANDLERS,
+      middleware: MIDDLEWARE,
       constraints: CONSTRAINTS
     )
 

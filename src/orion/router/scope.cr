@@ -1,4 +1,4 @@
-module Orion::Router::Scope
+abstract class Orion::Router
   # Create a scope, optionall nested under a path.
   macro scope(path = nil, helper_prefix = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}

@@ -1,4 +1,4 @@
-module Orion::Router::Constraints
+abstract class Orion::Router
   # :nodoc:
   CONSTRAINTS = [] of Constraint
 

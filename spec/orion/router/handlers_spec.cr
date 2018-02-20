@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::HandlersSpec
+module Router::MiddlewareSpec
   class AppendHandler
     include HTTP::Handler
 

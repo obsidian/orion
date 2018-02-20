@@ -1,9 +1,9 @@
 # :nodoc:
-class Orion::Handlers::Meta
-  include HTTP::Handler
+struct Orion::Middleware::Meta
+  include Middleware
 
   def call(cxt : HTTP::Server::Context)
-    call_next cxt
+    yield cxt
     cxt.response.headers["Content-Type"] ||= "text/html"
     cxt.response.headers["X-Powered-By"] ||= "Orion"
   end
