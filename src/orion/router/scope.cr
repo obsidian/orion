@@ -19,7 +19,7 @@ module Orion::Router::Scope
       {{ yield }}
 
       # 404 to any unmatched path
-      match "*", ERROR_404
+      match "*", ::Orion::Handlers::NotFound.new
     end
   end
 end
