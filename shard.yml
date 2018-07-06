@@ -1,5 +1,5 @@
 name: orion
-crystal: 0.24.1
+crystal: 0.25.0
 version: 1.4.2
 
 authors:
@@ -8,7 +8,7 @@ authors:
 dependencies:
   oak:
     github: obsidian/oak
-    version: 1.0.2
+    version: 2.0.1
   mime-types:
     github: jwaldrip/mime-types-cr
     version: 1.3.0

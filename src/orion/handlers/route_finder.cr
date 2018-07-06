@@ -10,7 +10,7 @@ class Orion::Handlers::RouteFinder
     @tree.search(path.rchop(File.extname(path))) do |result|
       unless leaf
         cxt.request.path_params = result.params
-        leaf = result.leaves.find &.matches_constraints? cxt.request
+        leaf = result.payloads.find &.matches_constraints? cxt.request
         leaf.try &.call(cxt)
       end
     end
