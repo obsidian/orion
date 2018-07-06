@@ -16,7 +16,7 @@ describe Orion::Handlers::MethodOverrideParam do
       builder.field("_method", "POST")
       builder.finish
       io.rewind
-      context = mock_context(:get, "/", body: io, headers: { "Content-Type" => "multipart/form-data; boundary=\"#{builder.boundary}\"" })
+      context = mock_context(:get, "/", body: io, headers: {"Content-Type" => "multipart/form-data; boundary=\"#{builder.boundary}\""})
       Orion::Handlers::MethodOverrideParam.new.call(context)
       context.request.method.should eq "POST"
     end

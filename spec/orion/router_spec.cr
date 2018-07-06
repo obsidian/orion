@@ -26,7 +26,7 @@ module RouterSpec
 
   describe "method override header" do
     it "should override the header" do
-      response = Router.test_route(:get, "/hello", headers: { "X-Method-Override" => "PUT" })
+      response = Router.test_route(:get, "/hello", headers: {"X-Method-Override" => "PUT"})
       response.status_code.should eq 200
       response.body.should eq "I put things"
     end

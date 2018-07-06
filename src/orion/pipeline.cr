@@ -1,8 +1,8 @@
 require "digest"
 
 class Orion::Pipeline
-  CACHE = {} of String => Pipeline
-  ROUTE_HANDLER = ->(c : HTTP::Server::Context){ c.request.action.try &.invoke(c) }
+  CACHE         = {} of String => Pipeline
+  ROUTE_HANDLER = ->(c : HTTP::Server::Context) { c.request.action.try &.invoke(c) }
 
   @pipeline : ::HTTP::Handler | ::HTTP::Handler::Proc
   @cache_key : String
@@ -29,5 +29,4 @@ class Orion::Pipeline
   def call(c : ::HTTP::Server::Context) : Nil
     @pipeline.call(c)
   end
-
 end

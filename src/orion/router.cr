@@ -1,4 +1,5 @@
-abstract class Orion::Router ; end
+abstract class Orion::Router; end
+
 require "./router/*"
 
 abstract class Orion::Router
