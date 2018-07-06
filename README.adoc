@@ -1,8 +1,11 @@
 :toc: macro
-:toc-title:
 :toclevels: 99
 
 # Orion
+
+image:https://travis-ci.org/obsidian/orion.svg?branch=master["Build Status", link="https://travis-ci.org/obsidian/orion"]
+image:https://img.shields.io/github/tag/obsidian/orion.svg["GitHub release", link="https://github.com/obsidian/orion/tags"]
+
 
 A minimal, rails-esque routing library for `HTTP::Server`.
 
