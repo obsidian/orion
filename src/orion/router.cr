@@ -32,8 +32,8 @@ abstract class Orion::Router
 
   def self.listen(*, autoclose = true, host = "127.0.0.1", port = 3000, reuse_port = false)
     router = new(autoclose: autoclose)
-    server = HTTP::Server.new(host: host, port: port, handler: router)
-    server.listen(reuse_port: reuse_port)
+    server = HTTP::Server.new(handler: router)
+    server.listen(host: host, port: port, reuse_port: reuse_port)
   end
 
   # :nodoc:
