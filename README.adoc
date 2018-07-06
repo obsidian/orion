@@ -1,5 +1,4 @@
 :toc: macro
-:toc-title: Table of Contents
 :toclevels: 99
 
 # Orion
@@ -12,6 +11,8 @@ A minimal, rails-esque routing library for `HTTP::Server`.
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
+
+**Table of Contents**
 
 toc::[]
 
