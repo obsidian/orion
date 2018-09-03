@@ -1,10 +1,10 @@
 struct Orion::Action
   getter helper : String?
   getter constraints = [] of Constraint
-  @proc : HTTP::Handler::Proc
+  @proc : HTTP::Handler::HandlerProc
   @pipeline : Orion::Pipeline
 
-  def initialize(@proc : ::HTTP::Handler::Proc, *, handlers = [] of ::HTTP::Handler, constraints = [] of Constraint, @helper = nil)
+  def initialize(@proc : ::HTTP::Handler::HandlerProc, *, handlers = [] of ::HTTP::Handler, constraints = [] of Constraint, @helper = nil)
     @constraints = constraints.dup
     @pipeline = Pipeline.new(handlers)
   end
