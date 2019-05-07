@@ -3,7 +3,7 @@ class Orion::Handlers::NotFound
 
   def call(cxt : HTTP::Server::Context)
     cxt.response.respond_with_error(
-      message: HTTP.default_status_message_for(404),
+      message: HTTP::Status.new(404).description,
       code: 404
     )
   end
