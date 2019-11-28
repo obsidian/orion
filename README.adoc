@@ -96,7 +96,7 @@ end
 ```
 
 ##### Non-constant
-By passing a lowercased string, it still camelcase the string and add Controller.
+When passing a lowercased string, it still camelcase the string and add Controller.
 In the example below `users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
 
 ```crystal
@@ -144,7 +144,7 @@ end
 
 #### Base route using `root`
 
-Lets define the routers's `root` route. `root` is simply an alias for `get '/', action`.
+Let’s define the routers’ `root` route. `root` is simply an alias for `get '/', action`.
 All routes can either be a `String` pointing to a Controller action or a `Proc`
 accepting `HTTP::Server::Context` as a single argument. If a `String` is used like `controller#action`, it will expand into `Controller.new(context : HTTP::Server::Context).action`, therefor A controller must
 have an initializer that takes `HTTP::Server::Context` as an argument, and the
@@ -172,9 +172,9 @@ router MyApplicationRouter do
 end
 ```
 
-#### Catch all routes using `match`
+#### Catch-all routes using `match`
 
-In some instances you may just want to redirect all verbs to a particular
+In some instances, you may just want to redirect all verbs to a particular
 controller and action.
 
 You can use the `match` method within the router and pass it's route and
@@ -188,7 +188,7 @@ end
 
 #### Websocket routes
 
-Orion has websocket support.
+Orion has WebSocket support.
 
 You can use the `ws` method within the router and pass it's route and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
@@ -199,7 +199,7 @@ router MyApplicationRouter do
 end
 ```
 
-### Resource Based Routing
+### Resource-Based Routing
 
 A common way in Orion to route is to do so against a known resource. This method
 will create a series of routes targeted at a specific controller.
@@ -332,8 +332,7 @@ constraints.
 There are a few ways to define controllers within your application. Controllers
 are a useful way to separate concerns from your application.
 
-You may inherit or extend from the routers `BaseController` or `WebSocketBaseController`, this will expose the 
-helper methods from the router to all inherited controllers from the base. Caveat: Ensure that controllers are required
+You may inherit or extend from the routers `BaseController` or `WebSocketBaseController`, this will expose the helper methods from the router to all inherited controllers from the base. Caveat: Ensure that controllers are required
 after your router is defined.
 
 ```crystal
@@ -380,7 +379,7 @@ end
 #### Handlers within nested routes
 
 Instances of link:https://crystal-lang.org/api/HTTP/Handler.html[`HTTP::Handler`] can be
-used within a scope and will only apply to the subsequent routes within that scope.
+used within a `scope` block and will only apply to the subsequent routes within that scope.
 It is important to note that the parent context's handlers will also be used.
 
 [quote]
@@ -433,7 +432,7 @@ The above example will expand into `show_user` instead of `user_show`.
 
 ### Concerns – Reusable code in your routers
 
-In some instances you may want to create a pattern or concern that you wish
+In some instances, you may want to create a pattern or concern that you wish
 to repeat across scopes or resources in your router.
 
 #### Defining a concern
@@ -468,14 +467,14 @@ end
 
 ### Method Overrides
 
-In some situations certain environments may not support certain HTTP methods,
+In some situations, certain environments may not support certain HTTP methods,
 when in these environments, there are a few methods to force a different method
 in the router. In either of the methods below, if you intend to pass a body, you
-should be using the `POST` http method when you make the request.
+should be using the `POST` HTTP method when you make the request.
 
 #### Header Overrides
 
-If your client has the ability to set headers you can use the built in ability to
+If your client has the ability to set headers you can use the built-in ability to
 pass the `X-HTTP-Method-Override: [METHOD]` method with the method you wish to invoke on
 the router.
 
@@ -495,8 +494,7 @@ end
 [[constraints]]
 ### Constraints - More advanced rules for your routes
 
-Constraints can be used to further determine if a route is hit beyond just it's
-path. Routes have some predefined constraints you can specify, but you can also
+Constraints can be used to further determine if a route is hit beyond just it's path. Routes have some predefined constraints you can specify, but you can also
 pass in a custom constraint.
 
 [[param-constraints]]
@@ -527,7 +525,7 @@ end
 #### Request Mime-Type constraints
 
 You can constrain the request to a certain mime-type by using the `content_type` param
-on the route. This will ensure that if the request has a body, that it provides the proper
+on the route. This will ensure that if the request has a body, it will provide the proper
 content type.
 
 ```crystal
@@ -540,7 +538,7 @@ end
 #### Response Mime-Type constraints
 
 You can constrain the response to a certain mime-type by using the `accept` param
-on the route. This is similar to the format constraint, but allows clients to
+on the route. This is similar to the format constraint but allows clients to
 specify the `Accept` header rather than the extension.
 
 [quote]
@@ -557,8 +555,8 @@ end
 #### Combined Mime-Type constraints
 
 You can constrain the request and response to a certain mime-type by using the `type` param
-on the route. This will ensure that if the request has a body, that it provides the proper
-content type. In addition it will also validate that the client provides a proper
+on the route. This will ensure that if the request has a body, it will provide the proper
+content type. In addition, it will also validate that the client provides a proper
 accept header for the response.
 
 [quote]
@@ -627,11 +625,11 @@ end
 [[helpers]]
 ### Route Helpers
 
-Route helpers provide type-safe methods to generate paths and urls to defined routes
+Route helpers provide type-safe methods to generate paths and URLs to defined routes
 in your application. By including the `Helpers` module on the router (i.e. `MyApplicationRouter::Helpers`)
 you can access any helper defined in the router by `{{name}}_path` to get its corresponding
 route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
-you will also be able to access a `{{name}}_url` to get the full url.
+you will also be able to access a `{{name}}_url` to get the full URL.
 
 ```crystal
 router MyApplicationRouter do
@@ -667,8 +665,7 @@ end
 
 #### Making route helpers from your routes
 
-In order to make a helper from your route you can use the `helper` named
-argument in your route.
+In order to make a helper from your route, you can use the `helper` named argument in your route.
 
 ```crystal
 router MyApplicationRouter do
