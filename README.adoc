@@ -7,7 +7,37 @@ image:https://travis-ci.org/obsidian/orion.svg?branch=master["Build Status", lin
 image:https://img.shields.io/github/tag/obsidian/orion.svg["GitHub release", link="https://github.com/obsidian/orion/tags"]
 
 
-A minimal, rails-esque routing library for `HTTP::Server`.
+A powerful, simple, rails-esque routing library for `HTTP::Server`.
+
+```crystal
+router MyApp do
+  # Use as a simple one-file app
+  root do |context|
+    context.response.puts "I am home"
+  end
+  
+  get "/login" do |context|
+    context.response.puts "Login"
+  end
+  
+  ws "/socket" do |socket, context|
+    socket.send "Hello"
+  end
+
+  # Use it the mvc/rails pattern (shorthand)
+  root to: "Application#home"
+  get "/login", to: "Auth#new"
+  ws "/socket", to: "Socket#main"
+
+  # Use it with the mvc/rails pattern (longhand)
+  root controller: ApplicationController, action: home
+  get "/login", controller: LoginController, action: login  
+  ws "/socket", controller: WebSocketController, action: channel
+end
+
+# Run your web app
+MyApp.listen(port = 3000)
+```
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application's routing layer.
@@ -133,7 +163,7 @@ supports all the standard HTTP verbs:
 
 `get`, `head`, `post`, `put`, `delete`, `connect`, `options`, `trace`, and `patch`
 
-You can simply use one of the methods within the router and pass it's router and
+You can use one of the methods within the router and pass it's route and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
 ```crystal
@@ -147,12 +177,25 @@ end
 In some instances you may just want to redirect all verbs to a particular
 controller and action.
 
-You can simply use the `match` method within the router and pass it's router and
+You can use the `match` method within the router and pass it's route and
 any variation of the xref:generic-route-arguments[Generic Route Arguments].
 
 ```crystal
 router MyApplicationRouter do
   match "404", controller: ErrorsController, action: error_404
+end
+```
+
+#### Websocket routes
+
+Orion has websocket support.
+
+You can use the `ws` method within the router and pass it's route and
+any variation of the xref:generic-route-arguments[Generic Route Arguments].
+
+```crystal
+router MyApplicationRouter do
+  ws "/socket", controller: WebSocketController, action: main
 end
 ```
 
