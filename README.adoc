@@ -327,6 +327,23 @@ xref:format-constraints[`format`], xref:accept-type-constraints[`accept`],
 xref:content-type-constraints[`content_type`], and xref:type-constraints[`type`]
 constraints.
 
+### Defining Controllers
+
+There are a few ways to define controllers within your application. Controllers
+are a useful way to separate concerns from your application.
+
+You may inherit or extend from the routers `BaseController` or `WebSocketBaseController`, this will expose the 
+helper methods from the router to all inherited controllers from the base. Caveat: Ensure that controllers are required
+after your router is defined.
+
+```crystal
+class ApplicationController < MyApp::ControllerBase
+  def home
+    response.puts "you are home"
+  end
+end
+```
+
 ### Instrumenting handlers _(a.k.a. middleware)_
 
 Instances or Classes implementing

@@ -11,6 +11,16 @@ abstract class Orion::Router
         extend self
       end
 
+      class BaseController
+        include Helpers
+        include Orion::ControllerHelper
+      end
+
+      class BaseWebSocketController
+        include Helpers
+        include Orion::WebSocketControllerHelper
+      end
+
       BASE_PATH = "/"
       TREE = Tree.new
       PREFIXES = [] of String

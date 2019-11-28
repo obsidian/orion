@@ -3,22 +3,6 @@ require "../spec_helper"
 params = {} of String => String
 
 module RouterSpec
-  class SampleController
-    include Orion::ControllerHelper
-
-    def action
-      params = request.path_params
-    end
-  end
-
-  class WSSampleController
-    include Orion::WebSocketControllerHelper
-
-    def action
-      ws.send "hello world"
-    end
-  end
-
   router Router do
     root ->(c : Context) { c.response.print "I am Groot" }
     root to: "SampleController#action"
@@ -90,6 +74,18 @@ module RouterSpec
     ws "/socket", ->(s : WebSocket, c : Context) {
       s.send "hello world"
     }
+  end
+
+  class SampleController < Router::BaseController
+    def action
+      params = request.path_params
+    end
+  end
+
+  class WSSampleController < Router::BaseWebSocketController
+    def action
+      ws.send "hello world"
+    end
   end
 
   describe "a basic router" do
