@@ -1,7 +1,107 @@
+require "../../http"
+
 module Orion::Router::Routes
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
     match({{ at }}, {{ app }})
+  end
+
+  # Defines a websocket route to a callable object.
+  #
+  # You can route to any object that responds to `call` with a `HTTP::WebSocket` and an `HTTP::Server::Context`.
+  #
+  # ```
+  # module Callable
+  #   def call(ws : HTTP::WebSocket, cxt : HTTP::Server::Context)
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   ws "/path", Callable
+  # end
+  # ```
+  macro ws(path, ws_callable, *, helper = nil)
+    puts "ws"
+    # Build the proc
+    %proc = ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) {
+      {{ ws_callable }}.call(web_socket, context)
+      nil
+    }
+    %callable = HTTP::Server.build_middleware([
+      HTTP::WebSocketHandler.new(&%proc),
+      ::Orion::Handlers::NotFound.new
+    ])
+    get({{ path }}, %callable, helper: {{ helper }})
+  end
+
+  # Defines a websocket route to a websocket compatible controller and action (short form).
+  # You can route to a controller and action by passing the `to` argument in
+  # the form of `"MyWebSocketController#action"`.
+  #
+  # ```
+  # class MyWebSocketController
+  #   def new(@ws : HTTP::WebSocket, @context : HTTP::Server::Context)
+  #   end
+  #
+  #   def ws
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   ws "/path", to: "MyWebSocketController#ws"
+  # end
+  # ```
+  macro ws(path, *, to, helper = nil)
+    {% parts = to.split("#") %}
+    {% controller = run("./inflector/controllerize.cr", parts[0].id) %}
+    {% action = parts[1] %}
+    {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
+    ws({{ path }}, controller: {{ controller.id }}, action: {{ action.id }}, helper: {{ helper }})
+  end
+
+  # Defines a match route to a controller and action (long form).
+  # You can route to a controller and action by passing the `controller` and
+  # `action` arguments, if action is omitted it will default to `match`.
+  #
+  # ```
+  # class MyWebSocketController
+  #   def new(@ws : HTTP::WebSocket, @context : HTTP::Server::Context)
+  #   end
+  #
+  #   def ws
+  #     # ... do something
+  #   end
+  # end
+  #
+  # router MyRouter do
+  #   ws "/path", controller: MyWebSocketController, action: ws
+  # end
+  # ```
+  macro ws(path, *, action, controller = CONTROLLER, helper = nil)
+    ws({{ path }}, ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) { {{ controller }}.new(web_socket, context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
+  end
+
+  # Defines a match route with a block.
+  #
+  # You can route to any object that responds to `call` with an `HTTP::Server::Context`.
+  #
+  # ```
+  # router MyRouter do
+  #   ws "/path" do |web_socket, context|
+  #     # ... do something
+  #   end
+  # end
+  # ```
+  macro ws(path, *, helper = nil, &block)
+    {%
+      args = [
+        "#{block.args[0]} : HTTP::WebSocket".id,
+        "#{block.args[1]} : HTTP::Server::Context".id,
+      ].join(", ").id
+    %}
+    ws({{ path }}, ->({{ args }}){ {{ block.body }} }, helper: {{ helper }})
   end
 
   # Define a `GET /` route at the current path with a callable object.
@@ -53,7 +153,8 @@ module Orion::Router::Routes
   # end
   # ```
   macro root(*, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
-    get("/", ->(\{{ args }}){ \{{ block.body }} }, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}), helper: "root")
+    {% args = block.args.map { |n| "#{n} : HTTP::Server::Context".id }.join(", ").id %}
+    get("/", ->({{ args }}){ {{ block.body }} }, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }}, helper: "root")
   end
 
   {% for method in ::HTTP::VERBS %}
@@ -139,7 +240,7 @@ module Orion::Router::Routes
     end
   {% end %}
 
-  # Defines a {{ method.id }} route to a callable object.
+  # Defines a match route to a callable object.
   #
   # You can route to any object that responds to `call` with an `HTTP::Server::Context`.
   #
@@ -207,7 +308,7 @@ module Orion::Router::Routes
     {% end %}
   end
 
-  # Defines a {{ method }} route to a controller and action (short form).
+  # Defines a match route to a controller and action (short form).
   # You can route to a controller and action by passing the `to` argument in
   # the form of `"Controller#action"`.
   #
@@ -252,7 +353,7 @@ module Orion::Router::Routes
   # end
   # ```
   macro match(path, *, action, controller = CONTROLLER, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
-    match({{ path }}, -> (context : HTTP::Server::Context) { {{ controller }}.new(context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
+    match({{ path }}, ->(context : HTTP::Server::Context) { {{ controller }}.new(context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
   end
 
   # Defines a match route with a block.
