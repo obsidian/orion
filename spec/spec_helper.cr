@@ -18,3 +18,21 @@ def Orion::Router.test_route(method, path, *, headers = {} of String => String, 
   router.call(context)
   HTTP::Client::Response.from_io io.tap(&.rewind)
 end
+
+def Orion::Router.test_ws(path, host = "example.org")
+  io = IO::Memory.new
+  context = mock_context("GET", path, host, headers: {
+    "Upgrade"               => "websocket",
+    "Connection"            => "Upgrade",
+    "Sec-WebSocket-Key"     => "dGhlIHNhbXBsZSBub25jZQ==",
+    "Sec-WebSocket-Version" => "13",
+  }, io: io)
+  router = new
+  begin
+    router.call context
+  rescue IO::Error
+    # Raises because the IO:: Memory is empty
+  end
+  io.rewind
+  {io, context}
+end
