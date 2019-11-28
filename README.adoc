@@ -25,9 +25,9 @@ router MyApp do
   end
 
   # Use it the mvc/rails pattern (shorthand)
-  root to: "Application#home"
-  get "/login", to: "Auth#new"
-  ws "/socket", to: "Socket#main"
+  root to: "application#home"
+  get "/login", to: "auth#new"
+  ws "/socket", to: "socket#main"
 
   # Use it with the mvc/rails pattern (longhand)
   root controller: ApplicationController, action: home
