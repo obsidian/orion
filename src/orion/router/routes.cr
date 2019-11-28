@@ -22,7 +22,6 @@ module Orion::Router::Routes
   # end
   # ```
   macro ws(path, ws_callable, *, helper = nil)
-    puts "ws"
     # Build the proc
     %proc = ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) {
       {{ ws_callable }}.call(web_socket, context)
