@@ -79,7 +79,7 @@ module Orion::Router::Routes
   # end
   # ```
   macro ws(path, *, action, controller = CONTROLLER, helper = nil)
-    ws({{ path }}, ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) { {{ controller }}.new(web_socket, context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
+    ws({{ path }}, ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) { {{ controller }}.new(web_socket, context).{{ action }} }, helper: {{ helper }})
   end
 
   # Defines a match route with a block.
