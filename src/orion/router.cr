@@ -23,6 +23,7 @@ abstract class Orion::Router
 
   # :nodoc:
   alias Context = HTTP::Server::Context
+  alias WebSocket = HTTP::WebSocket
 
   # :nodoc:
   CONTROLLER = nil
