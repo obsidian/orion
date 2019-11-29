@@ -22,16 +22,35 @@ module Orion::Router::Routes
   # end
   # ```
   macro ws(path, ws_callable, *, helper = nil)
-    # Build the proc
-    %proc = ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) {
+    # Build the ws proc
+    %ws_proc = ->(web_socket : HTTP::WebSocket, context : HTTP::Server::Context) {
       {{ ws_callable }}.call(web_socket, context)
       nil
     }
-    %callable = HTTP::Server.build_middleware([
-      HTTP::WebSocketHandler.new(&%proc),
-      ::Orion::Handlers::NotFound.new
-    ])
-    get({{ path }}, %callable, helper: {{ helper }})
+
+    # Build the proc
+    %proc = -> (context : HTTP::Server::Context) {
+      HTTP::WebSocketHandler.new(&%ws_proc).call(context)
+      nil
+    }
+
+    # Define the leaf node
+    %leaf = ::Orion::Action.new(
+      %proc,
+      handlers: HANDLERS,
+      constraints: CONSTRAINTS
+    )
+
+    # Add the route to the tree
+    %full_path = normalize_path({{ path }})
+    TREE.add(%full_path, %leaf)
+
+    {% if helper %} # Define the helper
+      define_helper(path: {{ path }}, spec: {{ helper }})
+    {% end %}
+
+    %leaf.constraints.unshift ::Orion::MethodsConstraint.new("GET")
+    %leaf.constraints.unshift ::Orion::WebSocketConstraint.new
   end
 
   # Defines a websocket route to a websocket compatible controller and action (short form).
@@ -266,7 +285,7 @@ module Orion::Router::Routes
       nil
     }
 
-    # Build the payload
+    # Define the leaf node
     %leaf = ::Orion::Action.new(
       %proc,
       handlers: HANDLERS,

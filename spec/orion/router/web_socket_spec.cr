@@ -1,19 +1,12 @@
 require "../../spec_helper"
 
 module Router::MatchSpec
-  class WebSocketController
-    include Orion::WebSocketControllerHelper
-
-    def echo
-      ws.on_message do |message|
-        ws.send(message)
-      end
-    end
-  end
-
   router SampleRouter do
     ws "/match", ->(ws : WebSocket, c : Context) {
       ws.send("Match")
+    }
+    get "/match", ->(c : Context) {
+      c.response.print("Match Non WS")
     }
   end
 
@@ -26,6 +19,12 @@ module Router::MatchSpec
     it "returns 404 for an unmatched route" do
       io, context = SampleRouter.test_ws("/no_match")
       context.response.status_code.should eq(404)
+    end
+
+    it "should allow a non ws request to coexist" do
+      response = SampleRouter.test_route(:get, "/match")
+      response.status_code.should eq 200
+      response.body.should eq "Match Non WS"
     end
   end
 end
