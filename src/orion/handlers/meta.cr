@@ -5,6 +5,5 @@ class Orion::Handlers::Meta
   def call(cxt : HTTP::Server::Context)
     call_next cxt
     cxt.response.headers["Content-Type"] ||= "text/html"
-    cxt.response.headers["X-Powered-By"] ||= "Orion"
   end
 end
