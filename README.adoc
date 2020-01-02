@@ -36,7 +36,7 @@ router MyApp do
 end
 
 # Run your web app
-MyApp.listen(port = 3000)
+MyApp.listen(port: 3000)
 ```
 
 Orion allows you to easily add routes, groups, and middleware in order to
