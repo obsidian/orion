@@ -9,8 +9,10 @@ module Orion::Router::Scope
       # Set the base path
       {% if path %}
         BASE_PATH = [::{{ @type }}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
+        use Orion::ScopeBasePath.new(BASE_PATH)
       {% end %}
 
+      # Setup the helper prefixes
       {% if helper_prefix %}
         PREFIXES = {{ prefixes }}
       {% end %}

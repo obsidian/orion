@@ -17,6 +17,7 @@ abstract class Orion::Router
   include Routes
   include Scope
   include Resources
+  include BuiltIns
 
   # :nodoc:
   alias Tree = Oak::Tree(Action)
