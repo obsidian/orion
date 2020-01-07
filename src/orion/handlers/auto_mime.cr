@@ -11,7 +11,9 @@ class Orion::Handlers::AutoMime
 
   private def type_from_path?(req : HTTP::Request)
     return if File.extname(req.path).empty?
-    mime_type = MIME::Types.type_for(req.path).first?
+    mime_type = MIME.from_filename(req.path.not_nil!)
     mime_type.to_s if mime_type
+  rescue
+    nil
   end
 end

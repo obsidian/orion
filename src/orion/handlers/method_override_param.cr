@@ -16,7 +16,7 @@ class Orion::Handlers::MethodOverrideParam
   end
 
   private def form_method?(req : HTTP::Request)
-    if MIME::Types.type_for(req).first? == MIME::Types["multipart/form-data"]
+    if type_for_request(req) == "multipart/form-data"
       HTTP::FormData.parse(req) do |part|
         if part.name == "_method"
           return part.body.gets_to_end
@@ -24,5 +24,9 @@ class Orion::Handlers::MethodOverrideParam
       end
       nil
     end
+  end
+
+  def type_for_request(request : HTTP::Request)
+    content_type = request.headers["content-type"]?.to_s.split(';').first?.to_s
   end
 end

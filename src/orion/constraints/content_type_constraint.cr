@@ -8,18 +8,20 @@ struct Orion::ContentTypeConstraint
   def matches?(request : ::HTTP::Request)
     return true unless request.body
     return false unless request.headers["Content-Type"]?
-    MIME::Types.type_for(request).any? do |mime_type|
-      matches?(mime_type, @content_type)
-    end
+    matches?(type_for_request(request), @content_type)
   end
 
-  private def matches?(mime_type : MIME::Type, string : String)
+  private def matches?(mime_type : String, string : String)
     mime_type == string
   end
 
-  private def matches?(mime_type : MIME::Type, strings : Array(String))
+  private def matches?(mime_type : String, strings : Array(String))
     strings.any? do |string|
       matches?(mime_type, string)
     end
+  end
+
+  def type_for_request(request : HTTP::Request)
+    content_type = request.headers["content-type"]?.to_s.split(';').first
   end
 end
