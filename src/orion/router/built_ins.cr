@@ -1,7 +1,13 @@
 module Orion::Router::BuiltIns
-  macro static(base_path, public_dir)
-    scope {{ base_path }} do
-      use Orion::StaticFileHandler.new({{ public_dir }})
+  # Mount a directory of static files.
+  #
+  # router MyRouter do
+  #   static dir: "./public", path: "/"
+  # end
+  # ```
+  macro static(*, dir, path = "/")
+    scope {{ path }} do
+      use Orion::StaticFileHandler.new({{ dir }})
     end
   end
 end

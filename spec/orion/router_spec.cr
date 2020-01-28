@@ -4,7 +4,7 @@ params = {} of String => String
 
 module RouterSpec
   router Router do
-    static "/assets", "./spec/fixtures"
+    static path: "/assets", dir: "./spec/fixtures"
     root ->(c : Context) { c.response.print "I am Groot" }
     root to: "sample#action"
     root to: "SampleController#action"
