@@ -5,6 +5,8 @@ class Orion::Handlers::Meta
 
   def call(cxt : HTTP::Server::Context)
     call_next cxt
-    cxt.response.headers["Content-Type"] ||= request_mime_type(cxt.request)
+    if (content_type = request_mime_types(cxt.request).first?)
+      cxt.response.headers["Content-Type"] ||= content_type
+    end
   end
 end

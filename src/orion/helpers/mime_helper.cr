@@ -1,10 +1,12 @@
 module MIMEHelper
-  private def request_mime_type(req : HTTP::Request)
-    type_from_accept?(req) || type_from_path?(req) || "text/html"
+  private def request_mime_types(req : HTTP::Request)
+    types_from_accept?(req) || [type_from_path?(req) || "text/html"]
   end
 
-  private def type_from_accept?(req : HTTP::Request)
-    req.headers["Accept"]?
+  private def types_from_accept?(req : HTTP::Request)
+    if (req.headers["Accept"]?)
+      req.headers["Accept"]?.to_s.split(",")
+    end
   end
 
   private def type_from_path?(req : HTTP::Request)
@@ -16,6 +18,8 @@ module MIMEHelper
   end
 
   private def request_extensions(req : HTTP::Request)
-    MIME.extensions(request_mime_type(req))
+    request_mime_types(req).reduce([] of String) do |exts, mime_type|
+      exts.concat MIME.extensions(mime_type)
+    end
   end
 end
