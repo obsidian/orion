@@ -1,0 +1,2 @@
+# :nodoc:
+require "./helpers/*"

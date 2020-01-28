@@ -33,7 +33,8 @@ describe Orion::StaticFileHandler do
   end
 
   context "given the file does not exist" do
-    io = IO::Memory.new
+    it "should return the proper response" do
+      io = IO::Memory.new
       context = mock_context(:get, "/not-here.unknown", io: io)
       handler = Orion::StaticFileHandler.new("./spec/fixtures")
       handler.call(context)
@@ -41,5 +42,21 @@ describe Orion::StaticFileHandler do
       io.rewind
       response = HTTP::Client::Response.from_io io
       response.status_code.should_not eq 200
+    end
+  end
+
+  context "renders the index" do
+    it "should return the proper response" do
+      io = IO::Memory.new
+      context = mock_context(:get, "/", io: io)
+      handler = Orion::StaticFileHandler.new("./spec/fixtures")
+      handler.call(context)
+      context.response.close
+      io.rewind
+      response = HTTP::Client::Response.from_io io
+      response.status_code.should eq 200
+      response.content_type.should eq "text/html"
+      response.body.should eq "Index Page"
+    end
   end
 end

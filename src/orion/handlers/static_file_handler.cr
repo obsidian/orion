@@ -1,5 +1,6 @@
 class Orion::StaticFileHandler
   include HTTP::Handler
+  include MIMEHelper
 
   def initialize(public_dir : String)
     @public_dir = File.expand_path(public_dir)
@@ -32,7 +33,10 @@ class Orion::StaticFileHandler
     is_dir = Dir.exists? file_path
     is_file = !is_dir && File.exists?(file_path)
 
-    if request_path != expanded_path || is_dir && !is_dir_path
+    if is_dir && (index_path = index_file(file_path, context.request))
+      file_path = index_path
+      is_file = true
+    elsif request_path != expanded_path || is_dir && !is_dir_path
       redirect_to context, "#{expanded_path}#{is_dir && !is_dir_path ? "/" : ""}"
       return
     end
@@ -60,6 +64,14 @@ class Orion::StaticFileHandler
   # of the file that should be expanded at the public_dir
   protected def request_path(path : String) : String
     path
+  end
+
+  private def index_file(path, request)
+    request_extensions(request).map do |ext|
+      path = File.join(path, "index#{ext}")
+    end.find do |path|
+      File.exists? path
+    end
   end
 
   private def redirect_to(context, url)
