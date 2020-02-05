@@ -3,12 +3,6 @@ abstract class Orion::Router; end
 require "./router/*"
 
 abstract class Orion::Router
-  class ParametersMissing < Exception
-    def initialize(keys : Array(String))
-      initialize("Missing parameters: #{keys.join(", ")}")
-    end
-  end
-
   include HTTP::Handler
   include Concerns
   include Constraints

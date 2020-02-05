@@ -31,7 +31,7 @@ module Orion::Router::Helpers
           end
         end
 
-        raise ParametersMissing.new(result.params.keys) unless result.params.keys.empty?
+        raise Orion::ParametersMissing.new(result.params.keys) unless result.params.keys.empty?
 
         # Assign the path params
         path_param_names.each do |name|
