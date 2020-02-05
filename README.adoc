@@ -87,11 +87,11 @@ some examples and guidelines on the different ways you can interact with the rou
 #### Using `to: String` to target a controller and action
 One of the most common ways we will be creating routes in this guide is to use
 the `to` argument supplied with a controller and action in the form of a string.
-In the example below `UsersController#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
+In the example below `Users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
 
 ```crystal
 router MyApplicationRouter do
-  post "users", to: "UsersController#create"
+  post "users", to: "Users#create"
 end
 ```
 
@@ -634,7 +634,7 @@ you will also be able to access a `{{name}}_url` to get the full URL.
 ```crystal
 router MyApplicationRouter do
   scope "users", helper_prefix: "user" do
-    get "/new", to: "UsersController#new", helper: "new"
+    get "/new", to: "Users#new", helper: "new"
   end
 end
 

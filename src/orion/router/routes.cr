@@ -55,7 +55,7 @@ module Orion::Router::Routes
 
   # Defines a websocket route to a websocket compatible controller and action (short form).
   # You can route to a controller and action by passing the `to` argument in
-  # the form of `"MyWebSocketController#action"`.
+  # the form of `"MyWebSocket#action"`.
   #
   # ```
   # class MyWebSocketController
@@ -68,7 +68,7 @@ module Orion::Router::Routes
   # end
   #
   # router MyRouter do
-  #   ws "/path", to: "MyWebSocketController#ws"
+  #   ws "/path", to: "MyWebSocket#ws"
   # end
   # ```
   macro ws(path, *, to, helper = nil)
@@ -143,7 +143,7 @@ module Orion::Router::Routes
   #
   # ```
   # router MyRouter do
-  #   root to: "Controller#action"
+  #   root to: "#action"
   # end
   # ```
   macro root(*, to, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
@@ -198,7 +198,7 @@ module Orion::Router::Routes
 
     # Defines a {{ method.id }} route to a controller and action (short form).
     # You can route to a controller and action by passing the `to` argument in
-    # the form of `"Controller#action"`.
+    # the form of `"#action"`.
     #
     # ```
     # class MyController
@@ -211,7 +211,7 @@ module Orion::Router::Routes
     # end
     #
     # router MyRouter do
-    #   match "/path", to: "MyController#{{ method.downcase.id }}"
+    #   match "/path", to: "My#{{ method.downcase.id }}"
     # end
     # ```
     macro {{ method.downcase.id }}(path, *, to, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
@@ -328,7 +328,7 @@ module Orion::Router::Routes
 
   # Defines a match route to a controller and action (short form).
   # You can route to a controller and action by passing the `to` argument in
-  # the form of `"Controller#action"`.
+  # the form of `"#action"`.
   #
   # ```
   # class MyController
@@ -341,7 +341,7 @@ module Orion::Router::Routes
   # end
   #
   # router MyRouter do
-  #   match "/path", to: "MyController#match"
+  #   match "/path", to: "My#match"
   # end
   # ```
   macro match(path, *, to, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
