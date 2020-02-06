@@ -5,33 +5,35 @@
 
 A powerful, simple, rails-esque routing library for `HTTP::Server`.
 
-    router MyApp do
-      # Use as a simple one-file app
-      root do |context|
-        context.response.puts "I am home"
-      end
+```crystal
+router MyApp do
+  # Use as a simple one-file app
+  root do |context|
+    context.response.puts "I am home"
+  end
 
-      get "/login" do |context|
-        context.response.puts "Login"
-      end
+  get "/login" do |context|
+    context.response.puts "Login"
+  end
 
-      ws "/socket" do |socket, context|
-        socket.send "Hello"
-      end
+  ws "/socket" do |socket, context|
+    socket.send "Hello"
+  end
 
-      # Use it the mvc/rails pattern (shorthand)
-      root to: "application#home"
-      get "/login", to: "auth#new"
-      ws "/socket", to: "socket#main"
+  # Use it the mvc/rails pattern (shorthand)
+  root to: "application#home"
+  get "/login", to: "auth#new"
+  ws "/socket", to: "socket#main"
 
-      # Use it with the mvc/rails pattern (longhand)
-      root controller: ApplicationController, action: home
-      get "/login", controller: LoginController, action: login
-      ws "/socket", controller: WebSocketController, action: channel
-    end
+  # Use it with the mvc/rails pattern (longhand)
+  root controller: ApplicationController, action: home
+  get "/login", controller: LoginController, action: login
+  ws "/socket", controller: WebSocketController, action: channel
+end
 
-    # Run your web app
-    MyApp.listen(port: 3000)
+# Run your web app
+MyApp.listen(port: 3000)
+```
 
 Orion allows you to easily add routes, groups, and middleware in order to
 construct your application’s routing layer.
@@ -47,15 +49,19 @@ within your application.
 
 Add this to your application’s `shard.yml`:
 
-    dependencies:
-      orion:
-        github: obsidian/orion
+``` yaml
+dependencies:
+  orion:
+    github: obsidian/orion
+```
 
 1.  and require Orion in your project.
 
 <!-- -->
 
-    require "orion"
+```crystal
+require "orion"
+```
 
 ## Usage
 
@@ -63,9 +69,11 @@ Add this to your application’s `shard.yml`:
 
 You can define a router by using the `router` macro with a constant name.
 
-    router MyApplicationRouter do
-      # ...
-    end
+```crystal
+router MyApplicationRouter do
+  # ...
+end
+```
 
 ### Generic route arguments
 
@@ -78,27 +86,33 @@ One of the most common ways we will be creating routes in this guide is to use
 the `to` argument supplied with a controller and action in the form of a string.
 In the example below `Users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
 
-    router MyApplicationRouter do
-      post "users", to: "Users#create"
-    end
+```crystal
+router MyApplicationRouter do
+  post "users", to: "Users#create"
+end
+```
 
 ##### Non-constant
 
 When passing a lowercased string, it still camelcase the string and add Controller.
 In the example below `users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
 
-    router MyApplicationRouter do
-      post "users", to: "users#create"
-    end
+```crystal
+router MyApplicationRouter do
+  post "users", to: "users#create"
+end
+```
 
 #### Using `controller: Type` and `action: Method`
 
 A longer form of the `to` argument strategy above allows us to pass the controller and action
 independently.
 
-    router MyApplicationRouter do
-      post "users", controller: UsersController, action: create
-    end
+```crystal
+router MyApplicationRouter do
+  post "users", controller: UsersController, action: create
+end
+```
 
 #### Using block syntax
 
@@ -106,22 +120,26 @@ Sometimes, we may want a more [kemal](https://github.com/kemalcr/kemal) or
 [sinatra](http://sinatrarb.com/) like approach. To accomplish this, we can
 simply pass a block that yields `HTTP::Server::Context`.
 
-    router MyApplicationRouter do
-      post "users" do |context|
-        context.response.puts "foo"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  post "users" do |context|
+    context.response.puts "foo"
+  end
+end
+```
 
 #### Using a `call` able object
 
 Lastly a second argument can be any
 object that responds to `#call(cxt : HTTP::Server::Context)`.
 
-    router MyApplicationRouter do
-      post "users", ->(context : HTTP::Server::Context) {
-        context.response.puts "foo"
-      }
-    end
+```crystal
+router MyApplicationRouter do
+  post "users", ->(context : HTTP::Server::Context) {
+    context.response.puts "foo"
+  }
+end
+```
 
 ### Basic Routing
 
@@ -133,9 +151,11 @@ accepting `HTTP::Server::Context` as a single argument. If a `String` is used li
 have an initializer that takes `HTTP::Server::Context` as an argument, and the
 specified action must not contain arguments.
 
-      router MyApplicationRouter do
-        root to: "home#index"
-      end
+```crystal
+  router MyApplicationRouter do
+    root to: "home#index"
+  end
+```
 
 #### HTTP verb based routes
 
@@ -147,9 +167,11 @@ supports all the standard HTTP verbs:
 You can use one of the methods within the router and pass it’s route and
 any variation of the [Generic Route Arguments](#generic-route-arguments).
 
-    router MyApplicationRouter do
-      post "users", to: "users#create"
-    end
+```crystal
+router MyApplicationRouter do
+  post "users", to: "users#create"
+end
+```
 
 #### Catch-all routes using `match`
 
@@ -159,9 +181,11 @@ controller and action.
 You can use the `match` method within the router and pass it’s route and
 any variation of the [Generic Route Arguments](#generic-route-arguments).
 
-    router MyApplicationRouter do
-      match "404", controller: ErrorsController, action: error_404
-    end
+```crystal
+router MyApplicationRouter do
+  match "404", controller: ErrorsController, action: error_404
+end
+```
 
 #### Websocket routes
 
@@ -170,9 +194,11 @@ Orion has WebSocket support.
 You can use the `ws` method within the router and pass it’s route and
 any variation of the [Generic Route Arguments](#generic-route-arguments).
 
-    router MyApplicationRouter do
-      ws "/socket", controller: WebSocketController, action: main
-    end
+```crystal
+router MyApplicationRouter do
+  ws "/socket", controller: WebSocketController, action: main
+end
+```
 
 ### Resource-Based Routing
 
@@ -182,53 +208,52 @@ will create a series of routes targeted at a specific controller.
 *The following is an example controller definition and the matching
 resources definition.*
 
-    class PostsController
-      include Orion::ControllerHelper
-      include ResponseHelpers
+```crystal
+class PostsController < MyRouter::BaseController
+  def index
+    @posts = Post.all
+    render :index
+  end
 
-      def index
-        @posts = Post.all
-        render :index
-      end
+  def new
+    @post = Post.new
+    render :new
+  end
 
-      def new
-        @post = Post.new
-        render :new
-      end
+  def create
+    post = Post.create(request)
+    redirect to: post_path post_id: post.id
+  end
 
-      def create
-        post = Post.create(request)
-        redirect to: post_path post_id: post.id
-      end
+  def show
+    @post = Post.find(request.path_params["post_id"])
+  end
 
-      def show
-        @post = Post.find(request.path_params["post_id"])
-      end
+  def edit
+    @post = Post.find(request.path_params["post_id"])
+    render :edit
+  end
 
-      def edit
-        @post = Post.find(request.path_params["post_id"])
-        render :edit
-      end
-
-      def update
-        post = Post.find(request.path_params["post_id"])
-        HTTP::FormData.parse(request) do |part|
-          post.attributes[part.name] = part.body.gets_to_end
-        end
-        redirect to: post_path post_id: post.id
-      end
-
-      def delete
-        post = Post.find(request.path_params["post_id"])
-        post.delete
-        redirect to: posts_path
-      end
-
+  def update
+    post = Post.find(request.path_params["post_id"])
+    HTTP::FormData.parse(request) do |part|
+      post.attributes[part.name] = part.body.gets_to_end
     end
+    redirect to: post_path post_id: post.id
+  end
 
-    router MyApplication do
-      resources :posts
-    end
+  def delete
+    post = Post.find(request.path_params["post_id"])
+    post.delete
+    redirect to: posts_path
+  end
+
+end
+
+router MyApplication do
+  resources :posts
+end
+```
 
 #### Including/Excluding Actions
 
@@ -237,40 +262,48 @@ are included. You may include or exclude explicitly by using the `only` and `exc
 
 > NOTE: The index action is not added for [singular resources](#singular-resources).
 
-    router MyApplication do
-      resources :posts, except: [:edit, :update]
-      resources :users, only: [:new, :create, :show]
-    end
+```crystal
+router MyApplication do
+  resources :posts, except: [:edit, :update]
+  resources :users, only: [:new, :create, :show]
+end
+```
 
 #### Nested Resources and Routes
 
 You can add nested resources and member routes by providing a block to the
 `resources` definition.
 
-    router MyApplication do
-      resources :posts do
-        post "feature", action: feature
-        resources :likes
-        resources :comments
-      end
-    end
+```crystal
+router MyApplication do
+  resources :posts do
+    post "feature", action: feature
+    resources :likes
+    resources :comments
+  end
+end
+```
 
 #### Singular Resources
 
 In addition to using the collection of `resources` method, You can also add
 singular resources which do not provide a `id_param` or `index` action.
 
-    router MyApplication do
-      resource :profile
-    end
+```crystal
+router MyApplication do
+  resource :profile
+end
+```
 
 #### Customizing ID
 
 You can customize the ID path parameter by passing the `id_param` parameter.
 
-    router MyApplication do
-      resources :posts, id_param: :article_id
-    end
+```crystal
+router MyApplication do
+  resources :posts, id_param: :article_id
+end
+```
 
 #### Constraining the ID
 
@@ -278,9 +311,11 @@ You can set constraints on the ID parameter by passing the `id_constraint` param
 
 *see [param constraints](#param-constraints) for more details*
 
-    router MyApplication do
-      resources :posts, id_constraint: /^\d{4}$/
-    end
+```crystal
+router MyApplication do
+  resources :posts, id_constraint: /^\d{4}$/
+end
+```
 
 #### Constraints
 
@@ -297,11 +332,13 @@ are a useful way to separate concerns from your application.
 You may inherit or extend from the routers `BaseController` or `WebSocketBaseController`, this will expose the helper methods from the router to all inherited controllers from the base. Caveat: Ensure that controllers are required
 after your router is defined.
 
-    class ApplicationController < MyApp::ControllerBase
-      def home
-        response.puts "you are home"
-      end
-    end
+```crystal
+class ApplicationController < MyApp::ControllerBase
+  def home
+    response.puts "you are home"
+  end
+end
+```
 
 ### Instrumenting handlers *(a.k.a. middleware)*
 
@@ -312,10 +349,12 @@ can be inserted directly in your routes by using the `use` method.
 > Handlers will only apply to the routes specified below them, so be sure to place
 > your handlers near the top of your route.
 
-    router MyApplicationRouter do
-      use HTTP::ErrorHandler
-      use HTTP::LogHandler.new(File.open("tmp/application.log"))
-    end
+```crystal
+router MyApplicationRouter do
+  use HTTP::ErrorHandler
+  use HTTP::LogHandler.new(File.open("tmp/application.log"))
+end
+```
 
 ### Nested Routes using `scope`
 
@@ -323,13 +362,15 @@ Scopes are a method in which you can nest routes under a common path. This preve
 the need for duplicating paths and allows a developer to easily change the parent
 of a set of child paths.
 
-    router MyApplicationRouter do
-      scope "users" do
-        root to: "Users#index"
-        get ":id", to: "Users#show"
-        delete ":id", to: "Users#destroy"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    root to: "Users#index"
+    get ":id", to: "Users#show"
+    delete ":id", to: "Users#destroy"
+  end
+end
+```
 
 #### Handlers within nested routes
 
@@ -340,14 +381,16 @@ It is important to note that the parent context’s handlers will also be used.
 > Handlers will only apply to the routes specified below them, so be sure to place
 > your handlers near the top of your scope.
 
-    router MyApplicationRouter do
-      scope "users" do
-        use AuthorizationHandler.new
-        root to: "Users#index"
-        get ":id", to: "Users#show"
-        delete ":id", to: "Users#destroy"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    use AuthorizationHandler.new
+    root to: "Users#index"
+    get ":id", to: "Users#show"
+    delete ":id", to: "Users#destroy"
+  end
+end
+```
 
 #### Route Helper prefixes
 
@@ -355,12 +398,14 @@ When using [Helpers](#helpers), you may want a prefix to be appended so that you
 repeat it within each individual route. For example a scope with `helper_prefix: "users"`
 containing a route with `helper: "show"` will generate a helper method of `users_show`.
 
-    router MyApplicationRouter do
-      scope "users", helper_prefix: "users" do
-        use AuthorizationHandler.new
-        get ":id", to: "Users#show", helper: "show"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users", helper_prefix: "users" do
+    use AuthorizationHandler.new
+    get ":id", to: "Users#show", helper: "show"
+  end
+end
+```
 
 ##### Caveats
 
@@ -368,12 +413,14 @@ When considering helpers within scopes you may want to use a longer form of the
 helper to get a better name. You can pass a named tuple with the fields `name`,
 `prefix`, and/or `suffix`.
 
-    router MyApplicationRouter do
-      scope "users", helper_prefix: "user" do
-        use AuthorizationHandler.new
-        get ":id", to: "Users#show", helper: { prefix: "show" }
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users", helper_prefix: "user" do
+    use AuthorizationHandler.new
+    get ":id", to: "Users#show", helper: { prefix: "show" }
+  end
+end
+```
 
 The above example will expand into `show_user` instead of `user_show`.
 
@@ -386,27 +433,31 @@ to repeat across scopes or resources in your router.
 
 To define a concern call `concern` with a `Symbol` for the name.
 
-    router MyApplicationRouter do
-      concern :authenticated do
-        use Authentication.new
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  concern :authenticated do
+    use Authentication.new
+  end
+end
+```
 
 #### Using concerns
 
 Once a concern is defined you can call `implements` with a named concern from
 anywhere in your router.
 
-    router MyApplicationRouter do
-      concern :authenticated do
-        use Authentication.new
-      end
+```crystal
+router MyApplicationRouter do
+  concern :authenticated do
+    use Authentication.new
+  end
 
-      scope "users" do
-        implements :authenticated
-        get ":id"
-      end
-    end
+  scope "users" do
+    implements :authenticated
+    get ":id"
+  end
+end
+```
 
 ### Method Overrides
 
@@ -427,10 +478,12 @@ If your client has the ability to set headers you can use the
 `Orion::Handlers::MethodOverrideParam` to pass a `_method=[METHOD]` parameter as
 a query parameter or form field with the method you wish to invoke on the router.
 
-    router MyRouter do
-      use Orion::Handlers::MethodOverrideParam.new
-      # ... routes
-    end
+```crystal
+router MyRouter do
+  use Orion::Handlers::MethodOverrideParam.new
+  # ... routes
+end
+```
 
 ### Constraints - More advanced rules for your routes
 
@@ -442,18 +495,22 @@ pass in a custom constraint.
 When defining a route, you can pass in parameter constraints. The path params will
 be checked against the provided regex before the route is chosen as a valid route.
 
-    router MyApplicationRouter do
-      get "users/:id", constraints: { id: /[0-9]{4}/ }
-    end
+```crystal
+router MyApplicationRouter do
+  get "users/:id", constraints: { id: /[0-9]{4}/ }
+end
+```
 
 #### Format constraints
 
 You can constrain the request to a certain format. Such as restricting
 the extension of the URL to '.json'.
 
-    router MyApplicationRouter do
-      get "api/users/:id", format: "json"
-    end
+```crystal
+router MyApplicationRouter do
+  get "api/users/:id", format: "json"
+end
+```
 
 #### Request Mime-Type constraints
 
@@ -461,9 +518,11 @@ You can constrain the request to a certain mime-type by using the `content_type`
 on the route. This will ensure that if the request has a body, it will provide the proper
 content type.
 
-    router MyApplicationRouter do
-      put "api/users/:id", content_type: "application/json"
-    end
+```crystal
+router MyApplicationRouter do
+  put "api/users/:id", content_type: "application/json"
+end
+```
 
 #### Response Mime-Type constraints
 
@@ -474,9 +533,11 @@ specify the `Accept` header rather than the extension.
 > Orion will automatically add mime-type headers for requests with no Accept header and
 > a specified extension.
 
-    router MyApplicationRouter do
-      get "api/users/:id", accept: "application/json"
-    end
+```crystal
+router MyApplicationRouter do
+  get "api/users/:id", accept: "application/json"
+end
+```
 
 #### Combined Mime-Type constraints
 
@@ -488,9 +549,11 @@ accept header for the response.
 > Orion will automatically add mime-type headers for requests with no Accept header and
 > a specified extension.
 
-    router MyApplicationRouter do
-      put "api/users/:id", type: "application/json"
-    end
+```crystal
+router MyApplicationRouter do
+  put "api/users/:id", type: "application/json"
+end
+```
 
 #### Host constraints
 
@@ -501,11 +564,13 @@ matched at that constraint.
 You may also choose to limit the request to a certain format. Such as restricting
 the extension of the URL to '.json'.
 
-    router MyApplicationRouter do
-      host "example.com" do
-        get "users/:id", format: "json"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  host "example.com" do
+    get "users/:id", format: "json"
+  end
+end
+```
 
 #### Subdomain constraints
 
@@ -516,28 +581,32 @@ matched at that constraint.
 You may also choose to limit the request to a certain format. Such as restricting
 the extension of the URL to '.json'.
 
-    router MyApplicationRouter do
-      subdomain "api" do
-        get "users/:id", format: "json"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  subdomain "api" do
+    get "users/:id", format: "json"
+  end
+end
+```
 
 #### Custom Constraints
 
 You can also pass in your own constraints by just passing a class/struct that
 implements the `Orion::Constraint` module.
 
-    struct MyConstraint
-      def matches?(req : HTTP::Request)
-        true
-      end
-    end
+```crystal
+struct MyConstraint
+  def matches?(req : HTTP::Request)
+    true
+  end
+end
 
-    router MyApplicationRouter do
-      constraint MyConstraint.new do
-        get "users/:id", format: "json"
-      end
-    end
+router MyApplicationRouter do
+  constraint MyConstraint.new do
+    get "users/:id", format: "json"
+  end
+end
+```
 
 ### Route Helpers
 
@@ -547,45 +616,49 @@ you can access any helper defined in the router by `{{name}}_path` to get its co
 route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
 you will also be able to access a `{{name}}_url` to get the full URL.
 
-    router MyApplicationRouter do
-      scope "users", helper_prefix: "user" do
-        get "/new", to: "Users#new", helper: "new"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users", helper_prefix: "user" do
+    get "/new", to: "Users#new", helper: "new"
+  end
+end
 
-    class UsersController
-      def new
-      end
-    end
+class UsersController
+  def new
+  end
+end
 
-    class MyController
-      include MyApplicationRouter::Helpers
-      delegate request, response, to: @context
+class MyController
+  include MyApplicationRouter::Helpers
+  delegate request, response, to: @context
 
-      def initialize(@context : HTTP::Server::Context)
-      end
+  def initialize(@context : HTTP::Server::Context)
+  end
 
-      def new
-        File.open("new.html") { |f| IO.copy(f, response) }
-      end
+  def new
+    File.open("new.html") { |f| IO.copy(f, response) }
+  end
 
-      def show
-        user = User.find(request.path_params["id"])
-        response.headers["Location"] = new_user_path
-        response.status_code = 301
-        response.close
-      end
-    end
+  def show
+    user = User.find(request.path_params["id"])
+    response.headers["Location"] = new_user_path
+    response.status_code = 301
+    response.close
+  end
+end
+```
 
 #### Making route helpers from your routes
 
 In order to make a helper from your route, you can use the `helper` named argument in your route.
 
-    router MyApplicationRouter do
-      scope "users" do
-        get "/new", to: "Users#new", helper: "new"
-      end
-    end
+```crystal
+router MyApplicationRouter do
+  scope "users" do
+    get "/new", to: "Users#new", helper: "new"
+  end
+end
+```
 
 #### Using route helpers in your code
 
@@ -596,19 +669,21 @@ or call them on the module directly.
 *If `@context : HTTP::Server::Context` is present in the class, you will also be
 able to use the `{helper}_url` versions of the helpers.*
 
-    router MyApplicationRouter do
-      resources :users
-    end
+```crystal
+router MyApplicationRouter do
+  resources :users
+end
 
-    class User
-      include MyApplicationRouter::Helpers
+class User
+  include MyApplicationRouter::Helpers
 
-      def route
-        user_path user_id: self.id
-      end
-    end
+  def route
+    user_path user_id: self.id
+  end
+end
 
-    puts MyApplicationRouter::Helpers.users_path
+puts MyApplicationRouter::Helpers.users_path
+```
 
 ## Contributing
 
