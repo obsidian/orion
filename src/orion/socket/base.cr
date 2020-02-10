@@ -1,6 +1,6 @@
 require "http/web_socket"
 
-module Orion::WebSocketControllerHelper
+abstract class Orion::Socket::Base
   getter ws : ::HTTP::WebSocket
   getter context : ::HTTP::Server::Context
   delegate request, response, to: @context

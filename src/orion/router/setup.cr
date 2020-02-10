@@ -11,14 +11,12 @@ abstract class Orion::Router
         extend self
       end
 
-      class BaseController
+      class BaseController < Orion::Controller::Base
         include Helpers
-        include Orion::ControllerHelper
       end
 
-      class BaseWebSocketController
+      class BaseSocket < Orion::Socket::Base
         include Helpers
-        include Orion::WebSocketControllerHelper
       end
 
       BASE_PATH = "/"

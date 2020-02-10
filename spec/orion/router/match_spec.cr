@@ -1,9 +1,16 @@
 require "../../spec_helper"
 
 module Router::MatchSpec
-  class SamplesController
-    include Orion::ControllerHelper
+  router SampleRouter do
+    match "/callable", ->(c : Context) { c.response.print "callable match" }
+    match "/block" do |c|
+      c.response.print "block match"
+    end
+    match "/to-match", to: "samples#to_match"
+    match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
+  end
 
+  class SamplesController < SampleRouter::BaseController
     def to_match
       response.print "to match"
     end
@@ -15,15 +22,6 @@ module Router::MatchSpec
     def action_match
       response.print "action match"
     end
-  end
-
-  router SampleRouter do
-    match "/callable", ->(c : Context) { c.response.print "callable match" }
-    match "/block" do |c|
-      c.response.print "block match"
-    end
-    match "/to-match", to: "samples#to_match"
-    match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
   end
 
   {% for verb in ::HTTP::VERBS %}

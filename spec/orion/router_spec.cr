@@ -101,7 +101,7 @@ module RouterSpec
     end
   end
 
-  class WebSocketSampleController < Router::BaseWebSocketController
+  class WebSocketSampleController < Router::BaseSocket
     def action
       ws.send "hello world"
     end

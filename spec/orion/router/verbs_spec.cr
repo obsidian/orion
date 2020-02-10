@@ -3,9 +3,16 @@ require "../../spec_helper"
 module Router::VerbsSpec
   {% for verb in ::HTTP::VERBS %}
     module {{ verb.capitalize.id }}
-      class SamplesController
-        include Orion::ControllerHelper
+      router SampleRouter do
+        {{ verb.downcase.id }} "/callable", ->(c : Context){ c.response.print "callable {{ verb.downcase.id }}" }
+        {{ verb.downcase.id }} "/block", helper: "block" do |c|
+          c.response.print "block {{ verb.downcase.id }}"
+        end
+        {{ verb.downcase.id }} "/to-{{ verb.downcase.id }}", to: "samples#to_{{ verb.downcase.id }}"
+        {{ verb.downcase.id }} "/{{ verb.downcase.id }}-action", controller: SamplesController, action: action_{{ verb.downcase.id }}, helper: "sample_verbose"
+      end
 
+      class SamplesController < SampleRouter::BaseController
         def to_{{ verb.downcase.id }}
           response.print "to {{ verb.downcase.id }}"
         end
@@ -17,15 +24,6 @@ module Router::VerbsSpec
         def action_{{ verb.downcase.id }}
           response.print "action {{ verb.downcase.id }}"
         end
-      end
-
-      router SampleRouter do
-        {{ verb.downcase.id }} "/callable", ->(c : Context){ c.response.print "callable {{ verb.downcase.id }}" }
-        {{ verb.downcase.id }} "/block", helper: "block" do |c|
-          c.response.print "block {{ verb.downcase.id }}"
-        end
-        {{ verb.downcase.id }} "/to-{{ verb.downcase.id }}", to: "samples#to_{{ verb.downcase.id }}"
-        {{ verb.downcase.id }} "/{{ verb.downcase.id }}-action", controller: SamplesController, action: action_{{ verb.downcase.id }}, helper: "sample_verbose"
       end
 
       describe {{ verb.downcase }} do

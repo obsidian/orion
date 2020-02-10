@@ -1,6 +1,6 @@
 name: orion
 crystal: 0.31.1
-version: 3.0.0.alpha1
+version: 3.0.0-alpha1
 
 authors:
   - jwaldrip <jason@waldrip.net>
@@ -8,9 +8,9 @@ authors:
 dependencies:
   oak:
     github: obsidian/oak
-    version: 2.0.1
   inflector:
     github: phoffer/inflector.cr
-    version: "~> 0.1.8"
+  kilt:
+    github: jeromegn/kilt
 
 license: MIT

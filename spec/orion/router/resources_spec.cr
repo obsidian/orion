@@ -1,9 +1,23 @@
 require "../../spec_helper"
 
 module Router::Resources::Spec
-  class UsersController
-    include Orion::ControllerHelper
+  router SampleRouter do
+    resources :users do
+      get "profile", action: profile
+    end
 
+    resources :users_constrained, controller: UsersController, id_constraint: /^\d{4}$/, id_param: :user_id
+    resources :users_api, controller: UsersController, id_param: :user_id, format: "json"
+    resources :users_api_2, controller: UsersController, id_param: :user_id, accept: "application/json"
+
+    resource :person do
+      get "profile", action: profile
+    end
+    resource :person_api, controller: PersonController, format: "json"
+    resource :person_api_2, controller: PersonController, accept: "application/json"
+  end
+
+  class UsersController < SampleRouter::BaseController
     def profile
       response.print "profile #{request.path_params["user_id"]}"
     end
@@ -37,9 +51,7 @@ module Router::Resources::Spec
     end
   end
 
-  class PersonController
-    include Orion::ControllerHelper
-
+  class PersonController < SampleRouter::BaseController
     def profile
       response.print "profile"
     end
@@ -67,22 +79,6 @@ module Router::Resources::Spec
     def delete
       response.print "delete"
     end
-  end
-
-  router SampleRouter do
-    resources :users do
-      get "profile", action: profile
-    end
-
-    resources :users_constrained, controller: UsersController, id_constraint: /^\d{4}$/, id_param: :user_id
-    resources :users_api, controller: UsersController, id_param: :user_id, format: "json"
-    resources :users_api_2, controller: UsersController, id_param: :user_id, accept: "application/json"
-
-    resource :person do
-      get "profile", action: profile
-    end
-    resource :person_api, controller: PersonController, format: "json"
-    resource :person_api_2, controller: PersonController, accept: "application/json"
   end
 
   describe ".resources" do
