@@ -68,7 +68,7 @@ class Orion::StaticFileHandler
 
   private def index_file(path, request)
     request_extensions(request).map do |ext|
-      path = File.join(path, "index#{ext}")
+      File.join(path, "index#{ext}")
     end.find do |path|
       File.exists? path
     end
