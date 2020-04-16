@@ -1,38 +1,58 @@
 abstract class Orion::Controller::Base
-  DEFAULT_LAYOUT = ""
-
+  @layout_rendered = false
   getter context : ::HTTP::Server::Context
   delegate request, response, to: @context
 
-  macro inherited
-    layout "application.ecr"
+  private macro layout(filename)
+    private def render_layout(&block): Nil
+      if @layout_rendered
+        raise ::Orion::DoubleRenderError.new "cannot call render view more than once"
+      end
+      @layout_rendered = true
+      Kilt.embed "src/views/layouts/{{ filename.id }}"
+    end
   end
 
-  macro set_template_path(path)
-    {% TEMPLATE_PATH = path %}
+  private macro render(*, view, layout = true): Nil
+    {% if layout %}
+      render_layout({{ layout_id }}) do
+        Kilt.embed "src/views/{{ view.id }}"
+        nil
+      end
+    {% else %}
+      Kilt.embed "src/views/{{ view.id }}"
+      nil
+    {% end %}
   end
 
-  macro layout(filename)
-    DEFAULT_LAYOUT = {{ filename }}
+  private macro render(*, partial)
+    Kilt.embed "src/views/partials/{{ partial.id }}"
+    nil
   end
 
-  macro render(*, layout = DEFAULT_LAYOUT)
-    __kilt_io__ = response
-    Kilt.embed "layouts/{{ layout }}"
-  end
-
-  macro render(*, json)
+  private macro render(*, json)
     {{ json }}.to_json(response)
+    nil
   end
 
-  macro render(*, yaml)
+  private macro render(*, yaml)
     {{ yaml }}.to_yaml(response)
+    nil
   end
 
-  macro render(*, text)
+  private macro render(*, text)
     response.puts({{ text }})
+    nil
   end
 
   def initialize(@context)
+  end
+
+  private def render_layout(&block)
+    yield
+  end
+
+  private def __kilt_io__
+    response
   end
 end
