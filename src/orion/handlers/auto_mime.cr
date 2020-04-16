@@ -6,8 +6,8 @@ class Orion::Handlers::AutoMime
   def call(cxt : HTTP::Server::Context)
     if (mime_type = type_from_path?(cxt.request))
       cxt.request.headers["Accept"] ||= mime_type
-      cxt.response.headers["Content-Type"] = mime_type
     end
-    call_next cxt
+    cxt.response.headers["Content-Type"] ||= mime_type
+    call_next(cxt)
   end
 end
