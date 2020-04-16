@@ -35,11 +35,6 @@ abstract class Orion::Controller::Base
     nil
   end
 
-  private macro render(*, yaml)
-    {{ yaml }}.to_yaml(response)
-    nil
-  end
-
   private macro render(*, text)
     response.puts({{ text }})
     nil
