@@ -5,9 +5,16 @@ module Orion::Router::BuiltIns
   #   static dir: "./public", path: "/"
   # end
   # ```
-  macro static(*, dir, path = "/")
+  macro static(*, path = "/", dir)
     scope {{ path }} do
       use Orion::StaticFileHandler.new({{ dir }})
+    end
+  end
+
+  macro static(*, path, string)
+    %str : String = {{string}}
+    get {{ path }} do |c|
+      c.response.puts %str
     end
   end
 end
