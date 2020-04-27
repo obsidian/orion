@@ -8,9 +8,7 @@ module Orion::Router::Resources
     {% controller = controller || run("./inflector/controllerize.cr", name.downcase) %}
     {% underscore_name = run("./inflector/underscore.cr", name) %}
 
-    scope {{ "/#{name}" }} do
-      CONTROLLER = {{ controller }}
-
+    scope {{ "/#{name}" }}, controller: {{ controller }} do
       {% if content_type %} # Define the content type constraint
         CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
       {% end %}
@@ -59,9 +57,7 @@ module Orion::Router::Resources
     {% controller = controller || run("./inflector/controllerize.cr", name.downcase) %}
     {% underscore_name = run("./inflector/underscore.cr", name) %}
 
-    scope {{ "/#{name}" }}, helper_prefix: {{ underscore_name }} do
-      CONTROLLER = {{ controller }}
-
+    scope {{ "/#{name}" }}, helper_prefix: {{ underscore_name }}, controller: {{ controller }} do
       {% if content_type %} # Define the content type constraint
         CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
       {% end %}
