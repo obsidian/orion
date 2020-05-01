@@ -67,6 +67,7 @@ abstract class Orion::Router
 
   def initialize(autoclose : Bool = true)
     use Handlers::AutoClose if autoclose
+    {% unless flag?(:release) %}use Handlers::DebugHandler.new{%end%}
     use Handlers::MethodOverrideHeader
     use Handlers::AutoMime
     use Handlers::Meta

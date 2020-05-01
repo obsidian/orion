@@ -12,5 +12,7 @@ dependencies:
     github: phoffer/inflector.cr
   kilt:
     github: jeromegn/kilt
+  exception_page:
+    github: crystal-loot/exception_page
 
 license: MIT
