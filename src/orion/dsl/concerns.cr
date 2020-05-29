@@ -1,10 +1,4 @@
-module Orion::Router::Concerns
-  private macro setup_concerns
-    {% if @type.superclass == ::Orion::Router %}
-      CONCERNS = {} of Symbol => String
-    {% end %}
-  end
-
+module Orion::DSL::Concerns
   macro concern(name, &block)
     {% CONCERNS[name] = block.body.stringify %}
   end

@@ -29,7 +29,7 @@ module Router::VerbsSpec
       describe {{ verb.downcase }} do
         context "with callable" do
           it "should succeed" do
-            response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/callable")
+            response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/callable")
             response.status_code.should eq 200
             response.body.should eq "callable {{ verb.downcase.id }}"
           end
@@ -37,7 +37,7 @@ module Router::VerbsSpec
 
         context "with a block" do
           it "should succeed" do
-            response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/block")
+            response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/block")
             response.status_code.should eq 200
             response.body.should eq "block {{ verb.downcase.id }}"
           end
@@ -45,7 +45,7 @@ module Router::VerbsSpec
 
         context "with to" do
           it "should succeed" do
-            response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/to-{{ verb.downcase.id }}")
+            response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/to-{{ verb.downcase.id }}")
             response.status_code.should eq 200
             response.body.should eq "to {{ verb.downcase.id }}"
           end
@@ -53,7 +53,7 @@ module Router::VerbsSpec
 
         context "with controller and action" do
           it "should succeed" do
-            response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/{{ verb.downcase.id }}-action")
+            response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/{{ verb.downcase.id }}-action")
             response.status_code.should eq 200
             response.body.should eq "action {{ verb.downcase.id }}"
           end

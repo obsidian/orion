@@ -28,7 +28,7 @@ module Router::MatchSpec
     describe {{ verb.downcase }} do
       context "with callable" do
         it "should succeed" do
-          response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/callable")
+          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/callable")
           response.status_code.should eq 200
           response.body.should eq "callable match"
         end
@@ -36,7 +36,7 @@ module Router::MatchSpec
 
       context "with a block" do
         it "should succeed" do
-          response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/block")
+          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/block")
           response.status_code.should eq 200
           response.body.should eq "block match"
         end
@@ -44,7 +44,7 @@ module Router::MatchSpec
 
       context "with to" do
         it "should succeed" do
-          response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/to-match")
+          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/to-match")
           response.status_code.should eq 200
           response.body.should eq "to match"
         end
@@ -52,7 +52,7 @@ module Router::MatchSpec
 
       context "with controller and action" do
         it "should succeed" do
-          response = SampleRouter.test_route(:{{ verb.downcase.id }}, "/match-action")
+          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/match-action")
           response.status_code.should eq 200
           response.body.should eq "action match"
         end

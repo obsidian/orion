@@ -11,7 +11,7 @@ module Router::ScopeSpec
   describe "scope" do
     context "out of scope" do
       it "should have the default base path" do
-        response = SampleRouter.test_route(:get, "/home")
+        response = test_route(SampleRouter.new, :get, "/home")
         response.status_code.should eq 200
         response.body.should eq "/"
       end
@@ -19,7 +19,7 @@ module Router::ScopeSpec
 
     context "within scope" do
       it "should set the base path" do
-        response = SampleRouter.test_route(:get, "/messages/new")
+        response = test_route(SampleRouter.new, :get, "/messages/new")
         response.status_code.should eq 200
         response.body.should eq "/messages"
       end

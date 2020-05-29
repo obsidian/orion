@@ -1,11 +1,16 @@
-module Orion::Router::Scope
+module Orion::DSL::Scope
   # Create a scope, optionall nested under a path.
   macro scope(path = nil, helper_prefix = nil, controller = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
-    {% scope_class_name = run "./inflector/random_const.cr", "Scope" %}
+    {% scope_const = run "./inflector/random_const.cr", "Scope" %}
 
     # :nodoc:
-    class {{ scope_class_name }} < ::{{@type}}
+    module {{ scope_const }}
+      include ::Orion::DSL::Macros
+
+      CONSTRAINTS = {% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::CONSTRAINTS.dup
+      HANDLERS = {% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::HANDLERS.dup
+
       # Set the controller
       {% if controller %}
         CONTROLLER = {{ controller }}
@@ -13,8 +18,10 @@ module Orion::Router::Scope
 
       # Set the base path
       {% if path %}
-        BASE_PATH = [::{{ @type }}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
+        BASE_PATH = [{% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
         use Orion::ScopeBasePath.new(BASE_PATH)
+      {% else %}
+        BASE_PATH = {% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::BASE_PATH
       {% end %}
 
       # Setup the helper prefixes

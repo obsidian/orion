@@ -611,7 +611,7 @@ end
 ### Route Helpers
 
 Route helpers provide type-safe methods to generate paths and URLs to defined routes
-in your application. By including the `Helpers` module on the router (i.e. `MyApplicationRouter::Helpers`)
+in your application. By including the `Helpers` module on the router (i.e. `MyApplicationRouter::RouteHelpers`)
 you can access any helper defined in the router by `{{name}}_path` to get its corresponding
 route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
 you will also be able to access a `{{name}}_url` to get the full URL.
@@ -629,7 +629,7 @@ class UsersController
 end
 
 class MyController
-  include MyApplicationRouter::Helpers
+  include MyApplicationRouter::RouteHelpers
   delegate request, response, to: @context
 
   def initialize(@context : HTTP::Server::Context)
@@ -675,14 +675,14 @@ router MyApplicationRouter do
 end
 
 class User
-  include MyApplicationRouter::Helpers
+  include MyApplicationRouter::RouteHelpers
 
   def route
     user_path user_id: self.id
   end
 end
 
-puts MyApplicationRouter::Helpers.users_path
+puts MyApplicationRouter::RouteHelpers.users_path
 ```
 
 ## Contributing

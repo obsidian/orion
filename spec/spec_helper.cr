@@ -11,15 +11,14 @@ def mock_context(verb, path, host = "example.org", *, headers = {} of String => 
   HTTP::Server::Context.new(request, response)
 end
 
-def Orion::Router.test_route(method, path, *, headers = {} of String => String, body = nil)
+def test_route(router, method, path, *, headers = {} of String => String, body = nil)
   io = IO::Memory.new
   context = mock_context(method, path, headers: headers, io: io, body: body)
-  router = new
   router.call(context)
   HTTP::Client::Response.from_io io.tap(&.rewind)
 end
 
-def Orion::Router.test_ws(path, host = "example.org")
+def test_ws(router, path, host = "example.org")
   io = IO::Memory.new
   context = mock_context("GET", path, host, headers: {
     "Upgrade"               => "websocket",
@@ -27,7 +26,6 @@ def Orion::Router.test_ws(path, host = "example.org")
     "Sec-WebSocket-Key"     => "dGhlIHNhbXBsZSBub25jZQ==",
     "Sec-WebSocket-Version" => "13",
   }, io: io)
-  router = new
   begin
     router.call context
   rescue IO::Error

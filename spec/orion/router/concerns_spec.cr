@@ -17,7 +17,7 @@ module Router::ConcernsSpec
 
   describe "concerns" do
     it "should be present when included" do
-      response = SampleRouter.test_route(:get, "/users/messages/new")
+      response = test_route(SampleRouter.new, :get, "/users/messages/new")
       response.status_code.should eq 200
       response.body.should eq "lets send a message"
     end

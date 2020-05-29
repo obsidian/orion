@@ -1,4 +1,4 @@
-module Orion::Router::BuiltIns
+module Orion::DSL::Static
   # Mount a directory of static files.
   #
   # router MyRouter do

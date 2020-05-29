@@ -39,7 +39,7 @@ module Router::ConstraintsSpec
     describe "for params" do
       context "if matched" do
         it "should pass" do
-          response = SampleRouter.test_route(:get, "/resources/9999")
+          response = test_route(SampleRouter.new, :get, "/resources/9999")
           response.status_code.should eq 200
           response.body.should eq "resource 9999"
         end
@@ -47,7 +47,7 @@ module Router::ConstraintsSpec
 
       context "if not matched" do
         it "should not pass" do
-          response = SampleRouter.test_route(:get, "/resources/123")
+          response = test_route(SampleRouter.new, :get, "/resources/123")
           response.status_code.should eq 404
         end
       end
@@ -57,7 +57,7 @@ module Router::ConstraintsSpec
       context "with a string" do
         context "if matched" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/alpha.js")
+            response = test_route(SampleRouter.new, :get, "/alpha.js")
             response.status_code.should eq 200
             response.body.should eq "is js"
           end
@@ -65,7 +65,7 @@ module Router::ConstraintsSpec
 
         context "if not matched" do
           it "should not pass" do
-            response = SampleRouter.test_route(:get, "/alpha.cr")
+            response = test_route(SampleRouter.new, :get, "/alpha.cr")
             response.status_code.should eq 404
           end
         end
@@ -76,7 +76,7 @@ module Router::ConstraintsSpec
       context "with a string" do
         context "if matched" do
           it "should pass" do
-            response = SampleRouter.test_route(:post, "/mary", headers: {"Content-Type" => "image/jpeg"}, body: "aaa")
+            response = test_route(SampleRouter.new, :post, "/mary", headers: {"Content-Type" => "image/jpeg"}, body: "aaa")
             response.status_code.should eq 200
             response.body.should eq "is a jpg image"
           end
@@ -84,7 +84,7 @@ module Router::ConstraintsSpec
 
         context "if not matched without a body" do
           it "should pass" do
-            response = SampleRouter.test_route(:post, "/mary")
+            response = test_route(SampleRouter.new, :post, "/mary")
             response.status_code.should eq 200
             response.body.should eq "is a jpg image"
           end
@@ -92,7 +92,7 @@ module Router::ConstraintsSpec
 
         context "if not matched" do
           it "should not pass" do
-            response = SampleRouter.test_route(:post, "/mary", body: "aaa")
+            response = test_route(SampleRouter.new, :post, "/mary", body: "aaa")
             response.status_code.should eq 404
           end
         end
@@ -103,7 +103,7 @@ module Router::ConstraintsSpec
       context "with a string" do
         context "if matched" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/delta", headers: {"Accept" => "image/png"})
+            response = test_route(SampleRouter.new, :get, "/delta", headers: {"Accept" => "image/png"})
             response.status_code.should eq 200
             response.body.should eq "is a png image"
           end
@@ -111,7 +111,7 @@ module Router::ConstraintsSpec
 
         context "if matched by extension" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/delta.png")
+            response = test_route(SampleRouter.new, :get, "/delta.png")
             response.status_code.should eq 200
             response.body.should eq "is a png image"
           end
@@ -119,7 +119,7 @@ module Router::ConstraintsSpec
 
         context "if matched by wildcard" do
           it "should pass" do
-            response = SampleRouter.test_route(:get, "/delta", headers: {"Accept" => "*/*"})
+            response = test_route(SampleRouter.new, :get, "/delta", headers: {"Accept" => "*/*"})
             response.status_code.should eq 200
             response.body.should eq "is a png image"
           end
@@ -127,7 +127,7 @@ module Router::ConstraintsSpec
 
         context "if not matched" do
           it "should not pass" do
-            response = SampleRouter.test_route(:get, "/delta")
+            response = test_route(SampleRouter.new, :get, "/delta")
             response.status_code.should eq 404
           end
         end

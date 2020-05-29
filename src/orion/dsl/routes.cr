@@ -1,6 +1,6 @@
 require "../../http"
 
-module Orion::Router::Routes
+module Orion::DSL::Routes
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
     match({{ at }}, {{ app }})
@@ -42,11 +42,11 @@ module Orion::Router::Routes
     )
 
     # Add the route to the tree
-    %full_path = normalize_path({{ path }})
+    %full_path = ::Orion::DSL.normalize_path(base_path: {{ BASE_PATH }}, path: {{ path }})
     TREE.add(%full_path, %leaf)
 
     {% if helper %} # Define the helper
-      define_helper(path: {{ path }}, spec: {{ helper }})
+      define_helper(base_path: {{ BASE_PATH }}, path: {{ path }}, spec: {{ helper }})
     {% end %}
 
     %leaf.constraints.unshift ::Orion::MethodsConstraint.new("GET")
@@ -293,11 +293,12 @@ module Orion::Router::Routes
     )
 
     # Add the route to the tree
-    %full_path = normalize_path({{ path }})
+    %full_path = ::Orion::DSL.normalize_path(base_path: {{ BASE_PATH }}, path: {{ path }})
     TREE.add(%full_path, %leaf)
 
     {% if helper %} # Define the helper
-      define_helper(path: {{ path }}, spec: {{ helper }})
+      %tree = TREE
+      define_helper(base_path: {{ BASE_PATH }}, path: {{ path }}, spec: {{ helper }})
     {% end %}
 
     {% if constraints %} # Define the param constraints

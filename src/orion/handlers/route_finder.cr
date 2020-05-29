@@ -1,7 +1,9 @@
 class Orion::Handlers::RouteFinder
   include HTTP::Handler
 
-  def initialize(@tree : Orion::Router::Tree)
+  @tree : Orion::DSL::Tree
+
+  def initialize(@tree : Orion::DSL::Tree)
   end
 
   def call(cxt : HTTP::Server::Context)

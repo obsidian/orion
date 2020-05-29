@@ -1,6 +1,6 @@
 # :nodoc:
-module Orion::Router::Helpers
-  private macro define_helper(*, path, spec)
+module Orion::DSL::Helpers
+  private macro define_helper(*, base_path, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
 
     {% if spec.is_a? BoolLiteral %}
@@ -17,10 +17,10 @@ module Orion::Router::Helpers
 
     {% method_name = name_parts.map(&.id).join("_").id %}
 
-    module ::{{ Helpers }}
+    module ::{{ RouteHelpers }}
       def self.{{ method_name.id }}_path(**params)
-        path = ::{{@type}}.normalize_path({{ path }})
-        result = ::{{@type}}::ROUTER.tree.find(path).not_nil!
+        path = ::Orion::DSL.normalize_path(base_path: {{ base_path }}, path: {{ path }})
+        result = TREE.find(path).not_nil!
         path_param_names = result.params.keys
 
         # Convert all the params to a string

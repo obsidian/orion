@@ -13,7 +13,8 @@ abstract class Orion::Controller::Base
     end
   end
 
-  private macro render(*, view, layout = true): Nil
+  private macro render(*, view, layout = true)
+ Nil
     {% if layout %}
       render_layout do
         Kilt.embed "src/views/{{ view.id }}"

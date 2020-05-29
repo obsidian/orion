@@ -1,14 +1,6 @@
-module Orion::Router::Constraints
+module Orion::DSL::Constraints
   # :nodoc:
   CONSTRAINTS = [] of Constraint
-
-  private macro setup_constraints
-    {% if @type.superclass != ::Orion::Router %}
-      CONSTRAINTS = ::{{@type.superclass}}::CONSTRAINTS.dup
-    {% else %}
-      CONSTRAINTS = [] of ::Orion::Constraint
-    {% end %}
-  end
 
   # Constrain routes by an `Orion::Constraint`
   macro constraint(constraint)
