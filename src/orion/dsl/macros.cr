@@ -1,5 +1,5 @@
 module Orion::DSL::Macros
-  macro included
+  private macro included
     include ::Orion::DSL::Concerns
     include ::Orion::DSL::Constraints
     include ::Orion::DSL::Handlers

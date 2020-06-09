@@ -22,6 +22,13 @@ module Orion::DSL
     TREE = Tree.new
     CONTROLLER = BaseController
 
+    {% if @type.stringify == "<Program>" %}
+      config = ::Orion::Config.new
+      macro finished
+        ::Orion::Router.start(TREE, config: config)
+      end
+    {% end %}
+
     include ::Orion::DSL::Macros
 
     match "*", ::Orion::Handlers::NotFound.new

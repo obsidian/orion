@@ -4,7 +4,7 @@ class Orion::Router
   delegate call, to: @stack
 
   def self.start(tree : DSL::Tree, autoclose : Bool = true, workers = nil, **bind_opts)
-    new(autoclose).tap do |server|
+    new(tree, autoclose).tap do |server|
       server.bind(**bind_opts)
       workers ? server.listen(workers) : server.listen
     end
@@ -35,29 +35,57 @@ class Orion::Router
     use handler.new
   end
 
-  # Bind to a socket using TLS
-  def bind(*, tls, **bind_opts)
-    @server.bind_tls(**bind_opts, context: tls)
+  # Bind using a URI
+  def bind(*, tls : Nil = nil, uri)
+    @server.bind(**bind_opts, uri: uri)
   end
 
-  # Bind to a port
-  def bind(*, port, **bind_opts)
-    @server.bind_tcp(**bind_opts, port: port)
+  # Bind TLS with an address
+  def bind(*, tls : OpenSSL::SSL::Context::Server, address : ::Socket::IPAddress)
+    @server.bind_tls(address: address, context: tls)
   end
 
-  # Bind to a Socket::IPAddress
-  def bind(*, address, **bind_opts)
-    @server.bind_tcp(**bind_opts, address: address)
+  # Bind TLS with a host and port
+  def bind(*, tls : OpenSSL::SSL::Context::Server, host, port)
+    @server.bind_tls(host: host, port: port, context: tls)
+  end
+
+  # Bind using TLS with a host an unused port
+  def bind(*, tls : OpenSSL::SSL::Context::Server, host)
+    @server.bind_tls(host: host, context: tls)
+  end
+
+  # Bind TCP to a host and port
+  def bind(*, tls : Nil = nil, host, port, reuse_port = false)
+    @server.bind_tcp(host: host, port: port, reuse_port: reuse_port)
+  end
+
+  # Bind TCP to a Socket::IPAddress
+  def bind(*, tls : Nil = nil, address : ::Socket::IPAddress, reuse_port = false)
+    @server.bind_tcp(address: address, reuse_port: reuse_port)
+  end
+
+  def bind(*, tls : Nil = nil, address : ::Socket::UNIXAddress)
+    @server.bind_unix(address: address)
   end
 
   # Bind to a Socket::UnixAddress
-  def bind(*, path, **bind_opts)
-    @server.bind_unix(**bind_opts, path: path)
+  def bind(*, tls : Nil = nil, path)
+    @server.bind_unix(path: path)
   end
 
-  # Bind to a random, unused Socket::IPAddress
-  def bind(*args, **bind_opts)
-    @server.bind_unused_port(**bind_opts)
+  # Bind using a config
+  def bind(*, config : ::Orion::Config)
+    case config
+    when .uri
+      bind(uri: config.uri.not_nil!)
+    when .path
+      bind(path: config.path.not_nil!)
+    when .address
+      bind(tls: config.tls, address: config.address.not_nil!)
+    else
+      port ? bind(host: config.host, port: config.port.not_nil!, reuse_port: config.reuse_port) : bind(host: config.host, reuse_port: config.reuse_port)
+    end
   end
 
   # Listen clients using multiple workers
