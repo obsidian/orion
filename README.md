@@ -1,40 +1,23 @@
 <p align="center"><img src="https://raw.githubusercontent.com/obsidian/orion/v3.0.0-dev/orion-banner.svg" width="300"></p>
 
 <p align="center">
-  <img src="https://travis-ci.org/obsidian/orion.svg?branch=master">
-  <img src="https://img.shields.io/github/tag/obsidian/orion.svg?v=1">
+  <img src="https://travis-ci.org/obsidian/orion.svg?branch=master" />
+  <img src="https://img.shields.io/github/tag/obsidian/orion.svg?v=1" />
 </p>
 
-A powerful, simple, rails-esque routing library for `HTTP::Server`.
+<hr />
+
+## Orion in Action
+
+### Simple
 
 ```crystal
-router MyApp do
-  # Use as a simple one-file app
-  root do |context|
-    context.response.puts "I am home"
-  end
+require "orion"
+include Orion::DSL
 
-  get "/login" do |context|
-    context.response.puts "Login"
-  end
-
-  ws "/socket" do |socket, context|
-    socket.send "Hello"
-  end
-
-  # Use it the mvc/rails pattern (shorthand)
-  root to: "application#home"
-  get "/login", to: "auth#new"
-  ws "/socket", to: "socket#main"
-
-  # Use it with the mvc/rails pattern (longhand)
-  root controller: ApplicationController, action: home
-  get "/login", controller: LoginController, action: login
-  ws "/socket", controller: WebSocketController, action: channel
+get "/" do
+  "Hello World"
 end
-
-# Run your web app
-MyApp.listen(port: 3000)
 ```
 
 Orion allows you to easily add routes, groups, and middleware in order to
