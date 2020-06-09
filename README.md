@@ -7,7 +7,13 @@
 
 <hr />
 
-## Orion in Action
+## The 3 Flavors of Orion
+
+| Simple | Complex | As a Framework |
+| --- | --- | --- |
+| Single File Application | Routes, Controllers in Other Files | Fully Functional View/Controller Framework
+
+
 
 ### Simple
 
