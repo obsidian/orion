@@ -3,7 +3,6 @@ require "../../spec_helper"
 module Router::WebSocketsSpec
   router SampleRouter do
     ws "/match", ->(ws : WebSocket, c : Context) {
-      puts "got here"
       ws.send("Match")
     }
     get "/match", ->(c : Context) {
@@ -12,22 +11,14 @@ module Router::WebSocketsSpec
   end
 
   describe "ws" do
-    it "can_handle a request" do
-      handler = HTTP::WebSocketHandler.new do |ws, ctx|
-        ws.send("Match")
-      end
-      io, context = test_ws(handler, "/")
-      io.to_s.should eq("HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=\r\n\r\n\x81\u0005Match")
-    end
-
     it "matches on given route" do
-      io, context = test_ws(SampleRouter.new, "/match")
+      io, response = test_ws(SampleRouter.new, "/match")
       io.to_s.should eq("HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=\r\n\r\n\x81\u0005Match")
     end
 
     it "returns 404 for an unmatched route" do
-      io, context = test_ws(SampleRouter.new, "/no_match")
-      context.response.status_code.should eq(404)
+      io, response = test_ws(SampleRouter.new, "/no_match")
+      response.status_code.should eq(404)
     end
 
     it "should allow a non ws request to coexist" do

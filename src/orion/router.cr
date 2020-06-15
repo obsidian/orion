@@ -1,5 +1,6 @@
 class Orion::Router
   @stack : HTTP::Handler
+  @request_processor : HTTP::Server::RequestProcessor?
   getter handlers = [] of HTTP::Handler
   delegate call, to: @stack
 
@@ -19,6 +20,10 @@ class Orion::Router
     use Handlers::NotFound
     @stack = HTTP::Server.build_middleware handlers
     @server = HTTP::Server.new(handler: @stack)
+  end
+
+  def request_processor
+    @request_processor ||= HTTP::Server::RequestProcessor.new(@stack)
   end
 
   # Visualize the route tree
