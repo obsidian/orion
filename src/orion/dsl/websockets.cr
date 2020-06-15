@@ -21,14 +21,14 @@ module Orion::DSL::WebSockets
       nil
     end
 
-    # # Build the proc
+    # Build the proc
     %proc = -> (context : HTTP::Server::Context) {
       %ws_handler.call(context)
       nil
     }
 
-    # # Define the leaf node
-    %leaf = ::Orion::Action.new(
+    # Define the action
+    %action = ::Orion::Action.new(
       %proc,
       handlers: HANDLERS,
       constraints: CONSTRAINTS
@@ -36,14 +36,14 @@ module Orion::DSL::WebSockets
 
     # Add the route to the tree
     %full_path = ::Orion::DSL.normalize_path(base_path: {{ BASE_PATH }}, path: {{ path }})
-    TREE.add(%full_path, %leaf)
+    TREE.add(%full_path, %action)
 
     {% if helper %} # Define the helper
       define_helper(base_path: {{ BASE_PATH }}, path: {{ path }}, spec: {{ helper }})
     {% end %}
 
-    %leaf.constraints.unshift ::Orion::MethodsConstraint.new("GET")
-    %leaf.constraints.unshift ::Orion::WebSocketConstraint.new
+    %action.constraints.unshift ::Orion::MethodsConstraint.new("GET")
+    %action.constraints.unshift ::Orion::WebSocketConstraint.new
   end
 
   # Defines a websocket route to a websocket compatible controller and action (short form).

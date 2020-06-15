@@ -7,18 +7,18 @@ class Orion::Handlers::RouteFinder
   end
 
   def call(cxt : HTTP::Server::Context)
-    leaf = nil
+    action = nil
     path = cxt.request.path
     @tree.search(path.rchop(File.extname(path))) do |result|
-      unless leaf
+      unless action
         cxt.request.path_params = result.params
         cxt.request.format = File.extname(path)
-        leaf = result.payloads.find &.matches_constraints? cxt.request
-        leaf.try &.call(cxt)
+        action = result.payloads.find &.matches_constraints? cxt.request
+        action.try &.call(cxt)
       end
     end
 
     # lastly return with 404
-    call_next cxt unless leaf
+    call_next cxt unless action
   end
 end
