@@ -20,65 +20,63 @@ module Orion::DSL::Match
       {% path = path.split(".")[0..-2].join(".") %}
     {% end %}
 
-    # Build the proc
-    %proc = -> (context : HTTP::Server::Context) {
-      write_tracker = ::Orion::WriteTracker.new
-      output = context.response.output
-      context.response.output = ::IO::MultiWriter.new(output, write_tracker, sync_close: true)
-      return_value = {{ callable }}.call(context)
-      # If no response has been written handle the return value as a response
-      if !write_tracker.written
-        case return_value
-        when String
-          context.response.puts return_value
-        when IO
-          is_invalid = return_value.closed? || return_value == context.response || context.response.output || context.response.@original_output
-          IO.copy(return_value, context.response) unless is_invalid
-        else
+    # create the action
+    %action = ::Orion::Action.new(
+      -> (context : HTTP::Server::Context) {
+        write_tracker = ::Orion::WriteTracker.new
+        output = context.response.output
+        context.response.output = ::IO::MultiWriter.new(output, write_tracker, sync_close: true)
+        return_value = {{ callable }}.call(context)
+        # If no response has been written handle the return value as a response
+        if !write_tracker.written
+          case return_value
+          when String
+            context.response.puts return_value
+          when IO
+            is_invalid = return_value.closed? || return_value == context.response || context.response.output || context.response.@original_output
+            IO.copy(return_value, context.response) unless is_invalid
+          else
+          end
         end
-      end
-      nil
-    }
-
-    # Define the leaf node
-    %leaf = ::Orion::Action.new(
-      %proc,
+        nil
+      },
       handlers: HANDLERS,
       constraints: CONSTRAINTS
     )
 
     # Add the route to the tree
-    %full_path = ::Orion::DSL.normalize_path(base_path: {{ BASE_PATH }}, path: {{ path }})
-    TREE.add(%full_path, %leaf)
+    TREE.add(
+      ::Orion::DSL.normalize_path(base_path: {{ BASE_PATH }}, path: {{ path }}),
+      %action
+    )
 
     {% if helper %} # Define the helper
-      %tree = TREE
       define_helper(base_path: {{ BASE_PATH }}, path: {{ path }}, spec: {{ helper }})
     {% end %}
 
     {% if constraints %} # Define the param constraints
-      %leaf.constraints.unshift ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
+      %action.constraints.unshift ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
     {% end %}
 
     {% if content_type %} # Define the content type constraint
-      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ content_type }})
+      %action.constraints.unshift ::Orion::ContentTypeConstraint.new({{ content_type }})
     {% end %}
 
     {% if type %} # Define the content type and accept constraint
-      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ type }})
-      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ type }})
+      %action.constraints.unshift ::Orion::ContentTypeConstraint.new({{ type }})
+      %action.constraints.unshift ::Orion::AcceptConstraint.new({{ type }})
     {% end %}
 
     {% if format %} # Define the format constraint
-      %leaf.constraints.unshift ::Orion::FormatConstraint.new({{ format }})
+      %action.constraints.unshift ::Orion::FormatConstraint.new({{ format }})
     {% end %}
 
     {% if accept %} # Define the content type constraint
-      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
+      %action.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
     {% end %}
 
     {% if via != :all && !via.nil? %} # Define the method constraint
-      %leaf.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
+      %action.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
     {% end %}
   end
 
