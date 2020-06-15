@@ -85,16 +85,12 @@ class Orion::Router
   def bind(*, config : ::Orion::Config)
     case config
     when .uri
-      puts "uri"
       bind(uri: config.uri.not_nil!)
     when .path
-      puts "unix socket path"
       bind(path: config.path.not_nil!)
     when .address
-      puts "address"
       bind(tls: config.tls, address: config.address.not_nil!)
     else
-      puts "host and port"
       bind(tls: config.tls, host: config.host, port: config.port, reuse_port: config.reuse_port)
     end
   end

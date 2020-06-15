@@ -1,4 +1,4 @@
-require "../src/orion/app"
+require "../src/app"
 
 root do
   root_path

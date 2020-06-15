@@ -23,7 +23,12 @@ module Orion::DSL
     CONTROLLER = BaseController
 
     {% if @type.stringify == "<Program>" %}
-      config = ::Orion::Config.new
+      ORION_CONFIG = ::Orion::Config.new
+
+      def config
+        ORION_CONFIG
+      end
+
       macro finished
         ::Orion::Router.start(TREE, config: config)
       end
