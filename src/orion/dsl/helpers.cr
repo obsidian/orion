@@ -45,7 +45,7 @@ module Orion::DSL::Helpers
       end
 
       def {{ method_name.id }}_path(**params)
-        ::{{ Helpers }}.{{ method_name.id }}_path(**params)
+        ::{{ RouteHelpers }}.{{ method_name.id }}_path(**params)
       end
 
       def {{ method_name.id }}_url(**params)

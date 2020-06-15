@@ -7,7 +7,7 @@ class Orion::Config
   property port : Int32? = 3000
   property path : String?
   property address : ::Socket::IPAddress | ::Socket::UNIXAddress | Nil
-  property tls : OpenSSL::SSL::Context::Server?
+  property tls : ::OpenSSL::SSL::Context::Server?
   property host : String = "localhost"
   property reuse_port : Bool = false
 end

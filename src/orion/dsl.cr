@@ -39,6 +39,8 @@ module Orion::DSL
 
   # :nodoc:
   alias Context = HTTP::Server::Context
+  alias Response = HTTP::Server::Response
+  alias Request = HTTP::Request
   alias WebSocket = HTTP::WebSocket
 
   # :nodoc:

@@ -1,6 +1,9 @@
-require "../src/orion"
-include Orion::DSL
+require "../src/orion/app"
 
-root do |c|
-  context.response.puts "ok"
+root do
+  root_path
+end
+
+get "/users", helper: "users" do
+  users_path
 end

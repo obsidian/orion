@@ -176,7 +176,7 @@ module Router::Resources::Spec
       end
 
       it "should return 404 when not matched" do
-        response = test_route(SampleRouter.new, :get, "users_api_2/1")
+        response = test_route(SampleRouter.new, :get, "users_api_2/1", headers: {"Accept" => "text/html"})
         response.status_code.should eq 404
       end
     end
@@ -258,7 +258,7 @@ module Router::Resources::Spec
       end
 
       it "should return 404 when not matched" do
-        response = test_route(SampleRouter.new, :get, "person_api_2")
+        response = test_route(SampleRouter.new, :get, "person_api_2", headers: {"Accept" => "text/html"})
         response.status_code.should eq 404
       end
     end

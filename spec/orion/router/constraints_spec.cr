@@ -127,7 +127,7 @@ module Router::ConstraintsSpec
 
         context "if not matched" do
           it "should not pass" do
-            response = test_route(SampleRouter.new, :get, "/delta")
+            response = test_route(SampleRouter.new, :get, "/delta", headers: {"Accept" => "text/html"})
             response.status_code.should eq 404
           end
         end

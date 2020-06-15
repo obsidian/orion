@@ -84,20 +84,24 @@ module RouterSpec
       params = c.request.path_params
     end
     put "/hello", ->(c : Context) { c.response.print "I put things" }
-    # ws "/socket", ->(s : WebSocket, c : Context) {
-    #   s.send "hello world"
-    # }
-    # ws "/:first/:second", to: "web_socket_sample#action"
-    # ws "/:first/:second", to: "WebSocketSample#action"
-    # ws "/:first/:second", controller: WebSocketSampleController, action: action
-    # ws "/:first/:second" do |s, c|
-    #   s.send "hello world"
-    # end
+    ws "/socket", ->(ws : WebSocket, c : Context) {
+      ws.send "hello world"
+    }
+    ws "/:first/:second", to: "sample#action"
+    ws "/:first/:second", to: "Sample#action"
+    ws "/:first/:second", controller: SampleController, action: socket_action
+    ws "/:first/:second" do |ws, req|
+      ws.send "hello world"
+    end
   end
 
   class SampleController < Router::BaseController
     def action
       params = request.path_params
+    end
+
+    def socket_action
+      websocket.send "Hello World"
     end
   end
 

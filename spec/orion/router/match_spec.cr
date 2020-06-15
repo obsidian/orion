@@ -6,6 +6,9 @@ module Router::MatchSpec
     match "/block" do |c|
       c.response.print "block match"
     end
+    match "/string" do |c|
+      "im a string"
+    end
     match "/to-match", to: "samples#to_match"
     match "/match-action", controller: SamplesController, action: action_match, helper: "sample_verbose"
   end
@@ -24,7 +27,7 @@ module Router::MatchSpec
     end
   end
 
-  {% for verb in ::HTTP::VERBS %}
+  {% for verb in ::Orion::DSL::Methods::METHODS %}
     describe {{ verb.downcase }} do
       context "with callable" do
         it "should succeed" do
@@ -39,6 +42,14 @@ module Router::MatchSpec
           response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/block")
           response.status_code.should eq 200
           response.body.should eq "block match"
+        end
+      end
+
+      context "with a string return" do
+        it "should succeed" do
+          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/string")
+          response.status_code.should eq 200
+          response.body.should eq "im a string\n"
         end
       end
 

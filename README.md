@@ -144,8 +144,8 @@ specified action must not contain arguments.
 
 #### HTTP verb based routes
 
-A common way to interact with the router is to use standard HTTP verbs. Orion
-supports all the standard HTTP verbs:
+A common way to interact with the router is to use standard HTTP methods. Orion
+supports all the standard HTTP methods:
 
 `get`, `head`, `post`, `put`, `delete`, `connect`, `options`, `trace`, and `patch`
 
@@ -160,7 +160,7 @@ end
 
 #### Catch-all routes using `match`
 
-In some instances, you may just want to redirect all verbs to a particular
+In some instances, you may just want to redirect all methods to a particular
 controller and action.
 
 You can use the `match` method within the router and pass it’s route and

@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-module Router::VerbsSpec
-  {% for verb in ::HTTP::VERBS %}
+module Router::MethodsSpec
+  {% for verb in ::Orion::DSL::Methods::METHODS %}
     module {{ verb.capitalize.id }}
       router SampleRouter do
         {{ verb.downcase.id }} "/callable", ->(c : Context){ c.response.print "callable {{ verb.downcase.id }}" }

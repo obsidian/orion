@@ -1,6 +1,7 @@
 abstract class Orion::Controller::Base
   @layout_rendered = false
   getter context : ::HTTP::Server::Context
+  getter! websocket : ::HTTP::WebSocket
   delegate request, response, to: @context
 
   private macro layout(filename)
@@ -14,7 +15,6 @@ abstract class Orion::Controller::Base
   end
 
   private macro render(*, view, layout = true)
- Nil
     {% if layout %}
       render_layout do
         Kilt.embed "src/views/{{ view.id }}"
@@ -41,7 +41,7 @@ abstract class Orion::Controller::Base
     nil
   end
 
-  def initialize(@context)
+  def initialize(@context, @websocket = nil)
   end
 
   private def render_layout(&block)

@@ -4,7 +4,10 @@ module Orion::DSL::Macros
     include ::Orion::DSL::Constraints
     include ::Orion::DSL::Handlers
     include ::Orion::DSL::Helpers
-    include ::Orion::DSL::Routes
+    include ::Orion::DSL::Match
+    include ::Orion::DSL::Methods
+    include ::Orion::DSL::WebSockets
+    include ::Orion::DSL::Root
     include ::Orion::DSL::Scope
     include ::Orion::DSL::Resources
     include ::Orion::DSL::Static

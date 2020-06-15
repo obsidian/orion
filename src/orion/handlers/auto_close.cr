@@ -6,6 +6,6 @@ class Orion::Handlers::AutoClose
 
   def call(cxt : HTTP::Server::Context)
     call_next cxt
-    cxt.response.close
+    cxt.response.close unless cxt.response.closed?
   end
 end

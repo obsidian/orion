@@ -1,5 +1,4 @@
-require "../src/orion"
-require "spec"
+require "http"
 
 def mock_context(verb, path, host = "example.org", *, headers = {} of String => String, io = IO::Memory.new, body = nil)
   http_headers = HTTP::Headers.new
@@ -9,13 +8,6 @@ def mock_context(verb, path, host = "example.org", *, headers = {} of String => 
   request.body = body
   response = HTTP::Server::Response.new io
   HTTP::Server::Context.new(request, response)
-end
-
-def test_route(router, method, path, *, headers = {} of String => String, body = nil)
-  io = IO::Memory.new
-  context = mock_context(method, path, headers: headers, io: io, body: body)
-  router.call(context)
-  HTTP::Client::Response.from_io io.tap(&.rewind)
 end
 
 def test_ws(router, path, host = "example.org")
@@ -35,3 +27,17 @@ def test_ws(router, path, host = "example.org")
   io.rewind
   {io, context}
 end
+
+handler = HTTP::WebSocketHandler.new do |ws, ctx|
+  puts "block invoked"
+  ws.send("Match")
+end
+
+io, context = test_ws(handler, "/")
+
+assertion = "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=\r\n\r\n\x81\u0005Match"
+
+response = io.to_s
+puts response
+raise "Invalid Response" unless response == assertion
+puts "OK"

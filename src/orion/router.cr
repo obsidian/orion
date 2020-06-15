@@ -15,7 +15,6 @@ class Orion::Router
     {% unless flag?(:release) %}use Handlers::DebugHandler.new{% end %}
     use Handlers::MethodOverrideHeader
     use Handlers::AutoMime
-    use Handlers::Meta
     use Handlers::RouteFinder.new(tree)
     use Handlers::NotFound
     @stack = HTTP::Server.build_middleware handlers
@@ -37,7 +36,7 @@ class Orion::Router
 
   # Bind using a URI
   def bind(*, tls : Nil = nil, uri)
-    @server.bind(**bind_opts, uri: uri)
+    @server.bind(uri: uri)
   end
 
   # Bind TLS with an address
@@ -46,18 +45,21 @@ class Orion::Router
   end
 
   # Bind TLS with a host and port
-  def bind(*, tls : OpenSSL::SSL::Context::Server, host, port)
-    @server.bind_tls(host: host, port: port, context: tls)
-  end
-
-  # Bind using TLS with a host an unused port
-  def bind(*, tls : OpenSSL::SSL::Context::Server, host)
-    @server.bind_tls(host: host, context: tls)
+  def bind(*, tls : OpenSSL::SSL::Context::Server, host = Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
+    if port
+      @server.bind_tls(host: host, port: port, context: tls, reuse_port: reuse_port)
+    else
+      @server.bind_tls(host: host, context: tls)
+    end
   end
 
   # Bind TCP to a host and port
-  def bind(*, tls : Nil = nil, host, port, reuse_port = false)
-    @server.bind_tcp(host: host, port: port, reuse_port: reuse_port)
+  def bind(*, tls : Nil = nil, host = Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
+    if port
+      @server.bind_tcp(host: host, port: port, reuse_port: reuse_port)
+    else
+      @server.bind_unused_port(host: host, reuse_port: reuse_port)
+    end
   end
 
   # Bind TCP to a Socket::IPAddress
@@ -65,12 +67,12 @@ class Orion::Router
     @server.bind_tcp(address: address, reuse_port: reuse_port)
   end
 
-  def bind(*, tls : Nil = nil, address : ::Socket::UNIXAddress)
+  # Bind to a Socket::UnixAddress
+  def bind(*, tls = nil, address : ::Socket::UNIXAddress)
     @server.bind_unix(address: address)
   end
 
-  # Bind to a Socket::UnixAddress
-  def bind(*, tls : Nil = nil, path)
+  def bind(*, tls = nil, path)
     @server.bind_unix(path: path)
   end
 
@@ -78,13 +80,17 @@ class Orion::Router
   def bind(*, config : ::Orion::Config)
     case config
     when .uri
+      puts "uri"
       bind(uri: config.uri.not_nil!)
     when .path
+      puts "unix socket path"
       bind(path: config.path.not_nil!)
     when .address
+      puts "address"
       bind(tls: config.tls, address: config.address.not_nil!)
     else
-      port ? bind(host: config.host, port: config.port.not_nil!, reuse_port: config.reuse_port) : bind(host: config.host, reuse_port: config.reuse_port)
+      puts "host and port"
+      bind(tls: config.tls, host: config.host, port: config.port, reuse_port: config.reuse_port)
     end
   end
 
