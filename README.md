@@ -20,6 +20,8 @@ In it's simplest form you can use Orion in app mode. Here you can use a variety 
 ```crystal
 require "orion/app"
 
+use HTTP::LogHandler.new
+
 root "/" do
   "Hello World"
 end
