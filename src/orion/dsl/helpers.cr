@@ -18,12 +18,13 @@ module Orion::DSL::Helpers
     {% method_name = name_parts.map(&.id).join("_").id %}
 
     module ::{{ RouteHelpers }}
+      # Returns the full path for `{{ method_name.id }}`
       def self.{{ method_name.id }}_path(**params)
         path = ::Orion::DSL.normalize_path(base_path: {{ base_path }}, path: {{ path }})
         result = TREE.find(path).not_nil!
         path_param_names = result.params.keys
 
-        # Convert all the params to a string
+        {% "Convert all the params to a string" %}
         params_hash = ({} of String => String).tap do |memo|
           params.each do |key, value|
             memo[key.to_s] = value.to_s
@@ -48,6 +49,7 @@ module Orion::DSL::Helpers
         ::{{ RouteHelpers }}.{{ method_name.id }}_path(**params)
       end
 
+      # Returns the full url for `{{ method_name.id }}`
       def {{ method_name.id }}_url(**params)
         uri = URI.parse {{ method_name.id }}_path(**params, host: request.host_with_port)
         uri.host = @context.request.host_with_port
