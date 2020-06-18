@@ -1,6 +1,6 @@
 require "digest"
 
-class Orion::Pipeline
+struct Orion::Pipeline
   CACHE         = {} of String => Pipeline
   ROUTE_HANDLER = ->(c : HTTP::Server::Context) { c.request.action.try &.invoke(c) }
 

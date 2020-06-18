@@ -20,6 +20,4 @@ router MyApplication do
   end
 end
 
-puts MyApplication.visualize
-
 MyApplication.start(workers: System.cpu_count)

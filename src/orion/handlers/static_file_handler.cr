@@ -16,7 +16,7 @@ class Orion::StaticFileHandler
     is_dir_path = original_path.ends_with? "/"
     request_path = self.request_path(URI.decode(original_path))
 
-    # File path cannot contains '\0' (NUL) because all filesystem I know
+    # File path cannot contains '\0' (NULL) because all filesystem I know
     # don't accept '\0' character as file name.
     if request_path.includes? '\0'
       context.response.respond_with_status(:bad_request)

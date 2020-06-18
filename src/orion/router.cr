@@ -1,4 +1,4 @@
-class Orion::Router
+struct Orion::Router
   @stack : HTTP::Handler
   @request_processor : HTTP::Server::RequestProcessor?
   getter handlers = [] of HTTP::Handler
@@ -13,7 +13,6 @@ class Orion::Router
 
   def initialize(tree : DSL::Tree, autoclose : Bool = true)
     use Handlers::AutoClose if autoclose
-    {% unless flag?(:release) %}use Handlers::DebugHandler.new{% end %}
     use Handlers::MethodOverrideHeader
     use Handlers::AutoMime
     use Handlers::RouteFinder.new(tree)
@@ -50,7 +49,7 @@ class Orion::Router
   end
 
   # Bind TLS with a host and port
-  def bind(*, tls : OpenSSL::SSL::Context::Server, host = Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
+  def bind(*, tls : OpenSSL::SSL::Context::Server, host = ::Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
     if port
       @server.bind_tls(host: host, port: port, context: tls, reuse_port: reuse_port)
     else
@@ -59,7 +58,7 @@ class Orion::Router
   end
 
   # Bind TCP to a host and port
-  def bind(*, tls : Nil = nil, host = Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
+  def bind(*, tls : Nil = nil, host = ::Socket::IPAddress::LOOPBACK, port = nil, reuse_port = false)
     if port
       @server.bind_tcp(host: host, port: port, reuse_port: reuse_port)
     else

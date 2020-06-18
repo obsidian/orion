@@ -1,7 +1,11 @@
 require "../src/app"
 
-root do
-  root_path
+scope "/foo" do
+  scope "/bar" do
+    root do
+      "Hello Foo"
+    end
+  end
 end
 
 get "/users", helper: "users" do

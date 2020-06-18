@@ -143,7 +143,9 @@ module Orion::DSL::Match
   # ```
   macro match(path, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
     {% controller_const = run "./inflector/random_const.cr", "Controller" %}
-    class {{ controller_const }} < BaseController
+    struct {{ controller_const }}
+      include ::Orion::Controller::Helper
+
       def handle
         {% if block.args.size == 0 %}
           {{ block.body }}

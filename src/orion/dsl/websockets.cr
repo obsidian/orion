@@ -4,14 +4,14 @@ module Orion::DSL::WebSockets
   # You can route to any object that responds to `call` with a `HTTP::WebSocket` and an `HTTP::Server::Context`.
   #
   # ```
+  # router MyRouter do
+  #   ws "/path", Callable
+  # end
+  #
   # module Callable
   #   def call(ws : HTTP::WebSocket, cxt : HTTP::Server::Context)
   #     # ... do something
   #   end
-  # end
-  #
-  # router MyRouter do
-  #   ws "/path", Callable
   # end
   # ```
   macro ws(path, ws_callable, *, helper = nil)
@@ -51,17 +51,14 @@ module Orion::DSL::WebSockets
   # the form of `"MyWebSocket#action"`.
   #
   # ```
-  # class MyWebSocketController
-  #   def new(@ws : HTTP::WebSocket, @context : HTTP::Server::Context)
-  #   end
+  # router WebApp do
+  #   ws "/path", to: "Sample#ws"
+  # end
   #
+  # class SampleController < WebApp::BaseController
   #   def ws
   #     # ... do something
   #   end
-  # end
-  #
-  # router MyRouter do
-  #   ws "/path", to: "MyWebSocket#ws"
   # end
   # ```
   macro ws(path, *, to, helper = nil)
@@ -77,17 +74,14 @@ module Orion::DSL::WebSockets
   # `action` arguments, if action is omitted it will default to `match`.
   #
   # ```
-  # class MyWebSocketController
-  #   def new(@ws : HTTP::WebSocket, @context : HTTP::Server::Context)
-  #   end
+  # router WebApp do
+  #   ws "/path", controller: SampleController, action: ws
+  # end
   #
+  # class SampleController < WebApp::BaseController
   #   def ws
   #     # ... do something
   #   end
-  # end
-  #
-  # router MyRouter do
-  #   ws "/path", controller: MyWebSocketController, action: ws
   # end
   # ```
   macro ws(path, *, action, controller = CONTROLLER, helper = nil)
@@ -102,7 +96,9 @@ module Orion::DSL::WebSockets
 
   # Defines a match route with a block.
   #
-  # You can route to any object that responds to `call` with an `HTTP::Server::Context`.
+  # Pass a block as the response and it will be evaluated as a controller
+  # 0..2 block parameters are accepted. The block itself will always be evaluated
+  # as a controller and have access to all controller methods and macros.
   #
   # ```
   # router MyRouter do
@@ -113,7 +109,9 @@ module Orion::DSL::WebSockets
   # ```
   macro ws(path, *, helper = nil, &block)
     {% controller_const = run "./inflector/random_const.cr", "Controller" %}
-    class {{ controller_const }} < BaseController
+    struct {{ controller_const }}
+      include ::Orion::Controller::Helper
+
       def handle
         {% if block.args.size == 0 %}
           {{ block.body }}

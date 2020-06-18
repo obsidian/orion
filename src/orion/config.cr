@@ -1,7 +1,7 @@
 require "socket"
 require "openssl"
 
-class Orion::Config
+struct Orion::Config
   property socket : ::Socket::Server?
   property uri : String | URI | Nil
   property port : Int32? = 3000
