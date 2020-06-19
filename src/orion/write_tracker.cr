@@ -1,3 +1,4 @@
+# :nodoc:
 class Orion::WriteTracker < IO
   getter written : Bool = false
 

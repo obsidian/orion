@@ -1,3 +1,4 @@
+# Docs
 module Orion::DSL::Concerns
   macro concern(name, &block)
     {% CONCERNS[name] = block.body.stringify %}

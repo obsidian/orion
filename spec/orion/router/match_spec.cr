@@ -27,11 +27,11 @@ module Router::MatchSpec
     end
   end
 
-  {% for verb in ::Orion::DSL::Methods::METHODS %}
-    describe {{ verb.downcase }} do
+  {% for method in ::Orion::DSL::RequestMethods::METHODS %}
+    describe {{ method.downcase }} do
       context "with callable" do
         it "should succeed" do
-          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/callable")
+          response = test_route(SampleRouter.new, :{{ method.downcase.id }}, "/callable")
           response.status_code.should eq 200
           response.body.should eq "callable match"
         end
@@ -39,7 +39,7 @@ module Router::MatchSpec
 
       context "with a block" do
         it "should succeed" do
-          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/block")
+          response = test_route(SampleRouter.new, :{{ method.downcase.id }}, "/block")
           response.status_code.should eq 200
           response.body.should eq "block match"
         end
@@ -47,7 +47,7 @@ module Router::MatchSpec
 
       context "with a string return" do
         it "should succeed" do
-          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/string")
+          response = test_route(SampleRouter.new, :{{ method.downcase.id }}, "/string")
           response.status_code.should eq 200
           response.body.should eq "im a string\n"
         end
@@ -55,7 +55,7 @@ module Router::MatchSpec
 
       context "with to" do
         it "should succeed" do
-          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/to-match")
+          response = test_route(SampleRouter.new, :{{ method.downcase.id }}, "/to-match")
           response.status_code.should eq 200
           response.body.should eq "to match"
         end
@@ -63,7 +63,7 @@ module Router::MatchSpec
 
       context "with controller and action" do
         it "should succeed" do
-          response = test_route(SampleRouter.new, :{{ verb.downcase.id }}, "/match-action")
+          response = test_route(SampleRouter.new, :{{ method.downcase.id }}, "/match-action")
           response.status_code.should eq 200
           response.body.should eq "action match"
         end

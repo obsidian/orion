@@ -1,5 +1,6 @@
 require "digest"
 
+# :nodoc:
 struct Orion::Pipeline
   CACHE         = {} of String => Pipeline
   ROUTE_HANDLER = ->(c : HTTP::Server::Context) { c.request.action.try &.invoke(c) }

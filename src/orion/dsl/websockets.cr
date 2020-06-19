@@ -42,7 +42,7 @@ module Orion::DSL::WebSockets
       define_helper(base_path: {{ BASE_PATH }}, path: {{ path }}, spec: {{ helper }})
     {% end %}
 
-    %action.constraints.unshift ::Orion::MethodsConstraint.new("GET")
+    %action.constraints.unshift ::Orion::RequestMethodsConstraint.new("GET")
     %action.constraints.unshift ::Orion::WebSocketConstraint.new
   end
 

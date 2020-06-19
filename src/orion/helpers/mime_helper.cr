@@ -1,3 +1,5 @@
+
+# :nodoc:
 module MIMEHelper
   private def request_mime_types(req : HTTP::Request)
     types_from_accept?(req) || [type_from_path?(req)].compact

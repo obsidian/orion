@@ -1,5 +1,5 @@
 # :nodoc:
-struct Orion::MethodsConstraint
+struct Orion::RequestMethodsConstraint
   include Constraint
 
   @methods : Array(String)

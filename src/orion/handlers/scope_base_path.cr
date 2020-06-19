@@ -1,3 +1,4 @@
+# :nodoc:
 class Orion::ScopeBasePath
   include HTTP::Handler
 

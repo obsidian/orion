@@ -1,3 +1,4 @@
+# :nodoc:
 class Orion::StaticFileHandler
   include HTTP::Handler
   include MIMEHelper

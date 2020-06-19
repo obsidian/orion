@@ -1,4 +1,4 @@
-module Orion::DSL::Methods
+module Orion::DSL::RequestMethods
   METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
 
   {% for method in METHODS %}

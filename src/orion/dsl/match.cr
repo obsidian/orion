@@ -76,7 +76,7 @@ module Orion::DSL::Match
     {% end %}
 
     {% if via != :all && !via.nil? %} # Define the method constraint
-      %action.constraints.unshift ::Orion::MethodsConstraint.new({{ via }})
+      %action.constraints.unshift ::Orion::RequestMethodsConstraint.new({{ via }})
     {% end %}
   end
 

@@ -11,8 +11,6 @@ module Orion::DSL
       include RouteHelpers
     end
 
-    # extend RouteHelpers
-
     ROUTER_INITIALIZED = true
     BASE_PATH = "/"
     CONSTRAINTS = [] of ::Orion::Constraint
