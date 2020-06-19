@@ -1,3 +1,66 @@
+# Catch-all routes using `match`
+#
+# In some instances, you may just want to redirect all verbs to a particular
+# controller and action.
+#
+# You can use the `match` method within the router and pass it's route and
+# any variation of the [Generic Route Arguments](#generic-route-arguments).
+#
+# ```crystal
+# router MyApplicationRouter do
+#   match "404", controller: ErrorsController, action: error_404
+# end
+# ```
+#
+# ### Generic route arguments
+# There are a variety of ways that you can interact with basic routes. Below are
+# some examples and guidelines on the different ways you can interact with the router.
+# #### Using `to: String` to target a controller and action
+# One of the most common ways we will be creating routes in this guide is to use
+# the `to` argument supplied with a controller and action in the form of a string.
+# In the example below `users#create` will map to `UsersController.new(cxt : HTTP::Server::Context).create`.
+# You can also pass an exact constant name.
+#
+# ```crystal
+# router MyApplicationRouter do
+#   post "users", to: "users#create"
+# end
+# ```
+#
+# #### Using `controller: Type` and `action: Method`
+# A longer form of the `to` argument strategy above allows us to pass the controller and action
+# independently.
+#
+# ```crystal
+# router MyApplicationRouter do
+#   post "users", controller: UsersController, action: create
+# end
+# ```
+#
+# #### Using block syntax
+# Sometimes, we may want a more link:https://github.com/kemalcr/kemal[kemal] or
+# link:http://sinatrarb.com/[sinatra] like approach. To accomplish this, we can
+# simply pass a block that will be evaluated as a controller.
+#
+# ```crystal
+# router MyApplicationRouter do
+#   post "users" do
+#     "Foo"
+#   end
+# end
+# ```
+#
+# #### Using a `call` able object
+# Lastly a second argument can be any
+# object that responds to `#call(cxt : HTTP::Server::Context)`.
+#
+# ```crystal
+# router MyApplicationRouter do
+#   post "users", ->(context : HTTP::Server::Context) {
+#     context.response.puts "foo"
+#   }
+# end
+# ```
 module Orion::DSL::Match
   # Defines a match route to a callable object.
   #

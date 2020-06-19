@@ -1,11 +1,9 @@
-<p align="center"><img src="https://raw.githubusercontent.com/obsidian/orion/v3.0.0-dev/orion-banner.svg" width="300"></p>
+![Orion](https://raw.githubusercontent.com/obsidian/orion/v3.0.0-dev/orion-banner.svg)
 
-<p align="center">
-  <img src="https://travis-ci.org/obsidian/orion.svg?branch=master" />
-  <img src="https://img.shields.io/github/tag/obsidian/orion.svg?v=1" />
-</p>
+![Build Status](https://travis-ci.org/obsidian/orion.svg?branch=master)
+![Tag](https://img.shields.io/github/tag/obsidian/orion.svg?v=1)
 
-<hr />
+---
 
 ## Introduction
 

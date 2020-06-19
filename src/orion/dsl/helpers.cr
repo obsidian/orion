@@ -1,4 +1,71 @@
-# :nodoc:
+# Route helpers provide type-safe methods to generate paths and URLs to defined routes
+# in your application. By including the `Helpers` module on the router (i.e. `MyApplicationRouter::Helpers`)
+# you can access any helper defined in the router by `{{name}}_path` to get its corresponding
+# route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
+# you will also be able to access a `{{name}}_url` to get the full URL.
+#
+# ```crystal
+# router MyApplication do
+#   scope "users", helper_prefix: "user" do
+#     get "/new", to: "UsersController#new", helper: "new"
+#   end
+# end
+#
+# class UsersController < MyApplication::BaseController
+#   def new
+#   end
+# end
+#
+# class MyController < MyApplication::BaseController
+#   def new
+#     File.open("new.html") { |f| IO.copy(f, response) }
+#   end
+#
+#   def show
+#     user = User.find(request.path_params["id"])
+#     response.headers["Location"] = new_user_path
+#     response.status_code = 301
+#     response.close
+#   end
+# end
+# ```
+#
+# #### Making route helpers from your routes
+#
+# In order to make a helper from your route, you can use the `helper` named argument in your route.
+#
+# ```crystal
+# router MyApplicationRouter do
+#   scope "users" do
+#     get "/new", to: "Users#new", helper: "new"
+#   end
+# end
+# ```
+#
+# #### Using route helpers in your code
+#
+# As you add helpers they are added to the nested `Helpers` module of your router.
+# you may include this module anywhere in your code to get access to the methods,
+# or call them on the module directly.
+#
+# _If `@context : HTTP::Server::Context` is present in the class, you will also be
+# able to use the `{helper}_url` versions of the helpers._
+#
+# ```crystal
+# router MyApplicationRouter do
+#   resources :users
+# end
+#
+# class User
+#   include MyApplicationRouter::Helpers
+#
+#   def route
+#     user_path user_id: self.id
+#   end
+# end
+#
+# puts MyApplicationRouter::Helpers.users_path
+# ```
 module Orion::DSL::Helpers
   private macro define_helper(*, base_path, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}

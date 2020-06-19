@@ -1,5 +1,8 @@
 require "./dsl/*"
 
+# The `Orion::DSL` module contains all the macros and methods that are available
+# when creating an Orion application. See the various submodules to see each
+# macro and/or method you can invoke when building your app.
 module Orion::DSL
   # Setup the router
   private macro included
