@@ -41,17 +41,17 @@ module Orion::DSL
 
   # :nodoc:
   alias Tree = Oak::Tree(Action)
-
   # :nodoc:
   alias Context = HTTP::Server::Context
+  # :nodoc:
   alias Response = HTTP::Server::Response
+  # :nodoc:
   alias Request = HTTP::Request
+  # :nodoc:
   alias WebSocket = HTTP::WebSocket
 
   # :nodoc:
   CONTROLLER = nil
-
-  delegate call, to: @stack
 
   # :nodoc:
   def self.normalize_path(*, base_path : String, path : String)

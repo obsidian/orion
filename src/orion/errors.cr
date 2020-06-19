@@ -1,3 +1,4 @@
+# :nodoc:
 macro exception(const)
   class Orion::{{ const }} < Exception; end
 end

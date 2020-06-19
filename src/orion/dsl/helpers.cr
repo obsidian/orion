@@ -1,4 +1,3 @@
-# :nodoc:
 module Orion::DSL::Helpers
   private macro define_helper(*, base_path, path, spec)
     {% name_parts = PREFIXES + [] of StringLiteral %}
