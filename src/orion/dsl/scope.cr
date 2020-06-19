@@ -19,7 +19,7 @@ module Orion::DSL::Scope
       # Set the base path
       {% if path %}
         BASE_PATH = [{% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::BASE_PATH.rchop('/'), {{ path }}.lchop('/')].join('/')
-        use Orion::ScopeBasePath.new(BASE_PATH)
+        use Orion::Handlers::ScopeBasePath.new(BASE_PATH)
       {% else %}
         BASE_PATH = {% if @type.stringify != "<Program>" %}::{{ @type }}{% end %}::BASE_PATH
       {% end %}

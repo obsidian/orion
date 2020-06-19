@@ -11,16 +11,25 @@ module Orion::DSL
       include RouteHelpers
     end
 
+    # :nodoc:
     ROUTER_INITIALIZED = true
+    # :nodoc:
     BASE_PATH = "/"
+    # :nodoc:
     CONSTRAINTS = [] of ::Orion::Constraint
+    # :nodoc:
     CONCERNS = {} of Symbol => String
+    # :nodoc:
     HANDLERS = [] of HTTP::Handler
+    # :nodoc:
     PREFIXES = [] of String
+    # :nodoc:
     TREE = Tree.new
+    # :nodoc:
     CONTROLLER = BaseController
 
     {% if @type.stringify == "<Program>" %}
+      # :nodoc:
       ORION_CONFIG = ::Orion::Config.new
 
       def config

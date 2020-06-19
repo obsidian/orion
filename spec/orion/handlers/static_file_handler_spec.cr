@@ -1,11 +1,11 @@
 require "../../spec_helper"
 
-describe Orion::StaticFileHandler do
+describe Orion::Handlers::StaticFileHandler do
   context "given the file exists" do
     it "should return the proper response" do
       io = IO::Memory.new
       context = mock_context(:get, "/test.txt", io: io)
-      handler = Orion::StaticFileHandler.new("./spec/fixtures")
+      handler = Orion::Handlers::StaticFileHandler.new("./spec/fixtures")
       handler.call(context)
       context.response.close
       io.rewind
@@ -21,7 +21,7 @@ describe Orion::StaticFileHandler do
       io = IO::Memory.new
       context = mock_context(:get, "/foo/test.txt", io: io)
       context.request.base_path = "/foo"
-      handler = Orion::StaticFileHandler.new("./spec/fixtures")
+      handler = Orion::Handlers::StaticFileHandler.new("./spec/fixtures")
       handler.call(context)
       context.response.close
       io.rewind
@@ -36,7 +36,7 @@ describe Orion::StaticFileHandler do
     it "should return the proper response" do
       io = IO::Memory.new
       context = mock_context(:get, "/not-here.unknown", io: io)
-      handler = Orion::StaticFileHandler.new("./spec/fixtures")
+      handler = Orion::Handlers::StaticFileHandler.new("./spec/fixtures")
       handler.call(context)
       context.response.close
       io.rewind
@@ -49,7 +49,7 @@ describe Orion::StaticFileHandler do
     it "should return the proper response" do
       io = IO::Memory.new
       context = mock_context(:get, "/", io: io)
-      handler = Orion::StaticFileHandler.new("./spec/fixtures")
+      handler = Orion::Handlers::StaticFileHandler.new("./spec/fixtures")
       handler.call(context)
       context.response.close
       io.rewind

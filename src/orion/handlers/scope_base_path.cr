@@ -1,5 +1,4 @@
-# :nodoc:
-class Orion::ScopeBasePath
+class Orion::Handlers::ScopeBasePath
   include HTTP::Handler
 
   def initialize(@base_path : String)

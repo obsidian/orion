@@ -7,7 +7,7 @@ module Orion::DSL::Static
   # ```
   macro static(*, path = "/", dir)
     scope {{ path }} do
-      use Orion::StaticFileHandler.new({{ dir }})
+      use Orion::Handlers::StaticFileHandler.new({{ dir }})
     end
   end
 
