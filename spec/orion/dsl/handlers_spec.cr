@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::HandlersSpec
+module Orion::DSL::HandlersSpec
   class AppendHandler
     include HTTP::Handler
 
@@ -36,14 +36,14 @@ module Router::HandlersSpec
       response.body.should eq "My name is Rocket, and I am NOT a racoon, and I am a guardian"
     end
 
-    # it "should run handlers on unmatched routes" do
-    #   response = test_route(SampleRouter.new, :get, "/unmatched")
-    #   response.body.should eq "404 Not Found\n, and I am a guardian"
-    # end
+    it "should run handlers on unmatched routes" do
+      response = test_route(SampleRouter.new, :get, "/unmatched")
+      response.body.should eq "404 Not Found\n, and I am a guardian"
+    end
 
-    # it "should run handlers on unmatched group routes" do
-    #   response = test_route(SampleRouter.new, :get, "/scoped/unmatched")
-    #   response.body.should eq "404 Not Found\n, and I am NOT a racoon, and I am a guardian"
-    # end
+    it "should run handlers on unmatched group routes" do
+      response = test_route(SampleRouter.new, :get, "/scoped/unmatched")
+      response.body.should eq "404 Not Found\n, and I am NOT a racoon, and I am a guardian"
+    end
   end
 end

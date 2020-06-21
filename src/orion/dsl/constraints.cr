@@ -7,9 +7,7 @@
 # be checked against the provided regex before the route is chosen as a valid route.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   get "users/:id", constraints: { id: /[0-9]{4}/ }
-# end
+# get "users/:id", constraints: { id: /[0-9]{4}/ }
 # ```
 #
 # #### Format constraints
@@ -18,9 +16,7 @@
 # the extension of the URL to '.json'.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   get "api/users/:id", format: "json"
-# end
+# get "api/users/:id", format: "json"
 # ```
 #
 # #### Request Mime-Type constraints
@@ -30,9 +26,7 @@
 # content type.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   put "api/users/:id", content_type: "application/json"
-# end
+# put "api/users/:id", content_type: "application/json"
 # ```
 #
 # #### Response Mime-Type constraints
@@ -44,9 +38,7 @@
 # > Orion will automatically add mime-type headers for requests with no Accept header and a specified extension.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   get "api/users/:id", accept: "application/json"
-# end
+# get "api/users/:id", accept: "application/json"
 # ```
 #
 # #### Combined Mime-Type constraints
@@ -60,9 +52,7 @@
 # a specified extension.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   put "api/users/:id", type: "application/json"
-# end
+# put "api/users/:id", type: "application/json"
 # ```
 #
 # #### Host constraints
@@ -75,10 +65,8 @@
 # the extension of the URL to '.json'.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   host "example.com" do
-#     get "users/:id", format: "json"
-#   end
+# host "example.com" do
+#   get "users/:id", format: "json"
 # end
 # ```
 #
@@ -92,10 +80,8 @@
 # the extension of the URL to '.json'.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   subdomain "api" do
-#     get "users/:id", format: "json"
-#   end
+# subdomain "api" do
+#   get "users/:id", format: "json"
 # end
 # ```
 #
@@ -111,10 +97,8 @@
 #   end
 # end
 #
-# router MyApplicationRouter do
-#   constraint MyConstraint.new do
-#     get "users/:id", format: "json"
-#   end
+# constraint MyConstraint.new do
+#   get "users/:id", format: "json"
 # end
 # ```
 module Orion::DSL::Constraints

@@ -1,3 +1,5 @@
+# The root macro is a shortcut to making a `get "/"` at the root of you application
+# or at the root of a scope.
 module Orion::DSL::Root
   # Define a `GET /` route at the current path with a callable object.
   #

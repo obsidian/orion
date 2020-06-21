@@ -6,10 +6,8 @@
 # > Handlers will only apply to the routes specified below them, so be sure to place your handlers near the top of your route.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   use HTTP::ErrorHandler
-#   use HTTP::LogHandler.new(File.open("tmp/application.log"))
-# end
+# use HTTP::ErrorHandler
+# use HTTP::LogHandler.new(File.open("tmp/application.log"))
 # ```
 #
 # ### Nested Routes using `scope`
@@ -19,12 +17,10 @@
 # of a set of child paths.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   scope "users" do
-#     root to: "Users#index"
-#     get ":id", to: "Users#show"
-#     delete ":id", to: "Users#destroy"
-#   end
+# scope "users" do
+#   root to: "Users#index"
+#   get ":id", to: "Users#show"
+#   delete ":id", to: "Users#destroy"
 # end
 # ```
 #
@@ -37,13 +33,11 @@
 # > Handlers will only apply to the routes specified below them, so be sure to place your handlers near the top of your scope.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   scope "users" do
-#     use AuthorizationHandler.new
-#     root to: "Users#index"
-#     get ":id", to: "Users#show"
-#     delete ":id", to: "Users#destroy"
-#   end
+# scope "users" do
+#   use AuthorizationHandler.new
+#   root to: "Users#index"
+#   get ":id", to: "Users#show"
+#   delete ":id", to: "Users#destroy"
 # end
 # ```
 module Orion::DSL::Handlers

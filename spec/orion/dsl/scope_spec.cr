@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::ScopeSpec
+module Orion::DSL::ScopeSpec
   router SampleRouter do
     get "home", ->(c : Context) { c.response.print c.request.base_path }
     scope "messages" do

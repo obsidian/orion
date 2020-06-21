@@ -5,6 +5,7 @@ macro exception(const)
 end
 
 exception DoubleRenderError
+exception RoutingError
 
 # :nodoc:
 class Orion::ParametersMissing < Exception

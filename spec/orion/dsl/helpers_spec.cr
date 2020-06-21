@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::HelpersSpec
+module Orion::DSL::HelpersSpec
   c = ->(c : HTTP::Server::Context) {}
 
   router SampleRouter do

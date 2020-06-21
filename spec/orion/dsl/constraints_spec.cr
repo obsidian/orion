@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::ConstraintsSpec
+module Orion::DSL::ConstraintsSpec
   class TestConstraint
     include Orion::Constraint
 

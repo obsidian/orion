@@ -1,4 +1,4 @@
-require "./helper"
+# :nodoc:
 abstract class Orion::Controller::Base
-  include Helper
+  include Orion::Controller
 end

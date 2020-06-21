@@ -1,5 +1,9 @@
 require "../src/app"
 
+root do
+  raise "Oops"
+end
+
 scope "/foo" do
   scope "/bar" do
     root do

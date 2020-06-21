@@ -9,36 +9,58 @@
 
 Orion is minimal, Omni-Conventional, declarative web framework inspired by the ruby-on-rails router and controller components. It provides, the routing, view, and controller framework of your application in a way that can be as simple or complex as you need it to fit your use case.
 
-## Conventions
-
-### App Mode
-
-In it's simplest form you can use Orion in app mode. Here you can use a variety of verbs and helpers. Each block will create its controller and have all the methods of `Orion::BaseController` and will include an URL helpers you have defined within the application.
+## Simple
+Orion out of the box is designed to be as simple as you want it to be. A few
+lines will get you a functioning web app. Orion also ships with helpful features
+such as view rendering and static content delivery.
 
 ```crystal
 require "orion/app"
 
-use HTTP::LogHandler.new
+static "/", dir: "/public"
 
-root "/" do
-  "Hello World"
+root do
+  render "views/home.slim"
 end
 
-get "/posts" do
-  @posts = Post.all
-  case format
-  when .html?
-    render "views/post.ecr"
-  when .json?
-    @posts.to_json
+get "/login" do
+  render "
+end
+```
+
+## Flexible
+
+```crystal
+require "orion/app"
+require "auth_handlers"
+
+scope "/api" do
+  use AuthHandlers::Token.new
+end
+
+use SessionAuthHandler.new
+
+scope constraint: UnauthenticatedUser do
+  root do
+  render "views/home.slim"
+end
+
+get "/login", helper: login do
+  render "views/login.slim"
+end
+
+post "/login" do
+  if User.authenticate(params["email"], params["password])
+    redirect to: root_path
   else
-    respond_with_status 404
+    flash[:error] = "Invalid login"
+    redirect to: login_path
   end
 end
 
-ws "/echo" do
-  websocket.on_message do |message|
-    websocket.send message
+scope constraint: AuthenticatedUser do
+  root do
+    render "views/dashboard.slim"
   end
 end
 ```

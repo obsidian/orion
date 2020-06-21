@@ -6,10 +6,8 @@
 # To define a concern call `concern` with a `Symbol` for the name.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   concern :authenticated do
-#     use Authentication.new
-#   end
+# concern :authenticated do
+#   use Authentication.new
 # end
 # ```
 # #### Using concerns
@@ -18,15 +16,13 @@
 # anywhere in your router.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   concern :authenticated do
-#     use Authentication.new
-#   end
-#
-#   scope "users" do
-#     implements :authenticated
-#     get ":id"
-#   end
+# concern :authenticated do
+#   use Authentication.new
+# end
+
+# scope "users" do
+#   implements :authenticated
+#   get ":id"
 # end
 # ```
 module Orion::DSL::Concerns

@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::MatchSpec
+module Orion::DSL::MatchSpec
   router SampleRouter do
     match "/callable", ->(c : Context) { c.response.print "callable match" }
     match "/block" do |c|

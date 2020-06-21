@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::MethodsSpec
+module Orion::DSL::MethodsSpec
   {% for method in ::Orion::DSL::RequestMethods::METHODS %}
     module {{ method.capitalize.id }}
       router SampleRouter do

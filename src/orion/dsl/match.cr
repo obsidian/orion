@@ -3,13 +3,11 @@
 # In some instances, you may just want to redirect all verbs to a particular
 # controller and action.
 #
-# You can use the `match` method within the router and pass it's route and
+# You can use the `match` method and pass it's route and
 # any variation of the [Generic Route Arguments](#generic-route-arguments).
 #
 # ```crystal
-# router MyApplicationRouter do
-#   match "404", controller: ErrorsController, action: error_404
-# end
+# match "404", controller: ErrorsController, action: error_404
 # ```
 #
 # ### Generic route arguments
@@ -22,9 +20,7 @@
 # You can also pass an exact constant name.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   post "users", to: "users#create"
-# end
+# post "users", to: "users#create"
 # ```
 #
 # #### Using `controller: Type` and `action: Method`
@@ -32,9 +28,7 @@
 # independently.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   post "users", controller: UsersController, action: create
-# end
+# post "users", controller: UsersController, action: create
 # ```
 #
 # #### Using block syntax
@@ -43,10 +37,8 @@
 # simply pass a block that will be evaluated as a controller.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   post "users" do
-#     "Foo"
-#   end
+# post "users" do
+#   "Foo"
 # end
 # ```
 #
@@ -55,11 +47,9 @@
 # object that responds to `#call(cxt : HTTP::Server::Context)`.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   post "users", ->(context : HTTP::Server::Context) {
-#     context.response.puts "foo"
-#   }
-# end
+# post "users", ->(context : HTTP::Server::Context) {
+#   context.response.puts "foo"
+# }
 # ```
 module Orion::DSL::Match
   # Defines a match route to a callable object.
@@ -73,9 +63,7 @@ module Orion::DSL::Match
   #   end
   # end
   #
-  # router MyRouter do
-  #   match "/path", Callable
-  # end
+  # match "/path", Callable
   # ```
   macro match(path, callable, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% if !format && path.split(".").size > 1 %}
@@ -157,9 +145,7 @@ module Orion::DSL::Match
   #   end
   # end
   #
-  # router MyRouter do
-  #   match "/path", to: "My#match"
-  # end
+  # match "/path", to: "My#match"
   # ```
   macro match(path, *, to, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% parts = to.split("#") %}
@@ -183,9 +169,7 @@ module Orion::DSL::Match
   #   end
   # end
   #
-  # router MyRouter do
-  #   match "/path", controller: MyController, action: match
-  # end
+  # match "/path", controller: MyController, action: match
   # ```
   macro match(path, *, action, controller = CONTROLLER, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
     match({{ path }}, ->(context : HTTP::Server::Context) { {{ controller }}.new(context).{{ action }} }, via: {{ via }}, helper: {{ helper }}, constraints: {{ constraints }}, format: {{ format }}, accept: {{ accept }}, content_type: {{ content_type }}, type: {{ type }})
@@ -198,16 +182,15 @@ module Orion::DSL::Match
   # When given with 2 arguments it will yield the block with `HTTP::Request` and `HTTP::Server::Response` and have access to any method within the BaseController of the application.
   #
   # ```
-  # router MyRouter do
-  #   match "/path" do |context|
-  #     # ... do something
-  #   end
+  # match "/path" do |context|
+  #   # ... do something
   # end
   # ```
   macro match(path, *, via = :all, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)
     {% controller_const = run "./inflector/random_const.cr", "Controller" %}
     struct {{ controller_const }}
-      include ::Orion::Controller::Helper
+      include ::Orion::Controller
+      include RouteHelpers
 
       def handle
         {% if block.args.size == 0 %}

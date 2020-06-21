@@ -5,18 +5,11 @@
 # you will also be able to access a `{{name}}_url` to get the full URL.
 #
 # ```crystal
-# router MyApplication do
-#   scope "users", helper_prefix: "user" do
-#     get "/new", to: "UsersController#new", helper: "new"
-#   end
+# scope "users", helper_prefix: "user" do
+#   get "/new", to: "users#new", helper: "new"
 # end
 #
-# class UsersController < MyApplication::BaseController
-#   def new
-#   end
-# end
-#
-# class MyController < MyApplication::BaseController
+# class UsersController < BaseController
 #   def new
 #     File.open("new.html") { |f| IO.copy(f, response) }
 #   end
@@ -35,10 +28,8 @@
 # In order to make a helper from your route, you can use the `helper` named argument in your route.
 #
 # ```crystal
-# router MyApplicationRouter do
-#   scope "users" do
-#     get "/new", to: "Users#new", helper: "new"
-#   end
+# scope "users" do
+#   get "/new", to: "Users#new", helper: "new"
 # end
 # ```
 #
@@ -52,19 +43,17 @@
 # able to use the `{helper}_url` versions of the helpers._
 #
 # ```crystal
-# router MyApplicationRouter do
-#   resources :users
-# end
+# resources :users
 #
 # class User
-#   include MyApplicationRouter::Helpers
+#   include RouteHelpers
 #
 #   def route
 #     user_path user_id: self.id
 #   end
 # end
 #
-# puts MyApplicationRouter::Helpers.users_path
+# puts RouteHelpers.users_path
 # ```
 module Orion::DSL::Helpers
   private macro define_helper(*, base_path, path, spec)

@@ -1,3 +1,5 @@
+# The websocket handlers allow you to easily add websocket support to your
+# application.
 module Orion::DSL::WebSockets
   # Defines a websocket route to a callable object.
   #
@@ -110,7 +112,7 @@ module Orion::DSL::WebSockets
   macro ws(path, *, helper = nil, &block)
     {% controller_const = run "./inflector/random_const.cr", "Controller" %}
     struct {{ controller_const }}
-      include ::Orion::Controller::Helper
+      include ::Orion::Controller
 
       def handle
         {% if block.args.size == 0 %}

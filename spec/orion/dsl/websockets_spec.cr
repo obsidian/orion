@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::WebSocketsSpec
+module Orion::DSL::WebSocketsSpec
   router SampleRouter do
     ws "/match", ->(ws : WebSocket, c : Context) {
       ws.send("Match")

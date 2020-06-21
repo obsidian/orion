@@ -30,23 +30,29 @@ module Orion::DSL
     TREE = Tree.new
     # :nodoc:
     CONTROLLER = BaseController
+    # :nodoc:
+    ORION_CONFIG = ::Orion::Config.new
 
-    {% if @type.stringify == "<Program>" %}
-      # :nodoc:
-      ORION_CONFIG = ::Orion::Config.new
+    def config
+      ORION_CONFIG
+    end
 
-      def config
-        ORION_CONFIG
-      end
+    def self.new(*args, **opts)
+      ::Orion::Router.new(TREE, *args, **opts)
+    end
 
-      macro finished
+    def self.start(*args, **opts)
+      ::Orion::Router.start(TREE, *args, **opts)
+    end
+
+    macro finished
+      {% if @type.stringify == "<Program>" %}
         ::Orion::Router.start(TREE, config: config)
-      end
-    {% end %}
+      {% end %}
+      match "*", ::Orion::Handlers::NotFound.new
+    end
 
     include ::Orion::DSL::Macros
-
-    match "*", ::Orion::Handlers::NotFound.new
   end
 
   # :nodoc:

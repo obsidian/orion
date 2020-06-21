@@ -1,7 +1,12 @@
 class Orion::Handlers::NotFound
+  STATUS = HTTP::Status::NOT_FOUND
+
   include HTTP::Handler
 
   def call(cxt : HTTP::Server::Context)
-    cxt.response.respond_with_status(:not_found)
+    response = cxt.response
+    response.content_type = "text/plain"
+    response.status = STATUS
+    raise RoutingError.new("No route matches [#{cxt.request.method}] \"#{cxt.request.path}\"")
   end
 end

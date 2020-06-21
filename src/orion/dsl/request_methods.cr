@@ -1,3 +1,6 @@
+# Request method macros are shorthard ways of constraining a request to a single
+# request method. You can read more about the options available to each of these
+# macros in the `Orion::DSL::Match`.
 module Orion::DSL::RequestMethods
   METHODS = %w{GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH}
 
@@ -14,9 +17,7 @@ module Orion::DSL::RequestMethods
     #   end
     # end
     #
-    # router MyRouter do
-    #   match "/path", Callable
-    # end
+    # match "/path", Callable
     # ```
     macro {{ method.downcase.id }}(path, callable, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
       match(\{{ path }}, \{{ callable }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
@@ -27,18 +28,13 @@ module Orion::DSL::RequestMethods
     # the form of `"#action"`.
     #
     # ```
-    # class MyController
-    #   def new(@context : HTTP::Server::Context)
-    #   end
-    #
+    # class MyController < BaseController
     #   def match
     #     # ... do something
     #   end
     # end
     #
-    # router MyRouter do
-    #   match "/path", to: "My#{{ method.downcase.id }}"
-    # end
+    # match "/path", to: "My#{{ method.downcase.id }}"
     # ```
     macro {{ method.downcase.id }}(path, *, to, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
       match(\{{ path }}, to: \{{ to }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
@@ -58,9 +54,7 @@ module Orion::DSL::RequestMethods
     #   end
     # end
     #
-    # router MyRouter do
-    #   match "/path", controller: MyController, action: {{ method.downcase.id }}
-    # end
+    # match "/path", controller: MyController, action: {{ method.downcase.id }}
     # ```
     macro {{ method.downcase.id }}(path, *, action, controller = CONTROLLER, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil)
       match(\{{ path }}, controller: \{{ controller }}, action: \{{ action }}, via: {{ method.downcase }}, helper: \{{ helper }}, constraints: \{{ constraints }}, format: \{{ format }}, accept: \{{ accept }}, content_type: \{{ content_type }}, type: \{{ type }})
@@ -68,14 +62,12 @@ module Orion::DSL::RequestMethods
 
     # Defines a {{ method.id }} route with a block.
     #
-    # You can route to any object that responds to `call` with an `HTTP::Server::Context`,
-    # this also works for any `Proc(HTTP::Server::Context, _)`.
+    # You can pass a block. Each block will be evaluated as a controller method
+    # and have access to all controller helper methods.
     #
     # ```
-    # router MyRouter do
-    #   match "/path" do |context|
-    #     # ... do something
-    #   end
+    # match "/path" do
+    #   # ... do something
     # end
     # ```
     macro {{ method.downcase.id }}(path, *, helper = nil, constraints = nil, format = nil, accept = nil, content_type = nil, type = nil, &block)

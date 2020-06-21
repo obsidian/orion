@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::Resources::Spec
+module Orion::DSL::Resources::Spec
   router SampleRouter do
     resources :users do
       get "profile", action: profile

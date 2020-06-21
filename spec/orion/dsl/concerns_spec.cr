@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-module Router::ConcernsSpec
+module Orion::DSL::ConcernsSpec
   router SampleRouter do
     concern :messagable do
       get "messages/new", ->(c : Context) { c.response.print "lets send a message" }
