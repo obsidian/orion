@@ -63,9 +63,6 @@ module Orion::DSL::Scope
 
       # Yield the block
       {{ yield }}
-
-      # 404 to any unmatched path
-      match "*", ::Orion::Handlers::NotFound.new
     end
   end
 end

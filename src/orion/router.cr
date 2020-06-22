@@ -22,7 +22,6 @@ struct Orion::Router
     use Handlers::MethodOverrideHeader
     use Handlers::AutoMime
     use Handlers::RouteFinder.new(tree)
-    use Handlers::NotFound
     @stack = HTTP::Server.build_middleware handlers
     @server = HTTP::Server.new(handler: @stack)
   end

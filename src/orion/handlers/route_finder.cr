@@ -18,7 +18,8 @@ class Orion::Handlers::RouteFinder
       end
     end
 
-    # lastly return with 404
-    call_next cxt unless action
+    unless action
+      raise RoutingError.new("No route matches [#{cxt.request.method}] \"#{cxt.request.path}\"")
+    end
   end
 end

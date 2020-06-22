@@ -49,7 +49,6 @@ module Orion::DSL
       {% if @type.stringify == "<Program>" %}
         ::Orion::Router.start(TREE, config: config)
       {% end %}
-      match "*", ::Orion::Handlers::NotFound.new
     end
 
     include ::Orion::DSL::Macros
