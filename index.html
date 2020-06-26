@@ -228,13 +228,19 @@ such as view rendering and static content delivery.</p>
 
 static <span class="s">&quot;/&quot;</span>, dir: <span class="s">&quot;/public&quot;</span>
 
+use <span class="t">CookieSession</span>
+
 root <span class="k">do</span>
   render <span class="s">&quot;views/home.slim&quot;</span>
 <span class="k">end</span>
 
+get <span class="s">&quot;/health&quot;</span> <span class="k">do</span>
+  <span class="s">&quot;OK&quot;</span>
+<span class="k">end</span>
+
 get <span class="s">&quot;/login&quot;</span> <span class="k">do</span>
-  render <span class="s">&quot;
-end</span></code></pre>
+  render <span class="s">&quot;views/lgin.slim&quot;</span>
+<span class="k">end</span></code></pre>
 
 <h2><a id="flexible-routing" class="anchor" href="#flexible-routing">
   <svg class="octicon-link" aria-hidden="true">
