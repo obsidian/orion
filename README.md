@@ -22,12 +22,18 @@ require "orion/app"
 
 static "/", dir: "/public"
 
+use CookieSession
+
 root do
   render "views/home.slim"
 end
 
+get "/health" do
+  "OK"
+end
+
 get "/login" do
-  render "
+  render "views/lgin.slim"
 end
 ```
 
