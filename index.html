@@ -245,6 +245,8 @@ get <span class="s">&quot;/posts&quot;</span> <span class="k">do</span>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;orion/app&quot;</span>
 <span class="k">require</span> <span class="s">&quot;auth_handlers&quot;</span>
 
+static <span class="s">&quot;/&quot;</span>, dir: <span class="s">&quot;./assets&quot;</span>
+
 scope <span class="s">&quot;/api&quot;</span> <span class="k">do</span>
   use <span class="t">AuthHandlers</span><span class="t">::</span><span class="t">Token</span>
 <span class="k">end</span>
