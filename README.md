@@ -40,7 +40,7 @@ scope "/api" do
   use AuthHandlers::Token.new
 end
 
-use SessionAuthHandler.new
+use AuthHandlers::CookieSession.new
 
 scope constraint: UnauthenticatedUser do
   root do
