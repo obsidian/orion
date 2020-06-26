@@ -1,7 +1,6 @@
 class HTTP::Request
   # :nodoc:
   setter path_params : Hash(String, String)?
-  property format : String = ""
   property base_path : String = "/"
   property action : Orion::Action?
 

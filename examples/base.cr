@@ -13,5 +13,5 @@ scope "/foo" do
 end
 
 get "/users", helper: "users" do
-  users_path
+  render text: users_path
 end

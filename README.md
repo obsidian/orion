@@ -28,7 +28,8 @@ get "/login" do
 end
 ```
 
-## Flexible
+## Flexible Routing
+Orion is extemely flexible, it is inspiried by the rails routing and controller framework and therefore has support for `scope`, `concerns`, `use HTTP::Handler`, `constraints` and more! See the modules in `Orion::DSL` more more detail.
 
 ```crystal
 require "orion/app"
@@ -50,7 +51,7 @@ get "/login", helper: login do
 end
 
 post "/login" do
-  if User.authenticate(params["email"], params["password])
+  if User.authenticate(params["email"], params["password"])
     redirect to: root_path
   else
     flash[:error] = "Invalid login"
@@ -64,3 +65,21 @@ scope constraint: AuthenticatedUser do
   end
 end
 ```
+
+## View Rendering
+
+You can rendering anything from text, json, and even templates using
+[Kilt](https://crystalshards.org/shards/github/jeromegn/kilt). You can view more
+about view rendering and helpers for other types of views within the 
+`Orion::Controller::Rendering` module.
+
+# Request Helpers
+
+From within your controllers, you can also access helpful information about the
+request. To view what methods are available see `Orion::Controller::RequestHelpers` 
+module.
+
+# Response Helpers
+
+In addition you can also easily set data on the response. To view what methods 
+are available see `Orion::Controller::RequestHelpers` module.

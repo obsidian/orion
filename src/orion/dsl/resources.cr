@@ -107,11 +107,11 @@ module Orion::DSL::Resources
   macro resources(name, *, controller = nil, only = nil, except = nil, id_constraint = nil, format = nil, accept = nil, id_param = nil, content_type = nil, type = nil)
     {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
     {% name = name.id %}
-    {% singular_name = run "./inflector/singularize.cr", name %}
+    {% singular_name = run "../inflector/singularize.cr", name %}
     {% id_param = (id_param || "#{singular_name.id}_id").id.stringify %}
-    {% singular_underscore_name = run("./inflector/underscore.cr", singular_name) %}
-    {% controller = controller || run("./inflector/controllerize.cr", name.downcase) %}
-    {% underscore_name = run("./inflector/underscore.cr", name) %}
+    {% singular_underscore_name = run("../inflector/underscore.cr", singular_name) %}
+    {% controller = controller || run("../inflector/controllerize.cr", name.downcase) %}
+    {% underscore_name = run("../inflector/underscore.cr", name) %}
 
     scope {{ "/#{name}" }}, controller: {{ controller }} do
       {% if content_type %} # Define the content type constraint
@@ -159,8 +159,8 @@ module Orion::DSL::Resources
   macro resource(name, *, controller = nil, only = nil, except = nil, format = nil, accept = nil, content_type = nil, type = nil)
     {% raise "resource name must be a symbol" unless name.is_a? SymbolLiteral %}
     {% name = name.id %}
-    {% controller = controller || run("./inflector/controllerize.cr", name.downcase) %}
-    {% underscore_name = run("./inflector/underscore.cr", name) %}
+    {% controller = controller || run("../inflector/controllerize.cr", name.downcase) %}
+    {% underscore_name = run("../inflector/underscore.cr", name) %}
 
     scope {{ "/#{name}" }}, helper_prefix: {{ underscore_name }}, controller: {{ controller }} do
       {% if content_type %} # Define the content type constraint

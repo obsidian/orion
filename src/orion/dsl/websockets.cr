@@ -65,7 +65,7 @@ module Orion::DSL::WebSockets
   # ```
   macro ws(path, *, to, helper = nil)
     {% parts = to.split("#") %}
-    {% controller = run("./inflector/controllerize.cr", parts[0].id) %}
+    {% controller = run("../inflector/controllerize.cr", parts[0].id) %}
     {% action = parts[1] %}
     {% raise("`to` must be in the form `controller#action`") unless controller && action && parts.size == 2 %}
     ws({{ path }}, controller: {{ controller.id }}, action: {{ action.id }}, helper: {{ helper }})
@@ -110,7 +110,7 @@ module Orion::DSL::WebSockets
   # end
   # ```
   macro ws(path, *, helper = nil, &block)
-    {% controller_const = run "./inflector/random_const.cr", "Controller" %}
+    {% controller_const = run "../inflector/random_const.cr", "Controller" %}
     struct {{ controller_const }}
       include ::Orion::Controller
 

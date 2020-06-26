@@ -34,7 +34,7 @@ module Orion::DSL::Scope
   # Create a scope, optionall nested under a path.
   macro scope(path = nil, helper_prefix = nil, controller = nil)
     {% prefixes = PREFIXES + [helper_prefix] if helper_prefix %}
-    {% scope_const = run "./inflector/random_const.cr", "Scope" %}
+    {% scope_const = run "../inflector/random_const.cr", "Scope" %}
 
     # :nodoc:
     module {{ scope_const }}
