@@ -1,0 +1,26 @@
+name: Crystal CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: shards install
+    - name: Run tests
+      run: crystal spec
+    - name: Build Docs
+      run: crystal docs
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
