@@ -1,6 +1,6 @@
 name: orion
 crystal: ">= 0.35.1"
-version: 3.0.0-dev
+version: 3.0.0
 
 authors:
   - jwaldrip <jason@waldrip.net>
