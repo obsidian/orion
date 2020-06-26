@@ -200,8 +200,11 @@
 <div class="main-content">
 <p><img src="https://raw.githubusercontent.com/obsidian/orion/v3.0.0-dev/orion-banner.svg" alt="Orion"/></p>
 
-<p><img src="https://travis-ci.org/obsidian/orion.svg?branch=master" alt="Build Status"/>
-<img src="https://img.shields.io/github/tag/obsidian/orion.svg?v=1" alt="Tag"/></p>
+<p><a href="https://github.com/obsidian/orion/actions?query=workflow%3A%22Crystal+CI%22" target="_blank"><img src="https://github.com/obsidian/orion/workflows/Crystal%20CI/badge.svg" alt="Crystal CI"/></a>
+<a href="https://github.com/obsidian/orion/issues" target="_blank"><img src="https://img.shields.io/github/issues/obsidian/orion" alt="GitHub issues"/></a>
+<a href="https://github.com/obsidian/orion/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/obsidian/orion" alt="GitHub stars"/></a>
+<a href="https://github.com/obsidian/orion/blob/master/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/obsidian/orion" alt="GitHub license"/></a>
+<a href="https://obsidian.github.io/orion" target="_blank"><img src="https://img.shields.io/badge/Read-Documentation-%232E1052" alt="Documentation"/></a></p>
 
 <hr/><h2><a id="introduction" class="anchor" href="#introduction">
   <svg class="octicon-link" aria-hidden="true">
@@ -211,11 +214,11 @@
 
 <p>Orion is minimal, Omni-Conventional, declarative web framework inspired by the ruby-on-rails router and controller components. It provides, the routing, view, and controller framework of your application in a way that can be as simple or complex as you need it to fit your use case.</p>
 
-<h2><a id="simple" class="anchor" href="#simple">
+<h2><a id="simple-example" class="anchor" href="#simple-example">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Simple</h2>
+</a>Simple Example</h2>
 
 <p>Orion out of the box is designed to be as simple as you want it to be. A few
 lines will get you a functioning web app. Orion also ships with helpful features
@@ -274,35 +277,28 @@ scope constraint: <span class="t">AuthenticatedUser</span> <span class="k">do</s
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 
-<h2><a id="view-rendering" class="anchor" href="#view-rendering">
+<h1><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>View Rendering</h2>
+</a>Installation</h1>
 
-<p>You can rendering anything from text, json, and even templates using
-<a href="https://crystalshards.org/shards/github/jeromegn/kilt" target="_blank">Kilt</a>. You can view more
-about view rendering and helpers for other types of views within the 
-<code><a href="Orion/Controller/Rendering.html">Orion::Controller::Rendering</a></code> module.</p>
+<p>Add this to your application's shard.yml:</p>
 
-<h1><a id="request-helpers" class="anchor" href="#request-helpers">
+<pre><code class="language-yml">dependencies:
+  orion:
+    github: obsidian/orion</code></pre>
+
+<p>See also <a href="https://github.com/obsidian/orion/wiki/Getting-Started" target="_blank">Getting Started</a>.</p>
+
+<h2><a id="documentatation" class="anchor" href="#documentatation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Request Helpers</h1>
+</a>Documentatation</h2>
 
-<p>From within your controllers, you can also access helpful information about the
-request. To view what methods are available see <code><a href="Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></code> 
-module.</p>
-
-<h1><a id="response-helpers" class="anchor" href="#response-helpers">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>Response Helpers</h1>
-
-<p>In addition you can also easily set data on the response. To view what methods 
-are available see <code><a href="Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></code> module.</p>
+<p>View the docs at <a href="https://obsidian.github.io/orion" target="_blank">https://obsidian.github.io/orion</a>.
+View the guides at <a href="https://github.com/obsidian/orion/wiki" target="_blank">https://github.com/obsidian/orion/wiki</a>.</p>
 </div>
 </body>
 </html>
