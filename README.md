@@ -37,10 +37,10 @@ require "orion/app"
 require "auth_handlers"
 
 scope "/api" do
-  use AuthHandlers::Token.new
+  use AuthHandlers::Token
 end
 
-use AuthHandlers::CookieSession.new
+use AuthHandlers::CookieSession
 
 scope constraint: UnauthenticatedUser do
   root do
