@@ -1,6 +1,8 @@
 require "../src/orion"
 
 router MyApplication do
+  use HTTP::LogHandler.new
+
   get "empty" do |context|
     context.response.puts "e"
   end
@@ -18,6 +20,4 @@ router MyApplication do
   end
 end
 
-puts MyApplication.visualize
-
-MyApplication.listen(port: 3000)
+MyApplication.start(workers: System.cpu_count)

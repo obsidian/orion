@@ -4,9 +4,10 @@ class Orion::Handlers::AutoMime
   include MIMEHelper
 
   def call(cxt : HTTP::Server::Context)
-    if (mime_type = type_from_path?(cxt.request))
-      cxt.request.headers["Accept"] ||= mime_type
+    cxt.request.headers["Accept"] ||= type_from_path?(cxt.request) || "*/*"
+    call_next(cxt)
+    if (content_type = request_mime_types(cxt.request).first?)
+      cxt.response.headers["Content-Type"] ||= content_type
     end
-    call_next cxt
   end
 end

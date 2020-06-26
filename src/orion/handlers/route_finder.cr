@@ -1,21 +1,24 @@
 class Orion::Handlers::RouteFinder
   include HTTP::Handler
 
-  def initialize(@tree : Orion::Router::Tree)
+  @tree : Orion::DSL::Tree
+
+  def initialize(@tree : Orion::DSL::Tree)
   end
 
   def call(cxt : HTTP::Server::Context)
-    leaf = nil
+    action = nil
     path = cxt.request.path
     @tree.search(path.rchop(File.extname(path))) do |result|
-      unless leaf
+      unless action
         cxt.request.path_params = result.params
-        leaf = result.payloads.find &.matches_constraints? cxt.request
-        leaf.try &.call(cxt)
+        action = result.payloads.find &.matches_constraints? cxt.request
+        action.try &.call(cxt)
       end
     end
 
-    # lastly return with 404
-    call_next cxt unless leaf
+    unless action
+      raise RoutingError.new("No route matches [#{cxt.request.method}] \"#{cxt.request.path}\"")
+    end
   end
 end

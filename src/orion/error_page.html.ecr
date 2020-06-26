@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  .orion-default-error-page {
+    background-color: #EFEFEF;
+    color: #2E2F30;
+    text-align: center;
+    font-family: arial, sans-serif;
+    margin: 0;
+  }
+
+  .orion-default-error-page div.dialog {
+    width: 95%;
+    max-width: 33em;
+    margin: 4em auto 0;
+  }
+
+  .orion-default-error-page div.dialog > div {
+    border-radius: 4px;
+    border: #2E1052 solid 1px;
+    background-color: white;
+    padding: 7px 12% 0;
+    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  }
+
+  .orion-default-error-page h1 {
+    font-size: 100%;
+    color: #2E1052;
+    line-height: 1.5em;
+  }
+
+  </style>
+</head>
+
+<body class="orion-default-error-page">
+  <div class="dialog">
+    <div>
+      <h1><%= message %></h1>
+      <p><%= subtext %></p>
+    </div>
+  </div>
+</body>
+</html>

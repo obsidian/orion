@@ -1,3 +1,4 @@
+# :nodoc:
 struct Orion::Action
   getter helper : String?
   getter constraints = [] of Constraint
