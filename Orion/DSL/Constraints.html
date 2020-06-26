@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="3.0.0-dev">
+<meta name="crystal_docs.project_name" content="orion">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="orion">
+  <title>Orion::DSL::Constraints - orion 3.0.0-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          orion
+        </a>
+      </h1>
+
+      <span class="project-version">
+        3.0.0-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="orion/toplevel" data-name="top level namespace">
+      <a href="../../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/BaseController" data-name="basecontroller">
+      <a href="../../BaseController.html">BaseController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+      <a href="../../Orion.html">Orion</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Config" data-name="orion::config">
+      <a href="../../Orion/Config.html">Config</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
+      <a href="../../Orion/Constraint.html">Constraint</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Controller" data-name="orion::controller">
+      <a href="../../Orion/Controller.html">Controller</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/Rendering" data-name="orion::controller::rendering">
+      <a href="../../Orion/Controller/Rendering.html">Rendering</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/RequestHelpers" data-name="orion::controller::requesthelpers">
+      <a href="../../Orion/Controller/RequestHelpers.html">RequestHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ResponseHelpers" data-name="orion::controller::responsehelpers">
+      <a href="../../Orion/Controller/ResponseHelpers.html">ResponseHelpers</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+      <a href="../../Orion/DSL.html">DSL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/DSL/Concerns" data-name="orion::dsl::concerns">
+      <a href="../../Orion/DSL/Concerns.html">Concerns</a>
+      
+    </li>
+  
+  <li class=" current" data-id="orion/Orion/DSL/Constraints" data-name="orion::dsl::constraints">
+      <a href="../../Orion/DSL/Constraints.html">Constraints</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Handlers" data-name="orion::dsl::handlers">
+      <a href="../../Orion/DSL/Handlers.html">Handlers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Helpers" data-name="orion::dsl::helpers">
+      <a href="../../Orion/DSL/Helpers.html">Helpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Match" data-name="orion::dsl::match">
+      <a href="../../Orion/DSL/Match.html">Match</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Mount" data-name="orion::dsl::mount">
+      <a href="../../Orion/DSL/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/RequestMethods" data-name="orion::dsl::requestmethods">
+      <a href="../../Orion/DSL/RequestMethods.html">RequestMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Resources" data-name="orion::dsl::resources">
+      <a href="../../Orion/DSL/Resources.html">Resources</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Root" data-name="orion::dsl::root">
+      <a href="../../Orion/DSL/Root.html">Root</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Scope" data-name="orion::dsl::scope">
+      <a href="../../Orion/DSL/Scope.html">Scope</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Static" data-name="orion::dsl::static">
+      <a href="../../Orion/DSL/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+      <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/ExceptionPage" data-name="orion::exceptionpage">
+      <a href="../../Orion/ExceptionPage.html">ExceptionPage</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Router" data-name="orion::router">
+      <a href="../../Orion/Router.html">Router</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/RouteHelpers" data-name="routehelpers">
+      <a href="../../RouteHelpers.html">RouteHelpers</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Orion::DSL::Constraints
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Constraints can be used to further determine if a route is hit beyond just it's path. Routes have some predefined constraints you can specify, but you can also
+pass in a custom constraint.</p>
+
+<h4><a id="parameter-constraints" class="anchor" href="#parameter-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Parameter constraints</h4>
+
+<p>When defining a route, you can pass in parameter constraints. The path params will
+be checked against the provided regex before the route is chosen as a valid route.</p>
+
+<pre><code class="language-crystal">get <span class="s">&quot;users/:id&quot;</span>, constraints: { id: <span class="s">/[0-9]{4}/</span> }</code></pre>
+
+<h4><a id="format-constraints" class="anchor" href="#format-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Format constraints</h4>
+
+<p>You can constrain the request to a certain format. Such as restricting
+the extension of the URL to '.json'.</p>
+
+<pre><code class="language-crystal">get <span class="s">&quot;api/users/:id&quot;</span>, format: <span class="s">&quot;json&quot;</span></code></pre>
+
+<h4><a id="request-mime-type-constraints" class="anchor" href="#request-mime-type-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Request Mime-Type constraints</h4>
+
+<p>You can constrain the request to a certain mime-type by using the <code>content_type</code> param
+on the route. This will ensure that if the request has a body, it will provide the proper
+content type.</p>
+
+<pre><code class="language-crystal">put <span class="s">&quot;api/users/:id&quot;</span>, content_type: <span class="s">&quot;application/json&quot;</span></code></pre>
+
+<h4><a id="response-mime-type-constraints" class="anchor" href="#response-mime-type-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Response Mime-Type constraints</h4>
+
+<p>You can constrain the response to a certain mime-type by using the <code>accept</code> param
+on the route. This is similar to the format constraint but allows clients to
+specify the <code>Accept</code> header rather than the extension.</p>
+
+<blockquote>Orion will automatically add mime-type headers for requests with no Accept header and a specified extension.</blockquote>
+
+<pre><code class="language-crystal">get <span class="s">&quot;api/users/:id&quot;</span>, accept: <span class="s">&quot;application/json&quot;</span></code></pre>
+
+<h4><a id="combined-mime-type-constraints" class="anchor" href="#combined-mime-type-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Combined Mime-Type constraints</h4>
+
+<p>You can constrain the request and response to a certain mime-type by using the <code>type</code> param
+on the route. This will ensure that if the request has a body, it will provide the proper
+content type. In addition, it will also validate that the client provides a proper
+accept header for the response.</p>
+
+<p>Orion will automatically add mime-type headers for requests with no Accept header and
+a specified extension.</p>
+
+<pre><code class="language-crystal">put <span class="s">&quot;api/users/:id&quot;</span>, <span class="k">type</span>: <span class="s">&quot;application/json&quot;</span></code></pre>
+
+<h4><a id="host-constraints" class="anchor" href="#host-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Host constraints</h4>
+
+<p>You can constrain the request to a specific host by wrapping routes
+in a <code><a href="../../Orion/DSL/Constraints.html#host(host)-macro">host</a></code> block. In this method, any routes within the block will be
+matched at that constraint.</p>
+
+<p>You may also choose to limit the request to a certain format. Such as restricting
+the extension of the URL to '.json'.</p>
+
+<pre><code class="language-crystal">host <span class="s">&quot;example.com&quot;</span> <span class="k">do</span>
+  get <span class="s">&quot;users/:id&quot;</span>, format: <span class="s">&quot;json&quot;</span>
+<span class="k">end</span></code></pre>
+
+<h4><a id="subdomain-constraints" class="anchor" href="#subdomain-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Subdomain constraints</h4>
+
+<p>You can constrain the request to a specific subdomain by wrapping routes
+in a <code><a href="../../Orion/DSL/Constraints.html#subdomain(subdomain)-macro">subdomain</a></code> block. In this method, any routes within the block will be
+matched at that constraint.</p>
+
+<p>You may also choose to limit the request to a certain format. Such as restricting
+the extension of the URL to '.json'.</p>
+
+<pre><code class="language-crystal">subdomain <span class="s">&quot;api&quot;</span> <span class="k">do</span>
+  get <span class="s">&quot;users/:id&quot;</span>, format: <span class="s">&quot;json&quot;</span>
+<span class="k">end</span></code></pre>
+
+<h4><a id="custom-constraints" class="anchor" href="#custom-constraints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Custom Constraints</h4>
+
+<p>You can also pass in your own constraints by just passing a class/struct that
+implements the <code><a href="../../Orion/Constraint.html">Orion::Constraint</a></code> module.</p>
+
+<pre><code class="language-crystal"><span class="k">struct</span> <span class="t">MyConstraint</span>
+  <span class="k">def</span> <span class="m">matches?</span>(req : <span class="t">HTTP</span><span class="t">::</span><span class="t">Request</span>)
+    <span class="n">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+constraint <span class="t">MyConstraint</span>.<span class="k">new</span> <span class="k">do</span>
+  get <span class="s">&quot;users/:id&quot;</span>, format: <span class="s">&quot;json&quot;</span>
+<span class="k">end</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-summary" class="anchor" href="#macro-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#constraint(constraint)-macro" class="signature"><strong>constraint</strong>(constraint)</a>
+        
+          <div class="summary"><p>Constrain routes by an <code><a href="../../Orion/Constraint.html">Orion::Constraint</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#constraints(*constraints)-macro" class="signature"><strong>constraints</strong>(*constraints)</a>
+        
+          <div class="summary"><p>Constrain routes by one or more <code><a href="../../Orion/Constraint.html">Orion::Constraint</a></code>s</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#host(host)-macro" class="signature"><strong>host</strong>(host)</a>
+        
+          <div class="summary"><p>Constrain routes by a given domain</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#subdomain(subdomain)-macro" class="signature"><strong>subdomain</strong>(subdomain)</a>
+        
+          <div class="summary"><p>Constrain routes by a given subdomain</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-detail" class="anchor" href="#macro-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Detail
+  </h2>
+  
+    <div class="entry-detail" id="constraint(constraint)-macro">
+      <div class="signature">
+        
+        macro <strong>constraint</strong>(constraint)
+
+        <a class="method-permalink" href="#constraint(constraint)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constrain routes by an <code><a href="../../Orion/Constraint.html">Orion::Constraint</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="constraints(*constraints)-macro">
+      <div class="signature">
+        
+        macro <strong>constraints</strong>(*constraints)
+
+        <a class="method-permalink" href="#constraints(*constraints)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constrain routes by one or more <code><a href="../../Orion/Constraint.html">Orion::Constraint</a></code>s</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="host(host)-macro">
+      <div class="signature">
+        
+        macro <strong>host</strong>(host)
+
+        <a class="method-permalink" href="#host(host)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constrain routes by a given domain</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="subdomain(subdomain)-macro">
+      <div class="signature">
+        
+        macro <strong>subdomain</strong>(subdomain)
+
+        <a class="method-permalink" href="#subdomain(subdomain)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constrain routes by a given subdomain</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>

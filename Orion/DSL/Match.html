@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="3.0.0-dev">
+<meta name="crystal_docs.project_name" content="orion">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="orion">
+  <title>Orion::DSL::Match - orion 3.0.0-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          orion
+        </a>
+      </h1>
+
+      <span class="project-version">
+        3.0.0-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="orion/toplevel" data-name="top level namespace">
+      <a href="../../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/BaseController" data-name="basecontroller">
+      <a href="../../BaseController.html">BaseController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+      <a href="../../Orion.html">Orion</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Config" data-name="orion::config">
+      <a href="../../Orion/Config.html">Config</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
+      <a href="../../Orion/Constraint.html">Constraint</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Controller" data-name="orion::controller">
+      <a href="../../Orion/Controller.html">Controller</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/Rendering" data-name="orion::controller::rendering">
+      <a href="../../Orion/Controller/Rendering.html">Rendering</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/RequestHelpers" data-name="orion::controller::requesthelpers">
+      <a href="../../Orion/Controller/RequestHelpers.html">RequestHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ResponseHelpers" data-name="orion::controller::responsehelpers">
+      <a href="../../Orion/Controller/ResponseHelpers.html">ResponseHelpers</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+      <a href="../../Orion/DSL.html">DSL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/DSL/Concerns" data-name="orion::dsl::concerns">
+      <a href="../../Orion/DSL/Concerns.html">Concerns</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Constraints" data-name="orion::dsl::constraints">
+      <a href="../../Orion/DSL/Constraints.html">Constraints</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Handlers" data-name="orion::dsl::handlers">
+      <a href="../../Orion/DSL/Handlers.html">Handlers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Helpers" data-name="orion::dsl::helpers">
+      <a href="../../Orion/DSL/Helpers.html">Helpers</a>
+      
+    </li>
+  
+  <li class=" current" data-id="orion/Orion/DSL/Match" data-name="orion::dsl::match">
+      <a href="../../Orion/DSL/Match.html">Match</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Mount" data-name="orion::dsl::mount">
+      <a href="../../Orion/DSL/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/RequestMethods" data-name="orion::dsl::requestmethods">
+      <a href="../../Orion/DSL/RequestMethods.html">RequestMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Resources" data-name="orion::dsl::resources">
+      <a href="../../Orion/DSL/Resources.html">Resources</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Root" data-name="orion::dsl::root">
+      <a href="../../Orion/DSL/Root.html">Root</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Scope" data-name="orion::dsl::scope">
+      <a href="../../Orion/DSL/Scope.html">Scope</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Static" data-name="orion::dsl::static">
+      <a href="../../Orion/DSL/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+      <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/ExceptionPage" data-name="orion::exceptionpage">
+      <a href="../../Orion/ExceptionPage.html">ExceptionPage</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Router" data-name="orion::router">
+      <a href="../../Orion/Router.html">Router</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/RouteHelpers" data-name="routehelpers">
+      <a href="../../RouteHelpers.html">RouteHelpers</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Orion::DSL::Match
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Catch-all routes using <code><a href="../../Orion/DSL/Match.html#match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">match</a></code></p>
+
+<p>In some instances, you may just want to redirect all verbs to a particular
+controller and action.</p>
+
+<p>You can use the <code><a href="../../Orion/DSL/Match.html#match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">match</a></code> method and pass it's route and
+any variation of the <a href="#generic-route-arguments" target="_blank">Generic Route Arguments</a>.</p>
+
+<pre><code class="language-crystal">match <span class="s">&quot;404&quot;</span>, controller: <span class="t">ErrorsController</span>, action: error_404</code></pre>
+
+<h3><a id="generic-route-arguments" class="anchor" href="#generic-route-arguments">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Generic route arguments</h3>
+
+<p>There are a variety of ways that you can interact with basic routes. Below are
+some examples and guidelines on the different ways you can interact with the router.</p>
+
+<h4><a id="using-to-string-to-target-a-controller-and-action" class="anchor" href="#using-to-string-to-target-a-controller-and-action">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using <code>to: String</code> to target a controller and action</h4>
+
+<p>One of the most common ways we will be creating routes in this guide is to use
+the <code>to</code> argument supplied with a controller and action in the form of a string.
+In the example below <code>users#create</code> will map to <code>UsersController.new(cxt : HTTP::Server::Context).create</code>.
+You can also pass an exact constant name.</p>
+
+<pre><code class="language-crystal">post <span class="s">&quot;users&quot;</span>, to: <span class="s">&quot;users#create&quot;</span></code></pre>
+
+<h4><a id="using-controller-type-and-action-method" class="anchor" href="#using-controller-type-and-action-method">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using <code>controller: Type</code> and <code>action: Method</code></h4>
+
+<p>A longer form of the <code>to</code> argument strategy above allows us to pass the controller and action
+independently.</p>
+
+<pre><code class="language-crystal">post <span class="s">&quot;users&quot;</span>, controller: <span class="t">UsersController</span>, action: create</code></pre>
+
+<h4><a id="using-block-syntax" class="anchor" href="#using-block-syntax">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using block syntax</h4>
+
+<p>Sometimes, we may want a more link:https://github.com/kemalcr/kemal[kemal] or
+link:http://sinatrarb.com/[sinatra] like approach. To accomplish this, we can
+simply pass a block that will be evaluated as a controller.</p>
+
+<pre><code class="language-crystal">post <span class="s">&quot;users&quot;</span> <span class="k">do</span>
+  <span class="s">&quot;Foo&quot;</span>
+<span class="k">end</span></code></pre>
+
+<h4><a id="using-a-call-able-object" class="anchor" href="#using-a-call-able-object">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using a <code>call</code> able object</h4>
+
+<p>Lastly a second argument can be any
+object that responds to <code>#call(cxt : HTTP::Server::Context)</code>.</p>
+
+<pre><code class="language-crystal">post <span class="s">&quot;users&quot;</span>, ->(context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>) {
+  context.response.puts <span class="s">&quot;foo&quot;</span>
+}</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-summary" class="anchor" href="#macro-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro" class="signature"><strong>match</strong>(path, callable, *, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Defines a match route to a callable object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match(path,*,to,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro" class="signature"><strong>match</strong>(path, *, to, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Defines a match route to a controller and action (short form).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match(path,*,action,controller=CONTROLLER,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro" class="signature"><strong>match</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match(path,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil,&block)-macro" class="signature"><strong>match</strong>(path, *, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>, &block)</a>
+        
+          <div class="summary"><p>Defines a match route with a block.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-detail" class="anchor" href="#macro-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Detail
+  </h2>
+  
+    <div class="entry-detail" id="match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>match</strong>(path, callable, *, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Defines a match route to a callable object.</p>
+
+<p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>.</p>
+
+<pre><code><span class="k">module</span> <span class="t">Callable</span>
+  <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
+    <span class="c"># ... do something</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match(path,*,to,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>match</strong>(path, *, to, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#match(path,*,to,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Defines a match route to a controller and action (short form).
+You can route to a controller and action by passing the <code>to</code> argument in
+the form of <code>"#action"</code>.</p>
+
+<pre><code><span class="k">class</span> <span class="t">MyController</span>
+  <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">match</span>
+    <span class="c"># ... do something</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#match&quot;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match(path,*,action,controller=CONTROLLER,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>match</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#match(path,*,action,controller=CONTROLLER,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Defines a match route to a controller and action (long form).
+You can route to a controller and action by passing the <code>controller</code> and
+<code>action</code> arguments, if action is omitted it will default to <code><a href="../../Orion/DSL/Match.html#match(path,callable,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">match</a></code>.</p>
+
+<pre><code><span class="k">class</span> <span class="t">MyController</span>
+  <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">match</span>
+    <span class="c"># ... do something</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyController</span>, action: match</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match(path,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil,&amp;block)-macro">
+      <div class="signature">
+        
+        macro <strong>match</strong>(path, *, via = <span class="n">:all</span>, helper = <span class="n">nil</span>, constraints = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>, &block)
+
+        <a class="method-permalink" href="#match(path,*,via=:all,helper=nil,constraints=nil,format=nil,accept=nil,content_type=nil,type=nil,&block)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Defines a match route with a block.</p>
+
+<p>When given with 0 argument it will yield the block and have access to any method within the BaseController of the application.
+When given with 1 argument it will yield the block with <code>HTTP::Server::Context</code> and have access to any method within the BaseController of the application.
+When given with 2 arguments it will yield the block with <code><a href="../../HTTP/Request.html">HTTP::Request</a></code> and <code>HTTP::Server::Response</code> and have access to any method within the BaseController of the application.</p>
+
+<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>context<span class="o">|</span>
+  <span class="c"># ... do something</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>

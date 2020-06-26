@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="3.0.0-dev">
+<meta name="crystal_docs.project_name" content="orion">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="orion">
+  <title>Orion::DSL::Resources - orion 3.0.0-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          orion
+        </a>
+      </h1>
+
+      <span class="project-version">
+        3.0.0-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="orion/toplevel" data-name="top level namespace">
+      <a href="../../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/BaseController" data-name="basecontroller">
+      <a href="../../BaseController.html">BaseController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+      <a href="../../Orion.html">Orion</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Config" data-name="orion::config">
+      <a href="../../Orion/Config.html">Config</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
+      <a href="../../Orion/Constraint.html">Constraint</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Controller" data-name="orion::controller">
+      <a href="../../Orion/Controller.html">Controller</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/Rendering" data-name="orion::controller::rendering">
+      <a href="../../Orion/Controller/Rendering.html">Rendering</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/RequestHelpers" data-name="orion::controller::requesthelpers">
+      <a href="../../Orion/Controller/RequestHelpers.html">RequestHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ResponseHelpers" data-name="orion::controller::responsehelpers">
+      <a href="../../Orion/Controller/ResponseHelpers.html">ResponseHelpers</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+      <a href="../../Orion/DSL.html">DSL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/DSL/Concerns" data-name="orion::dsl::concerns">
+      <a href="../../Orion/DSL/Concerns.html">Concerns</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Constraints" data-name="orion::dsl::constraints">
+      <a href="../../Orion/DSL/Constraints.html">Constraints</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Handlers" data-name="orion::dsl::handlers">
+      <a href="../../Orion/DSL/Handlers.html">Handlers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Helpers" data-name="orion::dsl::helpers">
+      <a href="../../Orion/DSL/Helpers.html">Helpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Match" data-name="orion::dsl::match">
+      <a href="../../Orion/DSL/Match.html">Match</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Mount" data-name="orion::dsl::mount">
+      <a href="../../Orion/DSL/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/RequestMethods" data-name="orion::dsl::requestmethods">
+      <a href="../../Orion/DSL/RequestMethods.html">RequestMethods</a>
+      
+    </li>
+  
+  <li class=" current" data-id="orion/Orion/DSL/Resources" data-name="orion::dsl::resources">
+      <a href="../../Orion/DSL/Resources.html">Resources</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Root" data-name="orion::dsl::root">
+      <a href="../../Orion/DSL/Root.html">Root</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Scope" data-name="orion::dsl::scope">
+      <a href="../../Orion/DSL/Scope.html">Scope</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Static" data-name="orion::dsl::static">
+      <a href="../../Orion/DSL/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+      <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/ExceptionPage" data-name="orion::exceptionpage">
+      <a href="../../Orion/ExceptionPage.html">ExceptionPage</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Router" data-name="orion::router">
+      <a href="../../Orion/Router.html">Router</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/RouteHelpers" data-name="routehelpers">
+      <a href="../../RouteHelpers.html">RouteHelpers</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Orion::DSL::Resources
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A common way in Orion to route is to do so against a known resource. This method
+will create a series of routes targeted at a specific controller.</p>
+
+<p><em>The following is an example controller definition and the matching
+resources definition.</em></p>
+
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">PostsController</span>
+  <span class="k">include</span> <span class="t">Orion</span><span class="t">::</span><span class="t">ControllerHelper</span>
+  <span class="k">include</span> <span class="t">ResponseHelpers</span>
+
+  <span class="k">def</span> <span class="m">index</span>
+    @posts <span class="o">=</span> <span class="t">Post</span>.all
+    render <span class="n">:index</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">new</span>
+    @post <span class="o">=</span> <span class="t">Post</span>.<span class="k">new</span>
+    render <span class="n">:new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">create</span>
+    post <span class="o">=</span> <span class="t">Post</span>.create(request)
+    redirect to: post_path post_id: post.id
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">show</span>
+    @post <span class="o">=</span> <span class="t">Post</span>.find(request.path_params[<span class="s">&quot;post_id&quot;</span>])
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">edit</span>
+    @post <span class="o">=</span> <span class="t">Post</span>.find(request.path_params[<span class="s">&quot;post_id&quot;</span>])
+    render <span class="n">:edit</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">update</span>
+    post <span class="o">=</span> <span class="t">Post</span>.find(request.path_params[<span class="s">&quot;post_id&quot;</span>])
+    <span class="t">HTTP</span><span class="t">::</span><span class="t">FormData</span>.parse(request) <span class="k">do</span> <span class="o">|</span>part<span class="o">|</span>
+      post.attributes[part.name] <span class="o">=</span> part.body.gets_to_end
+    <span class="k">end</span>
+    redirect to: post_path post_id: post.id
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">delete</span>
+    post <span class="o">=</span> <span class="t">Post</span>.find(request.path_params[<span class="s">&quot;post_id&quot;</span>])
+    post.delete
+    redirect to: posts_path
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+resources <span class="n">:posts</span></code></pre>
+
+<h4><a id="includingexcluding-actions" class="anchor" href="#includingexcluding-actions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Including/Excluding Actions</h4>
+
+<p>By default, the actions <code>index</code>, <code>new</code>, <code>create</code>, <code>show</code>, <code>edit</code>, <code>update</code>, <code>delete</code>
+are included. You may include or exclude explicitly by using the <code>only</code> and <code>except</code> params.</p>
+
+<blockquote>NOTE: The index action is not added for <a href="#singular-resources" target="_blank">singular resources</a>.</blockquote>
+
+<pre><code class="language-crystal">resources <span class="n">:posts</span>, except: [<span class="n">:edit</span>, <span class="n">:update</span>]
+resources <span class="n">:users</span>, only: [<span class="n">:new</span>, <span class="n">:create</span>, <span class="n">:show</span>]</code></pre>
+
+<h4><a id="nested-resources-and-routes" class="anchor" href="#nested-resources-and-routes">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Nested Resources and Routes</h4>
+
+<p>You can add nested resources and member routes by providing a block to the
+<code><a href="../../Orion/DSL/Resources.html#resources(name,*,controller=nil,only=nil,except=nil,id_constraint=nil,format=nil,accept=nil,id_param=nil,content_type=nil,type=nil)-macro">resources</a></code> definition.</p>
+
+<pre><code class="language-crystal">resources <span class="n">:posts</span> <span class="k">do</span>
+  post <span class="s">&quot;feature&quot;</span>, action: feature
+  resources <span class="n">:likes</span>
+  resources <span class="n">:comments</span>
+<span class="k">end</span></code></pre>
+
+<h4><a id="singular-resources" class="anchor" href="#singular-resources">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Singular Resources</h4>
+
+<p>In addition to using the collection of <code><a href="../../Orion/DSL/Resources.html#resources(name,*,controller=nil,only=nil,except=nil,id_constraint=nil,format=nil,accept=nil,id_param=nil,content_type=nil,type=nil)-macro">resources</a></code> method, You can also add
+singular resources which do not provide a <code>id_param</code> or <code>index</code> action.</p>
+
+<pre><code class="language-crystal">resource <span class="n">:profile</span></code></pre>
+
+<h4><a id="customizing-id" class="anchor" href="#customizing-id">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Customizing ID</h4>
+
+<p>You can customize the ID path parameter by passing the <code>id_param</code> parameter.</p>
+
+<pre><code class="language-crystal">resources <span class="n">:posts</span>, id_param: <span class="n">:article_id</span></code></pre>
+
+<h4><a id="constraining-the-id" class="anchor" href="#constraining-the-id">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Constraining the ID</h4>
+
+<p>You can set constraints on the ID parameter by passing the <code>id_constraint</code> parameter.</p>
+
+<p>See <code><a href="../../Orion/DSL/Constraints.html">Orion::DSL::Constraints</a></code> for more details on constraints.</p>
+
+<pre><code class="language-crystal">resources <span class="n">:posts</span>, id_constraint: <span class="s">/^\d{4}$/</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-summary" class="anchor" href="#macro-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#resource(name,*,controller=nil,only=nil,except=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro" class="signature"><strong>resource</strong>(name, *, controller = <span class="n">nil</span>, only = <span class="n">nil</span>, except = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#resources(name,*,controller=nil,only=nil,except=nil,id_constraint=nil,format=nil,accept=nil,id_param=nil,content_type=nil,type=nil)-macro" class="signature"><strong>resources</strong>(name, *, controller = <span class="n">nil</span>, only = <span class="n">nil</span>, except = <span class="n">nil</span>, id_constraint = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, id_param = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-detail" class="anchor" href="#macro-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Detail
+  </h2>
+  
+    <div class="entry-detail" id="resource(name,*,controller=nil,only=nil,except=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>resource</strong>(name, *, controller = <span class="n">nil</span>, only = <span class="n">nil</span>, except = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#resource(name,*,controller=nil,only=nil,except=nil,format=nil,accept=nil,content_type=nil,type=nil)-macro">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="resources(name,*,controller=nil,only=nil,except=nil,id_constraint=nil,format=nil,accept=nil,id_param=nil,content_type=nil,type=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>resources</strong>(name, *, controller = <span class="n">nil</span>, only = <span class="n">nil</span>, except = <span class="n">nil</span>, id_constraint = <span class="n">nil</span>, format = <span class="n">nil</span>, accept = <span class="n">nil</span>, id_param = <span class="n">nil</span>, content_type = <span class="n">nil</span>, type = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#resources(name,*,controller=nil,only=nil,except=nil,id_constraint=nil,format=nil,accept=nil,id_param=nil,content_type=nil,type=nil)-macro">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>

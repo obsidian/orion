@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="3.0.0-dev">
+<meta name="crystal_docs.project_name" content="orion">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="orion">
+  <title>Orion::Router - orion 3.0.0-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          orion
+        </a>
+      </h1>
+
+      <span class="project-version">
+        3.0.0-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="orion/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/BaseController" data-name="basecontroller">
+      <a href="../BaseController.html">BaseController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+      <a href="../Orion.html">Orion</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Config" data-name="orion::config">
+      <a href="../Orion/Config.html">Config</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
+      <a href="../Orion/Constraint.html">Constraint</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Controller" data-name="orion::controller">
+      <a href="../Orion/Controller.html">Controller</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/Rendering" data-name="orion::controller::rendering">
+      <a href="../Orion/Controller/Rendering.html">Rendering</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/RequestHelpers" data-name="orion::controller::requesthelpers">
+      <a href="../Orion/Controller/RequestHelpers.html">RequestHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ResponseHelpers" data-name="orion::controller::responsehelpers">
+      <a href="../Orion/Controller/ResponseHelpers.html">ResponseHelpers</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
+      <a href="../Orion/DSL.html">DSL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/DSL/Concerns" data-name="orion::dsl::concerns">
+      <a href="../Orion/DSL/Concerns.html">Concerns</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Constraints" data-name="orion::dsl::constraints">
+      <a href="../Orion/DSL/Constraints.html">Constraints</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Handlers" data-name="orion::dsl::handlers">
+      <a href="../Orion/DSL/Handlers.html">Handlers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Helpers" data-name="orion::dsl::helpers">
+      <a href="../Orion/DSL/Helpers.html">Helpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Match" data-name="orion::dsl::match">
+      <a href="../Orion/DSL/Match.html">Match</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Mount" data-name="orion::dsl::mount">
+      <a href="../Orion/DSL/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/RequestMethods" data-name="orion::dsl::requestmethods">
+      <a href="../Orion/DSL/RequestMethods.html">RequestMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Resources" data-name="orion::dsl::resources">
+      <a href="../Orion/DSL/Resources.html">Resources</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Root" data-name="orion::dsl::root">
+      <a href="../Orion/DSL/Root.html">Root</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Scope" data-name="orion::dsl::scope">
+      <a href="../Orion/DSL/Scope.html">Scope</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Static" data-name="orion::dsl::static">
+      <a href="../Orion/DSL/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+      <a href="../Orion/DSL/WebSockets.html">WebSockets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/ExceptionPage" data-name="orion::exceptionpage">
+      <a href="../Orion/ExceptionPage.html">ExceptionPage</a>
+      
+    </li>
+  
+  <li class=" current" data-id="orion/Orion/Router" data-name="orion::router">
+      <a href="../Orion/Router.html">Router</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/RouteHelpers" data-name="routehelpers">
+      <a href="../RouteHelpers.html">RouteHelpers</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Orion::Router
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Orion/Router.html">Orion::Router</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>The <code><a href="../Orion/Router.html">Orion::Router</a></code> is the workhorse that does the work when a request comes
+into your application. It will take all of your defined routes and builds you
+an application that can serve HTTP traffic. You can configure the router using
+the <code>config</code> in a single file router. Or by calling the <code><a href="../Orion/Router.html#new(tree:DSL::Tree,autoclose:Bool=true)-class-method">.new</a></code> or <code><a href="../Orion/Router.html#start(tree:DSL::Tree,autoclose:Bool=true,workers=nil,**bind_opts)-class-method">.start</a></code>
+method within your app.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(tree:DSL::Tree,autoclose:Bool=true)-class-method" class="signature"><strong>.new</strong>(tree : DSL::Tree, autoclose : Bool = <span class="n">true</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#start(tree:DSL::Tree,autoclose:Bool=true,workers=nil,**bind_opts)-class-method" class="signature"><strong>.start</strong>(tree : DSL::Tree, autoclose : Bool = <span class="n">true</span>, workers = <span class="n">nil</span>, **bind_opts)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method" class="signature"><strong>#bind</strong>(*, tls : OpenSSL::SSL::Context::Server, address : Socket::IPAddress)</a>
+        
+          <div class="summary"><p>Bind TLS with an address</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,config:Orion::Config)-instance-method" class="signature"><strong>#bind</strong>(*, config : Orion::Config)</a>
+        
+          <div class="summary"><p>Bind using a config</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls=nil,path)-instance-method" class="signature"><strong>#bind</strong>(*, tls = <span class="n">nil</span>, path)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method" class="signature"><strong>#bind</strong>(*, tls = <span class="n">nil</span>, address : Socket::UNIXAddress)</a>
+        
+          <div class="summary"><p>Bind to a Socket::UnixAddress</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, address : Socket::IPAddress, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TCP to a Socket::IPAddress</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:Nil=nil,uri)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, uri)</a>
+        
+          <div class="summary"><p>Bind using a URI</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TCP to a host and port</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : OpenSSL::SSL::Context::Server, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TLS with a host and port</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#call(*args,**options)-instance-method" class="signature"><strong>#call</strong>(*args, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#call(*args,**options,&)-instance-method" class="signature"><strong>#call</strong>(*args, **options, &)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#handlers:Array(HTTP::Handler)-instance-method" class="signature"><strong>#handlers</strong> : Array(HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#listen(*,workers,**opts)-instance-method" class="signature"><strong>#listen</strong>(*, workers, **opts)</a>
+        
+          <div class="summary"><p>Listen clients using multiple workers A good suggestion is to use System.cpu_count</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#listen(*args,prefix=self.class.name,**opts)-instance-method" class="signature"><strong>#listen</strong>(*args, prefix = <span class="k">self</span>.<span class="k">class</span>.name, **opts)</a>
+        
+          <div class="summary"><p>Listen for clients</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#request_processor-instance-method" class="signature"><strong>#request_processor</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#use(handler)-instance-method" class="signature"><strong>#use</strong>(handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#use(handler:HTTP::Handler)-instance-method" class="signature"><strong>#use</strong>(handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#visualize-instance-method" class="signature"><strong>#visualize</strong></a>
+        
+          <div class="summary"><p>Visualize the route tree</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(tree:DSL::Tree,autoclose:Bool=true)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(tree : DSL::Tree, autoclose : Bool = <span class="n">true</span>)
+
+        <a class="method-permalink" href="#new(tree:DSL::Tree,autoclose:Bool=true)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="start(tree:DSL::Tree,autoclose:Bool=true,workers=nil,**bind_opts)-class-method">
+      <div class="signature">
+        
+        def self.<strong>start</strong>(tree : DSL::Tree, autoclose : Bool = <span class="n">true</span>, workers = <span class="n">nil</span>, **bind_opts)
+
+        <a class="method-permalink" href="#start(tree:DSL::Tree,autoclose:Bool=true,workers=nil,**bind_opts)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : OpenSSL::SSL::Context::Server, address : Socket::IPAddress)
+
+        <a class="method-permalink" href="#bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TLS with an address</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,config:Orion::Config)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, config : <a href="../Orion/Config.html">Orion::Config</a>)
+
+        <a class="method-permalink" href="#bind(*,config:Orion::Config)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind using a config</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls=nil,path)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls = <span class="n">nil</span>, path)
+
+        <a class="method-permalink" href="#bind(*,tls=nil,path)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls = <span class="n">nil</span>, address : Socket::UNIXAddress)
+
+        <a class="method-permalink" href="#bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind to a Socket::UnixAddress</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, address : Socket::IPAddress, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TCP to a Socket::IPAddress</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,uri)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, uri)
+
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,uri)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind using a URI</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TCP to a host and port</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : OpenSSL::SSL::Context::Server, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TLS with a host and port</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="call(*args,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>(*args, **options)
+
+        <a class="method-permalink" href="#call(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="call(*args,**options,&)-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#call(*args,**options,&)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="handlers:Array(HTTP::Handler)-instance-method">
+      <div class="signature">
+        
+        def <strong>handlers</strong> : Array(HTTP::Handler)
+
+        <a class="method-permalink" href="#handlers:Array(HTTP::Handler)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="listen(*,workers,**opts)-instance-method">
+      <div class="signature">
+        
+        def <strong>listen</strong>(*, workers, **opts)
+
+        <a class="method-permalink" href="#listen(*,workers,**opts)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Listen clients using multiple workers
+A good suggestion is to use System.cpu_count</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="listen(*args,prefix=self.class.name,**opts)-instance-method">
+      <div class="signature">
+        
+        def <strong>listen</strong>(*args, prefix = <span class="k">self</span>.<span class="k">class</span>.name, **opts)
+
+        <a class="method-permalink" href="#listen(*args,prefix=self.class.name,**opts)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Listen for clients</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="request_processor-instance-method">
+      <div class="signature">
+        
+        def <strong>request_processor</strong>
+
+        <a class="method-permalink" href="#request_processor-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="use(handler)-instance-method">
+      <div class="signature">
+        
+        def <strong>use</strong>(handler)
+
+        <a class="method-permalink" href="#use(handler)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="use(handler:HTTP::Handler)-instance-method">
+      <div class="signature">
+        
+        def <strong>use</strong>(handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#use(handler:HTTP::Handler)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="visualize-instance-method">
+      <div class="signature">
+        
+        def <strong>visualize</strong>
+
+        <a class="method-permalink" href="#visualize-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Visualize the route tree</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
