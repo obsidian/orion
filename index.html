@@ -249,7 +249,7 @@ scope <span class="s">&quot;/api&quot;</span> <span class="k">do</span>
   use <span class="t">AuthHandlers</span><span class="t">::</span><span class="t">Token</span>.<span class="k">new</span>
 <span class="k">end</span>
 
-use <span class="t">SessionAuthHandler</span>.<span class="k">new</span>
+use <span class="t">AuthHandlers</span><span class="t">::</span><span class="t">CookieSession</span>.<span class="k">new</span>
 
 scope constraint: <span class="t">UnauthenticatedUser</span> <span class="k">do</span>
   root <span class="k">do</span>
