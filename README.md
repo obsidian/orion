@@ -25,15 +25,11 @@ static "/", dir: "/public"
 use CookieSession
 
 root do
-  render "views/home.slim"
+  "Welcome Home"
 end
 
-get "/health" do
-  "OK"
-end
-
-get "/login" do
-  render "views/lgin.slim"
+get "/posts" do
+  "Many posts here!"
 end
 ```
 
