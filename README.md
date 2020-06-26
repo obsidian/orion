@@ -69,7 +69,7 @@ scope constraint: AuthenticatedUser do
 end
 ```
 
-# Installation
+## Installation
 Add this to your application's shard.yml:
 
 ```yml
