@@ -1,7 +1,10 @@
 ![Orion](https://raw.githubusercontent.com/obsidian/orion/v3.0.0-dev/orion-banner.svg)
 
-![Build Status](https://travis-ci.org/obsidian/orion.svg?branch=master)
-![Tag](https://img.shields.io/github/tag/obsidian/orion.svg?v=1)
+[![Crystal CI](https://github.com/obsidian/orion/workflows/Crystal%20CI/badge.svg)](https://github.com/obsidian/orion/actions?query=workflow%3A%22Crystal+CI%22)
+[![GitHub issues](https://img.shields.io/github/issues/obsidian/orion)](https://github.com/obsidian/orion/issues)
+[![GitHub stars](https://img.shields.io/github/stars/obsidian/orion)](https://github.com/obsidian/orion/stargazers)
+[![GitHub license](https://img.shields.io/github/license/obsidian/orion)](https://github.com/obsidian/orion/blob/master/LICENSE)
+[![Documentation](https://img.shields.io/badge/Read-Documentation-%232E1052)](https://obsidian.github.io/orion)
 
 ---
 
@@ -9,7 +12,7 @@
 
 Orion is minimal, Omni-Conventional, declarative web framework inspired by the ruby-on-rails router and controller components. It provides, the routing, view, and controller framework of your application in a way that can be as simple or complex as you need it to fit your use case.
 
-## Simple
+## Simple Example
 Orion out of the box is designed to be as simple as you want it to be. A few
 lines will get you a functioning web app. Orion also ships with helpful features
 such as view rendering and static content delivery.
@@ -66,20 +69,18 @@ scope constraint: AuthenticatedUser do
 end
 ```
 
-## View Rendering
+# Installation
+Add this to your application's shard.yml:
 
-You can rendering anything from text, json, and even templates using
-[Kilt](https://crystalshards.org/shards/github/jeromegn/kilt). You can view more
-about view rendering and helpers for other types of views within the 
-`Orion::Controller::Rendering` module.
+```yml
+dependencies:
+  orion:
+    github: obsidian/orion
+```
 
-# Request Helpers
+See also [Getting Started](https://github.com/obsidian/orion/wiki/Getting-Started).
 
-From within your controllers, you can also access helpful information about the
-request. To view what methods are available see `Orion::Controller::RequestHelpers` 
-module.
+## Documentatation
 
-# Response Helpers
-
-In addition you can also easily set data on the response. To view what methods 
-are available see `Orion::Controller::RequestHelpers` module.
+View the docs at [https://obsidian.github.io/orion](https://obsidian.github.io/orion).
+View the guides at [https://github.com/obsidian/orion/wiki](https://github.com/obsidian/orion/wiki).
