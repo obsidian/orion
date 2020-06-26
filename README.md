@@ -20,10 +20,6 @@ such as view rendering and static content delivery.
 ```crystal
 require "orion/app"
 
-static "/", dir: "/public"
-
-use CookieSession
-
 root do
   "Welcome Home"
 end
