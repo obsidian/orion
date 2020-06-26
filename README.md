@@ -36,6 +36,8 @@ Orion is extemely flexible, it is inspiried by the rails routing and controller 
 require "orion/app"
 require "auth_handlers"
 
+static "/", dir: "./assets"
+
 scope "/api" do
   use AuthHandlers::Token
 end
