@@ -1,4 +1,9 @@
 module Orion::Controller::ResponseHelpers
+  # The `HTTP:Response`.
+  def response
+    @context.response
+  end
+
   # Set the status of the response
   def status=(status)
     response.status = status

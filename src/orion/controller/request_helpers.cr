@@ -1,41 +1,46 @@
 module Orion::Controller::RequestHelpers
-  # The HTTP request object.
+  # The `HTTP::Request` object.
   def request
     @context.request
   end
 
-  # The HTTP response object.
-  def response
-    @context.response
-  end
-
-  # The query params of the request object.
+  # The query params of the `HTTP::Request`.
   def query_params
     request.query_params
   end
 
-  # The path params if any routes have named params in the path.
+  # The path params of the `HTTP::Request` if any routes have named params in the path.
   def path_params
     request.path_params
   end
 
-  # The remote address of the incoming request.
+  # The remote address of the incoming `HTTP::Request`.
   def remote_address
     request.remote_address
   end
 
-  # The resource of the request object.
+  # The resource of the `HTTP::Request`.
   def resource
     request.resource
   end
 
-  # The host of the request object.
+  # The host of the `HTTP::Request`.
   def host
     request.host
   end
 
-  # The host with port of the request object.
+  # The host with port of the `HTTP::Request`.
   def host
     request.host_with_port
+  end
+
+  # Format of the `HTTP::Request`
+  def format
+    request.format
+  end
+
+  # Formats of the `HTTP::Request`
+  def formats
+    request.formats
   end
 end
