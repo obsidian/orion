@@ -1,9 +1,10 @@
 name: orion
 crystal: ">= 0.35.1"
-version: 3.0.0
-
+version: 3.0.1
+homepage: https://obsidian.github.io/orion
+documentation: https://obsidian.github.io/orion
 authors:
-  - jwaldrip <jason@waldrip.net>
+  - Jason Waldrip <jason@waldrip.net>
 
 dependencies:
   oak:
