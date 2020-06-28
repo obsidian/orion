@@ -16,8 +16,6 @@ module Orion::DSL::Static
 
   macro static(*, path, string)
     %str : String = {{string}}
-    get {{ path }} do |c|
-      c.response.puts %str
-    end
+    get {{ path }}, ->(c : ::HTTP::Server::Context){ c.response.puts %str }
   end
 end
