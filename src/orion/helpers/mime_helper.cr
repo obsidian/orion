@@ -1,8 +1,17 @@
 
 # :nodoc:
-module MIMEHelper
-  private def request_mime_types(req : HTTP::Request)
+module Orion::MIMEHelper
+  extend self
+
+  def request_mime_types(req : HTTP::Request)
     types_from_accept?(req) || [type_from_path?(req)].compact
+  end
+
+  def request_extensions(req : HTTP::Request)
+    extensions = request_mime_types(req).reduce([] of String) do |exts, mime_type|
+      exts.concat MIME.extensions(mime_type)
+    end
+    extensions.empty? ? MIME.extensions("text/html") : extensions
   end
 
   private def types_from_accept?(req : HTTP::Request)
@@ -17,12 +26,5 @@ module MIMEHelper
     mime_type.to_s if mime_type
   rescue
     nil
-  end
-
-  private def request_extensions(req : HTTP::Request)
-    extensions = request_mime_types(req).reduce([] of String) do |exts, mime_type|
-      exts.concat MIME.extensions(mime_type)
-    end
-    extensions.empty? ? MIME.extensions("text/html") : extensions
   end
 end
