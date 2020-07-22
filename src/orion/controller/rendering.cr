@@ -15,7 +15,7 @@ module Orion::Controller::Rendering
   # Render a view
   macro render(*, view, layout = true)
     {% prefix = run("../inflector/decontrollerize.cr", @type.name).gsub(/^\//, "") %}
-    {% view = "src/views/#{prefix}/{{ view.id }}" %}
+    {% view = "src/views/#{prefix}/#{ view.id }" %}
     {% if layout %}
       render_layout do
         Kilt.embed {{ view }}

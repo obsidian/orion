@@ -1,6 +1,6 @@
 name: orion
 crystal: ">= 0.35.1"
-version: 3.0.1
+version: 3.0.2
 homepage: https://obsidian.github.io/orion
 documentation: https://obsidian.github.io/orion
 authors:
