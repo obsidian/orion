@@ -1,12 +1,12 @@
 class Orion::Handlers::RouteFinder
-  include HTTP::Handler
+  include Handler
 
-  @tree : Orion::DSL::Tree
+  @tree : DSL::Tree
 
-  def initialize(@tree : Orion::DSL::Tree)
+  def initialize(@tree : DSL::Tree)
   end
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : Server::Context)
     action = nil
     path = cxt.request.path
     @tree.search(path.rchop(File.extname(path))) do |result|

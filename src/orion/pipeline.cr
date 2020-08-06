@@ -3,7 +3,10 @@ require "digest"
 # :nodoc:
 struct Orion::Pipeline
   CACHE         = {} of String => Pipeline
-  ROUTE_HANDLER = ->(c : HTTP::Server::Context) { c.request.action.try &.invoke(c) }
+  ROUTE_HANDLER = ->(http_context : HTTP::Server::Context) {
+    context = http_context.as(Server::Context)
+    context.request.action.try &.invoke(context)
+  }
 
   @pipeline : ::HTTP::Handler | ::HTTP::Handler::HandlerProc
   @cache_key : String
@@ -22,8 +25,8 @@ struct Orion::Pipeline
   end
 
   def initialize(handlers : Array(::HTTP::Handler), @cache_key)
-    handlers = handlers.map(&.dup.as(::HTTP::Handler))
-    @pipeline = handlers.empty? ? ROUTE_HANDLER : ::HTTP::Server.build_middleware(handlers, ROUTE_HANDLER)
+    handlers = handlers.map(&.dup)
+    @pipeline = handlers.empty? ? ROUTE_HANDLER : Server.build_middleware(handlers, ROUTE_HANDLER)
     CACHE[cache_key] = self
   end
 

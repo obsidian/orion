@@ -6,6 +6,7 @@ module Orion::DSL::Macros
     include ::Orion::DSL::Handlers
     include ::Orion::DSL::Helpers
     include ::Orion::DSL::Match
+    include ::Orion::DSL::Mount
     include ::Orion::DSL::RequestMethods
     include ::Orion::DSL::WebSockets
     include ::Orion::DSL::Root

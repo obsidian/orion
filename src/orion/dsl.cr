@@ -10,10 +10,6 @@ module Orion::DSL
       extend self
     end
 
-    class BaseController < Orion::Controller::Base
-      include RouteHelpers
-    end
-
     # :nodoc:
     ROUTER_INITIALIZED = true
     # :nodoc:
@@ -33,7 +29,12 @@ module Orion::DSL
     # :nodoc:
     ORION_CONFIG = ::Orion::Config.new
 
-    def config
+    # Add the controller
+    class BaseController < Orion::Controller::Base
+      include RouteHelpers
+    end
+
+    def self.config
       ORION_CONFIG
     end
 
@@ -41,27 +42,33 @@ module Orion::DSL
       ::Orion::Router.new(TREE, *args, **opts)
     end
 
+    def self.start
+      start config: config
+    end
+
     def self.start(*args, **opts)
       ::Orion::Router.start(TREE, *args, **opts)
     end
 
+    include ::Orion::DSL::Macros
+
+    use ::Orion::Handlers::Config.new(ORION_CONFIG)
+
     macro finished
       {% if @type.stringify == "<Program>" %}
-        ::Orion::Router.start(TREE, config: config)
+        start unless ::Orion::FLAGS["started"]?
       {% end %}
     end
-
-    include ::Orion::DSL::Macros
   end
 
   # :nodoc:
   alias Tree = Oak::Tree(Action)
   # :nodoc:
-  alias Context = HTTP::Server::Context
+  alias Context = ::Orion::Server::Context
   # :nodoc:
-  alias Response = HTTP::Server::Response
+  alias Response = ::Orion::Server::Response
   # :nodoc:
-  alias Request = HTTP::Request
+  alias Request = ::Orion::Server::Request
   # :nodoc:
   alias WebSocket = HTTP::WebSocket
 

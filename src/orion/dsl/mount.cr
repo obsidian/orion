@@ -4,6 +4,9 @@
 module Orion::DSL::Mount
   # Mount an application at the specified path.
   macro mount(app, *, at = "/")
-    match({{ at }}, {{ app }})
+    scope {{ at }} do
+      use ::Orion::Handlers::ResetPath.new
+      match("/*", {{ app }})
+    end
   end
 end

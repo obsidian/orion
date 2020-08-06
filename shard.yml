@@ -3,6 +3,8 @@ crystal: ">= 0.35.1"
 version: 3.0.2
 homepage: https://obsidian.github.io/orion
 documentation: https://obsidian.github.io/orion
+license: MIT
+
 authors:
   - Jason Waldrip <jason@waldrip.net>
 
@@ -16,5 +18,9 @@ dependencies:
     github: jeromegn/kilt
   exception_page:
     github: crystal-loot/exception_page
-
-license: MIT
+  html_builder:
+    github: crystal-lang/html_builder
+  cache:
+    github: mamantoha/cache
+  crystar:
+    github: naqvis/crystar

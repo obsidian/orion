@@ -1,10 +1,8 @@
-require "http/server"
-
 # :nodoc:
 class Orion::Handlers::MethodOverrideParam
-  include HTTP::Handler
+  include Handler
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : Server::Context)
     request = cxt.request
     override_method = param_method?(request) || form_method?(request)
     request.method = override_method if override_method

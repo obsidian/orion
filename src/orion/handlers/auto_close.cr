@@ -1,10 +1,8 @@
-require "http/server"
-
 # :nodoc:
 class Orion::Handlers::AutoClose
-  include HTTP::Handler
+  include Handler
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : Server::Context)
     call_next cxt
     cxt.response.close unless cxt.response.closed?
   end

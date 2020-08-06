@@ -2,9 +2,9 @@ require "http/server"
 
 # :nodoc:
 class Orion::Handlers::MethodOverrideHeader
-  include HTTP::Handler
+  include Handler
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : Server::Context)
     override_method =
       cxt.request.headers["x-http-method-override"]? ||
         cxt.request.headers["x-method-override"]? ||
