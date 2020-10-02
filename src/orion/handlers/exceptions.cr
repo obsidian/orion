@@ -20,7 +20,7 @@ class Orion::Handlers::Exceptions
   private def release_response(cxt : Orion::Server::Context, error : Exception)
     status_code, message, subtext = response_for(error)
     cxt.response.status_code = status_code
-    page_title = "#{message} (#{response.status_code})"
+    page_title = "#{message} (#{cxt.response.status_code})"
     cxt.response.headers["Content-Type"] = "text/html"
     ECR.embed "#{__DIR__}/../error_page.html.ecr", cxt.response
   end
