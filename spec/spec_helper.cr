@@ -5,10 +5,10 @@ def mock_context(method, path, host = "example.org", *, headers = {} of String =
   http_headers = HTTP::Headers.new
   headers.each { |k, v| http_headers[k] = v }
   http_headers["HOST"] = host
-  request = HTTP::Request.new(method.to_s.upcase, path, http_headers)
+  request = Orion::Server::Request.new(method.to_s.upcase, path, http_headers)
   request.body = body
-  response = HTTP::Server::Response.new io
-  HTTP::Server::Context.new(request, response)
+  response = Orion::Server::Response.new io
+  Orion::Server::Context.new(request, response)
 end
 
 def test_route(router : Orion::Router, method, path, *, headers = {} of String => String, body = nil)
@@ -29,7 +29,7 @@ def test_ws(router : Orion::Router, path, host = "example.org")
   }, io: output_io)
   context.request.to_io(input_io)
   begin
-    router.request_processor.process(input_io.tap(&.rewind), output_io)
+    router.processor.process(input_io.tap(&.rewind), output_io)
   rescue IO::Error
     # Raises because the IO:: Memory is empty
   end

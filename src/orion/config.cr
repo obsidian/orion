@@ -32,7 +32,7 @@ class Orion::Config
 
   setter port : Int32? = 4000
   setter address : ::Socket::IPAddress | ::Socket::UNIXAddress | Nil
-  setter host : String = "localhost"
+  setter host : String = ::Socket::IPAddress::LOOPBACK
   setter path : String?
 
   property name : String = File.basename Dir.current

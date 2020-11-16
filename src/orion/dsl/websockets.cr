@@ -19,12 +19,12 @@ module Orion::DSL::WebSockets
   macro ws(path, ws_callable, *, helper = nil)
     # Build the ws handlers
     %ws_handler = HTTP::WebSocketHandler.new do |websocket, context|
-      {{ ws_callable }}.call(websocket, context)
+      {{ ws_callable }}.call(websocket, context.as(::Orion::Server::Context))
       nil
     end
 
     # Build the proc
-    %proc = -> (context : HTTP::Server::Context) {
+    %proc = -> (context : ::Orion::Server::Context) {
       %ws_handler.call(context)
       nil
     }
@@ -89,7 +89,7 @@ module Orion::DSL::WebSockets
   macro ws(path, *, action, controller = CONTROLLER, helper = nil)
     ws(
       {{ path }},
-      ->(websocket : HTTP::WebSocket, context : HTTP::Server::Context) {
+      ->(websocket : HTTP::WebSocket, context : ::Orion::Server::Context) {
         {{ controller }}.new(context, websocket).{{ action }}
       },
       helper: {{ helper }}
