@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::Constraint - orion 4.0.0-beta1</title>
+  <title>Orion::Handler - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -116,7 +116,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/Constraint" data-name="orion::constraint">
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
       <a href="../Orion/Constraint.html">Constraint</a>
       
     </li>
@@ -226,7 +226,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/Handler" data-name="orion::handler">
+  <li class="parent open current" data-id="orion/Orion/Handler" data-name="orion::handler">
       <a href="../Orion/Handler.html">Handler</a>
       
         <ul>
@@ -360,7 +360,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::Constraint
+  <span class="kind">module</span> Orion::Handler
 
 </h1>
 
@@ -368,21 +368,23 @@
 
 
 
+
+
+
+
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="included-modules" class="anchor" href="#included-modules">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Included Modules
   </h2>
-
-  <p>Include <code><a href="../Orion/Constraint.html">Orion::Constraint</a></code> module and implment it's required methods to
-create custom constraints. You can read more about constraints in
-<code><a href="../Orion/DSL/Constraints.html">Orion::DSL::Constraints</a></code>.</p>
-
-
-
+  <ul class="other-types-list">
+    
+      <li class="other-type">HTTP::Handler</li>
+    
+  </ul>
 
 
 
@@ -390,6 +392,25 @@ create custom constraints. You can read more about constraints in
 
 
 
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../Orion/Handlers/Exceptions.html">Orion::Handlers::Exceptions</a></li>
+    
+      <li class="other-type"><a href="../Orion/Handlers/ResetPath.html">Orion::Handlers::ResetPath</a></li>
+    
+      <li class="other-type"><a href="../Orion/Handlers/RouteFinder.html">Orion::Handlers::RouteFinder</a></li>
+    
+      <li class="other-type"><a href="../Orion/Handlers/ScopeBasePath.html">Orion::Handlers::ScopeBasePath</a></li>
+    
+  </ul>
 
 
 
@@ -423,7 +444,12 @@ create custom constraints. You can read more about constraints in
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#matches?(request:HTTP::Request)-instance-method" class="signature"><strong>#matches?</strong>(request : HTTP::Request)</a>
+        <a href="#call(context:HTTP::Server::Context)-instance-method" class="signature"><strong>#call</strong>(context : HTTP::Server::Context)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#call(context:Server::Context)-instance-method" class="signature"><strong>#call</strong>(context : Server::Context)</a>
         
       </li>
     
@@ -434,6 +460,16 @@ create custom constraints. You can read more about constraints in
 
 
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
@@ -451,12 +487,26 @@ create custom constraints. You can read more about constraints in
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="matches?(request:HTTP::Request)-instance-method">
+    <div class="entry-detail" id="call(context:HTTP::Server::Context)-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>(context : HTTP::Server::Context)
+
+        <a class="method-permalink" href="#call(context:HTTP::Server::Context)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="call(context:Server::Context)-instance-method">
       <div class="signature">
         abstract 
-        def <strong>matches?</strong>(request : <a href="../HTTP/Request.html">HTTP::Request</a>)
+        def <strong>call</strong>(context : <a href="../Orion/Server/Context.html">Server::Context</a>)
 
-        <a class="method-permalink" href="#matches?(request:HTTP::Request)-instance-method">#</a>
+        <a class="method-permalink" href="#call(context:Server::Context)-instance-method">#</a>
       </div>
       
       <br/>

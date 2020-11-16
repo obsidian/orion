@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::DSL::WebSockets - orion 4.0.0-beta1</title>
+  <title>Orion::View::Renderer - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -151,7 +151,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
       <a href="../../Orion/DSL.html">DSL</a>
       
         <ul>
@@ -211,7 +211,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
       <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
       
     </li>
@@ -306,7 +306,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/View" data-name="orion::view">
+  <li class="parent open current" data-id="orion/Orion/View" data-name="orion::view">
       <a href="../../Orion/View.html">View</a>
       
         <ul>
@@ -331,7 +331,7 @@
       
     </li>
   
-  <li class=" " data-id="orion/Orion/View/Renderer" data-name="orion::view::renderer">
+  <li class=" current" data-id="orion/Orion/View/Renderer" data-name="orion::view::renderer">
       <a href="../../Orion/View/Renderer.html">Renderer</a>
       
     </li>
@@ -360,33 +360,59 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::DSL::WebSockets
+  <span class="kind">class</span> Orion::View::Renderer
 
 </h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Orion/View/Renderer.html">Orion::View::Renderer</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
 
 
 
 
 
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="included-modules" class="anchor" href="#included-modules">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Included Modules
   </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></li>
+    
+      <li class="other-type"><a href="../../Orion/View/AssetTagHelpers.html">Orion::View::AssetTagHelpers</a></li>
+    
+      <li class="other-type"><a href="../../Orion/View/CacheHelpers.html">Orion::View::CacheHelpers</a></li>
+    
+      <li class="other-type"><a href="../../Orion/View/PartialHelpers.html">Orion::View::PartialHelpers</a></li>
+    
+      <li class="other-type">Orion::View::Registry</li>
+    
+  </ul>
 
-  <p>The websocket handlers allow you to easily add websocket support to your
-application.</p>
 
 
 
 
-
-
-
-
+  <h2>
+    <a id="direct-known-subclasses" class="anchor" href="#direct-known-subclasses">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct Known Subclasses
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../Orion/Controller/Base/Renderer.html">Orion::Controller::Base::Renderer</a></li>
+    
+  </ul>
 
 
 
@@ -407,47 +433,18 @@ application.</p>
 
 
 
-
-
-
-
-
-
   <h2>
-    <a id="macro-summary" class="anchor" href="#macro-summary">
+    <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Summary
+    Constructors
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#ws(path,ws_callable,*,helper=nil)-macro" class="signature"><strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a callable object.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,to,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a websocket compatible controller and action (short form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,helper=nil,&block)-macro" class="signature"><strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)</a>
-        
-          <div class="summary"><p>Defines a match route with a block.</p></div>
+        <a href="#new(controller:Orion::Controller)-class-method" class="signature"><strong>.new</strong>(controller : Orion::Controller)</a>
         
       </li>
     
@@ -455,49 +452,323 @@ application.</p>
 
 
 
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#__kilt_io__:IO-instance-method" class="signature"><strong>#__kilt_io__</strong> : IO</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#config:Orion::Config::ReadOnly-instance-method" class="signature"><strong>#config</strong> : Orion::Config::ReadOnly</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#controller_name:String-instance-method" class="signature"><strong>#controller_name</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#request:Orion::Server::Request-instance-method" class="signature"><strong>#request</strong> : Orion::Server::Request</a>
+        
+          <div class="summary"><p>The <code><a href="../../HTTP/Request.html">HTTP::Request</a></code> object.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../../Orion/View/AssetTagHelpers.html">Orion::View::AssetTagHelpers</a></code></h3>
+  
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#asset_path(file,*,extname:String?=nil)-instance-method" class="tooltip">
+      <span>asset_path(file, *, extname : String? = <span class="n">nil</span>)</span>
+    asset_path</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#asset_url(file:String,*,extname:String?=nil)-instance-method" class="tooltip">
+      <span>asset_url(file : String, *, extname : String? = <span class="n">nil</span>)</span>
+    asset_url</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#auto_discovery_link_tag(type:String,href,**attrs)-instance-method" class="tooltip">
+      <span>auto_discovery_link_tag(type : String, href, **attrs)</span>
+    auto_discovery_link_tag</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#image_path(src:String)-instance-method" class="tooltip">
+      <span>image_path(src : String)</span>
+    image_path</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#image_tag(src:String,**attrs)-instance-method" class="tooltip">
+      <span>image_tag(src : String, **attrs)</span>
+    image_tag</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#image_url(src:String)-instance-method" class="tooltip">
+      <span>image_url(src : String)</span>
+    image_url</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#javascript_include_tag(src,**attrs)-instance-method" class="tooltip">
+      <span>javascript_include_tag(src, **attrs)</span>
+    javascript_include_tag</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#javascript_path(file)-instance-method" class="tooltip">
+      <span>javascript_path(file)</span>
+    javascript_path</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#javascript_url(file:String)-instance-method" class="tooltip">
+      <span>javascript_url(file : String)</span>
+    javascript_url</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#stylesheet_link_tag(href,**attrs)-instance-method" class="tooltip">
+      <span>stylesheet_link_tag(href, **attrs)</span>
+    stylesheet_link_tag</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#stylesheet_path(file)-instance-method" class="tooltip">
+      <span>stylesheet_path(file)</span>
+    stylesheet_path</a>, 
+    
+  
+    <a href="../../Orion/View/AssetTagHelpers.html#stylesheet_url(file:String)-instance-method" class="tooltip">
+      <span>stylesheet_url(file : String)</span>
+    stylesheet_url</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></code></h3>
+  
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#format-instance-method" class="tooltip">
+      <span>format</span>
+    format</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#formats-instance-method" class="tooltip">
+      <span>formats</span>
+    formats</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#host-instance-method" class="tooltip">
+      <span>host</span>
+    host</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#path_params-instance-method" class="tooltip">
+      <span>path_params</span>
+    path_params</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#query_params-instance-method" class="tooltip">
+      <span>query_params</span>
+    query_params</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#remote_address-instance-method" class="tooltip">
+      <span>remote_address</span>
+    remote_address</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#request-instance-method" class="tooltip">
+      <span>request</span>
+    request</a>, 
+    
+  
+    <a href="../../Orion/Controller/RequestHelpers.html#resource-instance-method" class="tooltip">
+      <span>resource</span>
+    resource</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
 
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(controller:Orion::Controller)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(controller : <a href="../../Orion/Controller.html">Orion::Controller</a>)
 
+        <a class="method-permalink" href="#new(controller:Orion::Controller)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 
 
 
   <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="ws(path,ws_callable,*,helper=nil)-macro">
+    <div class="entry-detail" id="__kilt_io__:IO-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)
+        def <strong>__kilt_io__</strong> : IO
 
-        <a class="method-permalink" href="#ws(path,ws_callable,*,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#__kilt_io__:IO-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="config:Orion::Config::ReadOnly-instance-method">
+      <div class="signature">
+        
+        def <strong>config</strong> : <a href="../../Orion/Config/ReadOnly.html">Orion::Config::ReadOnly</a>
+
+        <a class="method-permalink" href="#config:Orion::Config::ReadOnly-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="controller_name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>controller_name</strong> : String
+
+        <a class="method-permalink" href="#controller_name:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="request:Orion::Server::Request-instance-method">
+      <div class="signature">
+        
+        def <strong>request</strong> : <a href="../../Orion/Server/Request.html">Orion::Server::Request</a>
+
+        <a class="method-permalink" href="#request:Orion::Server::Request-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a callable object.</p>
-
-<p>You can route to any object that responds to <code>call</code> with a <code>HTTP::WebSocket</code> and an <code>HTTP::Server::Context</code>.</p>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="t">Callable</span>
-  <span class="k">def</span> <span class="m">call</span>(ws : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>, cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from module <a href="../../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a>
+            </div>
+          
+          <p>The <code><a href="../../HTTP/Request.html">HTTP::Request</a></code> object.</p>
         </div>
       
       <br/>
@@ -506,98 +777,8 @@ application.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,to,helper=nil)-macro">
-      <div class="signature">
-        
-        macro <strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#ws(path,*,to,helper=nil)-macro">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Defines a websocket route to a websocket compatible controller and action (short form).
-You can route to a controller and action by passing the <code>to</code> argument in
-the form of <code>"MyWebSocket#action"</code>.</p>
 
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;Sample#ws&quot;</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">
-      <div class="signature">
-        
-        macro <strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)
-
-        <a class="method-permalink" href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Defines a match route to a controller and action (long form).
-You can route to a controller and action by passing the <code>controller</code> and
-<code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, controller: <span class="t">SampleController</span>, action: ws
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="ws(path,*,helper=nil,&amp;block)-macro">
-      <div class="signature">
-        
-        macro <strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)
-
-        <a class="method-permalink" href="#ws(path,*,helper=nil,&block)-macro">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Defines a match route with a block.</p>
-
-<p>Pass a block as the response and it will be evaluated as a controller</p>
-
-<ol><li>.2 block parameters are accepted. The block itself will always be evaluated
-as a controller and have access to all controller methods and macros.</li></ol>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>websocket, context<span class="o">|</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
 
 
 </div>

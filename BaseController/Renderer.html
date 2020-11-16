@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::Constraint - orion 4.0.0-beta1</title>
+  <title>BaseController::Renderer - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -61,7 +61,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/BaseController" data-name="basecontroller">
+  <li class="parent open current" data-id="orion/BaseController" data-name="basecontroller">
       <a href="../BaseController.html">BaseController</a>
       
         <ul>
@@ -71,7 +71,7 @@
       
     </li>
   
-  <li class=" " data-id="orion/BaseController/Renderer" data-name="basecontroller::renderer">
+  <li class=" current" data-id="orion/BaseController/Renderer" data-name="basecontroller::renderer">
       <a href="../BaseController/Renderer.html">Renderer</a>
       
     </li>
@@ -81,7 +81,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+  <li class="parent " data-id="orion/Orion" data-name="orion">
       <a href="../Orion.html">Orion</a>
       
         <ul>
@@ -116,7 +116,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/Constraint" data-name="orion::constraint">
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
       <a href="../Orion/Constraint.html">Constraint</a>
       
     </li>
@@ -360,10 +360,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::Constraint
+  <span class="kind">class</span> BaseController::Renderer
 
 </h1>
 
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../BaseController/Renderer.html">BaseController::Renderer</a></li><li class="superclass"><a href="../Orion/Controller/Base/Renderer.html">Orion::Controller::Base::Renderer</a></li><li class="superclass"><a href="../Orion/View/Renderer.html">Orion::View::Renderer</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -377,9 +379,7 @@
     Overview
   </h2>
 
-  <p>Include <code><a href="../Orion/Constraint.html">Orion::Constraint</a></code> module and implment it's required methods to
-create custom constraints. You can read more about constraints in
-<code><a href="../Orion/DSL/Constraints.html">Orion::DSL::Constraints</a></code>.</p>
+  <p>Add the controller</p>
 
 
 
@@ -412,28 +412,242 @@ create custom constraints. You can read more about constraints in
 
 
 
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#matches?(request:HTTP::Request)-instance-method" class="signature"><strong>#matches?</strong>(request : HTTP::Request)</a>
-        
-      </li>
-    
-  </ul>
-
 
 
 
 
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from class <code><a href="../Orion/View/Renderer.html">Orion::View::Renderer</a></code></h3>
+  
+  
+    <a href="../Orion/View/Renderer.html#__kilt_io__:IO-instance-method" class="tooltip">
+      <span>__kilt_io__ : IO</span>
+    __kilt_io__</a>, 
+    
+  
+    <a href="../Orion/View/Renderer.html#config:Orion::Config::ReadOnly-instance-method" class="tooltip">
+      <span>config : Orion::Config::ReadOnly</span>
+    config</a>, 
+    
+  
+    <a href="../Orion/View/Renderer.html#controller_name:String-instance-method" class="tooltip">
+      <span>controller_name : String</span>
+    controller_name</a>, 
+    
+  
+    <a href="../Orion/View/Renderer.html#request:Orion::Server::Request-instance-method" class="tooltip">
+      <span>request : Orion::Server::Request</span>
+    request</a>
+    
+  
+
+
+    
+
+  <h3>Constructor methods inherited from class <code><a href="../Orion/View/Renderer.html">Orion::View::Renderer</a></code></h3>
+  
+  
+    <a href="../Orion/View/Renderer.html#new(controller:Orion::Controller)-class-method" class="tooltip">
+      <span>new(controller : Orion::Controller)</span>
+    new</a>
+    
+  
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../Orion/View/AssetTagHelpers.html">Orion::View::AssetTagHelpers</a></code></h3>
+  
+  
+    <a href="../Orion/View/AssetTagHelpers.html#asset_path(file,*,extname:String?=nil)-instance-method" class="tooltip">
+      <span>asset_path(file, *, extname : String? = <span class="n">nil</span>)</span>
+    asset_path</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#asset_url(file:String,*,extname:String?=nil)-instance-method" class="tooltip">
+      <span>asset_url(file : String, *, extname : String? = <span class="n">nil</span>)</span>
+    asset_url</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#auto_discovery_link_tag(type:String,href,**attrs)-instance-method" class="tooltip">
+      <span>auto_discovery_link_tag(type : String, href, **attrs)</span>
+    auto_discovery_link_tag</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#image_path(src:String)-instance-method" class="tooltip">
+      <span>image_path(src : String)</span>
+    image_path</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#image_tag(src:String,**attrs)-instance-method" class="tooltip">
+      <span>image_tag(src : String, **attrs)</span>
+    image_tag</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#image_url(src:String)-instance-method" class="tooltip">
+      <span>image_url(src : String)</span>
+    image_url</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#javascript_include_tag(src,**attrs)-instance-method" class="tooltip">
+      <span>javascript_include_tag(src, **attrs)</span>
+    javascript_include_tag</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#javascript_path(file)-instance-method" class="tooltip">
+      <span>javascript_path(file)</span>
+    javascript_path</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#javascript_url(file:String)-instance-method" class="tooltip">
+      <span>javascript_url(file : String)</span>
+    javascript_url</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#stylesheet_link_tag(href,**attrs)-instance-method" class="tooltip">
+      <span>stylesheet_link_tag(href, **attrs)</span>
+    stylesheet_link_tag</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#stylesheet_path(file)-instance-method" class="tooltip">
+      <span>stylesheet_path(file)</span>
+    stylesheet_path</a>, 
+    
+  
+    <a href="../Orion/View/AssetTagHelpers.html#stylesheet_url(file:String)-instance-method" class="tooltip">
+      <span>stylesheet_url(file : String)</span>
+    stylesheet_url</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></code></h3>
+  
+  
+    <a href="../Orion/Controller/RequestHelpers.html#format-instance-method" class="tooltip">
+      <span>format</span>
+    format</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#formats-instance-method" class="tooltip">
+      <span>formats</span>
+    formats</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#host-instance-method" class="tooltip">
+      <span>host</span>
+    host</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#path_params-instance-method" class="tooltip">
+      <span>path_params</span>
+    path_params</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#query_params-instance-method" class="tooltip">
+      <span>query_params</span>
+    query_params</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#remote_address-instance-method" class="tooltip">
+      <span>remote_address</span>
+    remote_address</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#request-instance-method" class="tooltip">
+      <span>request</span>
+    request</a>, 
+    
+  
+    <a href="../Orion/Controller/RequestHelpers.html#resource-instance-method" class="tooltip">
+      <span>resource</span>
+    resource</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
@@ -441,30 +655,6 @@ create custom constraints. You can read more about constraints in
 
 
 
-
-  <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="matches?(request:HTTP::Request)-instance-method">
-      <div class="signature">
-        abstract 
-        def <strong>matches?</strong>(request : <a href="../HTTP/Request.html">HTTP::Request</a>)
-
-        <a class="method-permalink" href="#matches?(request:HTTP::Request)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
 
 
 

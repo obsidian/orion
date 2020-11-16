@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::DSL::WebSockets - orion 4.0.0-beta1</title>
+  <title>Orion::Server::RequestProcessor - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -151,7 +151,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
       <a href="../../Orion/DSL.html">DSL</a>
       
         <ul>
@@ -211,7 +211,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
       <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
       
     </li>
@@ -276,7 +276,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/Server" data-name="orion::server">
+  <li class="parent open current" data-id="orion/Orion/Server" data-name="orion::server">
       <a href="../../Orion/Server.html">Server</a>
       
         <ul>
@@ -291,7 +291,7 @@
       
     </li>
   
-  <li class=" " data-id="orion/Orion/Server/RequestProcessor" data-name="orion::server::requestprocessor">
+  <li class=" current" data-id="orion/Orion/Server/RequestProcessor" data-name="orion::server::requestprocessor">
       <a href="../../Orion/Server/RequestProcessor.html">RequestProcessor</a>
       
     </li>
@@ -360,29 +360,33 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::DSL::WebSockets
+  <span class="kind">class</span> Orion::Server::RequestProcessor
 
 </h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Orion/Server/RequestProcessor.html">Orion::Server::RequestProcessor</a></li><li class="superclass">HTTP::Server::RequestProcessor</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
 
 
 
 
 
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="included-modules" class="anchor" href="#included-modules">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Included Modules
   </h2>
-
-  <p>The websocket handlers allow you to easily add websocket support to your
-application.</p>
-
-
-
-
+  <ul class="other-types-list">
+    
+      <li class="other-type">HTTP</li>
+    
+  </ul>
 
 
 
@@ -407,47 +411,23 @@ application.</p>
 
 
 
-
-
-
-
-
-
   <h2>
-    <a id="macro-summary" class="anchor" href="#macro-summary">
+    <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Summary
+    Constructors
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#ws(path,ws_callable,*,helper=nil)-macro" class="signature"><strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a callable object.</p></div>
+        <a href="#new(&handler:HTTP::Handler::HandlerProc)-class-method" class="signature"><strong>.new</strong>(&handler : HTTP::Handler::HandlerProc)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,to,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a websocket compatible controller and action (short form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,helper=nil,&block)-macro" class="signature"><strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)</a>
-        
-          <div class="summary"><p>Defines a match route with a block.</p></div>
+        <a href="#new(handler:HTTP::Handler%7CHTTP::Handler::HandlerProc)-class-method" class="signature"><strong>.new</strong>(handler : HTTP::Handler | HTTP::Handler::HandlerProc)</a>
         
       </li>
     
@@ -455,49 +435,187 @@ application.</p>
 
 
 
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#close-instance-method" class="signature"><strong>#close</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_headers_size:Int32-instance-method" class="signature"><strong>#max_headers_size</strong> : Int32</a>
+        
+          <div class="summary"><p>Maximum permitted combined size of the headers in an HTTP request.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_headers_size=(max_headers_size)-instance-method" class="signature"><strong>#max_headers_size=</strong>(max_headers_size)</a>
+        
+          <div class="summary"><p>Maximum permitted combined size of the headers in an HTTP request.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_request_line_size:Int32-instance-method" class="signature"><strong>#max_request_line_size</strong> : Int32</a>
+        
+          <div class="summary"><p>Maximum permitted size of the request line in an HTTP request.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_request_line_size=(max_request_line_size)-instance-method" class="signature"><strong>#max_request_line_size=</strong>(max_request_line_size)</a>
+        
+          <div class="summary"><p>Maximum permitted size of the request line in an HTTP request.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#process(input,output)-instance-method" class="signature"><strong>#process</strong>(input, output)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
 
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(&handler:HTTP::Handler::HandlerProc)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(&handler : HTTP::Handler::HandlerProc)
 
+        <a class="method-permalink" href="#new(&handler:HTTP::Handler::HandlerProc)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(handler:HTTP::Handler|HTTP::Handler::HandlerProc)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(handler : HTTP::Handler | HTTP::Handler::HandlerProc)
+
+        <a class="method-permalink" href="#new(handler:HTTP::Handler%7CHTTP::Handler::HandlerProc)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 
 
 
   <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="ws(path,ws_callable,*,helper=nil)-macro">
+    <div class="entry-detail" id="close-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)
+        def <strong>close</strong>
 
-        <a class="method-permalink" href="#ws(path,ws_callable,*,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#close-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max_headers_size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>max_headers_size</strong> : Int32
+
+        <a class="method-permalink" href="#max_headers_size:Int32-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a callable object.</p>
-
-<p>You can route to any object that responds to <code>call</code> with a <code>HTTP::WebSocket</code> and an <code>HTTP::Server::Context</code>.</p>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="t">Callable</span>
-  <span class="k">def</span> <span class="m">call</span>(ws : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>, cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from class HTTP::Server::RequestProcessor
+            </div>
+          
+          <p>Maximum permitted combined size of the headers in an HTTP request.</p>
         </div>
       
       <br/>
@@ -506,29 +624,21 @@ application.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,to,helper=nil)-macro">
+    <div class="entry-detail" id="max_headers_size=(max_headers_size)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)
+        def <strong>max_headers_size=</strong>(max_headers_size)
 
-        <a class="method-permalink" href="#ws(path,*,to,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#max_headers_size=(max_headers_size)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a websocket compatible controller and action (short form).
-You can route to a controller and action by passing the <code>to</code> argument in
-the form of <code>"MyWebSocket#action"</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;Sample#ws&quot;</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from class HTTP::Server::RequestProcessor
+            </div>
+          
+          <p>Maximum permitted combined size of the headers in an HTTP request.</p>
         </div>
       
       <br/>
@@ -537,29 +647,21 @@ the form of <code>"MyWebSocket#action"</code>.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">
+    <div class="entry-detail" id="max_request_line_size:Int32-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)
+        def <strong>max_request_line_size</strong> : Int32
 
-        <a class="method-permalink" href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#max_request_line_size:Int32-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route to a controller and action (long form).
-You can route to a controller and action by passing the <code>controller</code> and
-<code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, controller: <span class="t">SampleController</span>, action: ws
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from class HTTP::Server::RequestProcessor
+            </div>
+          
+          <p>Maximum permitted size of the request line in an HTTP request.</p>
         </div>
       
       <br/>
@@ -568,28 +670,21 @@ You can route to a controller and action by passing the <code>controller</code> 
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,helper=nil,&amp;block)-macro">
+    <div class="entry-detail" id="max_request_line_size=(max_request_line_size)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)
+        def <strong>max_request_line_size=</strong>(max_request_line_size)
 
-        <a class="method-permalink" href="#ws(path,*,helper=nil,&block)-macro">#</a>
+        <a class="method-permalink" href="#max_request_line_size=(max_request_line_size)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route with a block.</p>
-
-<p>Pass a block as the response and it will be evaluated as a controller</p>
-
-<ol><li>.2 block parameters are accepted. The block itself will always be evaluated
-as a controller and have access to all controller methods and macros.</li></ol>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>websocket, context<span class="o">|</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from class HTTP::Server::RequestProcessor
+            </div>
+          
+          <p>Maximum permitted size of the request line in an HTTP request.</p>
         </div>
       
       <br/>
@@ -598,6 +693,22 @@ as a controller and have access to all controller methods and macros.</li></ol>
       </div>
     </div>
   
+    <div class="entry-detail" id="process(input,output)-instance-method">
+      <div class="signature">
+        
+        def <strong>process</strong>(input, output)
+
+        <a class="method-permalink" href="#process(input,output)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
 
 
 </div>

@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::DSL::WebSockets - orion 4.0.0-beta1</title>
+  <title>Orion::Server::Request - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -151,7 +151,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
       <a href="../../Orion/DSL.html">DSL</a>
       
         <ul>
@@ -211,7 +211,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
       <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
       
     </li>
@@ -276,7 +276,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/Server" data-name="orion::server">
+  <li class="parent open current" data-id="orion/Orion/Server" data-name="orion::server">
       <a href="../../Orion/Server.html">Server</a>
       
         <ul>
@@ -286,7 +286,7 @@
       
     </li>
   
-  <li class=" " data-id="orion/Orion/Server/Request" data-name="orion::server::request">
+  <li class=" current" data-id="orion/Orion/Server/Request" data-name="orion::server::request">
       <a href="../../Orion/Server/Request.html">Request</a>
       
     </li>
@@ -360,25 +360,15 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::DSL::WebSockets
+  <span class="kind">class</span> Orion::Server::Request
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Orion/Server/Request.html">Orion::Server::Request</a></li><li class="superclass"><a href="../../HTTP/Request.html">HTTP::Request</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
-
-  <p>The websocket handlers allow you to easily add websocket support to your
-application.</p>
 
 
 
@@ -411,43 +401,75 @@ application.</p>
 
 
 
-
-
   <h2>
-    <a id="macro-summary" class="anchor" href="#macro-summary">
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Summary
+    Instance Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#ws(path,ws_callable,*,helper=nil)-macro" class="signature"><strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a callable object.</p></div>
+        <a href="#action:Orion::Action?-instance-method" class="signature"><strong>#action</strong> : Orion::Action?</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,to,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a websocket compatible controller and action (short form).</p></div>
+        <a href="#action=(action:Orion::Action?)-instance-method" class="signature"><strong>#action=</strong>(action : Orion::Action?)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
+        <a href="#base_path:String-instance-method" class="signature"><strong>#base_path</strong> : String</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,helper=nil,&block)-macro" class="signature"><strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)</a>
+        <a href="#base_path=(base_path:String)-instance-method" class="signature"><strong>#base_path=</strong>(base_path : String)</a>
         
-          <div class="summary"><p>Defines a match route with a block.</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#format-instance-method" class="signature"><strong>#format</strong></a>
+        
+          <div class="summary"><p>The format of the http request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#formats-instance-method" class="signature"><strong>#formats</strong></a>
+        
+          <div class="summary"><p>The formats of the http request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#path=(new_path)-instance-method" class="signature"><strong>#path=</strong>(new_path)</a>
+        
+          <div class="summary"><p>Sets request's path component.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#path_params-instance-method" class="signature"><strong>#path_params</strong></a>
+        
+          <div class="summary"><p>Returns the list of path params set by an Orion route.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#path_params=(path_params:Hash(String,String)?)-instance-method" class="signature"><strong>#path_params=</strong>(path_params : Hash(String, String)?)</a>
+        
+          <div class="summary"><p>:nodoc:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reset_path!-instance-method" class="signature"><strong>#reset_path!</strong></a>
+        
+          <div class="summary"><p>The original path of the request</p></div>
         
       </li>
     
@@ -455,7 +477,78 @@ application.</p>
 
 
 
+
+
 <div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from class <code><a href="../../HTTP/Request.html">HTTP::Request</a></code></h3>
+  
+  
+    <a href="../../HTTP/Request.html#action:Orion::Action?-instance-method" class="tooltip">
+      <span>action : Orion::Action?</span>
+    action</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#action=(action:Orion::Action?)-instance-method" class="tooltip">
+      <span>action=(action : Orion::Action?)</span>
+    action=</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#base_path:String-instance-method" class="tooltip">
+      <span>base_path : String</span>
+    base_path</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#base_path=(base_path:String)-instance-method" class="tooltip">
+      <span>base_path=(base_path : String)</span>
+    base_path=</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#format-instance-method" class="tooltip">
+      <span>format</span>
+    format</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#formats-instance-method" class="tooltip">
+      <span>formats</span>
+    formats</a>, 
+    
+  
+    <a href="../../HTTP/Request.html#path_params-instance-method" class="tooltip">
+      <span>path_params</span>
+    path_params</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
@@ -464,40 +557,82 @@ application.</p>
 
 
 
-
-
   <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="ws(path,ws_callable,*,helper=nil)-macro">
+    <div class="entry-detail" id="action:Orion::Action?-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)
+        def <strong>action</strong> : Orion::Action?
 
-        <a class="method-permalink" href="#ws(path,ws_callable,*,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#action:Orion::Action?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="action=(action:Orion::Action?)-instance-method">
+      <div class="signature">
+        
+        def <strong>action=</strong>(action : Orion::Action?)
+
+        <a class="method-permalink" href="#action=(action:Orion::Action?)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="base_path:String-instance-method">
+      <div class="signature">
+        
+        def <strong>base_path</strong> : String
+
+        <a class="method-permalink" href="#base_path:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="base_path=(base_path:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>base_path=</strong>(base_path : String)
+
+        <a class="method-permalink" href="#base_path=(base_path:String)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="format-instance-method">
+      <div class="signature">
+        
+        def <strong>format</strong>
+
+        <a class="method-permalink" href="#format-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a callable object.</p>
-
-<p>You can route to any object that responds to <code>call</code> with a <code>HTTP::WebSocket</code> and an <code>HTTP::Server::Context</code>.</p>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="t">Callable</span>
-  <span class="k">def</span> <span class="m">call</span>(ws : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>, cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>The format of the http request</p>
         </div>
       
       <br/>
@@ -506,29 +641,17 @@ application.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,to,helper=nil)-macro">
+    <div class="entry-detail" id="formats-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)
+        def <strong>formats</strong>
 
-        <a class="method-permalink" href="#ws(path,*,to,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#formats-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a websocket compatible controller and action (short form).
-You can route to a controller and action by passing the <code>to</code> argument in
-the form of <code>"MyWebSocket#action"</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;Sample#ws&quot;</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>The formats of the http request</p>
         </div>
       
       <br/>
@@ -537,29 +660,21 @@ the form of <code>"MyWebSocket#action"</code>.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">
+    <div class="entry-detail" id="path=(new_path)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)
+        def <strong>path=</strong>(new_path)
 
-        <a class="method-permalink" href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#path=(new_path)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route to a controller and action (long form).
-You can route to a controller and action by passing the <code>controller</code> and
-<code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, controller: <span class="t">SampleController</span>, action: ws
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+            <div class="doc-inherited">
+              Description copied from class <a href="../../HTTP/Request.html">HTTP::Request</a>
+            </div>
+          
+          <p>Sets request's path component.</p>
         </div>
       
       <br/>
@@ -568,28 +683,17 @@ You can route to a controller and action by passing the <code>controller</code> 
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,helper=nil,&amp;block)-macro">
+    <div class="entry-detail" id="path_params-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)
+        def <strong>path_params</strong>
 
-        <a class="method-permalink" href="#ws(path,*,helper=nil,&block)-macro">#</a>
+        <a class="method-permalink" href="#path_params-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route with a block.</p>
-
-<p>Pass a block as the response and it will be evaluated as a controller</p>
-
-<ol><li>.2 block parameters are accepted. The block itself will always be evaluated
-as a controller and have access to all controller methods and macros.</li></ol>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>websocket, context<span class="o">|</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>Returns the list of path params set by an Orion route.</p>
         </div>
       
       <br/>
@@ -598,6 +702,50 @@ as a controller and have access to all controller methods and macros.</li></ol>
       </div>
     </div>
   
+    <div class="entry-detail" id="path_params=(path_params:Hash(String,String)?)-instance-method">
+      <div class="signature">
+        
+        def <strong>path_params=</strong>(path_params : Hash(String, String)?)
+
+        <a class="method-permalink" href="#path_params=(path_params:Hash(String,String)?)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../../HTTP/Request.html">HTTP::Request</a>
+            </div>
+          
+          <p>:nodoc:</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reset_path!-instance-method">
+      <div class="signature">
+        
+        def <strong>reset_path!</strong>
+
+        <a class="method-permalink" href="#reset_path!-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The original path of the request</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
 
 
 </div>

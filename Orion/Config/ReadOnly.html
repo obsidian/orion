@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::DSL::WebSockets - orion 4.0.0-beta1</title>
+  <title>Orion::Config::ReadOnly - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -101,12 +101,12 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/Config" data-name="orion::config">
+  <li class="parent open current" data-id="orion/Orion/Config" data-name="orion::config">
       <a href="../../Orion/Config.html">Config</a>
       
         <ul>
   
-  <li class=" " data-id="orion/Orion/Config/ReadOnly" data-name="orion::config::readonly">
+  <li class=" current" data-id="orion/Orion/Config/ReadOnly" data-name="orion::config::readonly">
       <a href="../../Orion/Config/ReadOnly.html">ReadOnly</a>
       
     </li>
@@ -151,7 +151,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
       <a href="../../Orion/DSL.html">DSL</a>
       
         <ul>
@@ -211,7 +211,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
       <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
       
     </li>
@@ -360,25 +360,15 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::DSL::WebSockets
+  <span class="kind">struct</span> Orion::Config::ReadOnly
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Orion/Config/ReadOnly.html">Orion::Config::ReadOnly</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
-
-  <p>The websocket handlers allow you to easily add websocket support to your
-application.</p>
 
 
 
@@ -407,47 +397,18 @@ application.</p>
 
 
 
-
-
-
-
-
-
   <h2>
-    <a id="macro-summary" class="anchor" href="#macro-summary">
+    <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Summary
+    Constructors
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#ws(path,ws_callable,*,helper=nil)-macro" class="signature"><strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a callable object.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,to,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a websocket compatible controller and action (short form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,helper=nil,&block)-macro" class="signature"><strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)</a>
-        
-          <div class="summary"><p>Defines a match route with a block.</p></div>
+        <a href="#new(config:Orion::Config)-class-method" class="signature"><strong>.new</strong>(config : Orion::Config)</a>
         
       </li>
     
@@ -455,50 +416,153 @@ application.</p>
 
 
 
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#address:Socket::IPAddress%7CSocket::UNIXAddress%7CNil-instance-method" class="signature"><strong>#address</strong> : Socket::IPAddress | Socket::UNIXAddress | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#asset_host:String?-instance-method" class="signature"><strong>#asset_host</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cache:Orion::Cache-instance-method" class="signature"><strong>#cache</strong> : Orion::Cache</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#host:String?-instance-method" class="signature"><strong>#host</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#logger:Log?-instance-method" class="signature"><strong>#logger</strong> : Log?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name:String-instance-method" class="signature"><strong>#name</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#path:String?-instance-method" class="signature"><strong>#path</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#port:Int32?-instance-method" class="signature"><strong>#port</strong> : Int32?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#uri:URI?-instance-method" class="signature"><strong>#uri</strong> : URI?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#workers:Int32%7CInt64-instance-method" class="signature"><strong>#workers</strong> : Int32 | Int64</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
 
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(config:Orion::Config)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(config : <a href="../../Orion/Config.html">Orion::Config</a>)
 
+        <a class="method-permalink" href="#new(config:Orion::Config)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 
 
 
   <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="ws(path,ws_callable,*,helper=nil)-macro">
+    <div class="entry-detail" id="address:Socket::IPAddress|Socket::UNIXAddress|Nil-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)
+        def <strong>address</strong> : Socket::IPAddress | Socket::UNIXAddress | Nil
 
-        <a class="method-permalink" href="#ws(path,ws_callable,*,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#address:Socket::IPAddress%7CSocket::UNIXAddress%7CNil-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Defines a websocket route to a callable object.</p>
-
-<p>You can route to any object that responds to <code>call</code> with a <code>HTTP::WebSocket</code> and an <code>HTTP::Server::Context</code>.</p>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="t">Callable</span>
-  <span class="k">def</span> <span class="m">call</span>(ws : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>, cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
       
       <br/>
       <div>
@@ -506,30 +570,13 @@ application.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,to,helper=nil)-macro">
+    <div class="entry-detail" id="asset_host:String?-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)
+        def <strong>asset_host</strong> : String?
 
-        <a class="method-permalink" href="#ws(path,*,to,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#asset_host:String?-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Defines a websocket route to a websocket compatible controller and action (short form).
-You can route to a controller and action by passing the <code>to</code> argument in
-the form of <code>"MyWebSocket#action"</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;Sample#ws&quot;</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
       
       <br/>
       <div>
@@ -537,30 +584,13 @@ the form of <code>"MyWebSocket#action"</code>.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">
+    <div class="entry-detail" id="cache:Orion::Cache-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)
+        def <strong>cache</strong> : <a href="../../Orion/Cache.html">Orion::Cache</a>
 
-        <a class="method-permalink" href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#cache:Orion::Cache-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Defines a match route to a controller and action (long form).
-You can route to a controller and action by passing the <code>controller</code> and
-<code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, controller: <span class="t">SampleController</span>, action: ws
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
       
       <br/>
       <div>
@@ -568,29 +598,13 @@ You can route to a controller and action by passing the <code>controller</code> 
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,helper=nil,&amp;block)-macro">
+    <div class="entry-detail" id="host:String?-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)
+        def <strong>host</strong> : String?
 
-        <a class="method-permalink" href="#ws(path,*,helper=nil,&block)-macro">#</a>
+        <a class="method-permalink" href="#host:String?-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Defines a match route with a block.</p>
-
-<p>Pass a block as the response and it will be evaluated as a controller</p>
-
-<ol><li>.2 block parameters are accepted. The block itself will always be evaluated
-as a controller and have access to all controller methods and macros.</li></ol>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>websocket, context<span class="o">|</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-        </div>
       
       <br/>
       <div>
@@ -598,6 +612,92 @@ as a controller and have access to all controller methods and macros.</li></ol>
       </div>
     </div>
   
+    <div class="entry-detail" id="logger:Log?-instance-method">
+      <div class="signature">
+        
+        def <strong>logger</strong> : Log?
+
+        <a class="method-permalink" href="#logger:Log?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String
+
+        <a class="method-permalink" href="#name:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="path:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>path</strong> : String?
+
+        <a class="method-permalink" href="#path:String?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="port:Int32?-instance-method">
+      <div class="signature">
+        
+        def <strong>port</strong> : Int32?
+
+        <a class="method-permalink" href="#port:Int32?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="uri:URI?-instance-method">
+      <div class="signature">
+        
+        def <strong>uri</strong> : URI?
+
+        <a class="method-permalink" href="#uri:URI?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="workers:Int32|Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>workers</strong> : Int32 | Int64
+
+        <a class="method-permalink" href="#workers:Int32%7CInt64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
 
 
 </div>

@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::Constraint - orion 4.0.0-beta1</title>
+  <title>Orion::View - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -116,7 +116,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/Constraint" data-name="orion::constraint">
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
       <a href="../Orion/Constraint.html">Constraint</a>
       
     </li>
@@ -306,7 +306,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/View" data-name="orion::view">
+  <li class="parent open current" data-id="orion/Orion/View" data-name="orion::view">
       <a href="../Orion/View.html">View</a>
       
         <ul>
@@ -360,7 +360,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::Constraint
+  <span class="kind">module</span> Orion::View
 
 </h1>
 
@@ -368,28 +368,29 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Direct including types
   </h2>
-
-  <p>Include <code><a href="../Orion/Constraint.html">Orion::Constraint</a></code> module and implment it's required methods to
-create custom constraints. You can read more about constraints in
-<code><a href="../Orion/DSL/Constraints.html">Orion::DSL::Constraints</a></code>.</p>
-
-
-
-
-
-
-
-
-
-
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../Orion/Controller/Rendering.html">Orion::Controller::Rendering</a></li>
+    
+  </ul>
 
 
 
@@ -412,24 +413,47 @@ create custom constraints. You can read more about constraints in
 
 
 
+
+
   <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+    <a id="macro-summary" class="anchor" href="#macro-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Instance Method Summary
+    Macro Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#matches?(request:HTTP::Request)-instance-method" class="signature"><strong>#matches?</strong>(request : HTTP::Request)</a>
+        <a href="#layout(filename,*,locals=NamedTuple.new)-macro" class="signature"><strong>layout</strong>(filename, *, locals = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
+        
+          <div class="summary"><p>Define a layout to be used within the controller</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#render(*,view=@def.name,layout=true,locals=NamedTuple.new,layout_locals=nil)-macro" class="signature"><strong>render</strong>(*, view = @def.name, layout = <span class="n">true</span>, locals = <span class="t">NamedTuple</span>.<span class="k">new</span>, layout_locals = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Render a view</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#view_helper(mod)-macro" class="signature"><strong>view_helper</strong>(mod)</a>
+        
+          <div class="summary"><p>Include a helper module in the view Use this to add helpers to a view from a module</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#view_helper(&block)-macro" class="signature"><strong>view_helper</strong>(&block)</a>
+        
+          <div class="summary"><p>A block that can be read by the view.</p></div>
         
       </li>
     
   </ul>
-
-
 
 
 
@@ -442,22 +466,29 @@ create custom constraints. You can read more about constraints in
 
 
 
+
+
   <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+    <a id="macro-detail" class="anchor" href="#macro-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Instance Method Detail
+    Macro Detail
   </h2>
   
-    <div class="entry-detail" id="matches?(request:HTTP::Request)-instance-method">
+    <div class="entry-detail" id="layout(filename,*,locals=NamedTuple.new)-macro">
       <div class="signature">
-        abstract 
-        def <strong>matches?</strong>(request : <a href="../HTTP/Request.html">HTTP::Request</a>)
+        
+        macro <strong>layout</strong>(filename, *, locals = <span class="t">NamedTuple</span>.<span class="k">new</span>)
 
-        <a class="method-permalink" href="#matches?(request:HTTP::Request)-instance-method">#</a>
+        <a class="method-permalink" href="#layout(filename,*,locals=NamedTuple.new)-macro">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Define a layout to be used within the controller</p>
+        </div>
       
       <br/>
       <div>
@@ -465,8 +496,65 @@ create custom constraints. You can read more about constraints in
       </div>
     </div>
   
+    <div class="entry-detail" id="render(*,view=@def.name,layout=true,locals=NamedTuple.new,layout_locals=nil)-macro">
+      <div class="signature">
+        
+        macro <strong>render</strong>(*, view = @def.name, layout = <span class="n">true</span>, locals = <span class="t">NamedTuple</span>.<span class="k">new</span>, layout_locals = <span class="n">nil</span>)
 
+        <a class="method-permalink" href="#render(*,view=@def.name,layout=true,locals=NamedTuple.new,layout_locals=nil)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Render a view</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="view_helper(mod)-macro">
+      <div class="signature">
+        
+        macro <strong>view_helper</strong>(mod)
 
+        <a class="method-permalink" href="#view_helper(mod)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Include a helper module in the view
+Use this to add helpers to a view from a module</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="view_helper(&amp;block)-macro">
+      <div class="signature">
+        
+        macro <strong>view_helper</strong>(&block)
+
+        <a class="method-permalink" href="#view_helper(&block)-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>A block that can be read by the view.
+Use this to define methods that can be accessed by the view</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 </div>

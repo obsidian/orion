@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::DSL::WebSockets - orion 4.0.0-beta1</title>
+  <title>Orion::View::AssetTagHelpers - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -151,7 +151,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/DSL" data-name="orion::dsl">
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
       <a href="../../Orion/DSL.html">DSL</a>
       
         <ul>
@@ -211,7 +211,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
       <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
       
     </li>
@@ -306,12 +306,12 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/View" data-name="orion::view">
+  <li class="parent open current" data-id="orion/Orion/View" data-name="orion::view">
       <a href="../../Orion/View.html">View</a>
       
         <ul>
   
-  <li class=" " data-id="orion/Orion/View/AssetTagHelpers" data-name="orion::view::assettaghelpers">
+  <li class=" current" data-id="orion/Orion/View/AssetTagHelpers" data-name="orion::view::assettaghelpers">
       <a href="../../Orion/View/AssetTagHelpers.html">AssetTagHelpers</a>
       
     </li>
@@ -360,7 +360,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::DSL::WebSockets
+  <span class="kind">module</span> Orion::View::AssetTagHelpers
 
 </h1>
 
@@ -368,27 +368,29 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Direct including types
   </h2>
-
-  <p>The websocket handlers allow you to easily add websocket support to your
-application.</p>
-
-
-
-
-
-
-
-
-
-
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../Orion/View/Renderer.html">Orion::View::Renderer</a></li>
+    
+  </ul>
 
 
 
@@ -411,47 +413,103 @@ application.</p>
 
 
 
-
-
   <h2>
-    <a id="macro-summary" class="anchor" href="#macro-summary">
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Summary
+    Instance Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#ws(path,ws_callable,*,helper=nil)-macro" class="signature"><strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)</a>
+        <a href="#asset_path(file,*,extname:String?=nil)-instance-method" class="signature"><strong>#asset_path</strong>(file, *, extname : String? = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Defines a websocket route to a callable object.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ws(path,*,to,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Defines a websocket route to a websocket compatible controller and action (short form).</p></div>
+          <div class="summary"><p>Computes the path to an asset in the assets directory.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro" class="signature"><strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)</a>
+        <a href="#asset_url(file:String,*,extname:String?=nil)-instance-method" class="signature"><strong>#asset_url</strong>(file : String, *, extname : String? = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Defines a match route to a controller and action (long form).</p></div>
+          <div class="summary"><p>Computes the URL to an asset in the assets directory.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#ws(path,*,helper=nil,&block)-macro" class="signature"><strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)</a>
+        <a href="#auto_discovery_link_tag(type:String,href,**attrs)-instance-method" class="signature"><strong>#auto_discovery_link_tag</strong>(type : String, href, **attrs)</a>
         
-          <div class="summary"><p>Defines a match route with a block.</p></div>
+          <div class="summary"><p>Returns a link tag that browsers and feed readers can use to auto-detect an RSS, Atom, or JSON feed.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#image_path(src:String)-instance-method" class="signature"><strong>#image_path</strong>(src : String)</a>
+        
+          <div class="summary"><p>Computes the path to an image asset in the assets/images directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#image_tag(src:String,**attrs)-instance-method" class="signature"><strong>#image_tag</strong>(src : String, **attrs)</a>
+        
+          <div class="summary"><p>Returns an HTML image tag for the source.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#image_url(src:String)-instance-method" class="signature"><strong>#image_url</strong>(src : String)</a>
+        
+          <div class="summary"><p>Computes the URL to an image asset in the assets/images directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#javascript_include_tag(src,**attrs)-instance-method" class="signature"><strong>#javascript_include_tag</strong>(src, **attrs)</a>
+        
+          <div class="summary"><p>Returns an HTML script tag for each of the sources provided.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#javascript_path(file)-instance-method" class="signature"><strong>#javascript_path</strong>(file)</a>
+        
+          <div class="summary"><p>Computes the path to a JavaScript asset in the assets/javascripts directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#javascript_url(file:String)-instance-method" class="signature"><strong>#javascript_url</strong>(file : String)</a>
+        
+          <div class="summary"><p>Computes the URL to a JavaScript asset in the assets/javascripts directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stylesheet_link_tag(href,**attrs)-instance-method" class="signature"><strong>#stylesheet_link_tag</strong>(href, **attrs)</a>
+        
+          <div class="summary"><p>Returns a stylesheet link tag for the sources specified as arguments.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stylesheet_path(file)-instance-method" class="signature"><strong>#stylesheet_path</strong>(file)</a>
+        
+          <div class="summary"><p>Computes the path to a stylesheet asset in the assets/stylesheets directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stylesheet_url(file:String)-instance-method" class="signature"><strong>#stylesheet_url</strong>(file : String)</a>
+        
+          <div class="summary"><p>Computes the URL to a stylesheet asset in the assets/stylesheets directory.</p></div>
         
       </li>
     
   </ul>
+
+
 
 
 
@@ -464,40 +522,28 @@ application.</p>
 
 
 
-
-
   <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Macro Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="ws(path,ws_callable,*,helper=nil)-macro">
+    <div class="entry-detail" id="asset_path(file,*,extname:String?=nil)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, ws_callable, *, helper = <span class="n">nil</span>)
+        def <strong>asset_path</strong>(file, *, extname : String? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#ws(path,ws_callable,*,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#asset_path(file,*,extname:String?=nil)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a callable object.</p>
-
-<p>You can route to any object that responds to <code>call</code> with a <code>HTTP::WebSocket</code> and an <code>HTTP::Server::Context</code>.</p>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="t">Callable</span>
-  <span class="k">def</span> <span class="m">call</span>(ws : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>, cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>Computes the path to an asset in the assets directory. If the source
+filename has no extension, the provided extnam will be appended.
+Full paths from the document root will be passed through.</p>
         </div>
       
       <br/>
@@ -506,29 +552,18 @@ application.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,to,helper=nil)-macro">
+    <div class="entry-detail" id="asset_url(file:String,*,extname:String?=nil)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, to, helper = <span class="n">nil</span>)
+        def <strong>asset_url</strong>(file : String, *, extname : String? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#ws(path,*,to,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#asset_url(file:String,*,extname:String?=nil)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a websocket route to a websocket compatible controller and action (short form).
-You can route to a controller and action by passing the <code>to</code> argument in
-the form of <code>"MyWebSocket#action"</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;Sample#ws&quot;</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>Computes the URL to an asset in the assets directory. This will call
+asset_path internally and merge with your current host or your asset host.</p>
         </div>
       
       <br/>
@@ -537,29 +572,18 @@ the form of <code>"MyWebSocket#action"</code>.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">
+    <div class="entry-detail" id="auto_discovery_link_tag(type:String,href,**attrs)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, action, controller = <span class="t">CONTROLLER</span>, helper = <span class="n">nil</span>)
+        def <strong>auto_discovery_link_tag</strong>(type : String, href, **attrs)
 
-        <a class="method-permalink" href="#ws(path,*,action,controller=CONTROLLER,helper=nil)-macro">#</a>
+        <a class="method-permalink" href="#auto_discovery_link_tag(type:String,href,**attrs)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route to a controller and action (long form).
-You can route to a controller and action by passing the <code>controller</code> and
-<code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
-
-<pre><code>router <span class="t">WebApp</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span>, controller: <span class="t">SampleController</span>, action: ws
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">SampleController</span> <span class="o">&lt;</span> <span class="t">WebApp</span><span class="t">::</span><span class="t">BaseController</span>
-  <span class="k">def</span> <span class="m">ws</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>Returns a link tag that browsers and feed readers can use to auto-detect an
+RSS, Atom, or JSON feed.</p>
         </div>
       
       <br/>
@@ -568,28 +592,19 @@ You can route to a controller and action by passing the <code>controller</code> 
       </div>
     </div>
   
-    <div class="entry-detail" id="ws(path,*,helper=nil,&amp;block)-macro">
+    <div class="entry-detail" id="image_path(src:String)-instance-method">
       <div class="signature">
         
-        macro <strong>ws</strong>(path, *, helper = <span class="n">nil</span>, &block)
+        def <strong>image_path</strong>(src : String)
 
-        <a class="method-permalink" href="#ws(path,*,helper=nil,&block)-macro">#</a>
+        <a class="method-permalink" href="#image_path(src:String)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Defines a match route with a block.</p>
-
-<p>Pass a block as the response and it will be evaluated as a controller</p>
-
-<ol><li>.2 block parameters are accepted. The block itself will always be evaluated
-as a controller and have access to all controller methods and macros.</li></ol>
-
-<pre><code>router <span class="t">MyRouter</span> <span class="k">do</span>
-  ws <span class="s">&quot;/path&quot;</span> <span class="k">do</span> <span class="o">|</span>websocket, context<span class="o">|</span>
-    <span class="c"># ... do something</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+          <p>Computes the path to an image asset in the assets/images directory.
+Full paths from the document root will be passed through. Used internally
+by image_tag to build the image path.</p>
         </div>
       
       <br/>
@@ -598,6 +613,177 @@ as a controller and have access to all controller methods and macros.</li></ol>
       </div>
     </div>
   
+    <div class="entry-detail" id="image_tag(src:String,**attrs)-instance-method">
+      <div class="signature">
+        
+        def <strong>image_tag</strong>(src : String, **attrs)
+
+        <a class="method-permalink" href="#image_tag(src:String,**attrs)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an HTML image tag for the source. The source can be a full path or a
+file that exists in your assets/images directory.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="image_url(src:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>image_url</strong>(src : String)
+
+        <a class="method-permalink" href="#image_url(src:String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Computes the URL to an image asset in the assets/images directory.
+This will call image_path internally and merge with your current host or
+your asset host.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="javascript_include_tag(src,**attrs)-instance-method">
+      <div class="signature">
+        
+        def <strong>javascript_include_tag</strong>(src, **attrs)
+
+        <a class="method-permalink" href="#javascript_include_tag(src,**attrs)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an HTML script tag for each of the sources provided. You can pass in
+the filename (.js extension is optional) of JavaScript files that exist in
+your assets/javascripts directory for inclusion into the current page or
+you can pass the full path relative to your document root.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="javascript_path(file)-instance-method">
+      <div class="signature">
+        
+        def <strong>javascript_path</strong>(file)
+
+        <a class="method-permalink" href="#javascript_path(file)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Computes the path to a JavaScript asset in the assets/javascripts
+directory. If the source filename has no extension, .js will be appended.
+Full paths from the document root will be passed through. Used internally
+by javascript_include_tag to build the script path.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="javascript_url(file:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>javascript_url</strong>(file : String)
+
+        <a class="method-permalink" href="#javascript_url(file:String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Computes the URL to a JavaScript asset in the assets/javascripts
+directory. This will call javascript_path internally and merge with your
+current host or your asset host.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stylesheet_link_tag(href,**attrs)-instance-method">
+      <div class="signature">
+        
+        def <strong>stylesheet_link_tag</strong>(href, **attrs)
+
+        <a class="method-permalink" href="#stylesheet_link_tag(href,**attrs)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a stylesheet link tag for the sources specified as arguments. If
+you don't specify an extension, .css will be appended automatically.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stylesheet_path(file)-instance-method">
+      <div class="signature">
+        
+        def <strong>stylesheet_path</strong>(file)
+
+        <a class="method-permalink" href="#stylesheet_path(file)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Computes the path to a stylesheet asset in the assets/stylesheets
+directory. If the source filename has no extension, .css will be appended.
+Full paths from the document root will be passed through. Used internally by
+stylesheet_link_tag to build the stylesheet path.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stylesheet_url(file:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>stylesheet_url</strong>(file : String)
+
+        <a class="method-permalink" href="#stylesheet_url(file:String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Computes the URL to a stylesheet asset in the assets/stylesheets
+directory. This will call stylesheet_path internally and merge with your
+current host or your asset host.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
 
 
 </div>

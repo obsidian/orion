@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::Controller - orion 4.0.0-beta1</title>
+  <title>Orion::Cache - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -86,7 +86,7 @@
       
         <ul>
   
-  <li class="parent " data-id="orion/Orion/Cache" data-name="orion::cache">
+  <li class="parent open current" data-id="orion/Orion/Cache" data-name="orion::cache">
       <a href="../Orion/Cache.html">Cache</a>
       
         <ul>
@@ -121,7 +121,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="orion/Orion/Controller" data-name="orion::controller">
+  <li class="parent " data-id="orion/Orion/Controller" data-name="orion::controller">
       <a href="../Orion/Controller.html">Controller</a>
       
         <ul>
@@ -360,49 +360,19 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::Controller
+  <span class="kind">class</span> Orion::Cache
 
 </h1>
 
 
-
-
-
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
-
-  <p>The <code><a href="../Orion/Controller.html">Orion::Controller</a></code> module can be included in any struct or class to add
-the various helpers methods to make constructing your application easier.</p>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Orion/Cache.html">Orion::Cache</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
 
-  <h2>
-    <a id="included-modules" class="anchor" href="#included-modules">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Included Modules
-  </h2>
-  <ul class="other-types-list">
-    
-      <li class="other-type"><a href="../Orion/Controller/Rendering.html">Orion::Controller::Rendering</a></li>
-    
-      <li class="other-type"><a href="../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></li>
-    
-      <li class="other-type"><a href="../Orion/Controller/ResponseHelpers.html">Orion::Controller::ResponseHelpers</a></li>
-    
-      <li class="other-type"><a href="../Orion/View/CacheHelpers.html">Orion::View::CacheHelpers</a></li>
-    
-  </ul>
+
+
 
 
 
@@ -427,6 +397,23 @@ the various helpers methods to make constructing your application easier.</p>
 
 
 
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(store=::Cache::NullStore(String,String).new(expires_in:0.seconds))-class-method" class="signature"><strong>.new</strong>(store = <span class="t">::</span><span class="t">Cache</span><span class="t">::</span><span class="t">NullStore</span>(<span class="t">String</span>, <span class="t">String</span>).<span class="k">new</span>(expires_in: <span class="n">0</span>.seconds))</a>
+        
+      </li>
+    
+  </ul>
+
 
 
 
@@ -442,23 +429,87 @@ the various helpers methods to make constructing your application easier.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#context:Server::Context-instance-method" class="signature"><strong>#context</strong> : Server::Context</a>
-        
-          <div class="summary"><p>The http context</p></div>
+        <a href="#clear(*args,**options)-instance-method" class="signature"><strong>#clear</strong>(*args, **options)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#websocket:HTTP::WebSocket-instance-method" class="signature"><strong>#websocket</strong> : HTTP::WebSocket</a>
-        
-          <div class="summary"><p>The websocket, if the controller was initialized from a <code>ws</code> route.</p></div>
+        <a href="#clear(*args,**options,&)-instance-method" class="signature"><strong>#clear</strong>(*args, **options, &)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#websocket?:HTTP::WebSocket?-instance-method" class="signature"><strong>#websocket?</strong> : HTTP::WebSocket?</a>
+        <a href="#delete(keyable:Keyable,value)-instance-method" class="signature"><strong>#delete</strong>(keyable : Keyable, value)</a>
         
-          <div class="summary"><p>The websocket, if the controller was initialized from a <code>ws</code> route.</p></div>
+          <div class="summary"><p>Delete the item from cache</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete(*args,**options)-instance-method" class="signature"><strong>#delete</strong>(*args, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete(*args,**options,&)-instance-method" class="signature"><strong>#delete</strong>(*args, **options, &)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fetch(*args,**options)-instance-method" class="signature"><strong>#fetch</strong>(*args, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fetch(key:Keyable,&block)-instance-method" class="signature"><strong>#fetch</strong>(key : Keyable, &block)</a>
+        
+          <div class="summary"><p>Read the item from cache, if it doesn't exist, invoke the block</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fetch(*args,**options,&)-instance-method" class="signature"><strong>#fetch</strong>(*args, **options, &)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fetch_if(condition,key,&block)-instance-method" class="signature"><strong>#fetch_if</strong>(condition, key, &block)</a>
+        
+          <div class="summary"><p>If the conition is true invoke <code><a href="../Orion/Cache.html#fetch(*args,**options)-instance-method">#fetch</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read(keyable:Keyable)-instance-method" class="signature"><strong>#read</strong>(keyable : Keyable)</a>
+        
+          <div class="summary"><p>Read an item from cache</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read(*args,**options)-instance-method" class="signature"><strong>#read</strong>(*args, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read(*args,**options,&)-instance-method" class="signature"><strong>#read</strong>(*args, **options, &)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write(keyable:Keyable,value)-instance-method" class="signature"><strong>#write</strong>(keyable : Keyable, value)</a>
+        
+          <div class="summary"><p>Write an item to cache</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write(*args,**options)-instance-method" class="signature"><strong>#write</strong>(*args, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write(*args,**options,&)-instance-method" class="signature"><strong>#write</strong>(*args, **options, &)</a>
         
       </li>
     
@@ -469,104 +520,6 @@ the various helpers methods to make constructing your application easier.</p>
 
 
 <div class="methods-inherited">
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from module <code><a href="../Orion/Controller/ResponseHelpers.html">Orion::Controller::ResponseHelpers</a></code></h3>
-  
-  
-    <a href="../Orion/Controller/ResponseHelpers.html#content_type=(content_type)-instance-method" class="tooltip">
-      <span>content_type=(content_type)</span>
-    content_type=</a>, 
-    
-  
-    <a href="../Orion/Controller/ResponseHelpers.html#response-instance-method" class="tooltip">
-      <span>response</span>
-    response</a>, 
-    
-  
-    <a href="../Orion/Controller/ResponseHelpers.html#status=(status)-instance-method" class="tooltip">
-      <span>status=(status)</span>
-    status=</a>, 
-    
-  
-    <a href="../Orion/Controller/ResponseHelpers.html#status_code=(status_code)-instance-method" class="tooltip">
-      <span>status_code=(status_code)</span>
-    status_code=</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from module <code><a href="../Orion/Controller/RequestHelpers.html">Orion::Controller::RequestHelpers</a></code></h3>
-  
-  
-    <a href="../Orion/Controller/RequestHelpers.html#format-instance-method" class="tooltip">
-      <span>format</span>
-    format</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#formats-instance-method" class="tooltip">
-      <span>formats</span>
-    formats</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#host-instance-method" class="tooltip">
-      <span>host</span>
-    host</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#path_params-instance-method" class="tooltip">
-      <span>path_params</span>
-    path_params</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#query_params-instance-method" class="tooltip">
-      <span>query_params</span>
-    query_params</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#remote_address-instance-method" class="tooltip">
-      <span>remote_address</span>
-    remote_address</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#request-instance-method" class="tooltip">
-      <span>request</span>
-    request</a>, 
-    
-  
-    <a href="../Orion/Controller/RequestHelpers.html#resource-instance-method" class="tooltip">
-      <span>resource</span>
-    resource</a>
-    
-  
-
-
-    
-
-
-    
-
-
   
     
 
@@ -591,6 +544,30 @@ the various helpers methods to make constructing your application easier.</p>
 </div>
 
 
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(store=::Cache::NullStore(String,String).new(expires_in:0.seconds))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(store = <span class="t">::</span><span class="t">Cache</span><span class="t">::</span><span class="t">NullStore</span>(<span class="t">String</span>, <span class="t">String</span>).<span class="k">new</span>(expires_in: <span class="n">0</span>.seconds))
+
+        <a class="method-permalink" href="#new(store=::Cache::NullStore(String,String).new(expires_in:0.seconds))-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
 
 
@@ -604,17 +581,45 @@ the various helpers methods to make constructing your application easier.</p>
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="context:Server::Context-instance-method">
+    <div class="entry-detail" id="clear(*args,**options)-instance-method">
       <div class="signature">
         
-        def <strong>context</strong> : <a href="../Orion/Server/Context.html">Server::Context</a>
+        def <strong>clear</strong>(*args, **options)
 
-        <a class="method-permalink" href="#context:Server::Context-instance-method">#</a>
+        <a class="method-permalink" href="#clear(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear(*args,**options,&)-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#clear(*args,**options,&)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(keyable:Keyable,value)-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(keyable : <a href="../Orion/Cache/Keyable.html">Keyable</a>, value)
+
+        <a class="method-permalink" href="#delete(keyable:Keyable,value)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>The http context</p>
+          <p>Delete the item from cache</p>
         </div>
       
       <br/>
@@ -623,17 +628,59 @@ the various helpers methods to make constructing your application easier.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="websocket:HTTP::WebSocket-instance-method">
+    <div class="entry-detail" id="delete(*args,**options)-instance-method">
       <div class="signature">
         
-        def <strong>websocket</strong> : HTTP::WebSocket
+        def <strong>delete</strong>(*args, **options)
 
-        <a class="method-permalink" href="#websocket:HTTP::WebSocket-instance-method">#</a>
+        <a class="method-permalink" href="#delete(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(*args,**options,&)-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#delete(*args,**options,&)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fetch(*args,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>fetch</strong>(*args, **options)
+
+        <a class="method-permalink" href="#fetch(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fetch(key:Keyable,&block)-instance-method">
+      <div class="signature">
+        
+        def <strong>fetch</strong>(key : <a href="../Orion/Cache/Keyable.html">Keyable</a>, &block)
+
+        <a class="method-permalink" href="#fetch(key:Keyable,&block)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>The websocket, if the controller was initialized from a <code>ws</code> route.</p>
+          <p>Read the item from cache, if it doesn't exist, invoke the block</p>
         </div>
       
       <br/>
@@ -642,18 +689,126 @@ the various helpers methods to make constructing your application easier.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="websocket?:HTTP::WebSocket?-instance-method">
+    <div class="entry-detail" id="fetch(*args,**options,&)-instance-method">
       <div class="signature">
         
-        def <strong>websocket?</strong> : HTTP::WebSocket?
+        def <strong>fetch</strong>(*args, **options, &)
 
-        <a class="method-permalink" href="#websocket?:HTTP::WebSocket?-instance-method">#</a>
+        <a class="method-permalink" href="#fetch(*args,**options,&)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fetch_if(condition,key,&block)-instance-method">
+      <div class="signature">
+        
+        def <strong>fetch_if</strong>(condition, key, &block)
+
+        <a class="method-permalink" href="#fetch_if(condition,key,&block)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>The websocket, if the controller was initialized from a <code>ws</code> route.</p>
+          <p>If the conition is true invoke <code><a href="../Orion/Cache.html#fetch(*args,**options)-instance-method">#fetch</a></code></p>
         </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read(keyable:Keyable)-instance-method">
+      <div class="signature">
+        
+        def <strong>read</strong>(keyable : <a href="../Orion/Cache/Keyable.html">Keyable</a>)
+
+        <a class="method-permalink" href="#read(keyable:Keyable)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Read an item from cache</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read(*args,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>read</strong>(*args, **options)
+
+        <a class="method-permalink" href="#read(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read(*args,**options,&)-instance-method">
+      <div class="signature">
+        
+        def <strong>read</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#read(*args,**options,&)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write(keyable:Keyable,value)-instance-method">
+      <div class="signature">
+        
+        def <strong>write</strong>(keyable : <a href="../Orion/Cache/Keyable.html">Keyable</a>, value)
+
+        <a class="method-permalink" href="#write(keyable:Keyable,value)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Write an item to cache</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write(*args,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>write</strong>(*args, **options)
+
+        <a class="method-permalink" href="#write(*args,**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write(*args,**options,&)-instance-method">
+      <div class="signature">
+        
+        def <strong>write</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#write(*args,**options,&)-instance-method">#</a>
+      </div>
       
       <br/>
       <div>

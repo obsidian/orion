@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="orion">
-  <title>Orion::Constraint - orion 4.0.0-beta1</title>
+  <title>Orion::Server - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -116,7 +116,7 @@
       
     </li>
   
-  <li class=" current" data-id="orion/Orion/Constraint" data-name="orion::constraint">
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
       <a href="../Orion/Constraint.html">Constraint</a>
       
     </li>
@@ -276,7 +276,7 @@
       
     </li>
   
-  <li class="parent " data-id="orion/Orion/Server" data-name="orion::server">
+  <li class="parent open current" data-id="orion/Orion/Server" data-name="orion::server">
       <a href="../Orion/Server.html">Server</a>
       
         <ul>
@@ -360,26 +360,15 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Orion::Constraint
+  <span class="kind">class</span> Orion::Server
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Orion/Server.html">Orion::Server</a></li><li class="superclass">HTTP::Server</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
-
-  <p>Include <code><a href="../Orion/Constraint.html">Orion::Constraint</a></code> module and implment it's required methods to
-create custom constraints. You can read more about constraints in
-<code><a href="../Orion/DSL/Constraints.html">Orion::DSL::Constraints</a></code>.</p>
 
 
 
@@ -408,6 +397,25 @@ create custom constraints. You can read more about constraints in
 
 
 
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(handler:HTTP::Handler%7CHTTP::Handler::HandlerProc)-class-method" class="signature"><strong>.new</strong>(handler : HTTP::Handler | HTTP::Handler::HandlerProc)</a>
+        
+          <div class="summary"><p>Creates a new Orion server with the given <em>handler</em>.</p></div>
+        
+      </li>
+    
+  </ul>
+
 
 
 
@@ -423,7 +431,68 @@ create custom constraints. You can read more about constraints in
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#matches?(request:HTTP::Request)-instance-method" class="signature"><strong>#matches?</strong>(request : HTTP::Request)</a>
+        <a href="#bind(*,tls:Nil=nil,uri)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, uri)</a>
+        
+          <div class="summary"><p>Bind using a URI</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method" class="signature"><strong>#bind</strong>(*, tls : OpenSSL::SSL::Context::Server, address : Socket::IPAddress)</a>
+        
+          <div class="summary"><p>Bind TLS with an address</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : OpenSSL::SSL::Context::Server, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TLS with a host and port</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TCP to a host and port</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method" class="signature"><strong>#bind</strong>(*, tls : Nil = <span class="n">nil</span>, address : Socket::IPAddress, reuse_port = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Bind TCP to a Socket::IPAddress</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method" class="signature"><strong>#bind</strong>(*, tls = <span class="n">nil</span>, address : Socket::UNIXAddress)</a>
+        
+          <div class="summary"><p>Bind to a Socket::UnixAddress</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,tls=nil,path)-instance-method" class="signature"><strong>#bind</strong>(*, tls = <span class="n">nil</span>, path)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind(*,config:Orion::Config)-instance-method" class="signature"><strong>#bind</strong>(*, config : Orion::Config)</a>
+        
+          <div class="summary"><p>Bind using a config</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#listen(*args,workers,**opts)-instance-method" class="signature"><strong>#listen</strong>(*args, workers, **opts)</a>
+        
+          <div class="summary"><p>Listen clients using multiple workers A good suggestion is to use System.cpu_count</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#processor:HTTP::Server::RequestProcessor-instance-method" class="signature"><strong>#processor</strong> : HTTP::Server::RequestProcessor</a>
         
       </li>
     
@@ -435,8 +504,67 @@ create custom constraints. You can read more about constraints in
 
 <div class="methods-inherited">
   
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
 </div>
 
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(handler:HTTP::Handler|HTTP::Handler::HandlerProc)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(handler : HTTP::Handler | HTTP::Handler::HandlerProc)
+
+        <a class="method-permalink" href="#new(handler:HTTP::Handler%7CHTTP::Handler::HandlerProc)-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new Orion server with the given <em>handler</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 
@@ -451,12 +579,179 @@ create custom constraints. You can read more about constraints in
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="matches?(request:HTTP::Request)-instance-method">
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,uri)-instance-method">
       <div class="signature">
-        abstract 
-        def <strong>matches?</strong>(request : <a href="../HTTP/Request.html">HTTP::Request</a>)
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, uri)
 
-        <a class="method-permalink" href="#matches?(request:HTTP::Request)-instance-method">#</a>
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,uri)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind using a URI</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : OpenSSL::SSL::Context::Server, address : Socket::IPAddress)
+
+        <a class="method-permalink" href="#bind(*,tls:OpenSSL::SSL::Context::Server,address:Socket::IPAddress)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TLS with an address</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : OpenSSL::SSL::Context::Server, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:OpenSSL::SSL::Context::Server,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TLS with a host and port</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, host = <span class="t">::</span><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span><span class="t">::</span><span class="t">LOOPBACK</span>, port = <span class="n">nil</span>, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,host=::Socket::IPAddress::LOOPBACK,port=nil,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TCP to a host and port</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls : Nil = <span class="n">nil</span>, address : Socket::IPAddress, reuse_port = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#bind(*,tls:Nil=nil,address:Socket::IPAddress,reuse_port=false)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind TCP to a Socket::IPAddress</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls = <span class="n">nil</span>, address : Socket::UNIXAddress)
+
+        <a class="method-permalink" href="#bind(*,tls=nil,address:Socket::UNIXAddress)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind to a Socket::UnixAddress</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,tls=nil,path)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, tls = <span class="n">nil</span>, path)
+
+        <a class="method-permalink" href="#bind(*,tls=nil,path)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind(*,config:Orion::Config)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind</strong>(*, config : <a href="../Orion/Config.html">Orion::Config</a>)
+
+        <a class="method-permalink" href="#bind(*,config:Orion::Config)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bind using a config</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="listen(*args,workers,**opts)-instance-method">
+      <div class="signature">
+        
+        def <strong>listen</strong>(*args, workers, **opts)
+
+        <a class="method-permalink" href="#listen(*args,workers,**opts)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Listen clients using multiple workers
+A good suggestion is to use System.cpu_count</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="processor:HTTP::Server::RequestProcessor-instance-method">
+      <div class="signature">
+        
+        def <strong>processor</strong> : HTTP::Server::RequestProcessor
+
+        <a class="method-permalink" href="#processor:HTTP::Server::RequestProcessor-instance-method">#</a>
       </div>
       
       <br/>
