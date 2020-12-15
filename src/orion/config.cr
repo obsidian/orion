@@ -49,6 +49,9 @@ class Orion::Config
     self.port = port.to_i32
   end
 
+  def port=(port : Nil)
+  end
+
   def uri=(uri : String)
     self.uri = URI.parse(uri)
   end
