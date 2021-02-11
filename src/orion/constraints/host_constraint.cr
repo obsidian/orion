@@ -6,7 +6,7 @@ struct Orion::HostConstraint
   end
 
   def matches?(request : ::HTTP::Request)
-    if host = request.host
+    if host = request.hostname
       matches? host, @constraint
     end
   end
