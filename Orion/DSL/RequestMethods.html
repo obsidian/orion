@@ -3,21 +3,16 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="generator" content="Crystal Docs 0.35.1">
 <meta name="crystal_docs.project_version" content="4.0.0-beta1">
 <meta name="crystal_docs.project_name" content="orion">
+
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/doc.js"></script>
 
-<svg class="hidden">
-  <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-  </symbol>
-</svg>
-
-  <meta id="repository-name" content="orion">
+  <meta name="repository-name" content="orion">
   <title>Orion::DSL::RequestMethods - orion 4.0.0-beta1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
@@ -25,6 +20,11 @@
 </head>
 <body>
 
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="search-results" class="hidden">
+  <div class="search-results hidden">
     <ul class="search-list"></ul>
   </div>
 
@@ -734,7 +734,7 @@ macros in the <code><a href="../../Orion/DSL/Match.html">Orion::DSL::Match</a></
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -759,7 +759,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -791,7 +791,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -821,7 +821,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#con
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -850,7 +850,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -883,7 +883,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -908,7 +908,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -938,7 +938,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#del
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -968,7 +968,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -997,7 +997,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1030,7 +1030,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1055,7 +1055,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1085,7 +1085,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#get
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1110,7 +1110,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1142,7 +1142,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1172,7 +1172,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#hea
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1202,7 +1202,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1227,7 +1227,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1259,7 +1259,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1289,7 +1289,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#opt
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1318,7 +1318,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1350,7 +1350,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1380,7 +1380,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#pat
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1410,7 +1410,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1436,7 +1436,7 @@ and have access to all controller helper methods.</p>
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1466,7 +1466,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1491,7 +1491,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1523,7 +1523,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1553,7 +1553,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#pos
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
@@ -1578,7 +1578,7 @@ and have access to all controller helper methods.</p>
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1610,7 +1610,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1640,7 +1640,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#put
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1670,7 +1670,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 <p>You can route to any object that responds to <code>call</code> with an <code>HTTP::Server::Context</code>,
 this also works for any <code>Proc(HTTP::Server::Context, _)</code>.</p>
 
-<pre><code><span class="k">module</span> <span class="t">Callable</span>
+<pre><code class="language-crystal"><span class="k">module</span> <span class="t">Callable</span>
   <span class="k">def</span> <span class="m">call</span>(cxt : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1699,7 +1699,7 @@ match <span class="s">&quot;/path&quot;</span>, <span class="t">Callable</span><
 You can route to a controller and action by passing the <code>to</code> argument in
 the form of <code>"#action"</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span> <span class="o">&lt;</span> <span class="t">BaseController</span>
   <span class="k">def</span> <span class="m">match</span>
     <span class="c"># ... do something</span>
   <span class="k">end</span>
@@ -1728,7 +1728,7 @@ match <span class="s">&quot;/path&quot;</span>, to: <span class="s">&quot;My#tra
 You can route to a controller and action by passing the <code>controller</code> and
 <code>action</code> arguments, if action is omitted it will default to <code>match</code>.</p>
 
-<pre><code><span class="k">class</span> <span class="t">MyController</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">MyController</span>
   <span class="k">def</span> <span class="m">new</span>(@context : <span class="t">HTTP</span><span class="t">::</span><span class="t">Server</span><span class="t">::</span><span class="t">Context</span>)
   <span class="k">end</span>
 
@@ -1761,7 +1761,7 @@ match <span class="s">&quot;/path&quot;</span>, controller: <span class="t">MyCo
 <p>You can pass a block. Each block will be evaluated as a controller method
 and have access to all controller helper methods.</p>
 
-<pre><code>match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
+<pre><code class="language-crystal">match <span class="s">&quot;/path&quot;</span> <span class="k">do</span>
   <span class="c"># ... do something</span>
 <span class="k">end</span></code></pre>
         </div>
