@@ -11,7 +11,7 @@ authors:
 dependencies:
   oak:
     github: obsidian/oak
-    version: ">=4.0.0"
+    version: ">= 4.0.1"
   inflector:
     github: phoffer/inflector.cr
   kilt:
