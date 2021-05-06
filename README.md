@@ -80,7 +80,7 @@ dependencies:
 
 See also [Getting Started](https://github.com/obsidian/orion/wiki/Getting-Started).
 
-## Documentatation
+## Documentation
 
 View the docs at [https://obsidian.github.io/orion](https://obsidian.github.io/orion).
 View the guides at [https://github.com/obsidian/orion/wiki](https://github.com/obsidian/orion/wiki).
