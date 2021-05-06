@@ -14,6 +14,7 @@ dependencies:
     version: ">= 4.0.1"
   inflector:
     github: phoffer/inflector.cr
+    branch: master
   kilt:
     github: jeromegn/kilt
   exception_page:
