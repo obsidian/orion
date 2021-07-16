@@ -27,6 +27,6 @@ class Orion::Handlers::MethodOverrideParam
   end
 
   def type_for_request(request : HTTP::Request)
-    content_type = request.headers["content-type"]?.to_s.split(';').first?.to_s
+    request.headers["content-type"]?.to_s.split(';').first?.to_s
   end
 end

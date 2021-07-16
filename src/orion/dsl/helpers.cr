@@ -107,8 +107,8 @@ module Orion::DSL::Helpers
 
       # Returns the full url for `{{ method_name.id }}`
       def {{ method_name.id }}_url(**params)
-        uri = URI.parse {{ method_name.id }}_path(**params, host: request.host_with_port)
-        uri.host = @context.request.host_with_port
+        uri = URI.parse {{ method_name.id }}_path(**params, host: request.headers["Host"]?)
+        uri.host = @context.request.headers["Host"]?
       end
     end
   end

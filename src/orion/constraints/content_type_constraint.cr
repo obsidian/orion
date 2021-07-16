@@ -22,6 +22,6 @@ struct Orion::ContentTypeConstraint
   end
 
   def type_for_request(request : HTTP::Request)
-    content_type = request.headers["content-type"]?.to_s.split(';').first
+    request.headers["content-type"]?.to_s.split(';').first
   end
 end

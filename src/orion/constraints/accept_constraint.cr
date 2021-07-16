@@ -29,8 +29,8 @@ struct Orion::AcceptConstraint
   private def type_for_accept(request : HTTP::Request)
     request.headers["accept"]?.to_s.split(",").map(&.strip).map do |accept|
       accept.split(";").map(&.strip)
-    end.sort_by do |parts|
-      part = parts[1..-1].find { |p| p.starts_with? "q=" }
+    end.sort_by! do |parts|
+      part = parts[1..-1].find(&.starts_with? "q=")
       part ? -part.split("=")[-1].strip.to_f : -1
     end.map(&.[0]).map do |content_type|
       content_type

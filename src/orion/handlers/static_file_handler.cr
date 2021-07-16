@@ -6,6 +6,7 @@ class Orion::Handlers::StaticFileHandler
     @public_dir = File.expand_path(public_dir)
   end
 
+  # ameba:disable Metrics/CyclomaticComplexity
   def call(context)
     unless {"GET", "HEAD"}.includes?(context.request.method)
       call_next(context)
@@ -69,8 +70,8 @@ class Orion::Handlers::StaticFileHandler
   private def index_file(path, request)
     request_extensions(request).map do |ext|
       File.join(path, "index#{ext}")
-    end.find do |path|
-      File.exists? path
+    end.find do |p|
+      File.exists? p
     end
   end
 

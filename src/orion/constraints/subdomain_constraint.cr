@@ -12,7 +12,7 @@ struct Orion::SubdomainConstraint
   def matches?(request : ::HTTP::Request)
     host_parts = request.hostname.to_s.split('.')
     last_host_part = host_parts.pop
-    host_parts.pop unless last_host_part = "localhost"
+    host_parts.pop unless last_host_part == "localhost"
     subdomain = host_parts.join('.')
     matches? subdomain, @constraint
   end

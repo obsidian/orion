@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 module Orion::DSL::HelpersSpec
-  c = ->(c : HTTP::Server::Context) {}
+  c = ->(_c : HTTP::Server::Context) {}
 
   router SampleRouter do
     get "foo", c, helper: "foo"

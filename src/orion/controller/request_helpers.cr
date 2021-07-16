@@ -26,12 +26,12 @@ module Orion::Controller::RequestHelpers
 
   # The host of the `HTTP::Request`.
   def host
-    request.host
+    request.hostname
   end
 
   # The host with port of the `HTTP::Request`.
-  def host
-    request.host_with_port
+  def host_with_port
+    request.headers["Host"]?
   end
 
   # Format of the `HTTP::Request`
