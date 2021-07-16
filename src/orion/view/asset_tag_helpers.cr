@@ -87,7 +87,7 @@ module Orion::View::AssetTagHelpers
   # Computes the URL to an asset in the assets directory. This will call
   # asset_path internally and merge with your current host or your asset host.
   def asset_url(file : String, *, extname : String? = nil)
-    "//#{config.asset_host || request.host_with_port}#{asset_path(file, extname: extname)}"
+    "//#{config.asset_host || request.headers["Host"]?}#{asset_path(file, extname: extname)}"
   end
 
   # Returns a link tag that browsers and feed readers can use to auto-detect an
@@ -99,6 +99,6 @@ module Orion::View::AssetTagHelpers
   end
 
   private def assets_local?
-    config.asset_host.nil? || config.asset_host == request.host_with_port
+    config.asset_host.nil? || config.asset_host == request.headers["Host"]?
   end
 end
