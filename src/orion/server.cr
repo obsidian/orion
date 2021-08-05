@@ -86,11 +86,11 @@ class Orion::Server < HTTP::Server
   end
 
   private def listen_message(socket : ::Socket::UNIXAddress, prefix)
-    puts "#{prefix}: listening on #{socket.path}"
+    Log.info { "listening on #{socket.path}" }
   end
 
   private def listen_message(socket : ::Socket::IPAddress, prefix)
-    puts "#{prefix}: listening on #{socket.address}:#{socket.port}"
+    Log.info { "listening on #{socket.address}:#{socket.port}" }
   end
 end
 

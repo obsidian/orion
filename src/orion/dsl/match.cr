@@ -6,7 +6,7 @@
 # You can use the `match` method and pass it's route and
 # any variation of the [Generic Route Arguments](#generic-route-arguments).
 #
-# ```crystal
+# ```
 # match "404", controller: ErrorsController, action: error_404
 # ```
 #
@@ -19,7 +19,7 @@
 # In the example below `users#create` will map to `UsersController.new(cxt : Orion::Server::Context).create`.
 # You can also pass an exact constant name.
 #
-# ```crystal
+# ```
 # post "users", to: "users#create"
 # ```
 #
@@ -27,7 +27,7 @@
 # A longer form of the `to` argument strategy above allows us to pass the controller and action
 # independently.
 #
-# ```crystal
+# ```
 # post "users", controller: UsersController, action: create
 # ```
 #
@@ -36,7 +36,7 @@
 # link:http://sinatrarb.com/[sinatra] like approach. To accomplish this, we can
 # simply pass a block that will be evaluated as a controller.
 #
-# ```crystal
+# ```
 # post "users" do
 #   "Foo"
 # end
@@ -46,7 +46,7 @@
 # Lastly a second argument can be any
 # object that responds to `#call(cxt : Orion::Server::Context)`.
 #
-# ```crystal
+# ```
 # post "users", ->(context : Orion::Server::Context) {
 #   context.response.puts "foo"
 # }

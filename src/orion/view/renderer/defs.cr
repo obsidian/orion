@@ -9,25 +9,25 @@ Dir.glob("./src/views/**/*").each do |view|
     # :nodoc:
     def __template_#{token}__(__cache_key__ : String, *locals, &block)
       __locals__ = locals = combine_locals(*locals)
-      Kilt.embed "#{ view }"
+      Kilt.embed "#{view}"
     end
 
     # :nodoc:
     def __template_#{token}__(__cache_key__ : String, *locals)
       __locals__ = locals = combine_locals(*locals)
-      Kilt.embed "#{ view }"
+      Kilt.embed "#{view}"
     end
 
     # :nodoc:
     def __template_string_#{token}__(__cache_key__ : String, *locals)
       __locals__ = locals = combine_locals(*locals)
-      Kilt.render "#{ view }"
+      Kilt.render "#{view}"
     end
 
     # :nodoc:
     def __template_string_#{token}__(__cache_key__ : String, *locals, &block : Symbol -> String)
       __locals__ = locals = combine_locals(*locals)
-      Kilt.render "#{ view }"
+      Kilt.render "#{view}"
     end
 
   crystal

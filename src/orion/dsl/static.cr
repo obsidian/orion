@@ -1,5 +1,6 @@
 require "uuid"
 require "crystar"
+
 # The static macros allows you to bind static content to given path.
 # You can use this for strings and/or files that will never change in a given
 # release

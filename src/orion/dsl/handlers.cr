@@ -5,7 +5,7 @@
 #
 # > Handlers will only apply to the routes specified below them, so be sure to place your handlers near the top of your route.
 #
-# ```crystal
+# ```
 # use HTTP::ErrorHandler
 # use HTTP::LogHandler.new(File.open("tmp/application.log"))
 # ```
@@ -16,7 +16,7 @@
 # the need for duplicating paths and allows a developer to easily change the parent
 # of a set of child paths.
 #
-# ```crystal
+# ```
 # scope "users" do
 #   root to: "Users#index"
 #   get ":id", to: "Users#show"
@@ -32,7 +32,7 @@
 #
 # > Handlers will only apply to the routes specified below them, so be sure to place your handlers near the top of your scope.
 #
-# ```crystal
+# ```
 # scope "users" do
 #   use AuthorizationHandler.new
 #   root to: "Users#index"
@@ -43,7 +43,12 @@
 module Orion::DSL::Handlers
   # Insert a new handler. This is the same as `handlers.push(HTTP::LogHandler.new)`
   macro use(handler)
-    HANDLERS << {{handler}}
+    HANDLERS << case (handler = {{handler}})
+                when HTTP::Handler
+                  handler
+                else
+                  handler.new
+                end
   end
 
   # Direct access the handlers array, giving you access to methods like `unshift`,

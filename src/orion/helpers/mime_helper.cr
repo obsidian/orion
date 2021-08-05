@@ -1,15 +1,14 @@
-
 # :nodoc:
 module Orion::MIMEHelper
   extend self
 
-  def request_mime_types(req : HTTP::Request): Set(String)
+  def request_mime_types(req : HTTP::Request) : Set(String)
     path_type = type_from_path?(req)
     accept_types = types_from_accept(req)
     path_type ? [path_type].to_set + accept_types : accept_types
   end
 
-  def request_extensions(req : HTTP::Request): Set(String)
+  def request_extensions(req : HTTP::Request) : Set(String)
     extensions = request_mime_types(req).reduce([] of String) do |exts, mime_type|
       exts.concat MIME.extensions(mime_type)
     end

@@ -5,7 +5,7 @@
 #
 # To define a concern call `concern` with a `Symbol` for the name.
 #
-# ```crystal
+# ```
 # concern :authenticated do
 #   use Authentication.new
 # end
@@ -15,7 +15,7 @@
 # Once a concern is defined you can call `implements` with a named concern from
 # anywhere in your router.
 #
-# ```crystal
+# ```
 # concern :authenticated do
 #   use Authentication.new
 # end

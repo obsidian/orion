@@ -4,7 +4,7 @@
 # _The following is an example controller definition and the matching
 # resources definition._
 #
-# ```crystal
+# ```
 # class PostsController
 #   include Orion::ControllerHelper
 #   include ResponseHelpers
@@ -46,7 +46,6 @@
 #     post.delete
 #     redirect to: posts_path
 #   end
-#
 # end
 #
 # resources :posts
@@ -59,7 +58,7 @@
 #
 # > NOTE: The index action is not added for [singular resources](#singular-resources).
 #
-# ```crystal
+# ```
 # resources :posts, except: [:edit, :update]
 # resources :users, only: [:new, :create, :show]
 # ```
@@ -69,7 +68,7 @@
 # You can add nested resources and member routes by providing a block to the
 # `resources` definition.
 #
-# ```crystal
+# ```
 # resources :posts do
 #   post "feature", action: feature
 #   resources :likes
@@ -82,7 +81,7 @@
 # In addition to using the collection of `resources` method, You can also add
 # singular resources which do not provide a `id_param` or `index` action.
 #
-# ```crystal
+# ```
 # resource :profile
 # ```
 #
@@ -90,7 +89,7 @@
 #
 # You can customize the ID path parameter by passing the `id_param` parameter.
 #
-# ```crystal
+# ```
 # resources :posts, id_param: :article_id
 # ```
 #
@@ -100,7 +99,7 @@
 #
 # See `Orion::DSL::Constraints` for more details on constraints.
 #
-# ```crystal
+# ```
 # resources :posts, id_constraint: /^\d{4}$/
 # ```
 module Orion::DSL::Resources

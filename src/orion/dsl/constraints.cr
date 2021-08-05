@@ -6,8 +6,8 @@
 # When defining a route, you can pass in parameter constraints. The path params will
 # be checked against the provided regex before the route is chosen as a valid route.
 #
-# ```crystal
-# get "users/:id", constraints: { id: /[0-9]{4}/ }
+# ```
+# get "users/:id", constraints: {id: /[0-9]{4}/}
 # ```
 #
 # #### Format constraints
@@ -15,7 +15,7 @@
 # You can constrain the request to a certain format. Such as restricting
 # the extension of the URL to '.json'.
 #
-# ```crystal
+# ```
 # get "api/users/:id", format: "json"
 # ```
 #
@@ -25,7 +25,7 @@
 # on the route. This will ensure that if the request has a body, it will provide the proper
 # content type.
 #
-# ```crystal
+# ```
 # put "api/users/:id", content_type: "application/json"
 # ```
 #
@@ -37,7 +37,7 @@
 #
 # > Orion will automatically add mime-type headers for requests with no Accept header and a specified extension.
 #
-# ```crystal
+# ```
 # get "api/users/:id", accept: "application/json"
 # ```
 #
@@ -51,7 +51,7 @@
 # Orion will automatically add mime-type headers for requests with no Accept header and
 # a specified extension.
 #
-# ```crystal
+# ```
 # put "api/users/:id", type: "application/json"
 # ```
 #
@@ -64,7 +64,7 @@
 # You may also choose to limit the request to a certain format. Such as restricting
 # the extension of the URL to '.json'.
 #
-# ```crystal
+# ```
 # host "example.com" do
 #   get "users/:id", format: "json"
 # end
@@ -79,7 +79,7 @@
 # You may also choose to limit the request to a certain format. Such as restricting
 # the extension of the URL to '.json'.
 #
-# ```crystal
+# ```
 # subdomain "api" do
 #   get "users/:id", format: "json"
 # end
@@ -90,7 +90,7 @@
 # You can also pass in your own constraints by just passing a class/struct that
 # implements the `Orion::Constraint` module.
 #
-# ```crystal
+# ```
 # struct MyConstraint
 #   def matches?(req : HTTP::Request)
 #     true

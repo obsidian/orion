@@ -2,7 +2,7 @@
 # the need for duplicating paths and allows a developer to easily change the parent
 # of a set of child paths.
 #
-# ```crystal
+# ```
 # router MyApplicationRouter do
 #   scope "users" do
 #     root to: "Users#index"
@@ -20,7 +20,7 @@
 #
 # > Handlers will only apply to the routes specified below them, so be sure to place your handlers near the top of your scope.
 #
-# ```crystal
+# ```
 # router MyApplicationRouter do
 #   scope "users" do
 #     use AuthorizationHandler.new

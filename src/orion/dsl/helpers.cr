@@ -4,7 +4,7 @@
 # route. In addition, when you have a `@context : HTTP::Server::Context` instance var,
 # you will also be able to access a `{{name}}_url` to get the full URL.
 #
-# ```crystal
+# ```
 # scope "users", helper_prefix: "user" do
 #   get "/new", to: "users#new", helper: "new"
 # end
@@ -27,7 +27,7 @@
 #
 # In order to make a helper from your route, you can use the `helper` named argument in your route.
 #
-# ```crystal
+# ```
 # scope "users" do
 #   get "/new", to: "Users#new", helper: "new"
 # end
@@ -42,7 +42,7 @@
 # _If `@context : HTTP::Server::Context` is present in the class, you will also be
 # able to use the `{helper}_url` versions of the helpers._
 #
-# ```crystal
+# ```
 # resources :users
 #
 # class User

@@ -34,7 +34,7 @@ module Orion::View::AssetTagHelpers
   # you can pass the full path relative to your document root.
   def javascript_include_tag(src, **attrs)
     HTML.build do
-      script(**attrs, src: assets_local? ? javascript_path(src) : javascript_url(src)){}
+      script(**attrs, src: assets_local? ? javascript_path(src) : javascript_url(src)) { }
     end
   end
 
@@ -94,7 +94,7 @@ module Orion::View::AssetTagHelpers
   # RSS, Atom, or JSON feed.
   def auto_discovery_link_tag(type : String, href, **attrs)
     HTML.build do
-      link(**attrs, type: MIME.from_extension(".#{type}"){ type }, href: href, rel: "alternate")
+      link(**attrs, type: MIME.from_extension(".#{type}") { type }, href: href, rel: "alternate")
     end
   end
 
