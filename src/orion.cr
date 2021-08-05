@@ -8,5 +8,7 @@ module Orion
   # :nodoc:
   FLAGS = {} of String => Bool
 
+  alias Logger = Handlers::Logger
+
   {{ run "./parse_version.cr" }}
 end
