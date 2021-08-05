@@ -40,6 +40,7 @@ class Orion::Config
   property tls : ::OpenSSL::SSL::Context::Server?
   property reuse_port : Bool = false
   property autoclose : Bool = true
+  property strip_extension : Bool = false
   property workers : Int32 | Int64 = 1
   property asset_host : String? = nil
   property cache : Orion::Cache = Orion::Cache.new
@@ -129,5 +130,4 @@ class Orion::Config
   def readonly
     ReadOnly.new self
   end
-
 end

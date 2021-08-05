@@ -10,27 +10,27 @@ struct Orion::Router
   delegate call, to: @stack
 
   def self.start(tree : DSL::Tree, *, config : Config)
-    new(tree, config.autoclose).tap do |server|
+    new(tree, auto_close: config.autoclose, strip_extension: config.strip_extension).tap do |server|
       server.bind(config: config)
       server.listen(workers: config.workers)
       ::Orion::FLAGS["started"] = true
     end
   end
 
-  def self.start(tree : DSL::Tree, *, autoclose : Bool = true, workers = nil, **bind_opts)
-    new(tree, autoclose).tap do |server|
+  def self.start(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = false, workers = nil, **bind_opts)
+    new(tree, autoclose: autoclose, strip_extension: strip_extension).tap do |server|
       server.bind(**bind_opts)
       server.listen(workers: workers)
       ::Orion::FLAGS["started"] = true
     end
   end
 
-  def initialize(tree : DSL::Tree, autoclose : Bool = true)
+  def initialize(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = false)
     use Handlers::AutoClose if autoclose
     use Handlers::Exceptions.new
     use Handlers::MethodOverrideHeader
     use Handlers::AutoMime
-    use Handlers::RouteFinder.new(tree)
+    use Handlers::RouteFinder.new(tree, strip_extension: strip_extension)
     @stack = Server.build_middleware handlers
     @server = Server.new(handler: @stack)
   end
