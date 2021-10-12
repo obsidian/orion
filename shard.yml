@@ -1,6 +1,6 @@
 name: orion
 crystal: "~> 1.0"
-version: 4.0.0-beta3
+version: 4.0.0-beta4
 homepage: https://obsidian.github.io/orion
 documentation: https://obsidian.github.io/orion
 license: MIT
