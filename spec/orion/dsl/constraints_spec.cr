@@ -10,6 +10,8 @@ module Orion::DSL::ConstraintsSpec
   end
 
   router SampleRouter do
+    config.strip_extension = true
+
     get "resources/:id", ->(c : Context) { c.response.print "resource #{c.request.path_params["id"]}" }, constraints: {id: /\d{4}/}
     get "alpha", ->(c : Context) { c.response.print "is js" }, format: "js"
     get "bravo", ->(c : Context) { c.response.print "is js or jsx" }, format: /jsx?/

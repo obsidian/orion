@@ -1,3 +1,4 @@
+require "oak"
 require "./dsl/*"
 
 # The `Orion::DSL` module contains all the macros and methods that are available
@@ -39,7 +40,7 @@ module Orion::DSL
     end
 
     def self.new(*args, **opts)
-      ::Orion::Router.new(TREE, *args, **opts)
+      ::Orion::Router.new(TREE, *args, **opts, strip_extension: config.strip_extension)
     end
 
     def self.start

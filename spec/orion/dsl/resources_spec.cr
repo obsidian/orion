@@ -2,6 +2,8 @@ require "../../spec_helper"
 
 module Orion::DSL::Resources::Spec
   router SampleRouter do
+    config.strip_extension = true
+
     resources :users do
       get "profile", action: profile
     end
