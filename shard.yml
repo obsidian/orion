@@ -1,6 +1,6 @@
 name: orion
 crystal: "~> 1.0"
-version: 4.0.0-beta4
+version: 4.0.0-beta5
 homepage: https://obsidian.github.io/orion
 documentation: https://obsidian.github.io/orion
 license: MIT
@@ -13,7 +13,7 @@ dependencies:
     github: obsidian/oak
     version: ">= 4.0.1"
   inflector:
-    github: phoffer/inflector.cr
+    github: anykeyh/inflector.cr
   kilt:
     github: jeromegn/kilt
   exception_page:
