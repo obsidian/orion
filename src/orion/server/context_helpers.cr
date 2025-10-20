@@ -1,14 +1,13 @@
-module Orion::Server
-  # Context Helpers - Convenience methods on Server::Context
-  # Makes all helpers easily discoverable via context parameter
-  #
-  # Usage:
-  #   get "/users/:id" do |ctx|
-  #     user = User.find?(ctx.params["id"])
-  #     ctx.not_found! unless user
-  #     ctx.json(user.to_h)
-  #   end
-  class Context
+# Context Helpers - Convenience methods on Server::Context
+# Makes all helpers easily discoverable via context parameter
+#
+# Usage:
+#   get "/users/:id" do |ctx|
+#     user = User.find?(ctx.params["id"])
+#     ctx.not_found! unless user
+#     ctx.json(user.to_h)
+#   end
+class Orion::Server::Context
     # ===== PARAMETER ACCESS =====
 
     # Unified parameter access (path_params + query_params)
@@ -37,15 +36,41 @@ module Orion::Server
     end
 
     # JSON with specific statuses
-    def json_ok(data); json(data, 200); end
-    def json_created(data); json(data, 201); end
-    def json_accepted(data); json(data, 202); end
-    def json_bad_request(data); json(data, 400); end
-    def json_unauthorized(data); json(data, 401); end
-    def json_forbidden(data); json(data, 403); end
-    def json_not_found(data); json(data, 404); end
-    def json_unprocessable(data); json(data, 422); end
-    def json_server_error(data); json(data, 500); end
+    def json_ok(data)
+      json(data, 200)
+    end
+
+    def json_created(data)
+      json(data, 201)
+    end
+
+    def json_accepted(data)
+      json(data, 202)
+    end
+
+    def json_bad_request(data)
+      json(data, 400)
+    end
+
+    def json_unauthorized(data)
+      json(data, 401)
+    end
+
+    def json_forbidden(data)
+      json(data, 403)
+    end
+
+    def json_not_found(data)
+      json(data, 404)
+    end
+
+    def json_unprocessable(data)
+      json(data, 422)
+    end
+
+    def json_server_error(data)
+      json(data, 500)
+    end
 
     # ===== STATUS HELPERS =====
 
@@ -140,14 +165,14 @@ module Orion::Server
 
     def head(status : Int32 | Symbol)
       response.status_code = case status
-                             when :ok then 200
-                             when :created then 201
-                             when :no_content then 204
-                             when :not_found then 404
+                             when :ok           then 200
+                             when :created      then 201
+                             when :no_content   then 204
+                             when :not_found    then 404
                              when :unauthorized then 401
-                             when :forbidden then 403
+                             when :forbidden    then 403
                              when :server_error then 500
-                             else status.as(Int32)
+                             else                    status.as(Int32)
                              end
     end
 
@@ -208,7 +233,7 @@ module Orion::Server
 
       def keys : Array(String)
         (@context.request.path_params.keys +
-         @context.request.query_params.keys).uniq
+          @context.request.query_params.keys).uniq
       end
 
       def to_h : Hash(String, String)
@@ -259,5 +284,4 @@ module Orion::Server
         self[key]? || raise ParametersMissing.new("Missing parameter: #{@key}[#{key}]")
       end
     end
-  end
 end

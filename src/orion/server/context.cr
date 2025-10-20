@@ -1,5 +1,3 @@
-require "./context_helpers"
-
 class Orion::Server::Context < HTTP::Server::Context
   getter! config : Orion::Config::ReadOnly?
   property session : Orion::Middleware::SessionStore?
@@ -33,3 +31,5 @@ class Orion::Server::Context < HTTP::Server::Context
     @flash ||= Orion::Middleware::Flash.new(session)
   end
 end
+
+require "./context_helpers"

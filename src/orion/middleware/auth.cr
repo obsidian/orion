@@ -19,7 +19,9 @@ module Orion::Middleware
     end
 
     def call(context : HTTP::Server::Context)
-      orion_context = context.as(Orion::Server::Context)
+      # Orion middleware expects Orion::Server::Context
+      orion_context = context
+      return call_next(context) unless orion_context.is_a?(Orion::Server::Context)
 
       if authenticate(orion_context)
         call_next(context)
@@ -127,9 +129,9 @@ module Orion::Middleware
       expected_signature = generate_signature(message)
 
       return nil unless secure_compare(
-        Base64.decode_string(signature_encoded),
-        expected_signature
-      )
+                          Base64.decode(signature_encoded),
+                          expected_signature
+                        )
 
       # Decode payload
       payload_json = Base64.decode_string(payload_encoded)
@@ -146,7 +148,7 @@ module Orion::Middleware
       nil
     end
 
-    private def generate_signature(message : String) : String
+    private def generate_signature(message : String) : Bytes
       case @algorithm
       when :HS256
         OpenSSL::HMAC.digest(:sha256, @secret, message)
@@ -157,12 +159,12 @@ module Orion::Middleware
       end
     end
 
-    private def secure_compare(a : String, b : String) : Bool
-      return false unless a.bytesize == b.bytesize
+    private def secure_compare(a : Bytes, b : Bytes) : Bool
+      return false unless a.size == b.size
 
       result = 0
-      a.each_byte.zip(b.each_byte) do |x, y|
-        result |= (x ^ y)
+      a.each_with_index do |byte, i|
+        result |= (byte ^ b[i])
       end
       result == 0
     end
@@ -175,13 +177,13 @@ module Orion::Middleware
       expires_in : Time::Span = 24.hours
     ) : String
       # Add expiration
-      payload["exp"] = JSON::Any.new(Time.utc + expires_in).to_unix)
+      payload["exp"] = JSON::Any.new((Time.utc + expires_in).to_unix)
       payload["iat"] = JSON::Any.new(Time.utc.to_unix)
 
       # Create header
       header = {
         "typ" => "JWT",
-        "alg" => algorithm.to_s
+        "alg" => algorithm.to_s,
       }
 
       # Encode header and payload

@@ -34,7 +34,7 @@ module Orion::Middleware
     )
       if allow_all
         @origins = "*"
-        @credentials = false  # Can't use credentials with *
+        @credentials = false # Can't use credentials with *
       end
     end
 
@@ -98,7 +98,7 @@ module Orion::Middleware
         response.headers["Access-Control-Allow-Origin"] = "*"
       else
         response.headers["Access-Control-Allow-Origin"] = origin
-        response.headers["Vary"] = "Origin"  # Cache should vary by origin
+        response.headers["Vary"] = "Origin" # Cache should vary by origin
       end
 
       # Set credentials

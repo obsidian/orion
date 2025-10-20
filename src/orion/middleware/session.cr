@@ -43,17 +43,20 @@ module Orion::Middleware
     end
 
     def call(context : HTTP::Server::Context)
+      # Orion middleware expects Orion::Server::Context
+      orion_context = context
+      return call_next(context) unless orion_context.is_a?(Orion::Server::Context)
+
       # Load session from request
       session_id = load_session_id(context.request)
       session_data = @store.load(session_id)
 
       # Attach session to context
-      context.as(Orion::Server::Context).session = SessionStore.new(session_data, session_id)
+      orion_context.session = SessionStore.new(session_data, session_id)
 
       call_next(context)
 
       # Save session to response
-      orion_context = context.as(Orion::Server::Context)
       if orion_context.session.modified?
         new_session_id = @store.save(orion_context.session.id, orion_context.session.data)
         save_session_cookie(context.response, new_session_id)
@@ -72,7 +75,7 @@ module Orion::Middleware
         expires: Time.utc + @expire_after,
         secure: @secure,
         http_only: @http_only,
-        same_site: @same_site
+        samesite: @same_site
       )
       response.cookies << cookie
     end

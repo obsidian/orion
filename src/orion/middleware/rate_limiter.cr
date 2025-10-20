@@ -41,7 +41,11 @@ module Orion::Middleware
                         }
                       when :session
                         ->(ctx : HTTP::Server::Context) {
-                          ctx.as(Orion::Server::Context).session[:user_id]? || "anonymous"
+                          if ctx.is_a?(Orion::Server::Context)
+                            ctx.session[:user_id]? || "anonymous"
+                          else
+                            "anonymous"
+                          end
                         }
                       else
                         raise "Unknown strategy: #{strategy}"

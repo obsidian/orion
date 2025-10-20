@@ -29,7 +29,7 @@ module Orion::API
       @total_count : Int32? = nil
     )
       @page = 1 if @page < 1
-      @per_page = 100 if @per_page > 100  # Max limit
+      @per_page = 100 if @per_page > 100 # Max limit
     end
 
     # Get paginated items
@@ -156,8 +156,8 @@ module Orion::API
     # Get pagination metadata
     def meta : Hash(String, String | Bool | Int32)
       result = {
-        "limit"      => @limit,
-        "has_more"   => has_more?,
+        "limit"    => @limit,
+        "has_more" => has_more?,
       }
 
       if next_cur = next_cursor

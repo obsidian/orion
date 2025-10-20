@@ -32,7 +32,9 @@ module Orion::Middleware
     end
 
     def call(context : HTTP::Server::Context)
-      orion_context = context.as(Orion::Server::Context)
+      # Orion middleware expects Orion::Server::Context
+      orion_context = context
+      return call_next(context) unless orion_context.is_a?(Orion::Server::Context)
 
       # Generate token for this request
       token = generate_token
@@ -88,8 +90,8 @@ module Orion::Middleware
         name: @cookie_name,
         value: token,
         path: "/",
-        http_only: false,  # JavaScript needs to read this
-        same_site: HTTP::Cookie::SameSite::Strict
+        http_only: false, # JavaScript needs to read this
+        samesite: HTTP::Cookie::SameSite::Strict
       )
       response.cookies << cookie
     end

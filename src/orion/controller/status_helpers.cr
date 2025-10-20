@@ -198,18 +198,18 @@ module Orion::Controller
     # Head response (status only, no body)
     def head(status : Int32 | Symbol)
       response.status_code = case status
-                             when :ok then 200
-                             when :created then 201
-                             when :accepted then 202
-                             when :no_content then 204
-                             when :moved_permanently then 301
-                             when :found then 302
-                             when :not_modified then 304
-                             when :bad_request then 400
-                             when :unauthorized then 401
-                             when :forbidden then 403
-                             when :not_found then 404
-                             when :unprocessable_entity then 422
+                             when :ok                    then 200
+                             when :created               then 201
+                             when :accepted              then 202
+                             when :no_content            then 204
+                             when :moved_permanently     then 301
+                             when :found                 then 302
+                             when :not_modified          then 304
+                             when :bad_request           then 400
+                             when :unauthorized          then 401
+                             when :forbidden             then 403
+                             when :not_found             then 404
+                             when :unprocessable_entity  then 422
                              when :internal_server_error then 500
                              else
                                status.as(Int32)
