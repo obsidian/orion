@@ -1,5 +1,5 @@
 name: orion
-crystal: "~> 1.0"
+crystal: "~> 1.18"
 version: 4.0.0-beta4
 homepage: https://obsidian.github.io/orion
 documentation: https://obsidian.github.io/orion
