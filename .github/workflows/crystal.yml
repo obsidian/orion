@@ -22,7 +22,7 @@ jobs:
       run: shards install
 
     - name: Check code formatting
-      run: crystal tool format --check
+      run: crystal tool format --check src/ spec/ examples/
 
     - name: Run specs
       run: crystal spec
