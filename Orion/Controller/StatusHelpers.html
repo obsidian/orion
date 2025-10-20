@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
+<meta name="crystal_docs.project_version" content="4.0.0-beta4">
+<meta name="crystal_docs.project_name" content="orion">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="orion">
+  <title>Orion::Controller::StatusHelpers - orion 4.0.0-beta4</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          orion
+        </a>
+      </h1>
+
+      <span class="project-version">
+        4.0.0-beta4
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="orion/toplevel" data-name="top level namespace">
+      <a href="../../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Assets" data-name="assets">
+      <a href="../../Assets.html">Assets</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/BaseController" data-name="basecontroller">
+      <a href="../../BaseController.html">BaseController</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/BaseController/ParentRenderer" data-name="basecontroller::parentrenderer">
+      <a href="../../BaseController/ParentRenderer.html">ParentRenderer</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/BaseController/Renderer" data-name="basecontroller::renderer">
+      <a href="../../BaseController/Renderer.html">Renderer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion" data-name="orion">
+      <a href="../../Orion.html">Orion</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="orion/Orion/API" data-name="orion::api">
+      <a href="../../Orion/API.html">API</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/API/CursorPaginator" data-name="orion::api::cursorpaginator(t)">
+      <a href="../../Orion/API/CursorPaginator.html">CursorPaginator</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/API/PaginationHelpers" data-name="orion::api::paginationhelpers">
+      <a href="../../Orion/API/PaginationHelpers.html">PaginationHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/API/Paginator" data-name="orion::api::paginator(t)">
+      <a href="../../Orion/API/Paginator.html">Paginator</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Cache" data-name="orion::cache">
+      <a href="../../Orion/Cache.html">Cache</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Cache/Keyable" data-name="orion::cache::keyable">
+      <a href="../../Orion/Cache/Keyable.html">Keyable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Config" data-name="orion::config">
+      <a href="../../Orion/Config.html">Config</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Config/ReadOnly" data-name="orion::config::readonly">
+      <a href="../../Orion/Config/ReadOnly.html">ReadOnly</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Constraint" data-name="orion::constraint">
+      <a href="../../Orion/Constraint.html">Constraint</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="orion/Orion/Controller" data-name="orion::controller">
+      <a href="../../Orion/Controller.html">Controller</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/CacheHelpers" data-name="orion::controller::cachehelpers">
+      <a href="../../Orion/Controller/CacheHelpers.html">CacheHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/JSONHelpers" data-name="orion::controller::jsonhelpers">
+      <a href="../../Orion/Controller/JSONHelpers.html">JSONHelpers</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Controller/ParamHelpers" data-name="orion::controller::paramhelpers">
+      <a href="../../Orion/Controller/ParamHelpers.html">ParamHelpers</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Controller/ParamHelpers/ParamsHash" data-name="orion::controller::paramhelpers::paramshash">
+      <a href="../../Orion/Controller/ParamHelpers/ParamsHash.html">ParamsHash</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ParamHelpers/StrongParams" data-name="orion::controller::paramhelpers::strongparams">
+      <a href="../../Orion/Controller/ParamHelpers/StrongParams.html">StrongParams</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/Rendering" data-name="orion::controller::rendering">
+      <a href="../../Orion/Controller/Rendering.html">Rendering</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/RequestHelpers" data-name="orion::controller::requesthelpers">
+      <a href="../../Orion/Controller/RequestHelpers.html">RequestHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Controller/ResponseHelpers" data-name="orion::controller::responsehelpers">
+      <a href="../../Orion/Controller/ResponseHelpers.html">ResponseHelpers</a>
+      
+    </li>
+  
+  <li class=" current" data-id="orion/Orion/Controller/StatusHelpers" data-name="orion::controller::statushelpers">
+      <a href="../../Orion/Controller/StatusHelpers.html">StatusHelpers</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/DSL" data-name="orion::dsl">
+      <a href="../../Orion/DSL.html">DSL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/DSL/Concerns" data-name="orion::dsl::concerns">
+      <a href="../../Orion/DSL/Concerns.html">Concerns</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Constraints" data-name="orion::dsl::constraints">
+      <a href="../../Orion/DSL/Constraints.html">Constraints</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Handlers" data-name="orion::dsl::handlers">
+      <a href="../../Orion/DSL/Handlers.html">Handlers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Helpers" data-name="orion::dsl::helpers">
+      <a href="../../Orion/DSL/Helpers.html">Helpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Match" data-name="orion::dsl::match">
+      <a href="../../Orion/DSL/Match.html">Match</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Mount" data-name="orion::dsl::mount">
+      <a href="../../Orion/DSL/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/RequestMethods" data-name="orion::dsl::requestmethods">
+      <a href="../../Orion/DSL/RequestMethods.html">RequestMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Resources" data-name="orion::dsl::resources">
+      <a href="../../Orion/DSL/Resources.html">Resources</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Root" data-name="orion::dsl::root">
+      <a href="../../Orion/DSL/Root.html">Root</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Scope" data-name="orion::dsl::scope">
+      <a href="../../Orion/DSL/Scope.html">Scope</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/Static" data-name="orion::dsl::static">
+      <a href="../../Orion/DSL/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/DSL/WebSockets" data-name="orion::dsl::websockets">
+      <a href="../../Orion/DSL/WebSockets.html">WebSockets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/ExceptionPage" data-name="orion::exceptionpage">
+      <a href="../../Orion/ExceptionPage.html">ExceptionPage</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Handler" data-name="orion::handler">
+      <a href="../../Orion/Handler.html">Handler</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Handler/HandlerProc" data-name="orion::handler::handlerproc">
+      <a href="../../Orion/Handler/HandlerProc.html">HandlerProc</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Handlers" data-name="orion::handlers">
+      <a href="../../Orion/Handlers.html">Handlers</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Handlers/Exceptions" data-name="orion::handlers::exceptions">
+      <a href="../../Orion/Handlers/Exceptions.html">Exceptions</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Handlers/Logger" data-name="orion::handlers::logger">
+      <a href="../../Orion/Handlers/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Handlers/ResetPath" data-name="orion::handlers::resetpath">
+      <a href="../../Orion/Handlers/ResetPath.html">ResetPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Handlers/RouteFinder" data-name="orion::handlers::routefinder">
+      <a href="../../Orion/Handlers/RouteFinder.html">RouteFinder</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Handlers/ScopeBasePath" data-name="orion::handlers::scopebasepath">
+      <a href="../../Orion/Handlers/ScopeBasePath.html">ScopeBasePath</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Logger" data-name="orion::logger">
+      <a href="../../Orion/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Middleware" data-name="orion::middleware">
+      <a href="../../Orion/Middleware.html">Middleware</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Middleware/APIKeyAuth" data-name="orion::middleware::apikeyauth">
+      <a href="../../Orion/Middleware/APIKeyAuth.html">APIKeyAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/Auth" data-name="orion::middleware::auth">
+      <a href="../../Orion/Middleware/Auth.html">Auth</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/BasicAuth" data-name="orion::middleware::basicauth">
+      <a href="../../Orion/Middleware/BasicAuth.html">BasicAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/CookieStore" data-name="orion::middleware::cookiestore">
+      <a href="../../Orion/Middleware/CookieStore.html">CookieStore</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/CORS" data-name="orion::middleware::cors">
+      <a href="../../Orion/Middleware/CORS.html">CORS</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/CSRF" data-name="orion::middleware::csrf">
+      <a href="../../Orion/Middleware/CSRF.html">CSRF</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/Flash" data-name="orion::middleware::flash">
+      <a href="../../Orion/Middleware/Flash.html">Flash</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/JWTAuth" data-name="orion::middleware::jwtauth">
+      <a href="../../Orion/Middleware/JWTAuth.html">JWTAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/MemoryStore" data-name="orion::middleware::memorystore">
+      <a href="../../Orion/Middleware/MemoryStore.html">MemoryStore</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Middleware/RateLimiter" data-name="orion::middleware::ratelimiter">
+      <a href="../../Orion/Middleware/RateLimiter.html">RateLimiter</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Middleware/RateLimiter/Bucket" data-name="orion::middleware::ratelimiter::bucket">
+      <a href="../../Orion/Middleware/RateLimiter/Bucket.html">Bucket</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/RateLimiter/IdentifierProc" data-name="orion::middleware::ratelimiter::identifierproc">
+      <a href="../../Orion/Middleware/RateLimiter/IdentifierProc.html">IdentifierProc</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/Session" data-name="orion::middleware::session">
+      <a href="../../Orion/Middleware/Session.html">Session</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/SessionAuth" data-name="orion::middleware::sessionauth">
+      <a href="../../Orion/Middleware/SessionAuth.html">SessionAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/SessionStore" data-name="orion::middleware::sessionstore">
+      <a href="../../Orion/Middleware/SessionStore.html">SessionStore</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Middleware/Store" data-name="orion::middleware::store">
+      <a href="../../Orion/Middleware/Store.html">Store</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Router" data-name="orion::router">
+      <a href="../../Orion/Router.html">Router</a>
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/Server" data-name="orion::server">
+      <a href="../../Orion/Server.html">Server</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="orion/Orion/Server/Context" data-name="orion::server::context">
+      <a href="../../Orion/Server/Context.html">Context</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/Server/Context/ParamHash" data-name="orion::server::context::paramhash">
+      <a href="../../Orion/Server/Context/ParamHash.html">ParamHash</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Server/Context/StrongParams" data-name="orion::server::context::strongparams">
+      <a href="../../Orion/Server/Context/StrongParams.html">StrongParams</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Server/Request" data-name="orion::server::request">
+      <a href="../../Orion/Server/Request.html">Request</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Server/RequestProcessor" data-name="orion::server::requestprocessor">
+      <a href="../../Orion/Server/RequestProcessor.html">RequestProcessor</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/Server/Response" data-name="orion::server::response">
+      <a href="../../Orion/Server/Response.html">Response</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="orion/Orion/View" data-name="orion::view">
+      <a href="../../Orion/View.html">View</a>
+      
+        <ul>
+  
+  <li class=" " data-id="orion/Orion/View/AssetTagHelpers" data-name="orion::view::assettaghelpers">
+      <a href="../../Orion/View/AssetTagHelpers.html">AssetTagHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/View/CacheHelpers" data-name="orion::view::cachehelpers">
+      <a href="../../Orion/View/CacheHelpers.html">CacheHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/View/CaptureHelper" data-name="orion::view::capturehelper">
+      <a href="../../Orion/View/CaptureHelper.html">CaptureHelper</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/View/PartialHelpers" data-name="orion::view::partialhelpers">
+      <a href="../../Orion/View/PartialHelpers.html">PartialHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="orion/Orion/View/Renderer" data-name="orion::view::renderer">
+      <a href="../../Orion/View/Renderer.html">Renderer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="orion/RouteHelpers" data-name="routehelpers">
+      <a href="../../RouteHelpers.html">RouteHelpers</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    module
+  </span> Orion::<wbr>Controller::<wbr>StatusHelpers
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>HTTP Status Code Helpers
+Provides semantic methods for setting HTTP status codes</p>
+<p>Usage:
+get &quot;/not-found&quot; do
+not_found!
+end</p>
+<p>get &quot;/api/user&quot; do
+unauthorized! json: {error: &quot;Invalid token&quot;}
+end</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../Orion/Controller.html">Orion::Controller</a></li>
+    
+  </ul>
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      orion/controller/status_helpers.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#accepted%21%28message%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#accepted!</strong>(message : String | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bad_gateway%21%28message%3AString%3D%22BadGateway%22%29-instance-method" class="signature"><strong>#bad_gateway!</strong>(message : String = <span class="s">&quot;Bad Gateway&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bad_request%21%28message%3AString%3D%22BadRequest%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#bad_request!</strong>(message : String = <span class="s">&quot;Bad Request&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>4xx Client Errors</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#conflict%21%28message%3AString%3D%22Conflict%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#conflict!</strong>(message : String = <span class="s">&quot;Conflict&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#created%21%28message%3AString%7CNil%3Dnil%2C%2A%2Cjson%3Dnil%2Clocation%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#created!</strong>(message : String | Nil = <span class="n">nil</span>, *, json = <span class="n">nil</span>, location : String | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#forbidden%21%28message%3AString%3D%22Forbidden%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#forbidden!</strong>(message : String = <span class="s">&quot;Forbidden&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#found%21%28location%3AString%29-instance-method" class="signature"><strong>#found!</strong>(location : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gateway_timeout%21%28message%3AString%3D%22GatewayTimeout%22%29-instance-method" class="signature"><strong>#gateway_timeout!</strong>(message : String = <span class="s">&quot;Gateway Timeout&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gone%21%28message%3AString%3D%22Gone%22%29-instance-method" class="signature"><strong>#gone!</strong>(message : String = <span class="s">&quot;Gone&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#head%28status%3AInt32%7CSymbol%29-instance-method" class="signature"><strong>#head</strong>(status : Int32 | Symbol)</a>
+        
+          <div class="summary"><p>Head response (status only, no body)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#internal_server_error%21%28message%3AString%3D%22InternalServerError%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#internal_server_error!</strong>(message : String = <span class="s">&quot;Internal Server Error&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>5xx Server Errors</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#method_not_allowed%21%28message%3AString%3D%22MethodNotAllowed%22%2Callowed_methods%3AArray%28String%29%7CNil%3Dnil%29-instance-method" class="signature"><strong>#method_not_allowed!</strong>(message : String = <span class="s">&quot;Method Not Allowed&quot;</span>, allowed_methods : Array(String) | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#moved_permanently%21%28location%3AString%29-instance-method" class="signature"><strong>#moved_permanently!</strong>(location : String)</a>
+        
+          <div class="summary"><p>3xx Redirection</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#no_content%21-instance-method" class="signature"><strong>#no_content!</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_acceptable%21%28message%3AString%3D%22NotAcceptable%22%29-instance-method" class="signature"><strong>#not_acceptable!</strong>(message : String = <span class="s">&quot;Not Acceptable&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_found%21%28message%3AString%3D%22NotFound%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#not_found!</strong>(message : String = <span class="s">&quot;Not Found&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_implemented%21%28message%3AString%3D%22NotImplemented%22%29-instance-method" class="signature"><strong>#not_implemented!</strong>(message : String = <span class="s">&quot;Not Implemented&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_modified%21-instance-method" class="signature"><strong>#not_modified!</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ok%21%28message%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#ok!</strong>(message : String | Nil = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>2xx Success</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#payment_required%21%28message%3AString%3D%22PaymentRequired%22%29-instance-method" class="signature"><strong>#payment_required!</strong>(message : String = <span class="s">&quot;Payment Required&quot;</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#permanent_redirect%21%28location%3AString%29-instance-method" class="signature"><strong>#permanent_redirect!</strong>(location : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#see_other%21%28location%3AString%29-instance-method" class="signature"><strong>#see_other!</strong>(location : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#service_unavailable%21%28message%3AString%3D%22ServiceUnavailable%22%2Cretry_after%3AInt32%7CNil%3Dnil%29-instance-method" class="signature"><strong>#service_unavailable!</strong>(message : String = <span class="s">&quot;Service Unavailable&quot;</span>, retry_after : Int32 | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#status%28code%3AInt32%29-instance-method" class="signature"><strong>#status</strong>(code : Int32)</a>
+        
+          <div class="summary"><p>Generic status setter</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#temporary_redirect%21%28location%3AString%29-instance-method" class="signature"><strong>#temporary_redirect!</strong>(location : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#too_many_requests%21%28message%3AString%3D%22TooManyRequests%22%2Cretry_after%3AInt32%7CNil%3Dnil%29-instance-method" class="signature"><strong>#too_many_requests!</strong>(message : String = <span class="s">&quot;Too Many Requests&quot;</span>, retry_after : Int32 | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unauthorized%21%28message%3AString%3D%22Unauthorized%22%2C%2A%2Cjson%3Dnil%2Cwww_authenticate%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#unauthorized!</strong>(message : String = <span class="s">&quot;Unauthorized&quot;</span>, *, json = <span class="n">nil</span>, www_authenticate : String | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unprocessable_entity%21%28message%3AString%3D%22UnprocessableEntity%22%2C%2A%2Cjson%3Dnil%29-instance-method" class="signature"><strong>#unprocessable_entity!</strong>(message : String = <span class="s">&quot;Unprocessable Entity&quot;</span>, *, json = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+  </div>
+
+  
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="accepted!(message:String|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>accepted!</strong>(message : String | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#accepted%21%28message%3AString%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bad_gateway!(message:String=&quot;BadGateway&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>bad_gateway!</strong>(message : String = <span class="s">&quot;Bad Gateway&quot;</span>)
+
+        <a class="method-permalink" href="#bad_gateway%21%28message%3AString%3D%22BadGateway%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bad_request!(message:String=&quot;BadRequest&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>bad_request!</strong>(message : String = <span class="s">&quot;Bad Request&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#bad_request%21%28message%3AString%3D%22BadRequest%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>4xx Client Errors</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="conflict!(message:String=&quot;Conflict&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>conflict!</strong>(message : String = <span class="s">&quot;Conflict&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#conflict%21%28message%3AString%3D%22Conflict%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="created!(message:String|Nil=nil,*,json=nil,location:String|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>created!</strong>(message : String | Nil = <span class="n">nil</span>, *, json = <span class="n">nil</span>, location : String | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#created%21%28message%3AString%7CNil%3Dnil%2C%2A%2Cjson%3Dnil%2Clocation%3AString%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="forbidden!(message:String=&quot;Forbidden&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>forbidden!</strong>(message : String = <span class="s">&quot;Forbidden&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#forbidden%21%28message%3AString%3D%22Forbidden%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="found!(location:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>found!</strong>(location : String)
+
+        <a class="method-permalink" href="#found%21%28location%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gateway_timeout!(message:String=&quot;GatewayTimeout&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>gateway_timeout!</strong>(message : String = <span class="s">&quot;Gateway Timeout&quot;</span>)
+
+        <a class="method-permalink" href="#gateway_timeout%21%28message%3AString%3D%22GatewayTimeout%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gone!(message:String=&quot;Gone&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>gone!</strong>(message : String = <span class="s">&quot;Gone&quot;</span>)
+
+        <a class="method-permalink" href="#gone%21%28message%3AString%3D%22Gone%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="head(status:Int32|Symbol)-instance-method">
+      <div class="signature">
+        
+        def <strong>head</strong>(status : Int32 | Symbol)
+
+        <a class="method-permalink" href="#head%28status%3AInt32%7CSymbol%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Head response (status only, no body)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="internal_server_error!(message:String=&quot;InternalServerError&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>internal_server_error!</strong>(message : String = <span class="s">&quot;Internal Server Error&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#internal_server_error%21%28message%3AString%3D%22InternalServerError%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>5xx Server Errors</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="method_not_allowed!(message:String=&quot;MethodNotAllowed&quot;,allowed_methods:Array(String)|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>method_not_allowed!</strong>(message : String = <span class="s">&quot;Method Not Allowed&quot;</span>, allowed_methods : Array(String) | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#method_not_allowed%21%28message%3AString%3D%22MethodNotAllowed%22%2Callowed_methods%3AArray%28String%29%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="moved_permanently!(location:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>moved_permanently!</strong>(location : String)
+
+        <a class="method-permalink" href="#moved_permanently%21%28location%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>3xx Redirection</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="no_content!-instance-method">
+      <div class="signature">
+        
+        def <strong>no_content!</strong>
+
+        <a class="method-permalink" href="#no_content%21-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_acceptable!(message:String=&quot;NotAcceptable&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>not_acceptable!</strong>(message : String = <span class="s">&quot;Not Acceptable&quot;</span>)
+
+        <a class="method-permalink" href="#not_acceptable%21%28message%3AString%3D%22NotAcceptable%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_found!(message:String=&quot;NotFound&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>not_found!</strong>(message : String = <span class="s">&quot;Not Found&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#not_found%21%28message%3AString%3D%22NotFound%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_implemented!(message:String=&quot;NotImplemented&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>not_implemented!</strong>(message : String = <span class="s">&quot;Not Implemented&quot;</span>)
+
+        <a class="method-permalink" href="#not_implemented%21%28message%3AString%3D%22NotImplemented%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_modified!-instance-method">
+      <div class="signature">
+        
+        def <strong>not_modified!</strong>
+
+        <a class="method-permalink" href="#not_modified%21-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ok!(message:String|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>ok!</strong>(message : String | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#ok%21%28message%3AString%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2xx Success</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="payment_required!(message:String=&quot;PaymentRequired&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>payment_required!</strong>(message : String = <span class="s">&quot;Payment Required&quot;</span>)
+
+        <a class="method-permalink" href="#payment_required%21%28message%3AString%3D%22PaymentRequired%22%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="permanent_redirect!(location:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>permanent_redirect!</strong>(location : String)
+
+        <a class="method-permalink" href="#permanent_redirect%21%28location%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="see_other!(location:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>see_other!</strong>(location : String)
+
+        <a class="method-permalink" href="#see_other%21%28location%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="service_unavailable!(message:String=&quot;ServiceUnavailable&quot;,retry_after:Int32|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>service_unavailable!</strong>(message : String = <span class="s">&quot;Service Unavailable&quot;</span>, retry_after : Int32 | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#service_unavailable%21%28message%3AString%3D%22ServiceUnavailable%22%2Cretry_after%3AInt32%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="status(code:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>status</strong>(code : Int32)
+
+        <a class="method-permalink" href="#status%28code%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generic status setter</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="temporary_redirect!(location:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>temporary_redirect!</strong>(location : String)
+
+        <a class="method-permalink" href="#temporary_redirect%21%28location%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="too_many_requests!(message:String=&quot;TooManyRequests&quot;,retry_after:Int32|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>too_many_requests!</strong>(message : String = <span class="s">&quot;Too Many Requests&quot;</span>, retry_after : Int32 | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#too_many_requests%21%28message%3AString%3D%22TooManyRequests%22%2Cretry_after%3AInt32%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unauthorized!(message:String=&quot;Unauthorized&quot;,*,json=nil,www_authenticate:String|Nil=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>unauthorized!</strong>(message : String = <span class="s">&quot;Unauthorized&quot;</span>, *, json = <span class="n">nil</span>, www_authenticate : String | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#unauthorized%21%28message%3AString%3D%22Unauthorized%22%2C%2A%2Cjson%3Dnil%2Cwww_authenticate%3AString%7CNil%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unprocessable_entity!(message:String=&quot;UnprocessableEntity&quot;,*,json=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>unprocessable_entity!</strong>(message : String = <span class="s">&quot;Unprocessable Entity&quot;</span>, *, json = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#unprocessable_entity%21%28message%3AString%3D%22UnprocessableEntity%22%2C%2A%2Cjson%3Dnil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

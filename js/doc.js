@@ -33,7 +33,7 @@ CrystalDocs.runQuery = function(query) {
     }
     if (matches.length > 0) {
       results.push({
-        id: type.id,
+        id: type.html_id,
         result_type: "type",
         kind: type.kind,
         name: name,
@@ -45,25 +45,36 @@ CrystalDocs.runQuery = function(query) {
       });
     }
 
-    type.instance_methods.forEach(function(method) {
-      searchMethod(method, type, "instance_method", query, results);
-    })
-    type.class_methods.forEach(function(method) {
-      searchMethod(method, type, "class_method", query, results);
-    })
-    type.constructors.forEach(function(constructor) {
-      searchMethod(constructor, type, "constructor", query, results);
-    })
-    type.macros.forEach(function(macro) {
-      searchMethod(macro, type, "macro", query, results);
-    })
-    type.constants.forEach(function(constant){
-      searchConstant(constant, type, query, results);
-    });
-
-    type.types.forEach(function(subtype){
-      searchType(subtype, query, results);
-    });
+    if (type.instance_methods) {
+      type.instance_methods.forEach(function(method) {
+        searchMethod(method, type, "instance_method", query, results);
+      })
+    }
+    if (type.class_methods) {
+      type.class_methods.forEach(function(method) {
+        searchMethod(method, type, "class_method", query, results);
+      })
+    }
+    if (type.constructors) {
+      type.constructors.forEach(function(constructor) {
+        searchMethod(constructor, type, "constructor", query, results);
+      })
+    }
+    if (type.macros) {
+      type.macros.forEach(function(macro) {
+        searchMethod(macro, type, "macro", query, results);
+      })
+    }
+    if (type.constants) {
+      type.constants.forEach(function(constant){
+        searchConstant(constant, type, query, results);
+      });
+    }
+    if (type.types) {
+      type.types.forEach(function(subtype){
+        searchType(subtype, query, results);
+      });
+    }
   };
 
   function searchMethod(method, type, kind, query, results) {
@@ -75,13 +86,15 @@ CrystalDocs.runQuery = function(query) {
       matchedFields.push("name");
     }
 
-    method.args.forEach(function(arg){
-      var argMatches = query.matches(arg.external_name);
-      if (argMatches) {
-        matches = matches.concat(argMatches);
-        matchedFields.push("args");
-      }
-    });
+    if (method.args) {
+      method.args.forEach(function(arg){
+        var argMatches = query.matches(arg.external_name);
+        if (argMatches) {
+          matches = matches.concat(argMatches);
+          matchedFields.push("args");
+        }
+      });
+    }
 
     var docMatches = query.matches(type.doc);
     if(docMatches){
@@ -96,14 +109,14 @@ CrystalDocs.runQuery = function(query) {
         matches = matches.concat(typeMatches);
       }
       results.push({
-        id: method.id,
+        id: method.html_id,
         type: type.full_name,
         result_type: kind,
         name: method.name,
         full_name: type.full_name + "#" + method.name,
         args_string: method.args_string,
         summary: method.summary,
-        href: type.path + "#" + method.id,
+        href: type.path + "#" + method.html_id,
         matched_fields: matchedFields,
         matched_terms: matches
       });
@@ -594,7 +607,7 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
     var go = function() {
       if (!self.moveTimeout) return;
       self.move(upwards);
-      self.moveTimout = setTimeout(go, 600);
+      self.moveTimeout = setTimeout(go, 600);
     };
     self.moveTimeout = setTimeout(go, 800);*/
   }
@@ -917,7 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var openTypes = typesList.querySelectorAll('.current');
     if (openTypes.length > 0) {
       var lastOpenType = openTypes[openTypes.length - 1];
-      lastOpenType.scrollIntoView();
+      lastOpenType.scrollIntoView(!(window.matchMedia('only screen and (max-width: 635px)')).matches);
     }
   }
 
@@ -987,7 +1000,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // TODO: Add OpenSearch description
     var searchQuery = location.hash.substring(3);
     history.pushState({searchQuery: searchQuery}, "Search for " + searchQuery, location.href.replace(/#q=.*/, ""));
-    searchInput.value = searchQuery;
+    searchInput.value = decodeURIComponent(searchQuery);
     document.addEventListener('CrystalDocs:loaded', performSearch);
   }
 
