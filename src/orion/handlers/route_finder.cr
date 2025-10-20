@@ -4,7 +4,7 @@ class Orion::Handlers::RouteFinder
   @tree : DSL::Tree
   @strip_extension : Bool
 
-  def initialize(@tree : DSL::Tree, *, @strip_extension = false)
+  def initialize(@tree : DSL::Tree, *, @strip_extension = true)
   end
 
   def call(cxt : Server::Context)

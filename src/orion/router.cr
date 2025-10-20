@@ -17,7 +17,7 @@ struct Orion::Router
     end
   end
 
-  def self.start(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = false, workers = nil, **bind_opts)
+  def self.start(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = true, workers = nil, **bind_opts)
     new(tree, autoclose: autoclose, strip_extension: strip_extension).tap do |server|
       server.bind(**bind_opts)
       server.listen(workers: workers)
@@ -25,7 +25,7 @@ struct Orion::Router
     end
   end
 
-  def initialize(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = false)
+  def initialize(tree : DSL::Tree, *, autoclose : Bool = true, strip_extension : Bool = true)
     use Handlers::AutoClose if autoclose
     use Handlers::Exceptions.new
     use Handlers::MethodOverrideHeader
