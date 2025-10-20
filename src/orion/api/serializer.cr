@@ -17,7 +17,7 @@ module Orion::API
   #
   # Use Crystal's built-in JSON serialization:
   #
-  # ```crystal
+  # ```
   # class User
   #   include JSON::Serializable
   #
@@ -29,19 +29,19 @@ module Orion::API
   #   property password_hash : String
   # end
   #
-  # user.to_json  # Automatically serializes
+  # user.to_json # Automatically serializes
   # ```
   #
   # Or create simple serializer methods:
   #
-  # ```crystal
+  # ```
   # class User
   #   def to_api_json
   #     {
-  #       id: @id,
-  #       name: @name,
-  #       email: @email,
-  #       created_at: @created_at.to_s("%Y-%m-%d")
+  #       id:         @id,
+  #       name:       @name,
+  #       email:      @email,
+  #       created_at: @created_at.to_s("%Y-%m-%d"),
   #     }.to_json
   #   end
   # end
