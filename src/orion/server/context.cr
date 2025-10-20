@@ -1,3 +1,5 @@
+require "./context_helpers"
+
 class Orion::Server::Context < HTTP::Server::Context
   getter! config : Orion::Config::ReadOnly?
   property session : Orion::Middleware::SessionStore?
