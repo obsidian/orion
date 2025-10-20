@@ -15,6 +15,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Fix git safe directory
+      run: git config --global --add safe.directory '*'
+
     - name: Install dependencies
       run: shards install
 
@@ -36,6 +39,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Fix git safe directory
+      run: git config --global --add safe.directory '*'
 
     - name: Install dependencies
       run: shards install
