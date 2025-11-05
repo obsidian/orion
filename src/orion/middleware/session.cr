@@ -32,7 +32,7 @@ module Orion::Middleware
       store : Symbol | Store = :cookie,
       @same_site : HTTP::Cookie::SameSite = HTTP::Cookie::SameSite::Lax,
       @secure : Bool = false,
-      @http_only : Bool = true
+      @http_only : Bool = true,
     )
       @store = case store
                when :cookie then CookieStore.new(@secret)

@@ -30,7 +30,7 @@ module Orion::Middleware
       @exposed_headers : Array(String) = [] of String,
       @credentials : Bool = false,
       @max_age : Int32 = 3600,
-      allow_all : Bool = false
+      allow_all : Bool = false,
     )
       if allow_all
         @origins = "*"

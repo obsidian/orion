@@ -45,7 +45,7 @@ module Orion::Middleware
 
     def initialize(
       @session_key : String | Symbol = :user_id,
-      @redirect_to : String? = nil
+      @redirect_to : String? = nil,
     )
     end
 
@@ -94,7 +94,7 @@ module Orion::Middleware
     def initialize(
       @secret : String,
       @algorithm : Symbol = :HS256,
-      @header_name : String = "Authorization"
+      @header_name : String = "Authorization",
     )
     end
 
@@ -174,7 +174,7 @@ module Orion::Middleware
       payload : Hash(String, JSON::Any),
       secret : String,
       algorithm : Symbol = :HS256,
-      expires_in : Time::Span = 24.hours
+      expires_in : Time::Span = 24.hours,
     ) : String
       # Add expiration
       payload["exp"] = JSON::Any.new((Time.utc + expires_in).to_unix)
@@ -223,7 +223,7 @@ module Orion::Middleware
     def initialize(
       @keys : Array(String),
       @header_name : String = "X-API-Key",
-      @query_param : String? = "api_key"
+      @query_param : String? = "api_key",
     )
     end
 
@@ -258,7 +258,7 @@ module Orion::Middleware
 
     def initialize(
       @realm : String = "Restricted Area",
-      @credentials : Hash(String, String) = {} of String => String
+      @credentials : Hash(String, String) = {} of String => String,
     )
     end
 

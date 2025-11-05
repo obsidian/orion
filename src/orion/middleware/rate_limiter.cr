@@ -30,7 +30,7 @@ module Orion::Middleware
       @requests : Int32,
       @period : Time::Span,
       strategy : Symbol = :ip,
-      @identifier : IdentifierProc? = nil
+      @identifier : IdentifierProc? = nil,
     )
       # Set default identifier based on strategy
       unless @identifier

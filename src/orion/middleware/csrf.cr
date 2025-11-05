@@ -27,7 +27,7 @@ module Orion::Middleware
       @secret : String,
       @header_name : String = "X-CSRF-Token",
       @param_name : String = "csrf_token",
-      @cookie_name : String = "_csrf_token"
+      @cookie_name : String = "_csrf_token",
     )
     end
 

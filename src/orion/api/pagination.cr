@@ -26,7 +26,7 @@ module Orion::API
       @collection : Array(T),
       @page : Int32 = 1,
       @per_page : Int32 = 25,
-      @total_count : Int32? = nil
+      @total_count : Int32? = nil,
     )
       @page = 1 if @page < 1
       @per_page = 100 if @per_page > 100 # Max limit
@@ -133,7 +133,7 @@ module Orion::API
     def initialize(
       @collection : Array(T),
       @cursor : String? = nil,
-      @limit : Int32 = 25
+      @limit : Int32 = 25,
     )
       @limit = 100 if @limit > 100
     end
@@ -193,7 +193,7 @@ module Orion::API
     def paginate(
       collection,
       page : Int32? = nil,
-      per_page : Int32 = 25
+      per_page : Int32 = 25,
     )
       page ||= request.query_params["page"]?.try(&.to_i) || 1
 
@@ -208,7 +208,7 @@ module Orion::API
     def cursor_paginate(
       collection,
       cursor : String? = nil,
-      limit : Int32 = 25
+      limit : Int32 = 25,
     )
       cursor ||= request.query_params["cursor"]?
 
