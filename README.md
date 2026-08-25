@@ -46,7 +46,8 @@ use AuthHandlers::CookieSession
 
 scope constraint: UnauthenticatedUser do
   root do
-  render "views/home.slim"
+    render "views/home.slim"
+  end
 end
 
 get "/login", helper: login do
