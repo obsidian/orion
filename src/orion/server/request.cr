@@ -4,6 +4,7 @@ class Orion::Server::Request < HTTP::Request
   setter path_params : Hash(String, String)?
   property base_path : String = "/"
   property action : Orion::Action?
+  property jwt_payload : Hash(String, JSON::Any)?
 
   # Returns the list of path params set by an Orion route.
   def path_params

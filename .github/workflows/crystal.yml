@@ -2,25 +2,55 @@ name: Crystal CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     container:
-      image: crystallang/crystal
+      image: crystallang/crystal:1.18.1
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Fix git safe directory
+      run: git config --global --add safe.directory '*'
+
     - name: Install dependencies
       run: shards install
-    - name: Run tests
+
+    - name: Check code formatting
+      run: crystal tool format --check src/ spec/ examples/
+
+    - name: Run specs
       run: crystal spec
-    - name: Build Docs
+
+    - name: Build project (verify compilation)
+      run: crystal build --no-codegen src/orion.cr
+
+  docs:
+    runs-on: ubuntu-latest
+    # Only build and deploy docs on pushes to master/main
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    container:
+      image: crystallang/crystal:1.18.1
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Fix git safe directory
+      run: git config --global --add safe.directory '*'
+
+    - name: Install dependencies
+      run: shards install
+
+    - name: Build documentation
       run: crystal docs
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+
+    - name: Deploy documentation to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs

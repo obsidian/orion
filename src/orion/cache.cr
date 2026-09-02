@@ -1,9 +1,9 @@
 require "cache"
 
 class Orion::Cache
-  @store : ::Cache::Store(String, String)
+  @store : ::Cache::Store(String)
 
-  def initialize(@store = ::Cache::NullStore(String, String).new(expires_in: 0.seconds))
+  def initialize(@store = ::Cache::NullStore(String).new(expires_in: 0.seconds))
   end
 
   delegate read, write, fetch, delete, clear, to: @store

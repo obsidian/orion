@@ -28,7 +28,7 @@ class Orion::Handlers::Exceptions
   private def dev_response(cxt : Orion::Server::Context, error : Exception)
     status_code, message, subtext = response_for(error)
     cxt.response.status_code = status_code
-    cxt.response.print ExceptionPage.for_runtime_exception(cxt, error).to_s
+    cxt.response.print Orion::ExceptionPage.new(cxt, error).to_s
   end
 
   private def response_for(error : RoutingError)
